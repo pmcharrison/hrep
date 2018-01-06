@@ -113,6 +113,67 @@ expand_harmonics <- function(
   spectrum
 }
 
+#' @export
+expand_harmonics_midi <- function(
+  pitch_midi,
+  level,
+  num_harmonics = 11, # including the fundamental
+  roll_off = function(x) 1 / (1 + x),
+  min_midi = 0,
+  max_midi = 120
+) {
+  assertthat::assert_that(
+    all.equal(round(pitch_midi), pitch_midi),
+    length(level) == length(pitch_midi),
+    is.numeric(num_harmonics), assertthat::is.scalar(num_harmonics),
+    is.function(roll_off),
+    is.numeric(min_midi), assertthat::is.scalar(min_midi),
+    round(min_midi) == min_midi,
+    is.numeric(max_midi), assertthat::is.scalar(max_midi),
+    round(max_midi) == max_midi
+  )
+  template <- get_harmonic_template_midi(
+    num_harmonics = num_harmonics,
+    level = 1, roll_off = roll_off
+  )
+  spectrum <- new.env()
+  for (i in seq_along(pitch_midi)) {
+    fundamental_pitch <- pitch_midi[i]
+    fundamental_level <- level[i]
+    # Iterate over every fundamental frequency and add the spectral template
+    mapply(function(pitch, level) {
+      if (pitch >= min_midi && pitch <= max_midi) {
+        key <- as.character(pitch)
+        spectrum[[key]] <<- if (is.null(spectrum[[key]])) level else {
+          sum_sound_levels(spectrum[[key]], level, coherent = FALSE)
+        }
+      }
+    }, template$pitch + fundamental_pitch, template$level * fundamental_level)
+  }
+  spectrum <- as.list(spectrum) %>%
+    (function(x) data.frame(
+      pitch_midi = as.numeric(names(x)),
+      level = as.numeric(unlist(x))))
+  spectrum
+}
+
+#' Get harmonic template
+#'
+#' Gets a harmonic template.
+#' @param num_harmonics Number of harmonics (including fundamental)
+#' @param level Level of the fundamental frequency
+#' @param roll_off Function determining the level of the nth harmonic. Default value corresponds to Equation 9 of Parncutt and Strasburger (1994)
+get_harmonic_template_midi <- function(
+  num_harmonics,
+  level,
+  roll_off = function(x) 1 / (1 + x)
+) {
+  harmonic_numbers <- seq(from = 0, length.out = num_harmonics)
+  template <- data.frame(pitch = round(12 * log(harmonic_numbers + 1, base = 2)),
+                         level = level * do.call(roll_off, list(harmonic_numbers)))
+  template
+}
+
 #' Sum amplitudes
 #'
 #' Sums amplitudes for pairs of pure tones (can be vectorised).
