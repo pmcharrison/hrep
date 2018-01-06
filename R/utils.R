@@ -59,16 +59,21 @@ get_harmonic_template <- function(
 
 #' @param frequency Numeric vector of frequencies
 #' @param amplitude Numeric vector of amplitudes
+#' @param dB Logical, determines whether \code{amplitude} is assumed to be in dB or not. This matters becuse the 1 / n amplitude roll-off rule assumes NOT dB.
 #' @param frequency_digits Frequencies are rounded to this number of significant digits before combination.
-#' @return a \code{data.frame} with a numeric column <frequency> and a numeric column <amplitude>. This data.frame describes the expanded harmonic spectrum.
+#' @return a \code{data.frame} with a numeric column <frequency> and a numeric column <amplitude>. This data.frame describes the expanded harmonic spectrum. Whether or not the \code{amplitude} column is given in dB corresponds to whether or not the argument \code{dB} is \code{TRUE}.
 #' @export
 expand_harmonics <- function(
   frequency,
   amplitude,
+  dB = FALSE,
   num_harmonics = get_midi_params()$num_harmonics, # including the fundamental
   roll_off = get_midi_params()$roll_off,
   frequency_digits = get_midi_params()$frequency_digits
 ) {
+  # Ensure that we aren't working in dB
+  unit_amplitude_in_dB <- 60
+  amplitude <- if (dB) convert_dB_to_amplitude(amplitude, unit_amplitude_in_dB = unit_amplitude_in_dB) else amplitude
   amplitude <- if (length(amplitude) == 1) rep(amplitude, times = length(frequency)) else amplitude
   assertthat::assert_that(
     length(frequency) == length(amplitude),
@@ -103,6 +108,8 @@ expand_harmonics <- function(
       rownames(df) <- NULL
       df
     })
+  # Convert back to dB if appropriate
+  if (dB) spectrum$amplitude <- convert_amplitude_to_dB(spectrum$amplitude, unit_amplitude_in_dB)
   spectrum
 }
 
