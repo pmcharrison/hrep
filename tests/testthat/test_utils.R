@@ -27,15 +27,15 @@ test_that("expand_harmonics", {
 
 test_that("convert_midi_to_freq", {
   expect_equal(
-    HarmonyToolbox::convert_midi_to_freq(69),
+    convert_midi_to_freq(69),
     440
   )
   expect_equal(
-    HarmonyToolbox::convert_midi_to_freq(60) %>% round(digits = 1),
+    convert_midi_to_freq(60) %>% round(digits = 1),
     261.6
   )
   expect_equal(
-    HarmonyToolbox::convert_midi_to_freq(21) %>% round(digits = 1),
+    convert_midi_to_freq(21) %>% round(digits = 1),
     27.5
   )
 })
