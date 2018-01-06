@@ -6,7 +6,11 @@
 #' @param tuning_ref_Hz The tuning reference point in Hz, should correspond to the frequency of the A above middle C (typically 440 Hz)
 #' @return Numeric vector of frequencies in Hz
 #' @export
-convert_midi_to_freq <- function(midi, stretched_octave = FALSE, tuning_ref_Hz = 440) {
+convert_midi_to_freq <- function(
+  midi,
+  stretched_octave = FALSE,
+  tuning_ref_Hz = 440
+) {
   assertthat::assert_that(
     is.numeric(midi),
     is.logical(stretched_octave), assertthat::is.scalar(stretched_octave),
@@ -26,7 +30,10 @@ convert_amplitude_to_dB <- function(
 }
 
 #' @export
-convert_dB_to_amplitude <- function(dB, unit_amplitude_in_dB = 60) {
+convert_dB_to_amplitude <- function(
+  dB,
+  unit_amplitude_in_dB = 6
+) {
   assertthat::assert_that(assertthat::is.scalar(unit_amplitude_in_dB))
   amplitude_ref = 10 ^ (- unit_amplitude_in_dB / 20)
   amplitude_ref * 10 ^ (dB / 20)
@@ -39,9 +46,11 @@ convert_dB_to_amplitude <- function(dB, unit_amplitude_in_dB = 60) {
 #' @param amplitude amplitude of the fundamental frequency
 #' @return \code{data.frame} of frequencies and amplitudes
 #' @export
-get_harmonic_template <- function(num_harmonics,
-                                  amplitude,
-                                  roll_off = 1) {
+get_harmonic_template <- function(
+  num_harmonics,
+  amplitude,
+  roll_off = 1
+) {
   harmonic_numbers <- seq(from = 0, length.out = num_harmonics)
   template <- data.frame(frequency_ratio = harmonic_numbers + 1,
                          amplitude = amplitude / ((1 + harmonic_numbers) ^ roll_off))
