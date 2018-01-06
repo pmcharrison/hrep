@@ -22,7 +22,7 @@ convert_midi_to_freq <- function(
 #' @export
 convert_amplitude_to_dB <- function(
   amplitude,
-  unit_amplitude_in_dB,
+  unit_amplitude_in_dB
 ) {
   assertthat::assert_that(assertthat::is.scalar(unit_amplitude_in_dB))
   amplitude_ref = 10 ^ (- unit_amplitude_in_dB / 20)
