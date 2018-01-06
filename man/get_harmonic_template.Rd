@@ -4,7 +4,8 @@
 \alias{get_harmonic_template}
 \title{Get harmonic template}
 \usage{
-get_harmonic_template(num_harmonics, amplitude, roll_off = 1)
+get_harmonic_template(num_harmonics, amplitude,
+  roll_off = get_midi_params()$roll_off)
 }
 \arguments{
 \item{num_harmonics}{Number of harmonics (including fundamental)}
