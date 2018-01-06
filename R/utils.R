@@ -195,6 +195,21 @@ sum_amplitudes <- function(x, y, coherent = FALSE) {
   }
 }
 
+#' Sums pairs of sound levels assuming either coherent or incoherent (default) wave superposition, with dB input
+#' @param x The first sound level to be summed in dB (can be vectorised)
+#' @param y The second sound level to be summed in dB (can be vectorised)
+#' @export
+sum_sound_levels <- function(x, y, coherent = FALSE) {
+  assertthat::assert_that(
+    length(x) == length(y)
+  )
+  if (coherent) {
+    20 * log10(10 ^ (x / 20) + 10 ^ (y / 20))
+  } else {
+    10 * log10(10 ^ (x / 10) + 10 ^ (y / 10))
+  }
+}
+
 #' Note: this could be done more efficiently with ifft
 #' @export
 convert_sparse_spectrum_to_waveform <- function(
