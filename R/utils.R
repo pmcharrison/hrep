@@ -157,12 +157,13 @@ expand_harmonics_midi <- function(
   spectrum
 }
 
-#' Get harmonic template
+#' Get harmonic template (MIDI)
 #'
-#' Gets a harmonic template.
+#' Gets a MIDI harmonic template.
 #' @param num_harmonics Number of harmonics (including fundamental)
 #' @param level Level of the fundamental frequency
 #' @param roll_off Function determining the level of the nth harmonic. Default value corresponds to Equation 9 of Parncutt and Strasburger (1994)
+#' @export
 get_harmonic_template_midi <- function(
   num_harmonics,
   level,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{get_harmonic_template_midi}
 \alias{get_harmonic_template_midi}
-\title{Get harmonic template}
+\title{Get harmonic template (MIDI)}
 \usage{
 get_harmonic_template_midi(num_harmonics, level, roll_off = function(x) 1/(1 +
   x))
@@ -15,5 +15,5 @@ get_harmonic_template_midi(num_harmonics, level, roll_off = function(x) 1/(1 +
 \item{roll_off}{Function determining the level of the nth harmonic. Default value corresponds to Equation 9 of Parncutt and Strasburger (1994)}
 }
 \description{
-Gets a harmonic template.
+Gets a MIDI harmonic template.
 }
