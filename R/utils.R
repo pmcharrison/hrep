@@ -8,8 +8,8 @@
 #' @export
 convert_midi_to_freq <- function(
   midi,
-  stretched_octave = FALSE,
-  tuning_ref_Hz = 440
+  stretched_octave = get_midi_params()$stretched_octave,
+  tuning_ref_Hz = get_midi_params()$tuning_ref_Hz
 ) {
   assertthat::assert_that(
     is.numeric(midi),
@@ -22,7 +22,7 @@ convert_midi_to_freq <- function(
 #' @export
 convert_amplitude_to_dB <- function(
   amplitude,
-  unit_amplitude_in_dB = 60
+  unit_amplitude_in_dB,
 ) {
   assertthat::assert_that(assertthat::is.scalar(unit_amplitude_in_dB))
   amplitude_ref = 10 ^ (- unit_amplitude_in_dB / 20)
@@ -32,7 +32,7 @@ convert_amplitude_to_dB <- function(
 #' @export
 convert_dB_to_amplitude <- function(
   dB,
-  unit_amplitude_in_dB = 6
+  unit_amplitude_in_dB
 ) {
   assertthat::assert_that(assertthat::is.scalar(unit_amplitude_in_dB))
   amplitude_ref = 10 ^ (- unit_amplitude_in_dB / 20)
@@ -49,7 +49,7 @@ convert_dB_to_amplitude <- function(
 get_harmonic_template <- function(
   num_harmonics,
   amplitude,
-  roll_off = 1
+  roll_off = get_midi_params()$roll_off
 ) {
   harmonic_numbers <- seq(from = 0, length.out = num_harmonics)
   template <- data.frame(frequency_ratio = harmonic_numbers + 1,
@@ -65,9 +65,9 @@ get_harmonic_template <- function(
 expand_harmonics <- function(
   frequency,
   amplitude,
-  num_harmonics = 11, # including the fundamental
-  roll_off = 1,
-  frequency_digits = 6
+  num_harmonics = get_midi_params()$num_harmonics, # including the fundamental
+  roll_off = get_midi_params()$roll_off,
+  frequency_digits = get_midi_params()$frequency_digits
 ) {
   amplitude <- if (length(amplitude) == 1) rep(amplitude, times = length(frequency)) else amplitude
   assertthat::assert_that(
@@ -126,6 +126,7 @@ sum_amplitudes <- function(x, y, coherent = FALSE) {
   }
 }
 
+#' Note: this could be done more efficiently with ifft
 #' @export
 convert_sparse_spectrum_to_waveform <- function(
   frequency,
@@ -194,7 +195,8 @@ plot_sparse_spectrum <- function(
 
 #' @export
 plot_spectrum <- function(
-  frequency, amplitude,
+  frequency,
+  amplitude,
   range_Hz = NULL,
   theme = ggplot2::theme_bw()
 ) {
