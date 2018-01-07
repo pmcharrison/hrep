@@ -179,15 +179,15 @@ sum_amplitudes <- function(x, y, coherent = FALSE, dB = FALSE) {
   )
   if (dB) {
     if (coherent) {
-      x + y
-    } else {
-      sqrt(x ^ 2 + y ^ 2)
-    }
-  } else {
-    if (coherent) {
       20 * log10(10 ^ (x / 20) + 10 ^ (y / 20))
     } else {
       10 * log10(10 ^ (x / 10) + 10 ^ (y / 10))
+    }
+  } else {
+    if (coherent) {
+      x + y
+    } else {
+      sqrt(x ^ 2 + y ^ 2)
     }
   }
 }
