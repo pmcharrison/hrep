@@ -84,6 +84,13 @@ test_that("convert_midi_to_freq", {
     convert_midi_to_freq(21) %>% round(digits = 1),
     27.5
   )
+  expect_equal(
+    convert_midi_to_freq(69, stretched_octave = FALSE),
+    440)
+  expect_equal(convert_midi_to_freq(81, stretched_octave = FALSE),
+               880)
+  expect_equal(convert_midi_to_freq(c(69, 81), stretched_octave = FALSE),
+               c(440, 880))
 })
 
 test_that("convert_env_to_df", {
