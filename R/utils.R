@@ -99,10 +99,15 @@ expand_harmonics <- function(
   if (dB) {
     # Modify the call, converting amplitude from dB, and redo it
     unit_amplitude_in_dB <- 60
-    call <- as.list(match.call())[-1]
-    call$amplitude <- convert_dB_to_amplitude(amplitude, unit_amplitude_in_dB)
-    call$dB <- FALSE
-    do.call("expand_harmonics", args = call) %>%
+    expand_harmonics(
+      frequency = frequency,
+      amplitude = convert_dB_to_amplitude(amplitude, unit_amplitude_in_dB),
+      dB = FALSE,
+      frequency_scale = frequency_scale,
+      num_harmonics = num_harmonics,
+      roll_off = roll_off,
+      frequency_digits = frequency_digits
+    ) %>%
       (function(df) {
         df$amplitude <- convert_amplitude_to_dB(df$amplitude, unit_amplitude_in_dB)
         df
