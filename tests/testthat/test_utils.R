@@ -206,3 +206,27 @@ test_that("convert_dB_to_amplitude", {
     check.attributes = FALSE
   )
 })
+
+test_that("sum_amplitudes", {
+  expect_equal(
+    sum_amplitudes(1, 1, coherent = TRUE, dB = FALSE),
+    2
+  )
+  expect_equal(
+    sum_amplitudes(60, 60, coherent = FALSE, dB = TRUE) %>% round(digits = 2),
+    63.01
+  )
+  expect_equal(
+    sum_amplitudes(60, 70, coherent = FALSE, dB = TRUE) %>% round(digits = 2),
+    70.41
+  )
+  expect_equal(
+    sum_amplitudes(1, 1, coherent = FALSE, dB = FALSE),
+    sqrt(2)
+  )
+  expect_equal(
+    sum_amplitudes(60, 60, coherent = TRUE, dB = TRUE),
+    convert_amplitude_to_dB(2, unit_amplitude_in_dB = 60),
+    check.attributes = FALSE
+  )
+})
