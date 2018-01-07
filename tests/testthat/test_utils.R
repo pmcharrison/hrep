@@ -137,3 +137,58 @@ test_that("reduce_by_key", {
     )
   )
 })
+
+test_that("convert_amplitude_to_dB", {
+  expect_equal(
+    convert_amplitude_to_dB(
+      amplitude = 1, unit_amplitude_in_dB = 60
+    ),
+    60,
+    check.attributes = FALSE
+  )
+  expect_equal(
+    convert_amplitude_to_dB(
+      amplitude = 1, unit_amplitude_in_dB = 30
+    ),
+    30,
+    check.attributes = FALSE
+  )
+  expect_equal(
+    convert_amplitude_to_dB(
+      amplitude = 10, unit_amplitude_in_dB = 30
+    ),
+    50,
+    check.attributes = FALSE
+  )
+  expect_equal(
+    convert_amplitude_to_dB(
+      amplitude = 100, unit_amplitude_in_dB = 30
+    ),
+    70,
+    check.attributes = FALSE
+  )
+})
+
+test_that("convert_dB_to_amplitude", {
+  expect_equal(
+    convert_dB_to_amplitude(
+      dB = 60, unit_amplitude_in_dB = 60
+    ),
+    1,
+    check.attributes = FALSE
+  )
+  expect_equal(
+    convert_dB_to_amplitude(
+      dB = 20, unit_amplitude_in_dB = 60
+    ),
+    0.01,
+    check.attributes = FALSE
+  )
+  expect_equal(
+    convert_dB_to_amplitude(
+      dB = 100, unit_amplitude_in_dB = 60
+    ),
+    100,
+    check.attributes = FALSE
+  )
+})
