@@ -39,3 +39,48 @@ test_that("convert_midi_to_freq", {
     27.5
   )
 })
+
+test_that("convert_env_to_df", {
+  env <- new.env()
+  env$cat <- 1
+  env$dog <- 2
+  expect_equal(
+    convert_env_to_df(env, decreasing = FALSE),
+    data.frame(
+      key = c("cat", "dog"),
+      value = c(1, 2),
+      stringsAsFactors = FALSE
+    )
+  )
+  expect_equal(
+    convert_env_to_df(env, decreasing = TRUE),
+    data.frame(
+      key = c("dog", "cat"),
+      value = c(2, 1),
+      stringsAsFactors = FALSE
+    )
+  )
+})
+
+test_that("reduce_by_key", {
+  expect_equal(
+    HarmonyUtils:::reduce_by_key(keys = c("a", "a", "a", "b", "b"),
+                                 values = c(1, 1, 1, -1, -1),
+                                 function(x, y) x + y),
+    data.frame(
+      key = c("a", "b"),
+      value = c(3, -2),
+      stringsAsFactors = FALSE
+    )
+  )
+  expect_equal(
+    HarmonyUtils:::reduce_by_key(keys = c("a", "b", "a", "b", "a"),
+                                 values = c(1, -1, 1, -1, 1),
+                                 function(x, y) x + y),
+    data.frame(
+      key = c("a", "b"),
+      value = c(3, -2),
+      stringsAsFactors = FALSE
+    )
+  )
+})

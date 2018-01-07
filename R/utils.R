@@ -316,3 +316,46 @@ plot_waveform <- function(
     theme
   print(p)
 }
+
+reduce_by_key <- function(keys, values, f) {
+  assertthat::assert_that(
+    length(keys) == length(values),
+    is.function(f)
+  )
+  keys <- as.character(keys)
+  env <- new.env()
+  n <- length(keys)
+  for (i in seq_len(n)) {
+    key <- keys[i]
+    value <- values[i]
+    env[[key]] <- if (is.null(env[[key]])) {
+      value
+    } else {
+      do.call(f, list(env[[key]], value))
+    }
+  }
+  convert_env_to_df(env)
+}
+
+convert_env_to_df <- function(env, sort_by_key = TRUE, decreasing = FALSE) {
+  assertthat::assert_that(
+    is.environment(env)
+  )
+  as.list(env) %>%
+    (function(x) {
+      data.frame(
+        key = names(x),
+        value = unlist(x),
+        stringsAsFactors = FALSE
+      )
+    }) %>%
+    (function(df) {
+      if (sort_by_key) {
+        df[order(df$key, decreasing = decreasing), ]
+      } else df
+    }) %>% remove_row_names
+}
+
+remove_row_names <- function(df) {
+  rownames(df) <- NULL
+  df
