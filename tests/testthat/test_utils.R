@@ -69,6 +69,20 @@ test_that("expand_harmonics", {
     ),
     check.attributes = FALSE
   )
+  # Decibels
+  expect_equal(
+    expand_harmonics(
+      frequency = 1,
+      amplitude = 60,
+      num_harmonics = 4,
+      dB = TRUE
+    ),
+    data.frame(
+      frequency = 1:4,
+      amplitude = (1 / (1 : 4)) %>% convert_amplitude_to_dB(60)
+    ),
+    check.attributes = FALSE
+  )
 })
 
 test_that("convert_midi_to_freq", {
