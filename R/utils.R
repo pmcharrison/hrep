@@ -367,6 +367,7 @@ add_attributes <- function(df, spec) {
   df
 }
 
+#' @export
 rep_to_match <- function(x, y) {
   if (length(x) == 1) {
     rep(x, times = length(y))
