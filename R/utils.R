@@ -216,7 +216,7 @@ convert_sparse_spectrum_to_waveform <- function(
 }
 
 #' @export
-play_sparse_spectrum <- function(
+play_sparse_spectrum <- function( # nocov start
   frequency, amplitude,
   sample_rate = 44e3,
   seconds = 1,
@@ -228,7 +228,7 @@ play_sparse_spectrum <- function(
   )
   tuneR::play(tuneR::Wave(spectrum$y, samp.rate = sample_rate, bit = bit),
               "play")
-}
+} # nocov end
 
 #' @export
 plot_sparse_spectrum <- function( # nocov start
