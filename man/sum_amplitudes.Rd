@@ -4,7 +4,7 @@
 \alias{sum_amplitudes}
 \title{Sum amplitudes}
 \usage{
-sum_amplitudes(x, y, coherent = FALSE)
+sum_amplitudes(x, y, coherent = FALSE, dB = FALSE)
 }
 \arguments{
 \item{x}{First amplitude to sum (numeric vector)}
@@ -12,6 +12,8 @@ sum_amplitudes(x, y, coherent = FALSE)
 \item{y}{Second amplitude to sum (numeric vector)}
 
 \item{coherent}{Whether or not the phases of the two tones are coherent (logical scalar)}
+
+\item{dB}{Whether or not the amplitudes are provided in decibels (dB)}
 }
 \description{
 Sums amplitudes for pairs of pure tones (can be vectorised).
