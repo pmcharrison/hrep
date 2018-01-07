@@ -168,32 +168,27 @@ add_interval <- function(frequency, interval, frequency_scale) {
 #' @param x First amplitude to sum (numeric vector)
 #' @param y Second amplitude to sum (numeric vector)
 #' @param coherent Whether or not the phases of the two tones are coherent (logical scalar)
+#' @param dB Whether or not the amplitudes are provided in decibels (dB)
 #' @export
-sum_amplitudes <- function(x, y, coherent = FALSE) {
+sum_amplitudes <- function(x, y, coherent = FALSE, dB = FALSE) {
   assertthat::assert_that(
     is.numeric(x), assertthat::is.scalar(x),
     is.numeric(y), assertthat::is.scalar(y),
-    is.logical(coherent), assertthat::is.scalar(coherent)
-  )
-  if (coherent) {
-    x + y
-  } else {
-    sqrt(x ^ 2 + y ^ 2)
-  }
-}
-
-#' Sums pairs of sound levels assuming either coherent or incoherent (default) wave superposition, with dB input
-#' @param x The first sound level to be summed in dB (can be vectorised)
-#' @param y The second sound level to be summed in dB (can be vectorised)
-#' @export
-sum_sound_levels <- function(x, y, coherent = FALSE) {
-  assertthat::assert_that(
+    is.logical(coherent), assertthat::is.scalar(coherent),
     length(x) == length(y)
   )
-  if (coherent) {
-    20 * log10(10 ^ (x / 20) + 10 ^ (y / 20))
+  if (dB) {
+    if (coherent) {
+      x + y
+    } else {
+      sqrt(x ^ 2 + y ^ 2)
+    }
   } else {
-    10 * log10(10 ^ (x / 10) + 10 ^ (y / 10))
+    if (coherent) {
+      20 * log10(10 ^ (x / 20) + 10 ^ (y / 20))
+    } else {
+      10 * log10(10 ^ (x / 10) + 10 ^ (y / 10))
+    }
   }
 }
 
