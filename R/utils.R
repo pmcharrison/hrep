@@ -231,7 +231,7 @@ play_sparse_spectrum <- function(
 }
 
 #' @export
-plot_sparse_spectrum <- function(
+plot_sparse_spectrum <- function( # nocov start
   frequency, amplitude,
   resolution_Hz = 1,
   range_Hz = NULL,
@@ -257,10 +257,10 @@ plot_sparse_spectrum <- function(
     ggplot2::scale_y_continuous("Amplitude") +
     theme
   print(p)
-}
+} # nocov end
 
 #' @export
-plot_spectrum <- function(
+plot_spectrum <- function( # nocov start
   frequency,
   amplitude,
   range_Hz = NULL,
@@ -277,10 +277,10 @@ plot_spectrum <- function(
     ggplot2::scale_y_continuous("Amplitude") +
     theme
   print(p)
-}
+} # nocov end
 
 #' @export
-plot_waveform <- function(
+plot_waveform <- function( # nocov start
   x,
   sample_rate = 44000,
   range_sec = c(0, 0.2),
@@ -297,7 +297,7 @@ plot_waveform <- function(
     ggplot2::scale_y_continuous("Instantaneous amplitude") +
     theme
   print(p)
-}
+} # nocov end
 
 reduce_by_key <- function(keys, values, f, key_type = "character") {
   assertthat::assert_that(
