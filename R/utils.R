@@ -348,6 +348,7 @@ remove_row_names <- function(df) {
   df
 }
 
+#' @export
 rename_columns <- function(df, replace, warn_missing = TRUE) {
   names(df) <- plyr::revalue(
     names(df), replace = replace, warn_missing = warn_missing
