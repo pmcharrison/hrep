@@ -26,7 +26,9 @@ convert_amplitude_to_dB <- function(
 ) {
   assertthat::assert_that(assertthat::is.scalar(unit_amplitude_in_dB))
   amplitude_ref = 10 ^ (- unit_amplitude_in_dB / 20)
-  20 * log10(amplitude / amplitude_ref)
+  res <- 20 * log10(amplitude / amplitude_ref)
+  attr(res, "units") <- "dB"
+  res
 }
 
 #' @export
@@ -36,7 +38,9 @@ convert_dB_to_amplitude <- function(
 ) {
   assertthat::assert_that(assertthat::is.scalar(unit_amplitude_in_dB))
   amplitude_ref = 10 ^ (- unit_amplitude_in_dB / 20)
-  amplitude_ref * 10 ^ (dB / 20)
+  res <- amplitude_ref * 10 ^ (dB / 20)
+  attr(res, "units") <- "not dB"
+  res
 }
 
 #' Get harmonic template
@@ -44,17 +48,35 @@ convert_dB_to_amplitude <- function(
 #' Gets a harmonic template, using non-stretched octaves.
 #' @param num_harmonics Number of harmonics (including fundamental)
 #' @param amplitude amplitude of the fundamental frequency
+#' @param roll_off Roll-off constant
+#' @param interval_scale Can be "ratio" or "midi"
 #' @return \code{data.frame} of frequencies and amplitudes
 #' @export
 get_harmonic_template <- function(
   num_harmonics,
   amplitude,
-  roll_off = get_midi_params()$roll_off
+  roll_off = get_midi_params()$roll_off,
+  interval_scale = "ratio",
+  round_midi_intervals = TRUE
 ) {
+  assertthat::assert_that(
+    interval_scale %in% c("ratio", "midi")
+  )
   harmonic_numbers <- seq(from = 0, length.out = num_harmonics)
-  template <- data.frame(frequency_ratio = harmonic_numbers + 1,
-                         amplitude = amplitude / ((1 + harmonic_numbers) ^ roll_off))
-  template
+  intervals <- if (interval_scale == "ratio") {
+    harmonic_numbers + 1
+  } else {
+    (12 * log(harmonic_numbers + 1, base = 2)) %>% (function(x) {
+      if (round_midi_intervals) round(x) else x
+    })
+  }
+  attr(intervals, "scale") <- interval_scale
+  amplitudes <- amplitude / ((1 + harmonic_numbers) ^ roll_off)
+  attr(amplitudes, "scale") <- "not dB"
+  data.frame(
+    interval = intervals,
+    amplitude = amplitudes
+  )
 }
 
 #' @param frequency Numeric vector of frequencies
@@ -67,112 +89,77 @@ expand_harmonics <- function(
   frequency,
   amplitude,
   dB = FALSE,
+  frequency_scale = "Hz",
   num_harmonics = get_midi_params()$num_harmonics, # including the fundamental
   roll_off = get_midi_params()$roll_off,
   frequency_digits = get_midi_params()$frequency_digits
 ) {
-  # Ensure that we aren't working in dB
-  unit_amplitude_in_dB <- 60
-  amplitude <- if (dB) convert_dB_to_amplitude(amplitude, unit_amplitude_in_dB = unit_amplitude_in_dB) else amplitude
-  amplitude <- if (length(amplitude) == 1) rep(amplitude, times = length(frequency)) else amplitude
+  amplitude <- rep_to_match(amplitude, frequency)
+  expand_harmonics_check_inputs(frequency, amplitude, num_harmonics, roll_off)
+  if (dB) {
+    # Modify the call, converting amplitude from dB, and redo it
+    unit_amplitude_in_dB <- 60
+    call <- as.list(match.call())[-1]
+    call$amplitude <- convert_dB_to_amplitude(amplitude, unit_amplitude_in_dB)
+    call$dB <- FALSE
+    do.call("expand_harmonics", args = call) %>%
+      (function(df) {
+        df$amplitude <- convert_amplitude_to_dB(df$amplitude, unit_amplitude_in_dB)
+        df
+      })
+  } else {
+    template <- get_harmonic_template(
+      num_harmonics, 1, roll_off,
+      interval_scale = if (frequency_scale == "Hz") "ratio" else "midi"
+    )
+    mapply(
+      FUN = function(fundamental_frequency, fundamental_amplitude) {
+        data.frame(
+          frequency = add_interval(fundamental_frequency,
+                                   template$interval,
+                                   frequency_scale = frequency_scale),
+          amplitude = fundamental_amplitude * template$amplitude
+        )
+      }, frequency, amplitude,
+      SIMPLIFY = FALSE
+    ) %>% do.call(rbind, .) %>%
+      (function (df) {
+        reduce_by_key(
+          keys = df$frequency,
+          values = df$amplitude,
+          function(x, y) sum_amplitudes(x, y, coherent = FALSE),
+          key_type = "numeric"
+        )
+      }) %>% rename_columns(c(key = "frequency", value = "amplitude")) %>%
+      add_attributes(
+        spec <- list(
+          frequency = list(scale = frequency_scale),
+          amplitude = list(scale = "not dB")
+        )
+      )
+  }
+}
+
+expand_harmonics_check_inputs <- function(
+  frequency, amplitude, num_harmonics, roll_off
+) {
   assertthat::assert_that(
     length(frequency) == length(amplitude),
     is.numeric(num_harmonics), assertthat::is.scalar(num_harmonics),
     is.numeric(roll_off), assertthat::is.scalar(roll_off)
   )
-  template <- get_harmonic_template(
-    num_harmonics = num_harmonics,
-    amplitude = 1,
-    roll_off = roll_off
-  )
-  spectrum <- new.env()
-  for (i in seq_along(frequency)) {
-    # Iterate over every fundamental frequency and add the spectral template
-    fundamental_frequency <- frequency[i]
-    fundamental_amplitude <- amplitude[i]
-    mapply(function(frequency, amplitude) {
-      key <- format(frequency, digits = frequency_digits, scientific = TRUE)
-      spectrum[[key]] <<- if (is.null(spectrum[[key]])) amplitude else {
-        sum_amplitudes(spectrum[[key]], amplitude, coherent = FALSE)
-      }
-    },
-    template$frequency_ratio * fundamental_frequency,
-    template$amplitude * fundamental_amplitude)
-  }
-  spectrum <- as.list(spectrum) %>%
-    (function(x) data.frame(
-      frequency = as.numeric(names(x)),
-      amplitude = as.numeric(unlist(x)))) %>%
-    (function(df) {
-      df <- df[order(df$frequency), ]
-      rownames(df) <- NULL
-      df
-    })
-  # Convert back to dB if appropriate
-  if (dB) spectrum$amplitude <- convert_amplitude_to_dB(spectrum$amplitude, unit_amplitude_in_dB)
-  spectrum
 }
 
-#' @export
-expand_harmonics_midi <- function(
-  pitch_midi,
-  level,
-  num_harmonics = 11, # including the fundamental
-  roll_off = function(x) 1 / (1 + x),
-  min_midi = 0,
-  max_midi = 120
-) {
+add_interval <- function(frequency, interval, frequency_scale) {
   assertthat::assert_that(
-    all.equal(round(pitch_midi), pitch_midi),
-    length(level) == length(pitch_midi),
-    is.numeric(num_harmonics), assertthat::is.scalar(num_harmonics),
-    is.function(roll_off),
-    is.numeric(min_midi), assertthat::is.scalar(min_midi),
-    round(min_midi) == min_midi,
-    is.numeric(max_midi), assertthat::is.scalar(max_midi),
-    round(max_midi) == max_midi
+    assertthat::is.scalar(frequency_scale),
+    frequency_scale %in% c("Hz", "midi")
   )
-  template <- get_harmonic_template_midi(
-    num_harmonics = num_harmonics,
-    level = 1, roll_off = roll_off
-  )
-  spectrum <- new.env()
-  for (i in seq_along(pitch_midi)) {
-    fundamental_pitch <- pitch_midi[i]
-    fundamental_level <- level[i]
-    # Iterate over every fundamental frequency and add the spectral template
-    mapply(function(pitch, level) {
-      if (pitch >= min_midi && pitch <= max_midi) {
-        key <- as.character(pitch)
-        spectrum[[key]] <<- if (is.null(spectrum[[key]])) level else {
-          sum_sound_levels(spectrum[[key]], level, coherent = FALSE)
-        }
-      }
-    }, template$pitch + fundamental_pitch, template$level * fundamental_level)
+  if (frequency_scale == "Hz") {
+    frequency * interval
+  } else {
+    frequency + interval
   }
-  spectrum <- as.list(spectrum) %>%
-    (function(x) data.frame(
-      pitch_midi = as.numeric(names(x)),
-      level = as.numeric(unlist(x))))
-  spectrum
-}
-
-#' Get harmonic template (MIDI)
-#'
-#' Gets a MIDI harmonic template.
-#' @param num_harmonics Number of harmonics (including fundamental)
-#' @param level Level of the fundamental frequency
-#' @param roll_off Function determining the level of the nth harmonic. Default value corresponds to Equation 9 of Parncutt and Strasburger (1994)
-#' @export
-get_harmonic_template_midi <- function(
-  num_harmonics,
-  level,
-  roll_off = function(x) 1 / (1 + x)
-) {
-  harmonic_numbers <- seq(from = 0, length.out = num_harmonics)
-  template <- data.frame(pitch = round(12 * log(harmonic_numbers + 1, base = 2)),
-                         level = level * do.call(roll_off, list(harmonic_numbers)))
-  template
 }
 
 #' Sum amplitudes
@@ -317,7 +304,7 @@ plot_waveform <- function(
   print(p)
 }
 
-reduce_by_key <- function(keys, values, f) {
+reduce_by_key <- function(keys, values, f, key_type = "character") {
   assertthat::assert_that(
     length(keys) == length(values),
     is.function(f)
@@ -334,17 +321,17 @@ reduce_by_key <- function(keys, values, f) {
       do.call(f, list(env[[key]], value))
     }
   }
-  convert_env_to_df(env)
+  convert_env_to_df(env, key_type = key_type)
 }
 
-convert_env_to_df <- function(env, sort_by_key = TRUE, decreasing = FALSE) {
+convert_env_to_df <- function(env, sort_by_key = TRUE, decreasing = FALSE, key_type = "character") {
   assertthat::assert_that(
     is.environment(env)
   )
   as.list(env) %>%
     (function(x) {
       data.frame(
-        key = names(x),
+        key = names(x) %>% as(key_type),
         value = unlist(x),
         stringsAsFactors = FALSE
       )
@@ -359,3 +346,38 @@ convert_env_to_df <- function(env, sort_by_key = TRUE, decreasing = FALSE) {
 remove_row_names <- function(df) {
   rownames(df) <- NULL
   df
+}
+
+rename_columns <- function(df, replace, warn_missing = TRUE) {
+  names(df) <- plyr::revalue(
+    names(df), replace = replace, warn_missing = warn_missing
+  )
+  df
+}
+
+add_attributes <- function(df, spec) {
+  col_names <- names(spec)
+  assertthat::assert_that(
+    all(col_names %in% names(df))
+  )
+  for (i in seq_along(col_names)) {
+    col_name <- col_names[i]
+    attributes <- spec[[i]]
+    for (j in seq_along(attributes)) {
+      attr_name <- names(attributes)[j]
+      attr <- attributes[[j]]
+      attr(df[[col_name]], attr_name) <- attr
+    }
+  }
+  df
+}
+
+rep_to_match <- function(x, y) {
+  if (length(x) == 1) {
+    rep(x, times = length(y))
+  } else if (length(x) != length(y)) {
+    stop("<x> must either have length 1 or the same length as <y>.")
+  } else {
+    x
+  }
+}

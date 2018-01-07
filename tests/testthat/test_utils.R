@@ -10,7 +10,8 @@ test_that("expand_harmonics", {
     data.frame(
       frequency = c(1, 2),
       amplitude = c(1, 1)
-    )
+    ),
+    check.attributes = FALSE
   )
   expect_equal(
     expand_harmonics(
@@ -21,7 +22,52 @@ test_that("expand_harmonics", {
     data.frame(
       frequency = c(1, 2, 3, 4, 6),
       amplitude = c(1, sqrt(1.25), 1 / 3, 1 / 2, 1 / 3)
-    )
+    ),
+    check.attributes = FALSE
+  )
+  # MIDI
+  expect_equal(
+    expand_harmonics(
+      frequency = 0,
+      amplitude = 1,
+      num_harmonics = 6,
+      frequency_scale = "midi"
+    ),
+    data.frame(
+      frequency = c(0, 12, 19, 24, 28, 31),
+      amplitude = c(1, 1/2, 1/3, 1/4, 1/5, 1/6)
+    ),
+    check.attributes = FALSE
+  )
+  # Roll off
+  expect_equal(
+    expand_harmonics(
+      frequency = 0,
+      amplitude = 1,
+      num_harmonics = 6,
+      frequency_scale = "midi",
+      roll_off = 2
+    ),
+    data.frame(
+      frequency = c(0, 12, 19, 24, 28, 31),
+      amplitude = c(1, 1 / 2 ^ 2, 1 / 3 ^ 2, 1 / 4 ^ 2, 1 / 5 ^ 2, 1 / 6 ^ 2)
+    ),
+    check.attributes = FALSE
+  )
+  # MIDI transposition
+  expect_equal(
+    expand_harmonics(
+      frequency = 10,
+      amplitude = 1,
+      num_harmonics = 6,
+      frequency_scale = "midi",
+      roll_off = 2
+    ),
+    data.frame(
+      frequency = c(10, 22, 29, 34, 38, 41),
+      amplitude = c(1, 1 / 2 ^ 2, 1 / 3 ^ 2, 1 / 4 ^ 2, 1 / 5 ^ 2, 1 / 6 ^ 2)
+    ),
+    check.attributes = FALSE
   )
 })
 

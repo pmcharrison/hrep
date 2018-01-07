@@ -5,12 +5,17 @@
 \title{Get harmonic template}
 \usage{
 get_harmonic_template(num_harmonics, amplitude,
-  roll_off = get_midi_params()$roll_off)
+  roll_off = get_midi_params()$roll_off, interval_scale = "ratio",
+  round_midi_intervals = TRUE)
 }
 \arguments{
 \item{num_harmonics}{Number of harmonics (including fundamental)}
 
 \item{amplitude}{amplitude of the fundamental frequency}
+
+\item{roll_off}{Roll-off constant}
+
+\item{interval_scale}{Can be "ratio" or "midi"}
 }
 \value{
 \code{data.frame} of frequencies and amplitudes
