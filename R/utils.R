@@ -356,6 +356,7 @@ rename_columns <- function(df, replace, warn_missing = TRUE) {
   df
 }
 
+#' @export
 add_attributes <- function(df, spec) {
   col_names <- names(spec)
   assertthat::assert_that(
