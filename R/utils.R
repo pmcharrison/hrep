@@ -1,6 +1,6 @@
 #' Convert MIDI note numbers to frequencies
 #'
-#' Converts MIDI note numbers to frequencies (kHz), optionally using stretched octaves. Corresponds to Equation 1 of Parncutt & Strasburger (1994).
+#' Converts MIDI note numbers to frequencies (Hz), optionally using stretched octaves. Corresponds to Equation 1 of Parncutt & Strasburger (1994), but with Hz instead of kHz.
 #' @param midi Numeric vector of MIDI note numbers
 #' @param stretched_octave Logical scalar; whether or not to use a stretched octave. Default is \code{FALSE}
 #' @param tuning_ref_Hz The tuning reference point in Hz, should correspond to the frequency of the A above middle C (typically 440 Hz)

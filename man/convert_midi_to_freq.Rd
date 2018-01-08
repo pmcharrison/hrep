@@ -19,5 +19,5 @@ convert_midi_to_freq(midi,
 Numeric vector of frequencies in Hz
 }
 \description{
-Converts MIDI note numbers to frequencies (kHz), optionally using stretched octaves. Corresponds to Equation 1 of Parncutt & Strasburger (1994).
+Converts MIDI note numbers to frequencies (Hz), optionally using stretched octaves. Corresponds to Equation 1 of Parncutt & Strasburger (1994), but with Hz instead of kHz.
 }
