@@ -13,6 +13,7 @@ get_midi_params <- function(
     num_harmonics = num_harmonics,
     roll_off = roll_off,
     frequency_digits = frequency_digits,
-    fundamental_level_dB = fundamental_level_dB
+    fundamental_level_dB = fundamental_level_dB,
+    unit_amplitude_in_dB = 60
   )
 }
