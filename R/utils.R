@@ -19,6 +19,27 @@ convert_midi_to_freq <- function(
   tuning_ref_Hz * (2 ^ ((midi - 69) / if (stretched_octave) 11.9 else 12))
 }
 
+#' Convert frequencies to MIDI note numbers
+#'
+#' Converts frequencies (Hz) to MIDI note numbers, optionally using stretched octaves. Non-integer MIDI note numbers are permitted as output.
+#' @param midi Numeric vector of MIDI note numbers
+#' @param stretched_octave Logical scalar; whether or not to use a stretched octave. Default is \code{FALSE}
+#' @param tuning_ref_Hz The tuning reference point in Hz, should correspond to the frequency of the A above middle C (typically 440 Hz)
+#' @return Numeric vector of frequencies in Hz
+#' @export
+convert_freq_to_midi <- function(
+  frequency,
+  stretched_octave = get_midi_params()$stretched_octave,
+  tuning_ref_Hz = get_midi_params()$tuning_ref_Hz
+) {
+  assertthat::assert_that(
+    is.numeric(frequency),
+    is.logical(stretched_octave), assertthat::is.scalar(stretched_octave),
+    is.numeric(tuning_ref_Hz), assertthat::is.scalar(tuning_ref_Hz)
+  )
+  69 + log(frequency / tuning_ref_Hz, base = 2) * if (stretched_octave) 11.9 else 12
+}
+
 #' @export
 convert_amplitude_to_dB <- function(
   amplitude,

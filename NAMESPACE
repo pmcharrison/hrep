@@ -3,6 +3,7 @@
 export(add_attributes)
 export(convert_amplitude_to_dB)
 export(convert_dB_to_amplitude)
+export(convert_freq_to_midi)
 export(convert_midi_to_freq)
 export(convert_sparse_spectrum_to_waveform)
 export(expand_harmonics)

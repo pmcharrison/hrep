@@ -107,6 +107,38 @@ test_that("convert_midi_to_freq", {
                c(440, 880))
 })
 
+test_that("convert_freq_to_midi", {
+  expect_equal(
+    convert_freq_to_midi(440),
+    69
+  )
+  expect_equal(
+    convert_freq_to_midi(261.6) %>% round(digits = 1),
+    60
+  )
+  expect_equal(
+    convert_freq_to_midi(880),
+    81
+  )
+  expect_equal(
+    convert_freq_to_midi(880, stretched_octave = TRUE),
+    80.9
+  )
+  rand <- rnorm(n = 100, mean = 60, sd = 40)
+  expect_equal(
+    rand %>% convert_midi_to_freq %>% convert_freq_to_midi,
+    rand
+  )
+  expect_false(
+    (rand %>% convert_midi_to_freq(stretched_octave = TRUE) %>% convert_freq_to_midi == rand) %>% all
+  )
+  expect_equal(
+    rand %>% convert_midi_to_freq(stretched_octave = TRUE) %>%
+      convert_freq_to_midi(stretched_octave = TRUE),
+    rand
+  )
+})
+
 test_that("convert_env_to_df", {
   env <- new.env()
   env$cat <- 1
