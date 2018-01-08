@@ -5,7 +5,6 @@ get_midi_params <- function(
   num_harmonics = 11, # including the fundamental
   roll_off = 1, # equivalent to Milne's rho, except for level rather than loudness; levels are multiplied by 1 / (n ^ roll_off)
   frequency_digits = 6,
-  fundamental_level_dB = 60, # maybe this should be removed?
   unit_amplitude_in_dB = 60
 ) {
   list(
@@ -14,7 +13,6 @@ get_midi_params <- function(
     num_harmonics = num_harmonics,
     roll_off = roll_off,
     frequency_digits = frequency_digits,
-    fundamental_level_dB = fundamental_level_dB,
     unit_amplitude_in_dB = 60
   )
 }
