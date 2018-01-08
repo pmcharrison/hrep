@@ -137,7 +137,7 @@ expand_harmonics <- function(
         )
       }) %>% rename_columns(c(key = "frequency", value = "amplitude")) %>%
       add_attributes(
-        spec <- list(
+        spec = list(
           frequency = list(scale = frequency_scale),
           amplitude = list(scale = "not dB")
         )
