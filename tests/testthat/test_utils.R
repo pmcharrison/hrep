@@ -262,3 +262,18 @@ test_that("sum_amplitudes", {
     check.attributes = FALSE
   )
 })
+
+test_that("convert_pitch_to_pitch_class", {
+  expect_equal(
+    convert_pitch_to_pitch_class(26),
+    2
+  )
+  expect_equal(
+    convert_pitch_to_pitch_class(72),
+    0
+  )
+  expect_equal(
+    convert_pitch_to_pitch_class(c(26, 72, 5)),
+    c(2, 0, 5)
+  )
+})

@@ -1,3 +1,13 @@
+#' Convert pitches to pitch classes
+#'
+#' Converts pitches to pitch classes.
+#' @param pitch A numeric vector of pitches
+#' @return A numeric vector produced by mapping each element in \code{pitch} to a pitch class
+#' @export
+convert_pitch_to_pitch_class <- function(pitch) {
+  pitch %% 12
+}
+
 #' Convert MIDI note numbers to frequencies
 #'
 #' Converts MIDI note numbers to frequencies (Hz), optionally using stretched octaves. Corresponds to Equation 1 of Parncutt & Strasburger (1994), but with Hz instead of kHz.
