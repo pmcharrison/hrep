@@ -263,17 +263,28 @@ test_that("sum_amplitudes", {
   )
 })
 
-test_that("convert_pitch_to_pitch_class", {
+test_that("convert_pitch_to_pc", {
   expect_equal(
-    convert_pitch_to_pitch_class(26),
+    convert_pitch_to_pc(26),
     2
   )
   expect_equal(
-    convert_pitch_to_pitch_class(72),
+    convert_pitch_to_pc(72),
     0
   )
   expect_equal(
-    convert_pitch_to_pitch_class(c(26, 72, 5)),
+    convert_pitch_to_pc(c(26, 72, 5)),
     c(2, 0, 5)
+  )
+})
+
+test_that("convert_pitch_to_pc_set", {
+  expect_equal(
+    convert_pitch_to_pc_set(c(60, 60, 64, 67)),
+    c(0, 4, 7)
+  )
+  expect_equal(
+    convert_pitch_to_pc_set(c(67, 60, 59, 42)),
+    c(0, 6, 7, 11)
   )
 })
