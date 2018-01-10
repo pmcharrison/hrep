@@ -4,7 +4,7 @@ get_alphabet <- function(cache = TRUE) {
     fun_name = "get_alphabet",
     cache = cache,
     cache_root = "cache",
-    cache_dir = "HarmonyStats/get_alphabet",
+    cache_dir = "HarmonyUtils/get_alphabet",
     expr = {
       lapply(
         0:11,
