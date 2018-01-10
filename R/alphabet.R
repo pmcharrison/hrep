@@ -1,5 +1,6 @@
+#' This function is very inefficient when max_notes is much less than 12, but at least it's cached.
 #' @export
-get_alphabet <- function(cache = TRUE) {
+get_alphabet <- function(min_notes = 1, max_notes = 12, cache = TRUE) {
   cacheR::cache(
     fun_name = "get_alphabet",
     cache = cache,
@@ -19,6 +20,11 @@ get_alphabet <- function(cache = TRUE) {
               })
             })
         }
-      ) %>% (function(x) do.call(c, x))
+      ) %>% (function(x) do.call(c, x)) %>%
+        (function(x) Filter(
+          f = function(y) {
+            length(y) >= min_notes && length(y) <= max_notes
+          }, x = x
+        ))
     })
 }
