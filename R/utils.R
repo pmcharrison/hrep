@@ -168,7 +168,7 @@ expand_harmonics <- function(
         )
       }, frequency, amplitude,
       SIMPLIFY = FALSE
-    ) %>% do.call(rbind, .) %>%
+    ) %>% (function(x) do.call(rbind, x)) %>%
       (function (df) {
         reduce_by_key(
           keys = df$frequency,

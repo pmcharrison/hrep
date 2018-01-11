@@ -4,7 +4,8 @@
 \alias{get_alphabet}
 \title{This function is very inefficient when max_notes is much less than 12, but at least it's cached.}
 \usage{
-get_alphabet(min_notes = 1, max_notes = 12, cache = TRUE)
+get_alphabet(min_notes = 1, max_notes = 12, cache = TRUE,
+  format = "list")
 }
 \description{
 This function is very inefficient when max_notes is much less than 12, but at least it's cached.
