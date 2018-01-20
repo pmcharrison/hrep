@@ -449,15 +449,15 @@ rep_to_match <- function(x, y) {
 }
 
 #' @export
-get_alphabet_from_dataset <- function(dataset) {
+get_chord_alphabet_from_dataset <- function(dataset) {
   dataset %>%
     (function(x) do.call(c, x)) %>%
     unique %>% sort
 }
 
 #' @export
-get_alphabet_from_datasets <- function(datasets) {
+get_chord_alphabet_from_datasets <- function(datasets) {
   datasets %>%
     (function(x) do.call(c, x)) %>%
-    get_alphabet_from_dataset
+    get_chord_alphabet_from_dataset
 }

@@ -1,6 +1,6 @@
 #' This function is very inefficient when max_notes is much less than 12, but at least it's cached.
 #' @export
-get_alphabet <- function(
+get_chord_alphabet <- function(
   min_notes = 1,
   max_notes = 12,
   cache = TRUE,
@@ -11,10 +11,10 @@ get_alphabet <- function(
     format %in% c("list", "map")
   )
   cacheR::cache(
-    fun_name = "get_alphabet",
+    fun_name = "get_chord_alphabet",
     cache = cache,
     cache_root = "cache",
-    cache_dir = "HarmonyUtils/get_alphabet",
+    cache_dir = "HarmonyUtils/get_chord_alphabet",
     expr = {
       lapply(
         0:11,
@@ -36,11 +36,11 @@ get_alphabet <- function(
             length(y) >= min_notes && length(y) <= max_notes
           }, x = x
         )) %>%
-        (function(alphabet) {
-          if (format == "list") alphabet else {
+        (function(chord_alphabet) {
+          if (format == "list") chord_alphabet else {
             hash::hash(
-              keys = lapply(alphabet, get_chord_storage_key),
-              values = seq_along(alphabet)
+              keys = lapply(chord_alphabet, get_chord_storage_key),
+              values = seq_along(chord_alphabet)
             )
           }
         })
@@ -55,30 +55,30 @@ get_chord_storage_key <- function(chord) {
 }
 
 #' @export
-encode_chord <- function(chord, alphabet = get_alphabet(format = "map")) {
-  encode_chords(chords = list(chord), alphabet = alphabet)
+encode_chord <- function(chord, chord_alphabet = get_chord_alphabet(format = "map")) {
+  encode_chords(chords = list(chord), chord_alphabet = chord_alphabet)
 }
 
 #' @export
-encode_chords <- function(chords, alphabet = get_alphabet(format = "map")) {
+encode_chords <- function(chords, chord_alphabet = get_chord_alphabet(format = "map")) {
   assertthat::assert_that(
     is.list(chords),
-    is(alphabet, "hash")
+    is(chord_alphabet, "hash")
   )
   keys <- lapply(chords, get_chord_storage_key)
-  hash::values(alphabet, keys) %>% unname
+  hash::values(chord_alphabet, keys) %>% unname
 }
 
 #' @export
-decode_chord <- function(chord, alphabet = get_alphabet(format = "list")) {
-  decode_chords(chord, alphabet = alphabet)[[1]]
+decode_chord <- function(chord, chord_alphabet = get_chord_alphabet(format = "list")) {
+  decode_chords(chord, chord_alphabet = chord_alphabet)[[1]]
 }
 
 #' @export
-decode_chords <- function(chords, alphabet = get_alphabet(format = "list")) {
+decode_chords <- function(chords, chord_alphabet = get_chord_alphabet(format = "list")) {
   assertthat::assert_that(
-    is.list(alphabet),
+    is.list(chord_alphabet),
     is.numeric(chords)
   )
-  alphabet[chords]
+  chord_alphabet[chords]
 }
