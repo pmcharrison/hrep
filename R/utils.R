@@ -18,6 +18,28 @@ convert_pitch_to_pc_set <- function(pitch) {
   sort(unique(convert_pitch_to_pc(pitch)))
 }
 
+#' Get pitch class set alphabet
+#'
+#' Returns a list of all possible pitch class sets.
+#' @return List of all possible pitch class sets.
+#' @export
+get_pc_set_alphabet <- function() {
+  args <- list()
+  for (i in 0:11) {
+    args[[as.character(i)]] <- c(FALSE, TRUE)
+  }
+  spec <- do.call(expand.grid, args)
+  res <- list()
+  n <- nrow(spec)
+  for (i in seq_len(n)) {
+    pc_set <- (0:11)[which(as.logical(spec[i, ]))]
+    if (length(pc_set) > 0) {
+      res <- c(res, list(pc_set))
+    }
+  }
+  res
+}
+
 #' Convert MIDI note numbers to frequencies
 #'
 #' Converts MIDI note numbers to frequencies (Hz), optionally using stretched octaves. Corresponds to Equation 1 of Parncutt & Strasburger (1994), but with Hz instead of kHz.
