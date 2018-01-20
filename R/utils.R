@@ -456,7 +456,13 @@ get_chord_alphabet_from_dataset <- function(dataset) {
 }
 
 #' @export
-get_chord_alphabet_from_datasets <- function(datasets) {
+get_chord_alphabet_from_datasets <- function(
+  datasets = c(
+    HarmonyCorpora::classical,
+    HarmonyCorpora::popular,
+    HarmonyCorpora::jazz
+  )
+) {
   datasets %>%
     (function(x) do.call(c, x)) %>%
     get_chord_alphabet_from_dataset
