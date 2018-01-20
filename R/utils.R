@@ -461,9 +461,11 @@ get_chord_alphabet_from_datasets <- function(
     HarmonyCorpora::classical,
     HarmonyCorpora::popular,
     HarmonyCorpora::jazz
-  )
+  ),
+  decode = FALSE
 ) {
   datasets %>%
     (function(x) do.call(c, x)) %>%
-    get_chord_alphabet_from_dataset
+    get_chord_alphabet_from_dataset %>%
+    (function(x) if (decode) decode_chords(x) else x)
 }
