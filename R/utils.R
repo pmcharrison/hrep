@@ -449,10 +449,14 @@ rep_to_match <- function(x, y) {
 }
 
 #' @export
-get_chord_alphabet_from_dataset <- function(dataset) {
+get_chord_alphabet_from_dataset <- function(
+  dataset, decode = FALSE
+) {
   dataset %>%
     (function(x) do.call(c, x)) %>%
-    unique %>% sort
+    unique %>%
+    sort %>%
+    (function(x) if (decode) decode_chords(x) else x)
 }
 
 #' @export
@@ -466,6 +470,30 @@ get_chord_alphabet_from_datasets <- function(
 ) {
   datasets %>%
     (function(x) do.call(c, x)) %>%
-    get_chord_alphabet_from_dataset %>%
-    (function(x) if (decode) decode_chords(x) else x)
+    get_chord_alphabet_from_dataset(decode = decode)
+}
+
+#' @export
+get_pc_set_alphabet_from_dataset <- function(
+  dataset, encode = FALSE
+) {
+  if (encode) {
+    stop("Encoding not yet supported for pitch-class sets")
+  }
+  get_chord_alphabet_from_dataset(dataset) %>%
+    decode_chords %>%
+    lapply(HarmonyUtils::convert_pitch_to_pc_set) %>%
+    unique %>%
+    (function(x) x[order(vapply(x, function(y) {
+      paste(y, collapse = " ")
+      }, character(1)))])
+}
+
+#' @export
+get_pc_set_alphabet_from_datasets <- function(
+  datasets, encode = FALSE
+) {
+  datasets %>%
+    (function(x) do.call(c, x)) %>%
+    get_pc_set_alphabet_from_dataset(encode = encode)
 }
