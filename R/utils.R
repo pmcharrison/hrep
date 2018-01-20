@@ -491,7 +491,11 @@ get_pc_set_alphabet_from_dataset <- function(
 
 #' @export
 get_pc_set_alphabet_from_datasets <- function(
-  datasets, encode = FALSE
+  datasets = list(
+    HarmonyCorpora::classical,
+    HarmonyCorpora::popular,
+    HarmonyCorpora::jazz
+  ), encode = FALSE
 ) {
   datasets %>%
     (function(x) do.call(c, x)) %>%
