@@ -18,28 +18,6 @@ convert_pitch_to_pc_set <- function(pitch) {
   sort(unique(convert_pitch_to_pc(pitch)))
 }
 
-#' Get pitch class set alphabet
-#'
-#' Returns a list of all possible pitch class sets.
-#' @return List of all possible pitch class sets.
-#' @export
-get_pc_set_alphabet <- function() {
-  args <- list()
-  for (i in 0:11) {
-    args[[as.character(i)]] <- c(FALSE, TRUE)
-  }
-  spec <- do.call(expand.grid, args)
-  res <- list()
-  n <- nrow(spec)
-  for (i in seq_len(n)) {
-    pc_set <- (0:11)[which(as.logical(spec[i, ]))]
-    if (length(pc_set) > 0) {
-      res <- c(res, list(pc_set))
-    }
-  }
-  res
-}
-
 #' Convert MIDI note numbers to frequencies
 #'
 #' Converts MIDI note numbers to frequencies (Hz), optionally using stretched octaves. Corresponds to Equation 1 of Parncutt & Strasburger (1994), but with Hz instead of kHz.
@@ -446,58 +424,4 @@ rep_to_match <- function(x, y) {
   } else {
     x
   }
-}
-
-#' @export
-get_chord_alphabet_from_dataset <- function(
-  dataset, decode = FALSE
-) {
-  dataset %>%
-    (function(x) do.call(c, x)) %>%
-    unique %>%
-    sort %>%
-    (function(x) if (decode) decode_chords(x) else x)
-}
-
-#' @export
-get_chord_alphabet_from_datasets <- function(
-  datasets = list(
-    HarmonyCorpora::classical,
-    HarmonyCorpora::popular,
-    HarmonyCorpora::jazz
-  ),
-  decode = FALSE
-) {
-  datasets %>%
-    (function(x) do.call(c, x)) %>%
-    get_chord_alphabet_from_dataset(decode = decode)
-}
-
-#' @export
-get_pc_set_alphabet_from_dataset <- function(
-  dataset, encode = FALSE
-) {
-  if (encode) {
-    stop("Encoding not yet supported for pitch-class sets")
-  }
-  get_chord_alphabet_from_dataset(dataset) %>%
-    decode_chords %>%
-    lapply(HarmonyUtils::convert_pitch_to_pc_set) %>%
-    unique %>%
-    (function(x) x[order(vapply(x, function(y) {
-      paste(y, collapse = " ")
-      }, character(1)))])
-}
-
-#' @export
-get_pc_set_alphabet_from_datasets <- function(
-  datasets = list(
-    HarmonyCorpora::classical,
-    HarmonyCorpora::popular,
-    HarmonyCorpora::jazz
-  ), encode = FALSE
-) {
-  datasets %>%
-    (function(x) do.call(c, x)) %>%
-    get_pc_set_alphabet_from_dataset(encode = encode)
 }
