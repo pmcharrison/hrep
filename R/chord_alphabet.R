@@ -28,7 +28,6 @@ decode_chord <- function(chord) {
 #' @export
 decode_chords <- function(chords) {
   assertthat::assert_that(
-    is.list(chord_alphabet),
     is.numeric(chords)
   )
   HarmonyUtils::chord_alphabet$by_id[chords]
