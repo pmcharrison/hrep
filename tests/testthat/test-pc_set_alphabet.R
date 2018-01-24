@@ -1,9 +1,12 @@
 context("get_pc_set_alphabet")
 
-x <- get_pc_set_alphabet()
+x <- HarmonyUtils::pc_set_alphabet$by_id
 
 test_that("class", {
   expect_is(x, "list")
+  expect_true(
+    all(sapply(x, is.integer))
+  )
 })
 
 test_that("size", {

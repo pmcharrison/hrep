@@ -1,23 +1,9 @@
-#' Get pitch class set alphabet
-#'
-#' Returns a list of all possible pitch class sets.
-#' @return List of all possible pitch class sets.
 #' @export
-get_pc_set_alphabet <- function() {
-  args <- list()
-  for (i in 0:11) {
-    args[[as.character(i)]] <- c(FALSE, TRUE)
-  }
-  spec <- do.call(expand.grid, args)
-  res <- list()
-  n <- nrow(spec)
-  for (i in seq_len(n)) {
-    pc_set <- (0:11)[which(as.logical(spec[i, ]))]
-    if (length(pc_set) > 0) {
-      res <- c(res, list(pc_set))
-    }
-  }
-  res
+get_pc_set_storage_key <- function(pc_set) {
+  assertthat::assert_that(
+    is.numeric(pc_set)
+  )
+  paste(pc_set, collapse = " ")
 }
 
 #' @export
@@ -47,4 +33,27 @@ get_pc_set_alphabet_from_dataset <- function(
     (function(x) x[order(vapply(x, function(y) {
       paste(y, collapse = " ")
     }, character(1)))])
+}
+
+#' @export
+encode_pc_set <- function(pc_set) {
+  encode_pc_sets(list(pc_set))
+}
+
+#' @export
+encode_pc_sets <- function(pc_sets) {
+  keys <- lapply(pc_sets, get_pc_set_storage_key)
+  hash::values(HarmonyUtils::pc_set_alphabet$by_pc_set,
+               keys) %>% unname
+}
+
+#' @export
+decode_pc_sets <- function(pc_sets) {
+  HarmonyUtils::pc_set_alphabet$by_id[pc_sets]
+}
+
+#' @param chord_id Vectorised
+#' @export
+map_chord_id_to_pc_set_id <- function(chord_id) {
+  HarmonyUtils::chord_id_to_pc_set_id_map[chord_id]
 }

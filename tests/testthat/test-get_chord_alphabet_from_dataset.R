@@ -1,5 +1,12 @@
 context("get_chord_alphabet_from_dataset")
 
+test_that("format", {
+  expect_is(
+    get_chord_alphabet_from_dataset(HarmonyCorpora::classical),
+    "integer"
+    )
+})
+
 test_that("chord alphabet invariance to dataset order", {
   expect_equal(
     get_chord_alphabet_from_datasets(list(
