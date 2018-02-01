@@ -1,3 +1,21 @@
+setClass("PCSpectrum",
+         slots = list(
+           values = "numeric"
+         ))
+
+setGeneric("normalise",
+           function(x) {
+             standardGeneric("normalise")
+           })
+setMethod("normalise",
+          signature(x = "PCSpectrum"),
+          function(x) {
+            m <- mean(x@values)
+            if (m == 0) stop("Cannot normalise an empty spectrum")
+            x@values <- x@values / m
+            x
+          })
+
 #' Convert pitch-class set to pitch-class spectrum
 #' Takes a list of pitch classes and outputs a pitch-class spectrum obtained by treating each of the pitch classes as complex tones, after Milne & Holland (2016).
 #' @param num_harmonics The number of harmonics in each modelled complex tone (including the fundamental) (numeric scalar)
