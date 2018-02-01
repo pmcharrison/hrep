@@ -4,6 +4,7 @@ setClass("PCSpectrum",
          ))
 
 #' Normalise an object to unit mass
+#' @export
 setGeneric("normalise",
            function(x) {
              standardGeneric("normalise")
