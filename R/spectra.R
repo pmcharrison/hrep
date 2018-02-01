@@ -1,7 +1,13 @@
 setClass("PCSpectrum",
          slots = list(
-           values = "numeric"
-         ))
+           values = "numeric",
+           normalised = "logical"
+         ),
+         prototype = list(
+           values = numeric(),
+           normalised = FALSE
+         )
+)
 
 #' Normalise an object to unit mass
 #' @export
@@ -15,8 +21,15 @@ setMethod("normalise",
             m <- mean(x@values)
             if (m == 0) stop("Cannot normalise an empty spectrum")
             x@values <- x@values / m
+            x@normalised <- TRUE
             x
           })
+
+#' @export
+setGeneric("is_normalised",
+           function(x) standardGeneric("is_normalised"))
+setMethod("is_normalised", signature(x = "PCSpectrum"),
+          function(x) x@normalised)
 
 #' @export
 setGeneric("get_peak",
