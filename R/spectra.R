@@ -3,6 +3,7 @@ setClass("PCSpectrum",
            values = "numeric"
          ))
 
+#' Normalise an object to unit mass
 setGeneric("normalise",
            function(x) {
              standardGeneric("normalise")
