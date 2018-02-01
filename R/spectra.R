@@ -1,45 +1,11 @@
 setClass("PCSpectrum",
          slots = list(
-           values = "numeric",
-           normalised = "logical"
+           values = "numeric"
          ),
          prototype = list(
-           values = numeric(),
-           normalised = FALSE
+           values = numeric()
          )
 )
-
-#' Normalise an object to unit mass
-#' @export
-setGeneric("normalise",
-           function(x) {
-             standardGeneric("normalise")
-           })
-setMethod("normalise",
-          signature(x = "PCSpectrum"),
-          function(x) {
-            m <- mean(x@values)
-            if (m == 0) stop("Cannot normalise an empty spectrum")
-            x@values <- x@values / m
-            x@normalised <- TRUE
-            x
-          })
-
-#' @export
-setGeneric("is_normalised",
-           function(x) standardGeneric("is_normalised"))
-setMethod("is_normalised", signature(x = "PCSpectrum"),
-          function(x) x@normalised)
-
-#' @export
-setGeneric("get_peak",
-           valueClass = "numeric",
-           function(x) {
-             standardGeneric("get_peak")
-           })
-setMethod("get_peak",
-          signature(x = "PCSpectrum"),
-          function(x) max(x@values))
 
 #' Convert pitch-class set to pitch-class spectrum
 #' Takes a list of pitch classes and outputs a pitch-class spectrum obtained by treating each of the pitch classes as complex tones, after Milne & Holland (2016).
