@@ -38,7 +38,7 @@ convert_pc_set_to_pc_spectrum <- function(
                          sigma = sigma)
       })
       pc_spectrum <- rowSums(pc_spectra)
-      pc_spectrum
+      new("PCSpectrum", values = pc_spectrum)
     }))
 }
 
@@ -46,12 +46,12 @@ convert_pc_set_to_pc_spectrum <- function(
 #' convert_pc_set_to_pc_spectrum.
 #' @export
 cache_convert_pc_set_to_pc_spectrum <- function() {
-  alphabet <- HarmonyUtils::get_pc_set_alphabet()
+  alphabet <- HarmonyUtils::pc_set_alphabet$by_id
   cache_convert_pc_set_to_pc_spectrum <- new.env()
   pb <- txtProgressBar(max = length(alphabet), style = 3)
   for (i in seq_along(alphabet)) {
     pc_set <- alphabet[[i]]
-    HarmonyDistance::convert_pc_set_to_pc_spectrum(
+    HarmonyUtils::convert_pc_set_to_pc_spectrum(
       pc_set, cache = TRUE,
       cache_env = cache_convert_pc_set_to_pc_spectrum
     )
