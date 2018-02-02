@@ -1,3 +1,4 @@
+#' @export
 setClass("PCSpectrum",
          slots = list(
            values = "numeric"
@@ -11,6 +12,18 @@ setClass("PCSpectrum",
 make_pc_spectrum <- function(values) {
   new("PCSpectrum", values = values)
 }
+
+#' @export
+setMethod(
+  "print", signature(x = "PCSpectrum"),
+  function(x, ...) {
+    cat("Pitch-class spectrum ",
+        "(N = ", length(x@values), ", ",
+        "M = ",  mean(x@values, na.rm = FALSE) %>% round(digits = 3), ", ",
+        "SD = ",  sd(x@values, na.rm = FALSE) %>% round(digits = 3), ")",
+        sep = "")
+  }
+)
 
 #' @export
 setMethod(
