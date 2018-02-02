@@ -7,6 +7,25 @@ setClass("PCSpectrum",
          )
 )
 
+#' @export
+make_pc_spectrum <- function(values) {
+  new("PCSpectrum", values = values)
+}
+
+#' @export
+setMethod(
+  "plot", signature(x = "PCSpectrum"),
+  function(x, ...) {
+    n <- length(x@values)
+    pc <- seq(from = 0, to = 12, length.out = n + 1)[- n]
+    plot(pc, x@values,
+         type = "l",
+         xlab = "Pitch class",
+         ylab = "Salience"
+    )
+  }
+)
+
 #' Convert pitch-class set to pitch-class spectrum
 #' Takes a list of pitch classes and outputs a pitch-class spectrum obtained by treating each of the pitch classes as complex tones, after Milne & Holland (2016).
 #' @param num_harmonics The number of harmonics in each modelled complex tone (including the fundamental) (numeric scalar)
@@ -154,4 +173,15 @@ make_complex_tone <- function(
 #' Get complex tone
 #'
 #' Wrapper for \code{make_complex_tone} that implements caching.
+#' @export
 get_complex_tone <- memoise::memoise(make_complex_tone)
+
+#' @export
+get_cosine_similarity <- function(x, y) {
+  numerator <- sum(x * y)
+  denominator <-
+    sqrt(sum(x ^ 2)) *
+    sqrt(sum(y ^ 2))
+  numerator / denominator
+}
+
