@@ -18,6 +18,17 @@ setMethod(
   }
 )
 
+#' @export
+setMethod(
+  "as.integer", signature(x = "Chord"),
+  function(x, ...) {
+    c(
+      48L + get_bass_pc(x),
+      60L + get_non_bass_pc_set(x)
+    )
+  }
+)
+
 #' @param bass_pc Integer scalar corresponding to bass pitch class
 #' @param pc_set Integer vector corresponding to pitch-class set, may optionally include the bass pitch class
 #' @export
