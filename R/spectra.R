@@ -15,12 +15,14 @@ make_pc_spectrum <- function(values) {
 
 #' @export
 setMethod(
-  "print", signature(x = "PCSpectrum"),
-  function(x, ...) {
+  "show", signature(object = "PCSpectrum"),
+  function(object) {
     cat("Pitch-class spectrum ",
-        "(N = ", length(x@values), ", ",
-        "M = ",  mean(x@values, na.rm = FALSE) %>% round(digits = 3), ", ",
-        "SD = ",  sd(x@values, na.rm = FALSE) %>% round(digits = 3), ")",
+        "(N = ", length(object@values), ", ",
+        "M = ",  mean(object@values, na.rm = FALSE) %>%
+          round(digits = 3), ", ",
+        "SD = ",  sd(object@values, na.rm = FALSE) %>%
+          round(digits = 3), ")",
         sep = "")
   }
 )

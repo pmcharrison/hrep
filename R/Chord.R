@@ -9,11 +9,11 @@ setClass(
 
 #' @export
 setMethod(
-  "print", signature(x = "Chord"),
-  function(x, ...) {
+  "show", signature(object = "Chord"),
+  function(object) {
     cat("Chord: ",
-        "[", get_bass_pc(x), "] ",
-        paste(get_non_bass_pc_set(x), collapse = " "),
+        "[", get_bass_pc(object), "] ",
+        paste(get_non_bass_pc_set(object), collapse = " "),
         sep = "")
   }
 )
@@ -43,28 +43,44 @@ make_chord <- function(bass_pc, pc_set) {
   )
 }
 
-#' @export
 setGeneric("get_bass_pc",
            valueClass = "integer",
            function(x) {
              standardGeneric("get_bass_pc")
            })
+#' @export
 setMethod("get_bass_pc", signature(x = "Chord"), function(x) x@bass_pc)
 
 
-#' @export
 setGeneric("get_non_bass_pc_set",
            valueClass = "integer",
            function(x) {
              standardGeneric("get_non_bass_pc_set")
            })
+#' @export
 setMethod("get_non_bass_pc_set", signature(x = "Chord"), function(x) x@non_bass_pc_set)
 
-#' @export
 setGeneric("get_pc_set",
            valueClass = "integer",
            function(x) {
              standardGeneric("get_pc_set")
            })
+#' @export
 setMethod("get_pc_set", signature(x = "Chord"), function(x) c(get_bass_pc(x),
                                                               get_non_bass_pc_set(x)))
+
+setGeneric("transpose", function(x, interval) standardGeneric("transpose"))
+#' @export
+setMethod(
+  "transpose", signature(x = "Chord"),
+  function(x, interval) {
+    assertthat::assert_that(
+      assertthat::is.scalar(interval),
+      is.numeric(interval),
+      interval == round(interval)
+    )
+    interval <- as.integer(interval)
+    x@bass_pc <- (x@bass_pc + interval) %% 12L
+    x@non_bass_pc_set <- sort((x@non_bass_pc_set + interval) %% 12L)
+    x
+  })
