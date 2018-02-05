@@ -93,3 +93,13 @@ setMethod(
     transpose(x, - get_bass_pc(x))
   }
 )
+
+setGeneric("get_transpositions", function(x) standardGeneric("get_transpositions"))
+#' @export
+setMethod(
+  "get_transpositions", signature(x = "Chord"),
+  function(x) {
+    ref <- normalise_bass(x)
+    lapply(0:11, function(int) transpose(ref, int))
+  }
+)
