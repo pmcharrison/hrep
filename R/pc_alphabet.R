@@ -7,26 +7,13 @@ get_pc_set_storage_key <- function(pc_set) {
 }
 
 #' @export
-get_pc_set_alphabet_from_datasets <- function(
-  datasets = list(
-    HarmonyCorpora::classical,
-    HarmonyCorpora::popular,
-    HarmonyCorpora::jazz
-  ), encode = FALSE
-) {
-  datasets %>%
-    (function(x) do.call(c, x)) %>%
-    get_pc_set_alphabet_from_dataset(encode = encode)
-}
-
-#' @export
-get_pc_set_alphabet_from_dataset <- function(
-  dataset, encode = FALSE
+get_pc_set_alphabet_from_corpus <- function(
+  corpus, encode = FALSE
 ) {
   if (encode) {
     stop("Encoding not yet supported for pitch-class sets")
   }
-  get_chord_alphabet_from_dataset(dataset) %>%
+  get_chord_alphabet_from_corpus(corpus) %>%
     decode_chords %>%
     lapply(HarmonyUtils::convert_pitch_to_pc_set) %>%
     unique %>%

@@ -34,28 +34,15 @@ decode_chords <- function(chords) {
 }
 
 #' @export
-get_chord_alphabet_from_dataset <- function(
-  dataset, decode = FALSE
+get_chord_alphabet_from_corpus <- function(
+  corpus, decode = FALSE
 ) {
-  dataset %>%
-    (function(x) do.call(c, x)) %>%
-    unique %>%
-    sort %>%
+  assertthat::assert_that(is(corpus, "Corpus"))
+  corpus %>%
+    (HarmonyCorpora::get_chord_counts) %>%
+    names %>%
+    as.integer %>%
     (function(x) if (decode) decode_chords(x) else x)
-}
-
-#' @export
-get_chord_alphabet_from_datasets <- function(
-  datasets = list(
-    HarmonyCorpora::classical,
-    HarmonyCorpora::popular,
-    HarmonyCorpora::jazz
-  ),
-  decode = FALSE
-) {
-  datasets %>%
-    (function(x) do.call(c, x)) %>%
-    get_chord_alphabet_from_dataset(decode = decode)
 }
 
 #' @export
