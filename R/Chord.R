@@ -84,3 +84,12 @@ setMethod(
     x@non_bass_pc_set <- sort((x@non_bass_pc_set + interval) %% 12L)
     x
   })
+
+setGeneric("normalise_bass", function(x) standardGeneric("normalise_bass"))
+#' @export
+setMethod(
+  "normalise_bass", signature(x = "Chord"),
+  function(x) {
+    transpose(x, - get_bass_pc(x))
+  }
+)
