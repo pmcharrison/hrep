@@ -47,5 +47,5 @@ get_chord_alphabet_from_corpus <- function(
 
 #' @export
 get_chord_alphabet_size <- function() {
-  length(chord_alphabet$by_id)
+  length(HarmonyUtils::chord_alphabet$by_id)
 }
