@@ -29,6 +29,16 @@ setMethod(
   }
 )
 
+#' @export
+setGeneric("as.Chord", function(x) standardGeneric("as.Chord"))
+setMethod("as.Chord", signature(x = "numeric"),
+          function(x) {
+            assertthat::assert_that(length(x) > 0)
+            y <- x %% 12
+            make_chord(y[1], y[-1])
+          })
+setMethod("as.Chord", signature(x = "Chord"), function(x) x)
+
 #' @param bass_pc Integer scalar corresponding to bass pitch class
 #' @param pc_set Integer vector corresponding to pitch-class set, may optionally include the bass pitch class
 #' @export
