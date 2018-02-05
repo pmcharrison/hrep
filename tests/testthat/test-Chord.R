@@ -1,6 +1,6 @@
 context("Chord")
 
-test_that("random example", {
+test_that("random examples", {
   chord <- HarmonyUtils::make_chord(2, c(4, 7))
   expect_equal(
     HarmonyUtils::get_bass_pc(chord), 2
@@ -9,7 +9,12 @@ test_that("random example", {
     HarmonyUtils::get_non_bass_pc_set(chord), c(4, 7)
   )
   expect_equal(
-    HarmonyUtils::get_pc_set(chord), c(2, 4, 7)
+    HarmonyUtils::get_pc_set(chord),
+    c(2, 4, 7)
+  )
+  expect_equal(
+    HarmonyUtils::get_pc_set(make_chord(10, c(3, 4))),
+    c(3, 4, 10)
   )
 })
 

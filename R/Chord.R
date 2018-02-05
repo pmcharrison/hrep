@@ -87,8 +87,8 @@ setGeneric("get_pc_set",
              standardGeneric("get_pc_set")
            })
 #' @export
-setMethod("get_pc_set", signature(x = "Chord"), function(x) c(get_bass_pc(x),
-                                                              get_non_bass_pc_set(x)))
+setMethod("get_pc_set", signature(x = "Chord"), function(x) sort(c(get_bass_pc(x),
+                                                                   get_non_bass_pc_set(x))))
 
 setGeneric("transpose", function(x, interval) standardGeneric("transpose"))
 #' @export
