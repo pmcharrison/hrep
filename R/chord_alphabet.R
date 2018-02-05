@@ -1,9 +1,20 @@
-get_chord_storage_key <- function(chord) {
-  assertthat::assert_that(
-    is.numeric(chord)
-  )
-  paste(chord, collapse = " ")
-}
+setGeneric("get_chord_storage_key",
+           function(chord) standardGeneric("get_chord_storage_key"))
+setMethod(
+  "get_chord_storage_key", signature(chord = "numeric"),
+  function(chord) {
+    paste(chord, collapse = " ")
+  }
+)
+setMethod(
+  "get_chord_storage_key", signature(chord = "Chord"),
+  function(chord) {
+    get_chord_storage_key(as.integer(chord))
+  }
+)
+
+#' @export
+is.Chord <- function(x) is(x, "Chord")
 
 #' @export
 encode_chord <- function(chord) {
@@ -30,7 +41,7 @@ decode_chords <- function(chords) {
   assertthat::assert_that(
     is.numeric(chords)
   )
-  HarmonyUtils::chord_alphabet$by_id[chords]
+  lapply(HarmonyUtils::chord_alphabet$by_id[chords], as.Chord)
 }
 
 #' @export

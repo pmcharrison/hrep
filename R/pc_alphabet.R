@@ -15,7 +15,8 @@ get_pc_set_alphabet_from_corpus <- function(
   }
   get_chord_alphabet_from_corpus(corpus) %>%
     decode_chords %>%
-    lapply(HarmonyUtils::convert_pitch_to_pc_set) %>%
+    lapply(as.integer) %>%
+    lapply(convert_pitch_to_pc_set) %>%
     unique %>%
     (function(x) x[order(vapply(x, function(y) {
       paste(y, collapse = " ")
