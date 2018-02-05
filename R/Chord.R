@@ -18,30 +18,6 @@ setMethod(
   }
 )
 
-#' @export
-setGeneric("get_bass_pc",
-           valueClass = "integer",
-           function(x) {
-             standardGeneric("get_bass_pc")
-           })
-#' @export
-setGeneric("get_non_bass_pc_set",
-           valueClass = "integer",
-           function(x) {
-             standardGeneric("get_non_bass_pc_set")
-           })
-#' @export
-setGeneric("get_pc_set",
-           valueClass = "integer",
-           function(x) {
-             standardGeneric("get_pc_set")
-           })
-
-setMethod("get_bass_pc", signature(x = "Chord"), function(x) x@bass_pc)
-setMethod("get_non_bass_pc_set", signature(x = "Chord"), function(x) x@non_bass_pc_set)
-setMethod("get_pc_set", signature(x = "Chord"), function(x) c(get_bass_pc(x),
-                                                              get_non_bass_pc_set(x)))
-
 #' @param bass_pc Integer scalar corresponding to bass pitch class
 #' @param pc_set Integer vector corresponding to pitch-class set, may optionally include the bass pitch class
 #' @export
@@ -66,3 +42,29 @@ make_chord <- function(bass_pc, pc_set) {
     non_bass_pc_set = non_bass_pc_set
   )
 }
+
+#' @export
+setGeneric("get_bass_pc",
+           valueClass = "integer",
+           function(x) {
+             standardGeneric("get_bass_pc")
+           })
+setMethod("get_bass_pc", signature(x = "Chord"), function(x) x@bass_pc)
+
+
+#' @export
+setGeneric("get_non_bass_pc_set",
+           valueClass = "integer",
+           function(x) {
+             standardGeneric("get_non_bass_pc_set")
+           })
+setMethod("get_non_bass_pc_set", signature(x = "Chord"), function(x) x@non_bass_pc_set)
+
+#' @export
+setGeneric("get_pc_set",
+           valueClass = "integer",
+           function(x) {
+             standardGeneric("get_pc_set")
+           })
+setMethod("get_pc_set", signature(x = "Chord"), function(x) c(get_bass_pc(x),
+                                                              get_non_bass_pc_set(x)))
