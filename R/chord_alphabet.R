@@ -57,3 +57,8 @@ get_chord_alphabet_from_datasets <- function(
     (function(x) do.call(c, x)) %>%
     get_chord_alphabet_from_dataset(decode = decode)
 }
+
+#' @export
+get_chord_alphabet_size <- function() {
+  length(chord_alphabet$by_id)
+}
