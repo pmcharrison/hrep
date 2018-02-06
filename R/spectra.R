@@ -48,7 +48,7 @@ setMethod(
 #' @param sigma The standard deviation of the smoothing Gaussian; default is 6.83, after Milne & Holland (2016)
 #' @export
 #' @references
-#' \insertRef{Milne2016a}{HarmonyDistance}
+#' \insertRef{Milne2016a}{HarmonyUtils}
 convert_pc_set_to_pc_spectrum <- function(
   pc_set,
   array_dim = 1200,
