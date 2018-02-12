@@ -1,3 +1,5 @@
+#' @importClassesFrom HarmonyCorpora Composition
+
 #' @export
 setClass(
   "Chord",
@@ -112,6 +114,19 @@ setMethod(
   "normalise_bass", signature(x = "Chord"),
   function(x) {
     transpose(x, - get_bass_pc(x))
+  }
+)
+setMethod(
+  "normalise_bass", signature(x = "Composition"),
+  function(x) {
+    x %>% as.integer %>% decode_chords %>% lapply(normalise_bass) %>% (HarmonyCorpora::as.Composition)
+  }
+)
+setMethod(
+  "normalise_bass", signature(x = "Corpus"),
+  function(x) {
+    x@compositions <- lapply(x@compositions, normalise_bass)
+    x
   }
 )
 
