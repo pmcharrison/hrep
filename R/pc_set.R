@@ -20,7 +20,7 @@ setMethod(
   "show", signature(object = "pc_set"),
   function(object) {
     cat("Pitch-class set: ",
-        paste(as.integer(object), collapse = " "),
+        paste0("[", paste(as.integer(object), collapse = ", "), "]"),
         sep = "")
   }
 )

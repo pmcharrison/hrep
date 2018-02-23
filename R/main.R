@@ -29,6 +29,14 @@ get_pc_dist <- function(x, y) {
   )
 }
 
+#' Get the ascending distance between two pitch classes.
+#' @param x Vector of pitch classes
+#' @param y Vector of pitch classes
+#' @export
+get_ascending_pc_dist <- function(x, y) {
+  ifelse(x <= y, y - x, y + 12L - x)
+}
+
 #' Convert MIDI note numbers to frequencies
 #'
 #' Converts MIDI note numbers to frequencies (Hz), optionally using stretched octaves. Corresponds to Equation 1 of Parncutt & Strasburger (1994), but with Hz instead of kHz.
