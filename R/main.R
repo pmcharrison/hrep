@@ -18,6 +18,17 @@ convert_pitch_to_pc_set <- function(pitch) {
   sort(unique(convert_pitch_to_pc(pitch)))
 }
 
+#' Get the distance between two pitch classes.
+#' @param x Vector of pitch classes
+#' @param y Vector of pitch classes
+#' @export
+get_pc_dist <- function(x, y) {
+  pmin(
+    abs(x - y),
+    12 - abs(x - y)
+  )
+}
+
 #' Convert MIDI note numbers to frequencies
 #'
 #' Converts MIDI note numbers to frequencies (Hz), optionally using stretched octaves. Corresponds to Equation 1 of Parncutt & Strasburger (1994), but with Hz instead of kHz.
