@@ -12,19 +12,21 @@ new_pc_set <- function(pitch_classes) {
   )
 }
 
-#' @export
+setMethod("as.pc_set", signature(x = "pc_set"), function(x) x)
+
+setMethod("as.pc_set", signature(x = "numeric"),
+          function(x) new_pc_set(x))
+
 setMethod(
   "as.integer", signature(x = "pc_set"),
   function(x, ...) x@pc
 )
 
-#' @export
 setMethod(
   "as.numeric", signature(x = "pc_set"),
   function(x, ...) as.numeric(as.integer(x))
 )
 
-#' @export
 setMethod(
   "show", signature(object = "pc_set"),
   function(object) {

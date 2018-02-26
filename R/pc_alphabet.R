@@ -37,7 +37,8 @@ encode_pc_sets <- function(pc_sets) {
 
 #' @export
 decode_pc_sets <- function(pc_sets) {
-  HarmonyUtils::pc_set_alphabet$by_id[pc_sets]
+  HarmonyUtils::pc_set_alphabet$by_id[pc_sets] %>%
+    lapply(as.pc_set)
 }
 
 #' @param chord_id Vectorised

@@ -14,10 +14,10 @@ Imports: plyr,sets,hash,Rdpack
 RdMacros: Rdpack
 Collate: 
     'checkFun.R'
+    'generics.R'
     'classes.R'
     'chord.R'
     'chord_alphabet.R'
-    'generics.R'
     'get_chord_counts.R'
     'harmony_composition.R'
     'harmony_corpus.R'
