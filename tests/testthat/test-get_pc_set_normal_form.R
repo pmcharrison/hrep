@@ -18,7 +18,17 @@ test_that("examples", {
   )
 })
 
-test_that("transpositions of a pitch-class set should all get the same normal form", {
-  stop("implement me")
-  stop("you need to implement a transpose pitch-class set method")
+test_that("transpositions of a pitch-class set all get the same normal form", {
+  n <- 30
+  for (i in seq_len(n)) {
+    pc_set <- HarmonyUtils::decode_pc_sets(sample(4e3, 1))[[1]]
+    expect_true(
+      0:11 %>%
+        lapply(function(x) transpose(pc_set, x)) %>%
+        lapply(get_pc_set_normal_form) %>%
+        lapply(as.integer) %>%
+        unique %>%
+        assertthat::is.scalar()
+    )
+  }
 })
