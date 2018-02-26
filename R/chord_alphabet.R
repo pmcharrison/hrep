@@ -7,14 +7,14 @@ setMethod(
   }
 )
 setMethod(
-  "get_chord_storage_key", signature(chord = "Chord"),
+  "get_chord_storage_key", signature(chord = "chord"),
   function(chord) {
     get_chord_storage_key(as.integer(chord))
   }
 )
 
 #' @export
-is.Chord <- function(x) is(x, "Chord")
+is.chord <- function(x) is(x, "chord")
 
 #' @export
 encode_chord <- function(chord) {
@@ -41,16 +41,16 @@ decode_chords <- function(chords) {
   assertthat::assert_that(
     is.numeric(chords)
   )
-  lapply(HarmonyUtils::chord_alphabet$by_id[chords], as.Chord)
+  lapply(HarmonyUtils::chord_alphabet$by_id[chords], as.chord)
 }
 
 #' @export
 get_chord_alphabet_from_corpus <- function(
   corpus, decode = FALSE
 ) {
-  assertthat::assert_that(is(corpus, "Corpus"))
+  assertthat::assert_that(is(corpus, "harmony_corpus"))
   corpus %>%
-    (HarmonyCorpora::get_chord_counts) %>%
+    get_chord_counts %>%
     names %>%
     as.integer %>%
     (function(x) if (decode) decode_chords(x) else x)

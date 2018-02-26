@@ -1,8 +1,4 @@
 #' @export
-setClass("pc_set_normal_order",
-         slots = list(pc = "integer"))
-
-#' @export
 setMethod(
   "as.integer", signature(x = "pc_set_normal_order"),
   function(x, ...) x@pc

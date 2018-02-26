@@ -17,11 +17,11 @@ test_that("application to compositions", {
   c3 <- HarmonyUtils::make_chord(1, c(5, 8))
   c4 <- HarmonyUtils::make_chord(2, c(5, 9))
   expect_equal(
-    HarmonyCorpora::as.Composition(list(HarmonyUtils::normalise_bass(c1),
-                                        HarmonyUtils::normalise_bass(c2),
-                                        HarmonyUtils::normalise_bass(c3),
-                                        HarmonyUtils::normalise_bass(c4))),
-    HarmonyUtils::normalise_bass(HarmonyCorpora::as.Composition(list(c1, c2, c3, c4)))
+    as.harmony_composition(list(HarmonyUtils::normalise_bass(c1),
+                                HarmonyUtils::normalise_bass(c2),
+                                HarmonyUtils::normalise_bass(c3),
+                                HarmonyUtils::normalise_bass(c4))),
+    HarmonyUtils::normalise_bass(as.harmony_composition(list(c1, c2, c3, c4)))
   )
 })
 
@@ -30,12 +30,12 @@ test_that("application to corpora", {
   c2 <- HarmonyUtils::make_chord(5, c(7, 9))
   c3 <- HarmonyUtils::make_chord(1, c(5, 8))
   c4 <- HarmonyUtils::make_chord(2, c(5, 9))
-  comp1 <- HarmonyCorpora::as.Composition(list(c1, c2))
-  comp2 <- HarmonyCorpora::as.Composition(list(c3, c4))
-  corp1 <- HarmonyCorpora::as.Corpus(list(comp1, comp2))
+  comp1 <- as.harmony_composition(list(c1, c2))
+  comp2 <- as.harmony_composition(list(c3, c4))
+  corp1 <- as.harmony_corpus(list(comp1, comp2))
   expect_equal(
     HarmonyUtils::normalise_bass(corp1),
-    HarmonyCorpora::as.Corpus(list(HarmonyUtils::normalise_bass(comp1),
+    as.harmony_corpus(list(HarmonyUtils::normalise_bass(comp1),
                                    HarmonyUtils::normalise_bass(comp2)))
   )
 })

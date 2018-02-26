@@ -1,9 +1,4 @@
 #' @export
-setClass("pc_set_normal_form",
-         slots = list(pc = "integer",
-                      shift = "integer"))
-
-#' @export
 setMethod(
   "as.integer", signature(x = "pc_set_normal_form"),
   function(x, ...) x@pc
@@ -23,11 +18,15 @@ setMethod(
         paste0("[", paste(as.integer(object), collapse = ", "), "]\n"),
         sep = "")
     cat("Transposition from original pitch-class set: ",
-        if (object@shift != 0) "-",
         object@shift, "\n",
         sep = "")
   }
 )
+
+#' @export
+setGeneric("get_shift", function(x) standardGeneric("get_shift"))
+setMethod("get_shift", signature(x = "pc_set_normal_form"),
+          function(x) x@shift)
 
 #' @export
 setGeneric("get_pc_set_normal_form", function(x) standardGeneric("get_pc_set_normal_form"),
@@ -46,6 +45,6 @@ setMethod(
     x_int <- as.integer(x)
     shift <- x_int[1]
     res <- if (length(x_int) == 0) x_int else (x_int - shift) %% 12L
-    new("pc_set_normal_form", pc = res, shift = shift)
+    new("pc_set_normal_form", pc = res, shift = - shift)
   }
 )

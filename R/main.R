@@ -1,3 +1,5 @@
+#' @include classes.R
+
 #' Convert pitches to pitch classes
 #'
 #' Converts pitches to pitch classes.

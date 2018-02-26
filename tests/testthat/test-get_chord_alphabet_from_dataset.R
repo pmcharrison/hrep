@@ -1,6 +1,6 @@
 context("get_chord_alphabet_from_corpus")
 
-corpus <- HarmonyCorpora::combine_corpora(
+corpus <- HarmonyUtils::combine_corpora(
   HarmonyCorpora::classical,
   HarmonyCorpora::popular,
   HarmonyCorpora::jazz
@@ -34,5 +34,5 @@ test_that("Format of alphabets", {
                          function(x) is.numeric(x) || is.integer(x))))
 
   chord_alphabet_decoded <- get_chord_alphabet_from_corpus(corpus, decode = TRUE)
-  expect_true(all(sapply(chord_alphabet_decoded, is.Chord)))
+  expect_true(all(sapply(chord_alphabet_decoded, is.chord)))
 })

@@ -1,5 +1,7 @@
 context("transpose")
 
+library(magrittr)
+
 test_that("example 1", {
   c1 <- make_chord(8, c(6, 9, 10))
   c2 <- HarmonyUtils::transpose(c1, 4)
@@ -20,4 +22,17 @@ test_that("reversible", {
     c3 <- transpose(c2, -int)
     expect_equal(c1, c3)
   }
+})
+
+test_that("pc_set", {
+  p1 <- make_pc_set(c(0, 4, 7))
+  expect_is(transpose(p1, 2), "pc_set")
+  expect_equal(
+    transpose(p1, 2) %>% as.integer,
+    c(2, 6, 9)
+  )
+  expect_equal(
+    c(0, 4, 7) %>% make_pc_set %>% transpose(-2) %>% as.integer,
+    c(2, 5, 10)
+  )
 })

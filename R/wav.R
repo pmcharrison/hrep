@@ -8,7 +8,7 @@ setGeneric("save_wav", function(x, file, tempo = 60, sample_rate = 44100, bit_ra
   standardGeneric("save_wav")
 })
 setMethod(
-  "save_wav", signature(x = "Chord"),
+  "save_wav", signature(x = "chord"),
   function(x, file, tempo = 60, sample_rate = 44100, bit_rate = 16,
            num_harmonics = get_midi_params()$num_harmonics,
            roll_off = get_midi_params()$roll_off) {

@@ -1,4 +1,4 @@
-context("Chord")
+context("chord")
 
 test_that("random examples", {
   chord <- HarmonyUtils::make_chord(2, c(4, 7))
