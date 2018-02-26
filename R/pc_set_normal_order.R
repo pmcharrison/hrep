@@ -45,7 +45,7 @@ setMethod(
       for (i in seq(from = n, to = 1L)) {
         # Keep candidates that are the best so far
         best <- intersect(best,
-                          which(dist[, i] == min(dist[, i])))
+                          which(dist[, i] == min(dist[best, i])))
         if (length(best) == 1) break
       }
       if (length(best) == 0) stop("No normal orders found!")
