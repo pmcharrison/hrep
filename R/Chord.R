@@ -23,7 +23,6 @@ setMethod(
 )
 
 #' @export
-setGeneric("as.chord", function(x) standardGeneric("as.chord"))
 setMethod("as.chord", signature(x = "numeric"),
           function(x) {
             assertthat::assert_that(length(x) > 0)
@@ -57,11 +56,6 @@ new_chord <- function(bass_pc, pc_set) {
   )
 }
 
-setGeneric("get_bass_pc",
-           valueClass = "integer",
-           function(x) {
-             standardGeneric("get_bass_pc")
-           })
 #' @export
 setMethod("get_bass_pc", signature(x = "chord"), function(x) x@bass_pc)
 
@@ -74,16 +68,10 @@ setGeneric("get_non_bass_pc_set",
 #' @export
 setMethod("get_non_bass_pc_set", signature(x = "chord"), function(x) x@non_bass_pc_set)
 
-setGeneric("get_pc_set",
-           valueClass = "integer",
-           function(x) {
-             standardGeneric("get_pc_set")
-           })
 #' @export
 setMethod("get_pc_set", signature(x = "chord"), function(x) sort(c(get_bass_pc(x),
                                                                    get_non_bass_pc_set(x))))
 #' @export
-setGeneric("transpose", function(x, interval) standardGeneric("transpose"))
 setMethod(
   "transpose", signature(x = "pc_set"),
   function(x, interval) {
