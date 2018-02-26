@@ -1,4 +1,18 @@
 #' @export
+new_pc_set <- function(pitch_classes) {
+  assertthat::assert_that(
+    is.numeric(pitch_classes),
+    all(pitch_classes == round(pitch_classes)),
+    all(pitch_classes >= 0 & pitch_classes < 12),
+    !anyDuplicated(pitch_classes)
+  )
+  new(
+    "pc_set",
+    pc = sort(as.integer(pitch_classes))
+  )
+}
+
+#' @export
 setMethod(
   "as.integer", signature(x = "pc_set"),
   function(x, ...) x@pc
@@ -19,17 +33,3 @@ setMethod(
         sep = "")
   }
 )
-
-#' @export
-new_pc_set <- function(pitch_classes) {
-  assertthat::assert_that(
-    is.numeric(pitch_classes),
-    all(pitch_classes == round(pitch_classes)),
-    all(pitch_classes >= 0 & pitch_classes < 12),
-    !anyDuplicated(pitch_classes)
-  )
-  new(
-    "pc_set",
-    pc = sort(as.integer(pitch_classes))
-  )
-}
