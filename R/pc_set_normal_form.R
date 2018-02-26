@@ -33,7 +33,7 @@ setGeneric("get_pc_set_normal_form", function(x) standardGeneric("get_pc_set_nor
            valueClass = "pc_set_normal_form")
 setMethod(
   "get_pc_set_normal_form", signature(x = "numeric"),
-  function(x) x %>% make_pc_set %>% get_pc_set_normal_form
+  function(x) x %>% new_pc_set %>% get_pc_set_normal_form
 )
 setMethod(
   "get_pc_set_normal_form", signature(x = "pc_set"),

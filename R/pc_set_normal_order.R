@@ -25,7 +25,7 @@ setGeneric("get_pc_set_normal_order", function(x) standardGeneric("get_pc_set_no
            valueClass = "pc_set_normal_order")
 setMethod(
   "get_pc_set_normal_order", signature(x = "numeric"),
-  function(x) get_pc_set_normal_order(make_pc_set(x))
+  function(x) get_pc_set_normal_order(new_pc_set(x))
 )
 setMethod(
   "get_pc_set_normal_order", signature(x = "pc_set"),

@@ -7,5 +7,5 @@
 get_complex_tone(fundamental_pc, array_dim, num_harmonics, rho, sigma)
 }
 \description{
-Wrapper for \code{make_complex_tone} that implements caching.
+Wrapper for \code{new_complex_tone} that implements caching.
 }

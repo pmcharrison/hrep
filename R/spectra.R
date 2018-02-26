@@ -9,7 +9,7 @@ setClass("PCSpectrum",
 )
 
 #' @export
-make_pc_spectrum <- function(values) {
+new_pc_spectrum <- function(values) {
   new("PCSpectrum", values = values)
 }
 
@@ -106,7 +106,7 @@ cache_convert_pc_set_to_pc_spectrum <- function() {
 #' Make Gaussian spectral template
 #'
 #' Makes a Gaussian spectral template with unit mass, centred on 0, with standard deviation <sigma>. The template will be truncated to zero for points <truncation-point> standard deviations or further away from the mean, after Milne's implementation.
-make_gaussian_spectral_template <- function(array_dim, sigma, truncation_point = 12) {
+new_gaussian_spectral_template <- function(array_dim, sigma, truncation_point = 12) {
   assertthat::assert_that(
     array_dim == round(array_dim),
     array_dim >= 3,
@@ -123,7 +123,7 @@ make_gaussian_spectral_template <- function(array_dim, sigma, truncation_point =
   template
 }
 
-make_gaussian_spectrum <- function(
+new_gaussian_spectrum <- function(
   array_dim, mean, mass, sigma, truncation_point = 12
 ) {
   assertthat::assert_that(
@@ -133,7 +133,7 @@ make_gaussian_spectrum <- function(
     mean <= array_dim
   )
   origin <- round(mean)
-  template <- make_gaussian_spectral_template(
+  template <- new_gaussian_spectral_template(
     array_dim, sigma, truncation_point = truncation_point
   )
   scaled <- template * mass
@@ -147,7 +147,7 @@ make_gaussian_spectrum <- function(
 #'
 #' Returns an array describing the pitch-class spectrum for a given complex tone.
 #' @param num_harmonics Number of harmonics, including the fundamental
-make_complex_tone <- function(
+new_complex_tone <- function(
   fundamental_pc,
   array_dim,
   num_harmonics,
@@ -178,7 +178,7 @@ make_complex_tone <- function(
                       }, numeric(1))
   spectra <- mapply(
     function(pc, salience) {
-      make_gaussian_spectrum(array_dim, pc, salience, sigma)
+      new_gaussian_spectrum(array_dim, pc, salience, sigma)
     }, pcs, saliences, SIMPLIFY = TRUE
   )
   spectrum <- rowSums(spectra)
@@ -187,9 +187,9 @@ make_complex_tone <- function(
 
 #' Get complex tone
 #'
-#' Wrapper for \code{make_complex_tone} that implements caching.
+#' Wrapper for \code{new_complex_tone} that implements caching.
 #' @export
-get_complex_tone <- memoise::memoise(make_complex_tone)
+get_complex_tone <- memoise::memoise(new_complex_tone)
 
 #' @export
 get_cosine_similarity <- function(x, y) {

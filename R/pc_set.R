@@ -21,7 +21,7 @@ setMethod(
 )
 
 #' @export
-make_pc_set <- function(pitch_classes) {
+new_pc_set <- function(pitch_classes) {
   assertthat::assert_that(
     is.numeric(pitch_classes),
     all(pitch_classes == round(pitch_classes)),

@@ -28,14 +28,14 @@ setMethod("as.chord", signature(x = "numeric"),
           function(x) {
             assertthat::assert_that(length(x) > 0)
             y <- x %% 12
-            make_chord(y[1], y[-1])
+            new_chord(y[1], y[-1])
           })
 setMethod("as.chord", signature(x = "chord"), function(x) x)
 
 #' @param bass_pc Integer scalar corresponding to bass pitch class
 #' @param pc_set Integer vector corresponding to pitch-class set, may optionally include the bass pitch class
 #' @export
-make_chord <- function(bass_pc, pc_set) {
+new_chord <- function(bass_pc, pc_set) {
   assertthat::assert_that(
     is.numeric(pc_set),
     all(pc_set == round(pc_set)),
