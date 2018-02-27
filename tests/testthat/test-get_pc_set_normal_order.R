@@ -23,4 +23,12 @@ test_that("various", {
     get_pc_set_normal_order(c(0, 2, 10)) %>% as.integer,
     c(10, 0, 2)
   )
+  expect_equal(
+    get_pc_set_normal_order(new_pc_set(0)) %>% as.integer,
+    0
+  )
+  expect_equal(
+    get_pc_set_normal_order(new_pc_set(5)) %>% as.integer,
+    5
+  )
 })

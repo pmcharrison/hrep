@@ -16,6 +16,14 @@ test_that("examples", {
     get_pc_set_normal_form(c(0, 3, 6, 7, 8, 10)) %>% as.integer,
     c(0, 1, 2, 4, 6, 9)
   )
+  expect_equal(
+    get_pc_set_normal_form(new_pc_set(0)) %>% as.integer,
+    0
+  )
+  expect_equal(
+    get_pc_set_normal_form(new_pc_set(5)) %>% as.integer,
+    0
+  )
 })
 
 test_that("transposition", {

@@ -40,7 +40,20 @@ encode_pc_sets <- function(pc_sets) {
 }
 
 #' @export
+decode_pc_set <- function(pc_set) {
+  decode_pc_sets(pc_set)[[1]]
+}
+
+#' @export
 decode_pc_sets <- function(pc_sets) {
+  max_id <- length(HarmonyUtils::pc_set_alphabet$by_id)
+  if (!is.numeric(pc_sets) ||
+      any(is.na(pc_sets) |
+          pc_sets < 1 |
+          pc_sets > max_id |
+          round(pc_sets) != pc_sets)) {
+    stop("All pc_set ids must be integers between 1 and ", max_id, ".")
+  }
   HarmonyUtils::pc_set_alphabet$by_id[pc_sets] %>%
     lapply(as.pc_set)
 }

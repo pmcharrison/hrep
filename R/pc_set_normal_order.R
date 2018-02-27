@@ -1,16 +1,11 @@
-#' @export
 setMethod(
   "as.integer", signature(x = "pc_set_normal_order"),
   function(x, ...) x@pc
 )
-
-#' @export
 setMethod(
   "as.numeric", signature(x = "pc_set_normal_order"),
   function(x, ...) as.numeric(as.integer(x))
 )
-
-#' @export
 setMethod(
   "show", signature(object = "pc_set_normal_order"),
   function(object) {
@@ -19,10 +14,6 @@ setMethod(
         sep = "")
   }
 )
-
-#' @export
-setGeneric("get_pc_set_normal_order", function(x) standardGeneric("get_pc_set_normal_order"),
-           valueClass = "pc_set_normal_order")
 setMethod(
   "get_pc_set_normal_order", signature(x = "numeric"),
   function(x) get_pc_set_normal_order(new_pc_set(x))
@@ -38,7 +29,7 @@ setMethod(
       cycles <- cycle_vector(x_int)
       dist <- apply(cycles, 2, function(y) {
         get_ascending_pc_dist(cycles[, 1], y)
-      })
+      }) %>% as.matrix
       best <- seq_len(n)
       # First look at the distance between first and last PCs,
       # then between first and second-last, etc...
