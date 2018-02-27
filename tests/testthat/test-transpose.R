@@ -37,7 +37,7 @@ test_that("pc_set", {
   )
 })
 
-test_that("+ alias for pc_set", {
+test_that("+/- alias for pc_set", {
   for (n in 1:30) {
     pc_set <- decode_pc_sets(sample(4e3, 1))[[1]]
     int <- sample(12L, 1L) - 1L
@@ -49,10 +49,14 @@ test_that("+ alias for pc_set", {
       pc_set + int,
       int + pc_set
     )
+    expect_equal(
+      transpose(pc_set, - int),
+      pc_set - int
+    )
   }
 })
 
-test_that("+ alias for chord", {
+test_that("+/- alias for chord", {
   for (n in 1:30) {
     chord <- decode_chord(sample(2e4, 1))
     int <- sample(12L, 1L) - 1L
@@ -63,6 +67,10 @@ test_that("+ alias for chord", {
     expect_equal(
       chord + int,
       int + chord
+    )
+    expect_equal(
+      transpose(chord, - int),
+      chord - int
     )
   }
 })
