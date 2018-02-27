@@ -36,3 +36,18 @@ test_that("pc_set", {
     c(2, 5, 10)
   )
 })
+
+test_that("+ alias for pc_set", {
+  for (n in 1:30) {
+    pc_set <- decode_pc_sets(sample(4e3, 1))[[1]]
+    int <- sample(12L, 1L) - 1L
+    expect_equal(
+      transpose(pc_set, int),
+      pc_set + int
+    )
+    expect_equal(
+      pc_set + int,
+      int + pc_set
+    )
+  }
+})

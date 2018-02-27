@@ -13,11 +13,8 @@ setMethod(
 )
 
 # Creation ####
-
-# Coercion ####
-setMethod("as.harmony_corpus", signature(x = "harmony_corpus"), function(x) x)
 setMethod(
-  "as.harmony_corpus", signature(x = "list"),
+  "new_harmony_corpus", signature(x = "list"),
   function(x) {
     for (i in seq_along(x)) {
       x[[i]] <- as.harmony_composition(x[[i]])
@@ -25,14 +22,17 @@ setMethod(
     new("harmony_corpus", compositions = x)
   }
 )
-#' @export
+
+# Coercion ####
 setMethod(
-  "as.list", signature(x = "harmony_corpus"),
-  function(x, ...) x@compositions
+  "as.vector", signature(x = "harmony_corpus"),
+  function(x, mode = "any") x@compositions
 )
+setMethod("as.harmony_corpus", signature(x = "harmony_corpus"), function(x) x)
+setMethod("as.harmony_corpus", signature(x = "list"),
+          function(x) new_harmony_corpus(x))
 
 # Combination ####
-
 #' @export
 combine_corpora <- function(...) {
   x <- list(...)

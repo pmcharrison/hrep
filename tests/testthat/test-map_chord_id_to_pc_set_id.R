@@ -15,10 +15,18 @@ test_that("Example results", {
     list(c(48, 64, 67), c(48, 63, 67)) %>%
       encode_chords %>%
       map_chord_id_to_pc_set_id %>%
-      decode_pc_sets,
+      decode_pc_sets %>%
+      lapply(as.numeric),
     list(
       c(0, 4, 7),
       c(0, 3, 7)
     )
+  )
+})
+
+test_that("treatment of NA values", {
+  expect_equal(
+    map_chord_id_to_pc_set_id(NA),
+    as.integer(NA)
   )
 })

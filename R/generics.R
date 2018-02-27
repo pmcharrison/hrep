@@ -1,8 +1,16 @@
+# Creation ####
+#' @export
+setGeneric("new_harmony_corpus",
+           function(x) standardGeneric("new_harmony_corpus"))
+#' @export
+setGeneric("new_harmony_composition",
+           function(x) standardGeneric("new_harmony_composition"))
+
 # Coercion ####
 #' @export
 setGeneric("as.harmony_corpus",
            function(x) standardGeneric("as.harmony_corpus"))
-#' @export
+#' #' @export
 setGeneric("as.harmony_composition",
            function(x) standardGeneric("as.harmony_composition"))
 #' @export
@@ -24,8 +32,12 @@ setGeneric("get_pc_set", valueClass = "integer",
 #' @export
 setGeneric("get_transpositions",
            function(x) standardGeneric("get_transpositions"))
+#' @export
 setGeneric("get_non_bass_pc_set", valueClass = "integer",
            function(x) standardGeneric("get_non_bass_pc_set"))
+#' @export
+setGeneric("get_pc_set_storage_key", valueClass = "character",
+           function(pc_set) standardGeneric("get_pc_set_storage_key"))
 
 # Actions ####
 #' @export

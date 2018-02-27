@@ -11,9 +11,19 @@ setMethod(
   }
 )
 
-# Coercion ####
+# Creation ####
+setMethod("new_harmony_composition", signature(x = "numeric"),
+          function(x) {
+            assertthat::assert_that(all(x == round(x)))
+            new("harmony_composition",
+                events = as.integer(x))
+          })
+setMethod("new_harmony_composition", signature(x = "list"),
+          function(x) {
+            new_harmony_composition(encode_chords(x))
+          })
 
-#' @export
+# Coercion ####
 setMethod(
   "as.integer",
   signature(x = "harmony_composition"),

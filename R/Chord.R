@@ -74,6 +74,14 @@ setMethod(
   }
 )
 setMethod(
+  "+", signature(e1 = "pc_set", e2 = "numeric"),
+  function(e1, e2) transpose(x = e1, interval = e2)
+)
+setMethod(
+  "+", signature(e1 = "numeric", e2 = "pc_set"),
+  function(e1, e2) transpose(interval = e1, x = e2)
+)
+setMethod(
   "transpose", signature(x = "chord"),
   function(x, interval) {
     assertthat::assert_that(
