@@ -51,3 +51,18 @@ test_that("+ alias for pc_set", {
     )
   }
 })
+
+test_that("+ alias for chord", {
+  for (n in 1:30) {
+    chord <- decode_chord(sample(2e4, 1))
+    int <- sample(12L, 1L) - 1L
+    expect_equal(
+      transpose(chord, int),
+      chord + int
+    )
+    expect_equal(
+      chord + int,
+      int + chord
+    )
+  }
+})

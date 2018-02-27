@@ -29,4 +29,5 @@ Collate:
     'pc_set_normal_form.R'
     'pc_set_normal_order.R'
     'spectra.R'
+    'transpose.R'
     'wav.R'
