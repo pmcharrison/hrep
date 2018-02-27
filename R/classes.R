@@ -31,7 +31,7 @@ setClass(
 #' @export
 setClass("pc_set_normal_form",
          slots = list(pc = "integer",
-                      shift = "integer"))
+                      transposition = "integer"))
 
 #' @export
 setClass("pc_set_normal_order",
