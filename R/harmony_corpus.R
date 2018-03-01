@@ -54,6 +54,14 @@ setMethod("num_events", signature(x = "harmony_corpus"),
             sum(vapply(x@compositions, num_events, integer(1)))
           })
 
+# Subsetting ####
+
+setMethod("[", signature(x = "harmony_corpus"),
+          function(x, i, ...) {
+            x@compositions <- x@compositions[i]
+            x
+          })
+
 # Cruft ####
 
 #' # export
