@@ -54,8 +54,8 @@ decode_pc_sets <- function(pc_sets) {
           round(pc_sets) != pc_sets)) {
     stop("All pc_set ids must be integers between 1 and ", max_id, ".")
   }
-  HarmonyUtils::pc_set_alphabet$by_id[pc_sets] %>%
-    lapply(as.pc_set)
+  lapply(HarmonyUtils::pc_set_alphabet$by_id[pc_sets],
+         new_pc_set)
 }
 
 #' @param chord_id Vectorised
