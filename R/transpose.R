@@ -1,44 +1,44 @@
 # pc_set ####
 
 #' @export
-transpose <- function(x, interval, safe = TRUE) UseMethod(x)
+transpose <- function(x, interval, safe = TRUE) UseMethod("transpose")
+
+check_is_valid_interval <- function(interval) {
+  stopifnot(identical(length(interval), 1L))
+  stopifnot(is.numeric(interval))
+  stopifnot(all.equal(interval, round(interval)))
+}
 
 #' @export
 transpose.pc_set <- function(x, interval, safe = TRUE) {
   if (safe) {
-    assertthat::assert_that(
-      assertthat::is.scalar(interval),
-      is.numeric(interval),
-      interval == round(interval)
-    )
-    interval <- as.integer(interval)
+    check_is_valid_interval(interval)
   }
-  (x + interval) %% 12L
+  x_int <- as.integer(x)
+  interval <- as.integer(interval)
+  new_pc_set(sort((x_int + interval) %% 12L),
+             safe = safe)
 }
 
-# chord ####
-setMethod(
-  "transpose", signature(x = "chord"),
-  function(x, interval) {
-    assertthat::assert_that(
-      assertthat::is.scalar(interval),
-      is.numeric(interval),
-      interval == round(interval)
-    )
+#' @export
+transpose.chord <- function(x, interval, safe = TRUE) {
+  if (safe) {
+    check_is_valid_interval(interval)
     interval <- as.integer(interval)
-    x@bass_pc <- (x@bass_pc + interval) %% 12L
-    x@non_bass_pc_set <- sort((x@non_bass_pc_set + interval) %% 12L)
-    x
-  })
-setMethod(
-  "+", signature(e1 = "chord", e2 = "numeric"),
-  function(e1, e2) transpose(x = e1, interval = e2)
-)
-setMethod(
-  "+", signature(e1 = "numeric", e2 = "chord"),
-  function(e1, e2) transpose(interval = e1, x = e2)
-)
-setMethod(
-  "-", signature(e1 = "chord", e2 = "numeric"),
-  function(e1, e2) transpose(x = e1, interval = - e2)
-)
+  }
+  x <- (x + interval) %% 12L
+  if (length(x) > 1) {
+    x[- 1] <- sort(x[- 1])
+  }
+  x
+}
+
+#' @export
+`+.pc_set` <- function(x, y) {
+  transpose(x, y)
+}
+
+#' @export
+`+.chord` <- function(x, y) {
+  transpose(x, y)
+}

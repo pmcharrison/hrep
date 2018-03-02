@@ -1,50 +1,36 @@
 #' @export
-setMethod(
-  "as.integer", signature(x = "pc_set_normal_form"),
-  function(x, ...) x@pc
-)
+print.pc_set_normal_form <- function(x, ...) {
+  cat("Pitch-class set (normal form): ",
+      paste0("[", paste(as.integer(x), collapse = ", "), "]\n"),
+      sep = "")
+  cat("Transposition from original pitch-class set: ",
+      get_transposition(x), "\n",
+      sep = "")
+}
 
 #' @export
-setMethod(
-  "as.numeric", signature(x = "pc_set_normal_form"),
-  function(x, ...) as.numeric(as.integer(x))
-)
+get_transposition <- function(x) UseMethod("get_transposition")
+#' @export
+get_transposition.pc_set_normal_form <- function(x) attr(x, "transposition")
 
 #' @export
-setMethod(
-  "show", signature(object = "pc_set_normal_form"),
-  function(object) {
-    cat("Pitch-class set (normal form): ",
-        paste0("[", paste(as.integer(object), collapse = ", "), "]\n"),
-        sep = "")
-    cat("Transposition from original pitch-class set: ",
-        object@transposition, "\n",
-        sep = "")
+get_pc_set_normal_form <- function(x) UseMethod("get_pc_set_normal_form")
+#' @export
+get_pc_set_normal_form.numeric <- function(x) {
+  get_pc_set_normal_form(new_pc_set(x))
+}
+#' @export
+get_pc_set_normal_form.pc_set <- function(x) {
+  get_pc_set_normal_form(get_pc_set_normal_order(x))
+}
+#' @export
+get_pc_set_normal_form.pc_set_normal_order <- function(x) {
+  x_int <- as.integer(x)
+  transposition <- x_int[1]
+  res <- if (length(x_int) == 0) x_int else {
+    (x_int - transposition) %% 12L
   }
-)
-
-#' @export
-setGeneric("get_transposition", function(x) standardGeneric("get_transposition"))
-setMethod("get_transposition", signature(x = "pc_set_normal_form"),
-          function(x) x@transposition)
-
-#' @export
-setGeneric("get_pc_set_normal_form", function(x) standardGeneric("get_pc_set_normal_form"),
-           valueClass = "pc_set_normal_form")
-setMethod(
-  "get_pc_set_normal_form", signature(x = "numeric"),
-  function(x) x %>% new_pc_set %>% get_pc_set_normal_form
-)
-setMethod(
-  "get_pc_set_normal_form", signature(x = "pc_set"),
-  function(x) x %>% get_pc_set_normal_order %>% get_pc_set_normal_form
-)
-setMethod(
-  "get_pc_set_normal_form", signature(x = "pc_set_normal_order"),
-  function(x) {
-    x_int <- as.integer(x)
-    transposition <- x_int[1]
-    res <- if (length(x_int) == 0) x_int else (x_int - transposition) %% 12L
-    new("pc_set_normal_form", pc = res, transposition = - transposition)
-  }
-)
+  class(res <- "pc_set_normal_form")
+  attr(res, "transposition") <- - transposition
+  res
+}
