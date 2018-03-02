@@ -1,12 +1,4 @@
 #' @export
-setClass(
-  "harmony_corpus",
-  slots = list(
-    compositions = "list"
-  )
-)
-
-#' @export
 setClass("pc_set_normal_form",
          slots = list(pc = "integer",
                       transposition = "integer"))

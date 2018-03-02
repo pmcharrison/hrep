@@ -1,6 +1,6 @@
 # Properties ####
 #' @export
-setGeneric("num_compositions", function(x) standardGeneric("num_compositions"))
+num_compositions <- function(x) UseMethod("num_compositions")
 #' @export
 num_events <- function(x) UseMethod("num_events")
 #' @export

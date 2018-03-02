@@ -1,76 +1,60 @@
-# Display ####
+# Creation ####
 
 #' @export
-setMethod(
-  "show", signature(object = "harmony_corpus"),
-  function(object) {
-    cat("---\n")
-    cat("A harmony corpus\n\n")
-    cat("Num. compositions =", num_compositions(object), "\n")
-    cat("Num. events =", num_events(object), "\n")
-    cat("---\n")
+new_harmony_corpus <- function(x) UseMethod("new_harmony_corpus")
+#' @export
+new_harmony_corpus.list <- function(x) {
+  for (i in seq_along(x)) {
+    x[[i]] <- as.harmony_composition(x[[i]])
   }
-)
-
-# Creation ####
-setMethod(
-  "new_harmony_corpus", signature(x = "list"),
-  function(x) {
-    for (i in seq_along(x)) {
-      x[[i]] <- as.harmony_composition(x[[i]])
-    }
-    new("harmony_corpus", compositions = x)
-  }
-)
+  class(x) <- "harmony_corpus"
+  x
+}
 
 # Coercion ####
-setMethod(
-  "as.vector", signature(x = "harmony_corpus"),
-  function(x, mode = "any") x@compositions
-)
-setMethod("as.harmony_corpus", signature(x = "harmony_corpus"), function(x) x)
-setMethod("as.harmony_corpus", signature(x = "list"),
-          function(x) new_harmony_corpus(x))
+#' @export
+as.list.harmony_corpus <- function(x) {
+  class(x) <- "list"
+  x
+}
+#' @export
+as.harmony_corpus <- function(x) UseMethod("as.harmony_corpus")
+#' @export
+as.harmony_corpus.harmony_corpus <- function(x) x
+#' @export
+as.harmony_corpus.list <- function(x) new_harmony_corpus.list(x)
+
+# Subsetting ####
+#' @export
+`[.harmony_corpus` <- function(x, i) {
+  new_harmony_corpus(as.list(x)[i])
+}
+#' @export
+`[<-.harmony_corpus` <- function(x, i, value) {
+  stop("Assignment with [ ] not valid for harmony_corpus objects.\n",
+       "You can update individual compositions with the [[ ]] operator, however.")
+}
 
 # Combination ####
 #' @export
-combine_corpora <- function(...) {
-  x <- list(...)
-  assertthat::assert_that(
-    is.list(x),
-    all(sapply(x, function(y) is(y, "harmony_corpus")))
-  )
-  lapply(x, function(y) y@compositions) %>%
-    (function(z) do.call(c, z)) %>%
-    as.harmony_corpus
+c.harmony_corpus <- function(...) {
+  new_harmony_corpus(do.call(c, lapply(list(...), as.list)))
 }
 
 # Properties ####
+#' @export
+num_compositions.harmony_corpus <- function(x) length(x)
+#' @export
+num_events.harmony_corpus <- function(x) {
+  sum(vapply(x, num_events, integer(1)))
+}
 
-setMethod("num_compositions", signature(x = "harmony_corpus"),
-          function(x) length(x@compositions))
-setMethod("num_events", signature(x = "harmony_corpus"),
-          function(x) {
-            sum(vapply(x@compositions, num_events, integer(1)))
-          })
-
-# Subsetting ####
-
-setMethod("[", signature(x = "harmony_corpus"),
-          function(x, i, ...) {
-            x@compositions <- x@compositions[i]
-            x
-          })
-
-# Cruft ####
-
-#' # export
-# setGeneric("declass", function(x) standardGeneric("declass"))
-# setMethod("declass", signature(x = "harmony_corpus"),
-#           function(x) {
-#             l <- x@compositions
-#             for (i in seq_along(l)) {
-#               l[[i]] <- declass(l[[i]])
-#             }
-#             l
-#           })
+# Display ####
+#' @export
+print.harmony_corpus <- function(x, ...) {
+  cat("---\n")
+  cat("A harmony corpus\n\n")
+  cat("Num. compositions =", num_compositions(x), "\n")
+  cat("Num. events =", num_events(x), "\n")
+  cat("---\n")
+}
