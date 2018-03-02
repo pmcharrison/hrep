@@ -1,14 +1,7 @@
-#' @include classes.R
-#' @include generics.R
-
-setMethod(
-  "get_pc_set_storage_key", signature(pc_set = "pc_set"),
-  function(pc_set) get_pc_set_storage_key(as.numeric(pc_set))
-)
-setMethod(
-  "get_pc_set_storage_key", signature(pc_set = "numeric"),
-  function(pc_set) paste(pc_set, collapse = " ")
-)
+get_pc_set_storage_key <- function(pc_set) {
+  if (!is(pc_set, "pc_set")) stop()
+  paste(as.integer(pc_set), collapse = " ")
+}
 
 #' @export
 get_pc_set_alphabet_from_corpus <- function(
@@ -35,8 +28,7 @@ encode_pc_set <- function(pc_set) {
 #' @export
 encode_pc_sets <- function(pc_sets) {
   keys <- lapply(pc_sets, get_pc_set_storage_key)
-  hash::values(HarmonyUtils::pc_set_alphabet$by_pc_set,
-               keys) %>% unname
+  unname(hash::values(HarmonyUtils::pc_set_alphabet$by_pc_set, keys))
 }
 
 #' @export

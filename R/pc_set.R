@@ -34,6 +34,6 @@ as.pc_set.numeric <- function(x, safe = TRUE, ...) {
 #' @export
 print.pc_set <- function(x, ...) {
   cat("Pitch-class set: ",
-      paste0("[", paste(x, collapse = ", "), "]"),
+      paste0("[", paste(x, collapse = ", "), "]\n"),
       sep = "")
 }

@@ -1,25 +1,24 @@
-#' @include classes.R
-#' @include generics.R
-
 #' @param bass_pc Integer scalar corresponding to bass pitch class
 #' @param pc_set Integer vector corresponding to pitch-class set, may optionally include the bass pitch class
 #' @export
 new_chord <- function(bass_pc, non_bass_pc_set, safe = TRUE) {
   if (safe) {
-  assertthat::assert_that(
-    is.numeric(non_bass_pc_set),
-    all(non_bass_pc_set == round(non_bass_pc_set)),
-    all(non_bass_pc_set >= 0 & non_bass_pc_set < 12),
-    !anyDuplicated(non_bass_pc_set),
-    is.numeric(bass_pc),
-    bass_pc == round(bass_pc),
-    bass_pc >= 0,
-    bass_pc < 12,
-    length(bass_pc) == 1,
-    !bass_pc %in% non_bass_pc_set
-  )
-  bass_pc <- as.integer(bass_pc)
-  non_bass_pc_set <- sort(non_bass_pc_set)
+    if (!is.numeric(non_bass_pc_set)) stop("non_bass_pc_set must be numeric")
+    if (!all(non_bass_pc_set == round(non_bass_pc_set))) stop(
+      "non_bass_pc_set must be all whole numbers")
+    if (!all(non_bass_pc_set >= 0 & non_bass_pc_set < 12)) stop(
+      "non_bass_pc_set must be within 0 and 12")
+    if (anyDuplicated(non_bass_pc_set)) stop(
+      "No duplicates allowed in non_bass_pc_set")
+    if (!is.numeric(bass_pc)) stop("bass_pc must be numeric")
+    if (!bass_pc == round(bass_pc)) stop("bass_pc must be a whole number")
+    if (!bass_pc >= 0) stop("bass_pc must be 0 or greater")
+    if (!bass_pc < 12) stop("bass_pc must be smaller than 12")
+    if (!length(bass_pc) == 1) stop("bass_pc must be length 1")
+    if (bass_pc %in% non_bass_pc_set) stop(
+      "bass_pc cannot be contained in non_bass_pc_set")
+    bass_pc <- as.integer(bass_pc)
+    non_bass_pc_set <- sort(non_bass_pc_set)
   }
   x <- c(bass_pc, non_bass_pc_set)
   class(x) <- "chord"
@@ -30,7 +29,7 @@ new_chord <- function(bass_pc, non_bass_pc_set, safe = TRUE) {
 print.chord <- function(x, ...) {
   cat("Chord: ",
       "[", get_bass_pc(x), "] ",
-      paste(get_non_bass_pc_set(x), collapse = " "),
+      paste(get_non_bass_pc_set(x), collapse = " "), "\n",
       sep = "")
 }
 
