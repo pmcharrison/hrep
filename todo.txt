@@ -1,2 +1,3 @@
+- move remaining classes to S3
 - move through every source file below chord.R and standardise to S3
 - move through every source file again and write tests

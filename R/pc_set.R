@@ -18,7 +18,7 @@ as.pc_set <- function(x, safe = TRUE) UseMethod("as.pc_set")
 #' @export
 as.pc_set.pc_set <- function(x, safe = TRUE) {
   if (safe) {
-    x <- new_pc_set(as.numeric(x), safe = TRUE)
+    x <- new_pc_set(as.integer(x), safe = TRUE)
   }
   x
 }
@@ -34,6 +34,6 @@ as.pc_set.numeric <- function(x, safe = TRUE, ...) {
 #' @export
 print.pc_set <- function(x, ...) {
   cat("Pitch-class set: ",
-      paste0("[", paste(as.integer(x), collapse = ", "), "]"),
+      paste0("[", paste(x, collapse = ", "), "]"),
       sep = "")
 }
