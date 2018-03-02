@@ -6,7 +6,7 @@ print.pc_set_normal_order <- function(x, ...) {
 }
 
 get_pc_set_normal_order <- function(x) UseMethod("get_pc_set_normal_order")
-get_pc_set_normal_order.pc_set < function(x) {
+get_pc_set_normal_order.pc_set <- function(x) {
   get_pc_set_normal_order(as.integer(x))
 }
 get_pc_set_normal_order.numeric <- function(x) {

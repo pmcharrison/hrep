@@ -52,6 +52,8 @@ print.harmony_composition <- function(x, ...) {
 
 # Other ####
 #' @export
+num_events.harmony_composition <- function(x) length(x)
+#' @export
 normalise_bass.harmony_composition <- function(x) {
   chords_int <- as.integer(x)
   chords_decoded <- decode_chords(chords_int)
