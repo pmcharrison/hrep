@@ -53,6 +53,5 @@ decode_pc_sets <- function(pc_sets) {
 #' @param chord_id Vectorised
 #' @export
 map_chord_id_to_pc_set_id <- function(chord_id) {
-  assertthat::assert_that(all(na.omit(chord_id) == round(na.omit(chord_id))))
   HarmonyUtils::chord_id_to_pc_set_id_map[as.integer(chord_id)]
 }

@@ -209,4 +209,3 @@ get_cosine_similarity <- function(x, y) {
     sqrt(sum(y ^ 2))
   numerator / denominator
 }
-

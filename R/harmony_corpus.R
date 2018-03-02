@@ -1,5 +1,4 @@
 # Creation ####
-
 #' @export
 new_harmony_corpus <- function(x) UseMethod("new_harmony_corpus")
 #' @export
@@ -57,4 +56,10 @@ print.harmony_corpus <- function(x, ...) {
   cat("Num. compositions =", num_compositions(x), "\n")
   cat("Num. events =", num_events(x), "\n")
   cat("---\n")
+}
+
+# Other ####
+#' @export
+normalise_bass.harmony_corpus <- function(x) {
+  new_harmony_corpus(lapply(as.list(x), normalise_bass))
 }

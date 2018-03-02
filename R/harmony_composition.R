@@ -49,3 +49,12 @@ print.harmony_composition <- function(x, ...) {
   cat("Num. events =", num_events(x), "\n")
   cat("---\n")
 }
+
+# Other ####
+#' @export
+normalise_bass.harmony_composition <- function(x) {
+  chords_int <- as.integer(x)
+  chords_decoded <- decode_chords(chords_int)
+  chords_normalised <- lapply(chords_decoded, normalise_bass.chord)
+  new_harmony_composition(chords_normalised)
+}

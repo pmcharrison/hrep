@@ -71,10 +71,14 @@ get_pc_set.chord <- function(x, safe = TRUE) new_pc_set(sort(as.integer(x)),
                                                         safe = safe)
 
 #' @export
-normalise_bass <- function(x) UseMethod("normalise_bass")
-#' @export
 normalise_bass.chord <- function(x) {
   transpose(x, - get_bass_pc(x))
+}
+
+#' @export
+get_transpositions.chord <- function(x) {
+  ref <- normalise_bass(x)
+  lapply(0:11, function(int) transpose(ref, int, safe = FALSE))
 }
 
 # Not sure if the following are needed at the moment
@@ -91,12 +95,5 @@ normalise_bass.chord <- function(x) {
 #   function(x) {
 #     x@compositions <- lapply(x@compositions, normalise_bass)
 #     x
-#   }
-# )
-# setMethod(
-#   "get_transpositions", signature(x = "chord"),
-#   function(x) {
-#     ref <- normalise_bass(x)
-#     lapply(0:11, function(int) transpose(ref, int))
 #   }
 # )

@@ -13,15 +13,16 @@ encode_chord <- function(chord) {
 }
 
 #' @export
+encode_chords <- function(chords) {
+  stopifnot(is.list(chords))
+  vapply(chords, encode_chord, integer(1))
+}
+
+#' @export
 decode_chord <- function(chord) {
   HarmonyUtils::chord_alphabet$by_id[[chords]]
 }
 
-#' Decode chords
-#'
-#' This function is faster than repeated application of <decode_chord>.
-#' @return List of decoded chords.
-#' @export
 decode_chords <- function(chords) {
   stopifnot(is.numeric(chords))
   HarmonyUtils::chord_alphabet$by_id[chords]
@@ -31,7 +32,7 @@ decode_chords <- function(chords) {
 get_chord_alphabet_from_corpus <- function(
   corpus, decode = FALSE
 ) {
-  assertthat::assert_that(is(corpus, "harmony_corpus"))
+  stopifnot(is(corpus, "harmony_corpus"))
   corpus %>%
     get_chord_counts %>%
     names %>%
