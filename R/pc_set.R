@@ -1,37 +1,39 @@
 #' @export
-new_pc_set <- function(pitch_classes) {
-  assertthat::assert_that(
-    is.numeric(pitch_classes),
-    all(pitch_classes == round(pitch_classes)),
-    all(pitch_classes >= 0 & pitch_classes < 12),
-    !anyDuplicated(pitch_classes)
-  )
-  new(
-    "pc_set",
-    pc = sort(as.integer(pitch_classes))
-  )
+new_pc_set <- function(pitch_classes, safe = TRUE) {
+  if (safe) {
+    assertthat::assert_that(
+      is.numeric(pitch_classes),
+      all(pitch_classes == round(pitch_classes)),
+      all(pitch_classes >= 0 & pitch_classes < 12),
+      !anyDuplicated(pitch_classes)
+    )
+    pitch_classes <- sort(as.integer(pitch_classes))
+  }
+  class(pitch_classes) <- "pc_set"
+  pitch_classes
 }
 
-setMethod("as.pc_set", signature(x = "pc_set"), function(x) x)
-
-setMethod("as.pc_set", signature(x = "numeric"),
-          function(x) new_pc_set(x))
-
-setMethod(
-  "as.integer", signature(x = "pc_set"),
-  function(x, ...) x@pc
-)
-
-setMethod(
-  "as.numeric", signature(x = "pc_set"),
-  function(x, ...) as.numeric(as.integer(x))
-)
-
-setMethod(
-  "show", signature(object = "pc_set"),
-  function(object) {
-    cat("Pitch-class set: ",
-        paste0("[", paste(as.integer(object), collapse = ", "), "]"),
-        sep = "")
+#' @export
+as.pc_set <- function(x, safe = TRUE) UseMethod("as.pc_set")
+#' @export
+as.pc_set.pc_set <- function(x, safe = TRUE) {
+  if (safe) {
+    x <- new_pc_set(as.numeric(x), safe = TRUE)
   }
-)
+  x
+}
+#' @export
+as.pc_set.chord <- function(x, safe = TRUE) {
+  get_pc_set.chord(x, safe = safe)
+}
+#' @export
+as.pc_set.numeric <- function(x, safe = TRUE, ...) {
+  new_pc_set(x, safe = safe)
+}
+
+#' @export
+print.pc_set <- function(x, ...) {
+  cat("Pitch-class set: ",
+      paste0("[", paste(as.integer(x), collapse = ", "), "]"),
+      sep = "")
+}
