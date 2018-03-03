@@ -30,7 +30,7 @@ get_pc_set_normal_form.pc_set_normal_order <- function(x) {
   res <- if (length(x_int) == 0) x_int else {
     (x_int - transposition) %% 12L
   }
-  class(res <- "pc_set_normal_form")
+  class(res) <- "pc_set_normal_form"
   attr(res, "transposition") <- - transposition
   res
 }
