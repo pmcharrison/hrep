@@ -23,6 +23,7 @@ decode_chord <- function(chord) {
   HarmonyUtils::chord_alphabet$by_id[[chords]]
 }
 
+#' @export
 decode_chords <- function(chords) {
   stopifnot(is.numeric(chords))
   HarmonyUtils::chord_alphabet$by_id[chords]
