@@ -11,7 +11,7 @@ new_harmony_composition <- function(x, description = NULL) {
 new_harmony_composition.numeric <- function(x, description = NULL) {
   x <- as.integer(x)
   class(x) <- "harmony_composition"
-  attr(x, "description") <- description
+  description(x) <- description
   x
 }
 
@@ -19,7 +19,7 @@ new_harmony_composition.numeric <- function(x, description = NULL) {
 new_harmony_composition.list <- function(x, description = NULL) {
   y <- encode_chords(x)
   class(y) <- "harmony_composition"
-  attr(y, "description") <- description
+  description(y) <- description
   y
 }
 
@@ -42,6 +42,10 @@ as.harmony_composition.list <- function(x) {
 # Properties ####
 num_events.harmony_composition <- function(x) length(x)
 description.harmony_composition <- function(x) attr(x, "description")
+`description<-.harmony_composition` <- function(x, value) {
+  attr(x, "description") <- value
+  x
+}
 
 # Display ####
 
@@ -52,7 +56,7 @@ print.harmony_composition <- function(x, ...) {
   cat("\tA harmony composition")
   cat("\n\n")
   if (is.null(desc)) cat("(No description found)") else {
-    cat(paste0("'", desc, "'"))
+    cat(strwrap(paste0("'", desc, "'")))
   }
   cat("\n")
   cat("Num. events =", num_events(x))

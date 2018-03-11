@@ -1,12 +1,16 @@
 # Creation ####
 #' @export
-new_harmony_corpus <- function(x) UseMethod("new_harmony_corpus")
+new_harmony_corpus <- function(x, description = NULL) {
+  UseMethod("new_harmony_corpus")
+}
+
 #' @export
-new_harmony_corpus.list <- function(x) {
+new_harmony_corpus.list <- function(x, description = NULL) {
   for (i in seq_along(x)) {
     x[[i]] <- as.harmony_composition(x[[i]])
   }
   class(x) <- "harmony_corpus"
+  description(x) <- description
   x
 }
 
@@ -26,7 +30,8 @@ as.harmony_corpus.list <- function(x) new_harmony_corpus.list(x)
 # Subsetting ####
 #' @export
 `[.harmony_corpus` <- function(x, i) {
-  new_harmony_corpus(as.list(x)[i])
+  new_harmony_corpus(as.list(x)[i],
+                     description = paste(description(x), "(subset)"))
 }
 #' @export
 `[<-.harmony_corpus` <- function(x, i, value) {
@@ -37,7 +42,8 @@ as.harmony_corpus.list <- function(x) new_harmony_corpus.list(x)
 # Combination ####
 #' @export
 c.harmony_corpus <- function(...) {
-  new_harmony_corpus(do.call(c, lapply(list(...), as.list)))
+  new_harmony_corpus(do.call(c, lapply(list(...), as.list)),
+                     description = "Combined corpora")
 }
 
 # Properties ####
@@ -48,14 +54,27 @@ num_events.harmony_corpus <- function(x) {
   sum(vapply(x, num_events, integer(1)))
 }
 
+description.harmony_corpus <- function(x) attr(x, "description")
+`description<-.harmony_corpus` <- function(x, value) {
+  attr(x, "description") <- value
+  x
+}
+
 # Display ####
 #' @export
 print.harmony_corpus <- function(x, ...) {
-  cat("---\n")
-  cat("A harmony corpus\n\n")
-  cat("Num. compositions =", num_compositions(x), "\n")
-  cat("Num. events =", num_events(x), "\n")
-  cat("---\n")
+  desc <- description(x)
+  cat("\n")
+  cat("\tA harmony corpus")
+  cat("\n\n")
+  if (is.null(desc)) cat("(No description found)") else {
+    cat(strwrap(paste0("'", desc, "'")))
+  }
+  cat("\n")
+  cat("Num. compositions =", num_compositions(x))
+  cat("\n")
+  cat("Num. events =", num_events(x))
+  cat("\n\n")
 }
 
 # Other ####

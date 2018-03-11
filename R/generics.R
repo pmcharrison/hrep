@@ -9,3 +9,5 @@ get_transpositions <- function(x) UseMethod("get_transpositions")
 normalise_bass <- function(x) UseMethod("normalise_bass")
 #' @export
 description <- function(x) UseMethod("description")
+#' @export
+`description<-` <- function(x, value) UseMethod("description<-")
