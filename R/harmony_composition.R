@@ -4,20 +4,22 @@
 # with respect to chord_alphabet.
 
 #' @export
-new_harmony_composition <- function(x) {
+new_harmony_composition <- function(x, description = NULL) {
   UseMethod("new_harmony_composition")
 }
 #' @export
-new_harmony_composition.numeric <- function(x) {
+new_harmony_composition.numeric <- function(x, description = NULL) {
   x <- as.integer(x)
   class(x) <- "harmony_composition"
+  attr(x, "description") <- description
   x
 }
 
 #' @export
-new_harmony_composition.list <- function(x) {
+new_harmony_composition.list <- function(x, description = NULL) {
   y <- encode_chords(x)
   class(y) <- "harmony_composition"
+  attr(y, "description") <- description
   y
 }
 
@@ -39,15 +41,22 @@ as.harmony_composition.list <- function(x) {
 
 # Properties ####
 num_events.harmony_composition <- function(x) length(x)
+description.harmony_composition <- function(x) attr(x, "description")
 
 # Display ####
 
 #' @export
 print.harmony_composition <- function(x, ...) {
-  cat("---\n")
-  cat("A harmony composition\n\n")
-  cat("Num. events =", num_events(x), "\n")
-  cat("---\n")
+  desc <- description(x)
+  cat("\n")
+  cat("\tA harmony composition")
+  cat("\n\n")
+  if (is.null(desc)) cat("(No description found)") else {
+    cat(paste0("'", desc, "'"))
+  }
+  cat("\n")
+  cat("Num. events =", num_events(x))
+  cat("\n\n")
 }
 
 # Other ####
