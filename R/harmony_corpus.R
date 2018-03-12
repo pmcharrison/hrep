@@ -30,8 +30,12 @@ as.harmony_corpus.list <- function(x) new_harmony_corpus.list(x)
 # Subsetting ####
 #' @export
 `[.harmony_corpus` <- function(x, i) {
-  new_harmony_corpus(as.list(x)[i],
-                     description = paste(description(x), "(subset)"))
+  res <- new_harmony_corpus(as.list(x)[i],
+                            description = paste(description(x), "(subset)"))
+  if (num_compositions(res) == 1) {
+    description(res) <- description(res[[1]])
+  }
+  res
 }
 #' @export
 `[<-.harmony_corpus` <- function(x, i, value) {
