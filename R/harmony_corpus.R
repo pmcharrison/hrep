@@ -58,6 +58,7 @@ num_events.harmony_corpus <- function(x) {
   sum(vapply(x, num_events, integer(1)))
 }
 
+#' @export
 description.harmony_corpus <- function(x) attr(x, "description")
 `description<-.harmony_corpus` <- function(x, value) {
   attr(x, "description") <- value
