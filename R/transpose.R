@@ -33,12 +33,12 @@ transpose.chord <- function(x, interval, safe = TRUE) {
   x
 }
 
-#' @export
-`+.pc_set` <- function(x, y) {
-  transpose(x, y)
-}
-
-#' @export
-`+.chord` <- function(x, y) {
-  transpose(x, y)
-}
+#' #' @export
+#' `+.pc_set` <- function(x, y) {
+#'   transpose(x, y)
+#' }
+#'
+#' #' @export
+#' `+.chord` <- function(x, y) {
+#'   transpose(x, y)
+#' }

@@ -28,12 +28,24 @@ setMethod(
 )
 
 #' @export
+setMethod("as.numeric", signature(x = "PCSpectrum"),
+          function(x) x@values)
+
+#' @export
+setMethod("as.data.frame", signature(x = "PCSpectrum"),
+          function(x) {
+            n <- length(x@values)
+            pc <- seq(from = 0, to = 12, length.out = n + 1)[- n]
+            data.frame(pitch_class = pc,
+                       salience = x@values)
+          })
+
+#' @export
 setMethod(
   "plot", signature(x = "PCSpectrum"),
   function(x, ...) {
-    n <- length(x@values)
-    pc <- seq(from = 0, to = 12, length.out = n + 1)[- n]
-    plot(pc, x@values,
+    df <- as.data.frame(x)
+    plot(df$pitch_class, df$salience,
          type = "l",
          xlab = "Pitch class",
          ylab = "Salience"
@@ -51,6 +63,7 @@ setMethod(
 #' \insertRef{Milne2016a}{HarmonyUtils}
 convert_pc_set_to_pc_spectrum <- function(
   pc_set,
+  saliences = 1,
   array_dim = 1200,
   num_harmonics = 12,
   rho = 0.75,
@@ -60,6 +73,9 @@ convert_pc_set_to_pc_spectrum <- function(
   cache_stop_on_missing = FALSE
 ) {
   pc_set <- as.numeric(sort(pc_set))
+  stopifnot(is.numeric(saliences),
+            length(saliences) %in% c(1L, length(pc_set)))
+  if (length(saliences) == 1L) saliences <- rep(saliences, times = length(pc_set))
   cacheR::cache(
     fun_name = "convert_pc_set_to_pc_spectrum",
     cache = cache,
@@ -70,16 +86,17 @@ convert_pc_set_to_pc_spectrum <- function(
     ignore_args = c("cache", "cache_env", "cache_stop_on_missing"),
     expr = expression({
       assertthat::assert_that(
-        all(pc_set == round(pc_set)),
         !anyDuplicated(pc_set)
       )
-      pc_spectra <- sapply(pc_set, function(pc) {
-        get_complex_tone(fundamental_pc = pc,
-                         array_dim = array_dim,
-                         num_harmonics = num_harmonics,
-                         rho = rho,
-                         sigma = sigma)
-      })
+      pc_spectra <- mapply(
+        function(pc, salience) {
+          get_complex_tone(fundamental_pc = pc,
+                           salience = salience,
+                           array_dim = array_dim,
+                           num_harmonics = num_harmonics,
+                           rho = rho,
+                           sigma = sigma)
+        }, pc_set, saliences)
       pc_spectrum <- rowSums(pc_spectra)
       new("PCSpectrum", values = pc_spectrum)
     }))
@@ -159,6 +176,7 @@ new_gaussian_spectrum <- function(
 #' @param num_harmonics Number of harmonics, including the fundamental
 new_complex_tone <- function(
   fundamental_pc,
+  salience,
   array_dim,
   num_harmonics,
   rho,
@@ -166,7 +184,9 @@ new_complex_tone <- function(
 ) {
   assertthat::assert_that(
     is.numeric(fundamental_pc),
+    is.numeric(salience),
     assertthat::is.scalar(fundamental_pc),
+    assertthat::is.scalar(salience),
     fundamental_pc < 12,
     is.numeric(array_dim), assertthat::is.scalar(array_dim),
     is.numeric(num_harmonics), assertthat::is.scalar(num_harmonics),
@@ -184,7 +204,7 @@ new_complex_tone <- function(
                 }, numeric(1))
   saliences <- vapply(seq_len(num_harmonics),
                       function(i) {
-                        1 / (i ^ rho)
+                        salience / (i ^ rho)
                       }, numeric(1))
   spectra <- mapply(
     function(pc, salience) {

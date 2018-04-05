@@ -4,7 +4,7 @@
 \alias{new_complex_tone}
 \title{Make complex tone}
 \usage{
-new_complex_tone(fundamental_pc, array_dim, num_harmonics, rho, sigma)
+new_complex_tone(fundamental_pc, salience, array_dim, num_harmonics, rho, sigma)
 }
 \arguments{
 \item{num_harmonics}{Number of harmonics, including the fundamental}

@@ -4,7 +4,7 @@
 \alias{get_complex_tone}
 \title{Get complex tone}
 \usage{
-get_complex_tone(fundamental_pc, array_dim, num_harmonics, rho, sigma)
+get_complex_tone(fundamental_pc, salience, array_dim, num_harmonics, rho, sigma)
 }
 \description{
 Wrapper for \code{new_complex_tone} that implements caching.

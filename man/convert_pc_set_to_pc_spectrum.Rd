@@ -5,9 +5,9 @@
 \title{Convert pitch-class set to pitch-class spectrum
 Takes a list of pitch classes and outputs a pitch-class spectrum obtained by treating each of the pitch classes as complex tones, after Milne & Holland (2016).}
 \usage{
-convert_pc_set_to_pc_spectrum(pc_set, array_dim = 1200, num_harmonics = 12,
-  rho = 0.75, sigma = 6.83, cache = TRUE, cache_env = NULL,
-  cache_stop_on_missing = FALSE)
+convert_pc_set_to_pc_spectrum(pc_set, saliences = 1, array_dim = 1200,
+  num_harmonics = 12, rho = 0.75, sigma = 6.83, cache = TRUE,
+  cache_env = NULL, cache_stop_on_missing = FALSE)
 }
 \arguments{
 \item{num_harmonics}{The number of harmonics in each modelled complex tone (including the fundamental) (numeric scalar)}
