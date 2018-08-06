@@ -1,3 +1,6 @@
+- rename package as 'chord'
+- move package to Github
+- consolidate code
 - move remaining classes to S3
 - move through every source file below chord.R and standardise to S3
-- move through every source file again and write tests
+- move through every source file again and rewrite tests
