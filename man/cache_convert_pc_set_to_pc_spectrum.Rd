@@ -5,8 +5,8 @@
 \title{This function builds a comprehensive memory-based cache for
 convert_pc_set_to_pc_spectrum.}
 \usage{
-cache_convert_pc_set_to_pc_spectrum(array_dim = 1200, num_harmonics = 12,
-  rho = 0.75, sigma = 6.83)
+cache_convert_pc_set_to_pc_spectrum(array_dim = 1200,
+  num_harmonics = 12, rho = 0.75, sigma = 6.83)
 }
 \description{
 This function builds a comprehensive memory-based cache for
