@@ -1,6 +1,46 @@
-- rename package as 'chord'
-- move package to Github
-- consolidate code
+- rename as hutils
+
+# Classes
+
+Underlying form:
+
+- pc, pi, and fr types have an optional slot, 'weight'
+- otherwise represented as numeric types
+- spectra are represented as tibbles
+
+Cases:
+
+- pc_set
+- pc_set_norm_form
+- pc_set_norm_order
+
+- pc_chord
+- pc_chord_type
+
+- pi_chord
+- pi_chord_type
+
+- fr_chord
+
+- vlt (voice-leading type)
+
+- sparse_freq_spectrum
+- sparse_pi_spectrum
+- sparse_pc_spectrum
+- full_freq_spectrum
+- full_pi_spectrum
+- full_pc_spectrum
+
+- corpus
+- piece
+
+# Methods
+
+- export(x, file) (support for wav, mp3, midi, csv, pdf, ...)
+- play()
+
+# Define integer mappings for all classes based on pitch classes
+
 - move remaining classes to S3
 - move through every source file below chord.R and standardise to S3
 - move through every source file again and rewrite tests
