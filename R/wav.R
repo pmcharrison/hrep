@@ -3,49 +3,91 @@
 
 #' @export
 save_wav <- function(x, file, ...) UseMethod("save_wav")
-save_wav.chord <- function(x, file, tempo = 60, sample_rate = 44100, bit_rate = 16,
+save_wav.chord <- function(x, file,
+                           length_sec = 1,
+                           sample_rate = 44100,
+                           bit_rate = 16,
+                           fade_samples = 100,
                            num_harmonics = get_midi_params()$num_harmonics,
                            roll_off = get_midi_params()$roll_off) {
   midi <- as.integer(x)
-  freq <- HarmonyUtils::convert_midi_to_freq(midi)
-  spectrum <- HarmonyUtils::expand_harmonics(
+  freq <- convert_midi_to_freq(midi)
+  spectrum <- expand_harmonics(
     frequency = freq,
     amplitude = 1,
     dB = FALSE,
     frequency_scale = "Hz",
     num_harmonics
   )
-  length_sec <- 60 / tempo
+  spectrum_to_waveform(frequency = spectrum$frequency,
+                       amplitude = spectrum$amplitude,
+                       length_sec = length_sec,
+                       sample_rate = sample_rate) %>%
+    fade_waveform(fade_samples = fade_samples) %>%
+    discretise_waveform(bit_rate = bit_rate) %>%
+    save_discrete_waveform(file = file)
+}
+save_wav.spectrum <- function(x,
+                              file,
+                              length_sec = 1,
+                              sample_rate = 44100,
+                              bit_rate = 16,
+                              fade_samples = 100) {
+
+}
+
+  save_discrete_waveform <- function(x,
+                                     file,
+                                     sample_rate = attr(x, "sample_rate"),
+                                     bit_rate = attr(x, "bit_rate")) {
+    tmp_file <- tempfile(fileext = ".wav")
+    tuneR::writeWave(tuneR::Wave(x,
+                                 samp.rate = sample_rate,
+                                 bit = bit_rate),
+                     filename = tmp_file)
+    # Feed through sox to fix encoding problems
+    "sox %s %s" %>% sprintf(shQuote(tmp_file), shQuote(file)) %>% system
+  }
+
+spectrum_to_waveform <- function(frequency,
+                                 amplitude,
+                                 length_sec,
+                                 sample_rate = 44100) {
   num_samples <- sample_rate * length_sec
   time <- seq(from = 0,
               to = length_sec,
               length.out = num_samples + 1)[- (num_samples + 1)]
-  wav_continuous <- mapply(
+  x <- mapply(
     function(frequency, amplitude) {
       amplitude * sin(2 * pi * frequency * time)
-    }, spectrum$frequency, spectrum$amplitude
+    }, frequency, amplitude
   ) %>% rowMeans
-  # Fade in over the first 100 samples
-  wav_continuous[1:100] <-
-    seq(from = 0, to = 1, length.out = 100) * wav_continuous[1:100]
-  # Fade out over the last 100 samples
-  wav_continuous[seq(from = length(wav_continuous) - 99,
+  attr(x, "sample_rate") <- sample_rate
+  x
+}
+
+fade_waveform <- function(wav_continuous, fade_samples) {
+  checkmate::qassert(wav_continuous, "N")
+  checkmate::qassert(fade_samples, "X1")
+  stopifnot(fade_samples < length(wav_continuous))
+  # Fade in over the first n samples
+  wav_continuous[1:fade_samples] <-
+    seq(from = 0, to = 1, length.out = fade_samples) * wav_continuous[1:fade_samples]
+  # Fade out over the last n samples
+  wav_continuous[seq(length.out = fade_samples,
                      to = length(wav_continuous))] <-
-    seq(from = 1, to = 0, length.out = 100) *
-    wav_continuous[seq(from = length(wav_continuous) - 99,
+    seq(from = 1, to = 0, length.out = fade_samples) *
+    wav_continuous[seq(length.out = fade_samples,
                        to = length(wav_continuous))]
-  # Convert to discrete representation
-  peak <- max(abs(wav_continuous))
-  wav_discrete <- wav_continuous %>%
+  wav_continuous
+}
+
+discretise_waveform <- function(x, bit_rate = 16) {
+  peak <- max(abs(x))
+  y <- x %>%
     magrittr::divide_by(peak * 1.1) %>%
     magrittr::multiply_by(2 ^ (bit_rate - 1) - 1) %>%
     round
-  # Save
-  tmp_file <- tempfile(fileext = ".wav")
-  tuneR::writeWave(tuneR::Wave(wav_discrete,
-                               samp.rate = sample_rate,
-                               bit = bit_rate),
-                   filename = tmp_file)
-  # Feed through sox to fix encoding problems
-  "sox %s %s" %>% sprintf(shQuote(tmp_file), shQuote(file)) %>% system
+  attr(y, "bit_rate") <- bit_rate
+  y
 }

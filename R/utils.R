@@ -177,7 +177,7 @@ expand_harmonics <- function(
       num_harmonics, 1, roll_off,
       interval_scale = if (frequency_scale == "Hz") "ratio" else "midi"
     )
-    mapply(
+    res <- mapply(
       FUN = function(fundamental_frequency, fundamental_amplitude) {
         data.frame(
           frequency = add_interval(fundamental_frequency,
@@ -202,6 +202,8 @@ expand_harmonics <- function(
           amplitude = list(scale = "not dB")
         )
       )
+    class(res) <- c("spectrum", class(res))
+    res
   }
 }
 

@@ -10,5 +10,10 @@ LazyData: true
 ByteCompile: true
 Suggests: testthat
 RoxygenNote: 6.1.0
-Imports: plyr,sets,hash,Rdpack
+Imports: 
+    plyr,
+    sets,
+    hash,
+    Rdpack,
+    checkmate
 RdMacros: Rdpack
