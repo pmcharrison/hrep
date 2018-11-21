@@ -21,32 +21,21 @@ get_pc_set_alphabet_from_corpus <- function(
 }
 
 #' @export
-encode_pc_set <- function(pc_set) {
-  encode_pc_sets(list(pc_set))
+encode.pc_set <- function(pc_set) {
+  key <- get_pc_set_storage_key(pc_set)
+  pc_set_alphabet$by_pc_set[[key]]
 }
 
-#' @export
-encode_pc_sets <- function(pc_sets) {
-  keys <- lapply(pc_sets, get_pc_set_storage_key)
-  unname(hash::values(pc_set_alphabet$by_pc_set, keys))
-}
-
-#' @export
-decode_pc_set <- function(pc_set) {
-  decode_pc_sets(pc_set)[[1]]
-}
-
-#' @export
-decode_pc_sets <- function(pc_sets) {
+decode_pc_set <- function(x) {
   max_id <- length(pc_set_alphabet$by_id)
-  if (!is.numeric(pc_sets) ||
-      any(is.na(pc_sets) |
-          pc_sets < 1 |
-          pc_sets > max_id |
-          round(pc_sets) != pc_sets)) {
+  if (!is.numeric(x) ||
+      any(is.na(x) |
+          x < 1 |
+          x > max_id |
+          round(x) != x)) {
     stop("All pc_set ids must be integers between 1 and ", max_id, ".")
   }
-  lapply(pc_set_alphabet$by_id[pc_sets],
+  lapply(pc_set_alphabet$by_id[x],
          function(x) pc_set(x, safe = FALSE))
 }
 

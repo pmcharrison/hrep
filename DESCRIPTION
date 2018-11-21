@@ -15,5 +15,6 @@ Imports:
     sets,
     hash,
     Rdpack,
-    checkmate
+    checkmate,
+    purrr
 RdMacros: Rdpack

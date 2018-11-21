@@ -7,26 +7,14 @@ get_pc_chord_storage_key <- function(pc_chord) {
 is.pc_chord <- function(x) is(x, "pc_chord")
 
 #' @export
-encode_pc_chord <- function(pc_chord) {
+encode.pc_chord <- function(x) {
   key <- get_pc_chord_storage_key(pc_chord)
   pc_chord_alphabet$by_pc_chord[[key]]
 }
 
-#' @export
-encode_pc_chords <- function(pc_chords) {
-  stopifnot(is.list(pc_chords))
-  vapply(pc_chords, encode_pc_chord, integer(1))
-}
-
-#' @export
-decode_pc_chord <- function(pc_chord) {
-  pc_chord_alphabet$by_id[[pc_chord]]
-}
-
-#' @export
-decode_pc_chords <- function(pc_chords) {
-  stopifnot(is.numeric(pc_chords))
-  pc_chord_alphabet$by_id[pc_chords]
+decode_pc_chord <- function(x) {
+  checkmate::qassert(x, "X")
+  pc_chord_alphabet$by_id[x]
 }
 
 #' @export

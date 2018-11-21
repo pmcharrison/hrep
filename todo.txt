@@ -2,7 +2,7 @@
 
 ## Immediate
 
-- methods for decode and encode
+- remove dependency on hash
 - corpus
 - piece
 - tests
