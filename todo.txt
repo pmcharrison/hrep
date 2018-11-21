@@ -3,7 +3,9 @@
 ## Immediate
 
 - remove convert_
-- ensure all are S3
+- methods for decode and encode
+- corpus
+- piece
 - tests
 - README
 
@@ -36,6 +38,3 @@ Cases:
 - fr_spectrum
 - pi_spectrum
 - pc_spectrum
-
-- corpus
-- piece
