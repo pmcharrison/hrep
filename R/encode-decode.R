@@ -1,10 +1,10 @@
 #' @export
-code_seq <- function(x, type) {
+coded_seq <- function(x, type) {
   checkmate::qassert(x, "X")
   checkmate::qassert(type, "S1")
   x <- as.integer(x)
   attr(x, "type") <- type
-  class(x) <- c("code_seq", "integer")
+  class(x) <- c("coded_seq", "integer")
   x
 }
 
@@ -14,17 +14,17 @@ type <- function(x, ...) {
 }
 
 #' @export
-type.code_seq <- function(x, ...) {
+type.coded_seq <- function(x, ...) {
   attr(x, "type")
 }
 
 #' @export
-is.code_seq <- function(x) {
-  is(x, "code_seq")
+is.coded_seq <- function(x) {
+  is(x, "coded_seq")
 }
 
 #' @export
-print.code_seq <- function(x, ...) {
+print.coded_seq <- function(x, ...) {
   n <- length(x)
   type <- type(x)
   cat("Encoded sequence: Type = '", type, "', length = ", n, "\n")
@@ -38,7 +38,7 @@ encode <- function(x, ...) {
 #' @export
 encode.list <- function(x, ...) {
   type <- if (length(x) == 1L) "empty" else class(x[[1]])
-  code_seq(purrr::map_int(x, encode),
+  coded_seq(purrr::map_int(x, encode),
            type = type)
 }
 
