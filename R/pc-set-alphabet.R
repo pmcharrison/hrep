@@ -1,6 +1,9 @@
 get_pc_set_storage_key <- function(pc_set) {
   if (!is(pc_set, "pc_set")) stop()
-  paste(as.integer(pc_set), collapse = " ")
+  x <- as.numeric(pc_set)
+  if (!checkmate::qtest(x, "X"))
+    stop("cannot encode non-integer pitch-class set")
+  paste(x, collapse = " ")
 }
 
 #' @export

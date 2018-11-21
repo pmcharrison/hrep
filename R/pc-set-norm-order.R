@@ -1,7 +1,7 @@
 #' @export
 print.pc_set_norm_order <- function(x, ...) {
   cat("Pitch-class set (normal order): ",
-      paste0("[", paste(as.integer(x), collapse = ", "), "]\n"),
+      paste0("[", paste(as.numeric(x), collapse = ", "), "]\n"),
       sep = "")
 }
 
@@ -9,18 +9,10 @@ print.pc_set_norm_order <- function(x, ...) {
 as.pc_set_norm_order <- function(x) UseMethod("as.pc_set_norm_order")
 #' @export
 as.pc_set_norm_order.pc_set <- function(x) {
-  as.pc_set_norm_order(as.integer(x))
+  as.pc_set_norm_order(as.numeric(x))
 }
 #' @export
 as.pc_set_norm_order.numeric <- function(x) {
-  as.pc_set_norm_order(as.integer(x))
-}
-#' @export
-as.pc_set_norm_order.numeric <- function(x) {
-  as.pc_set_norm_order(as.integer(x))
-}
-#' @export
-as.pc_set_norm_order.integer <- function(x) {
   stopifnot(!anyDuplicated(x))
   stopifnot(all(x >= 0L & x < 12L))
   if (identical(length(x), 0L)) {

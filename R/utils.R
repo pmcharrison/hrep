@@ -8,16 +8,6 @@ pi_to_pc <- function(x) {
   x %% 12
 }
 
-#' Convert pitches to pitch class set
-#'
-#' Converts a vector of pitches to a pitch class set.
-#' @param pitch A numeric vector of pitches, possibly including duplicates
-#' @return A numeric vector of pitch classes, produced by mapping each element in \code{pitch} to a pitch class, sorting, and removing duplicates.
-#' @export
-pi_to_pc_set <- function(x) {
-  sort(unique(pi_to_pc(x)))
-}
-
 #' Get the distance between two pitch classes.
 #' @param x Vector of pitch classes
 #' @param y Vector of pitch classes

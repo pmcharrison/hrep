@@ -1,6 +1,9 @@
 get_pc_chord_storage_key <- function(pc_chord) {
   if (!is(pc_chord, "pc_chord")) stop()
-  paste(as.integer(pc_chord), collapse = " ")
+  x <- as.numeric(pc_chord)
+  if (!checkmate::qtest(x, "X"))
+    stop("cannot encode non-integer pitch-class chord")
+  paste(x, collapse = " ")
 }
 
 #' @export

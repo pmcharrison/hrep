@@ -1,25 +1,11 @@
-#' @param bass_pc Integer scalar corresponding to bass pitch class
-#' @param pc_set Integer vector corresponding to pitch-class set, may optionally include the bass pitch class
+#' @param bass_pc Numeric scalar corresponding to bass pitch class
+#' @param pc_set Numeric vector corresponding to pitch-class set, may optionally include the bass pitch class
 #' @export
-pc_chord <- function(bass_pc, non_bass_pc_set) {
-  if (!is.numeric(non_bass_pc_set)) stop("non_bass_pc_set must be numeric")
-  if (!all(non_bass_pc_set == round(non_bass_pc_set))) stop(
-    "non_bass_pc_set must be all whole numbers")
-  if (!all(non_bass_pc_set >= 0 & non_bass_pc_set < 12)) stop(
-    "non_bass_pc_set must be within 0 and 12")
-  if (anyDuplicated(non_bass_pc_set)) stop(
-    "No duplicates allowed in non_bass_pc_set")
-  if (!is.numeric(bass_pc)) stop("bass_pc must be numeric")
-  if (!bass_pc == round(bass_pc)) stop("bass_pc must be a whole number")
-  if (!bass_pc >= 0) stop("bass_pc must be 0 or greater")
-  if (!bass_pc < 12) stop("bass_pc must be smaller than 12")
-  if (!length(bass_pc) == 1) stop("bass_pc must be length 1")
-  if (bass_pc %in% non_bass_pc_set) stop(
-    "bass_pc cannot be contained in non_bass_pc_set")
-  bass_pc <- as.integer(bass_pc)
-  non_bass_pc_set <- sort(non_bass_pc_set)
-
-  x <- c(bass_pc, non_bass_pc_set)
+pc_chord <- function(bass_pc, other_pc) {
+  checkmate::qassert(bass_pc, "N1[0,12)")
+  checkmate::qassert(other_pc("N[0,12)"))
+  other_pc <- setdiff(sort(unique(other_pc)), bass_pc)
+  x <- c(bass_pc, other_pc)
   class(x) <- "pc_chord"
   x
 }
@@ -36,7 +22,7 @@ print.pc_chord <- function(x, ...) {
 as.pc_chord <- function(x) UseMethod("as.pc_chord")
 #' @export
 as.pc_chord.numeric <- function(x) {
-  pc_chord(bass_pc = x[1], non_bass_pc_set = x[-1])
+  pc_chord(bass_pc = x[1], other_pc = x[-1])
 }
 #' @export
 as.pc_chord.pc_chord <- function(x) {
@@ -54,9 +40,20 @@ get_non_bass_pc_set <- function(x) UseMethod("get_non_bass_pc_set")
 get_non_bass_pc_set.pc_chord <- function(x) pc_set(x[- 1])
 
 #' @export
-get_pc_set <- function(x) UseMethod("get_pc_set")
+as.numeric.pc_chord <- function(x) {
+  class(x) <- "numeric"
+  x
+}
+
 #' @export
-get_pc_set.pc_chord <- function(x) pc_set(sort(as.integer(x)))
+as.integer.pc_chord <- function(x) {
+  as.integer(as.numeric(x))
+}
+
+#' @export
+as.pc_set.pc_chord <- function(x) {
+  pc_set(sort(unique(as.numeric(x))))
+}
 
 #' @export
 normalise_bass.pc_chord <- function(x) {
