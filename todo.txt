@@ -1,10 +1,24 @@
+# Todo
+
+## Immediate
+
+- sort PCSpectrum and spectrum
+- checkmate
+- represent spectra as tibbles
+- remove convert_
+- ensure all are S3
+- tests
+- README
+
+## Wishlist
+
+- add an optional 'weight' slot to pc, pi, and fr types
+(not sure if necessary)
+- export(x, file) (support for wav, mp3, midi, csv, pdf, ...)
+- play()
+- support for non-integer pitches/pitch classes
+
 # Classes
-
-Underlying form:
-
-- pc, pi, and fr types have an optional slot, 'weight'
-- otherwise represented as numeric types
-- spectra are represented as tibbles
 
 Cases:
 
@@ -13,32 +27,18 @@ Cases:
 - pc_set_norm_order (DONE)
 
 - pc_chord (DONE)
-- pc_chord_type
 
-- pi_chord
-- pi_chord_type
+- pi_chord (wishlist)
+- pi_chord_type (wishlist)
 
-- fr_chord
+- vlt (voice-leading type) (wishlist)
 
-- vlt (voice-leading type)
-
-- sparse_freq_spectrum
+- sparse_fr_spectrum
 - sparse_pi_spectrum
 - sparse_pc_spectrum
-- full_freq_spectrum
+- full_fr_spectrum
 - full_pi_spectrum
 - full_pc_spectrum
 
 - corpus
 - piece
-
-# Methods
-
-- export(x, file) (support for wav, mp3, midi, csv, pdf, ...)
-- play()
-
-# Define integer mappings for all classes based on pitch classes
-
-- move remaining classes to S3
-- move through every source file below chord.R and standardise to S3
-- move through every source file again and rewrite tests
