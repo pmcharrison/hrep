@@ -1,7 +1,8 @@
+# TODO: REFACTORING
+
 # Note - it would be much faster to render everything with sox rather
 # than using tuneR.
 
-#' @export
 save_wav <- function(x, file, ...) UseMethod("save_wav")
 save_wav.pc_chord <- function(x, file,
                               length_sec = 1,
