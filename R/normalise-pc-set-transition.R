@@ -13,7 +13,7 @@ normalise_pc_set_transition <- function(context_pc_set_id,
   anchor_pc_set <-
     if (is.null(context_pc_set)) continuation_pc_set else context_pc_set
   transposition <- get_transposition(
-    get_pc_set_norm_form(anchor_pc_set))
+    as.pc_set_norm_form(anchor_pc_set))
   trans_context_pc_set_id <- if (is.na(context_pc_set_id)) {
     as.integer(NA)
   } else {

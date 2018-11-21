@@ -6,21 +6,21 @@ print.pc_set_norm_order <- function(x, ...) {
 }
 
 #' @export
-get_pc_set_norm_order <- function(x) UseMethod("get_pc_set_norm_order")
+as.pc_set_norm_order <- function(x) UseMethod("as.pc_set_norm_order")
 #' @export
-get_pc_set_norm_order.pc_set <- function(x) {
-  get_pc_set_norm_order(as.integer(x))
+as.pc_set_norm_order.pc_set <- function(x) {
+  as.pc_set_norm_order(as.integer(x))
 }
 #' @export
-get_pc_set_norm_order.numeric <- function(x) {
-  get_pc_set_norm_order(as.integer(x))
+as.pc_set_norm_order.numeric <- function(x) {
+  as.pc_set_norm_order(as.integer(x))
 }
 #' @export
-get_pc_set_norm_order.numeric <- function(x) {
-  get_pc_set_norm_order(as.integer(x))
+as.pc_set_norm_order.numeric <- function(x) {
+  as.pc_set_norm_order(as.integer(x))
 }
 #' @export
-get_pc_set_norm_order.integer <- function(x) {
+as.pc_set_norm_order.integer <- function(x) {
   stopifnot(!anyDuplicated(x))
   stopifnot(all(x >= 0L & x < 12L))
   if (identical(length(x), 0L)) {
