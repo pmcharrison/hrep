@@ -2,9 +2,6 @@
 
 ## Immediate
 
-- sort PCSpectrum and spectrum
-- checkmate
-- represent spectra as tibbles
 - remove convert_
 - remove get_ (should this be as_?) (should pc_set_norm_form really be a class?)
 - ensure all are S3

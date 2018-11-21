@@ -50,11 +50,9 @@ convert_midi_to_freq <- function(
   stretched_octave = get_midi_params()$stretched_octave,
   tuning_ref_Hz = get_midi_params()$tuning_ref_Hz
 ) {
-  assertthat::assert_that(
-    is.numeric(midi),
-    is.logical(stretched_octave), assertthat::is.scalar(stretched_octave),
-    is.numeric(tuning_ref_Hz), assertthat::is.scalar(tuning_ref_Hz)
-  )
+  checkmate::qassert(midi, "N")
+  checkmate::qassert(stretched_octave, "B1")
+  checkmate::qassert(tuning_ref_Hz, "N1(0,)")
   tuning_ref_Hz * (2 ^ ((midi - 69) / if (stretched_octave) 11.9 else 12))
 }
 
@@ -71,11 +69,9 @@ convert_freq_to_midi <- function(
   stretched_octave = get_midi_params()$stretched_octave,
   tuning_ref_Hz = get_midi_params()$tuning_ref_Hz
 ) {
-  assertthat::assert_that(
-    is.numeric(frequency),
-    is.logical(stretched_octave), assertthat::is.scalar(stretched_octave),
-    is.numeric(tuning_ref_Hz), assertthat::is.scalar(tuning_ref_Hz)
-  )
+  checkmate::qassert(frequency, "N(0,)")
+  checkmate::qassert(stretched_octave, "B1")
+  checkmate::qassert(tuning_ref_Hz, "N1(0,)")
   69 + log(frequency / tuning_ref_Hz, base = 2) * if (stretched_octave) 11.9 else 12
 }
 
@@ -84,7 +80,7 @@ convert_amplitude_to_dB <- function(
   amplitude,
   unit_amplitude_in_dB
 ) {
-  assertthat::assert_that(assertthat::is.scalar(unit_amplitude_in_dB))
+  checkmate::qassert(unit_amplitude_in_dB, "N1")
   amplitude_ref = 10 ^ (- unit_amplitude_in_dB / 20)
   res <- 20 * log10(amplitude / amplitude_ref)
   attr(res, "units") <- "dB"
@@ -96,7 +92,7 @@ convert_dB_to_amplitude <- function(
   dB,
   unit_amplitude_in_dB
 ) {
-  assertthat::assert_that(assertthat::is.scalar(unit_amplitude_in_dB))
+  checkmate::qassert(unit_amplitude_in_dB, "N1")
   amplitude_ref = 10 ^ (- unit_amplitude_in_dB / 20)
   res <- amplitude_ref * 10 ^ (dB / 20)
   attr(res, "units") <- "not dB"
@@ -119,9 +115,7 @@ get_harmonic_template <- function(
   interval_scale = "ratio",
   round_midi_intervals = TRUE
 ) {
-  assertthat::assert_that(
-    interval_scale %in% c("ratio", "midi")
-  )
+  stopifnot(interval_scale %in% c("ratio", "midi"))
   harmonic_numbers <- seq(from = 0, length.out = num_harmonics)
   intervals <- if (interval_scale == "ratio") {
     harmonic_numbers + 1
@@ -210,18 +204,14 @@ expand_harmonics <- function(
 expand_harmonics_check_inputs <- function(
   frequency, amplitude, num_harmonics, roll_off
 ) {
-  assertthat::assert_that(
-    length(frequency) == length(amplitude),
-    is.numeric(num_harmonics), assertthat::is.scalar(num_harmonics),
-    is.numeric(roll_off), assertthat::is.scalar(roll_off)
-  )
+  stopifnot(length(frequency) == length(amplitude))
+  checkmate::qassert(num_harmonics, "N1")
+  checkmate::qassert(roll_off, "N1")
 }
 
 add_interval <- function(frequency, interval, frequency_scale) {
-  assertthat::assert_that(
-    assertthat::is.scalar(frequency_scale),
-    frequency_scale %in% c("Hz", "midi")
-  )
+  checkmate::qassert(frequency_scale, "S1")
+  stopifnot(frequency_scale %in% c("Hz", "midi"))
   if (frequency_scale == "Hz") {
     frequency * interval
   } else {
@@ -238,12 +228,11 @@ add_interval <- function(frequency, interval, frequency_scale) {
 #' @param dB Whether or not the amplitudes are provided in decibels (dB)
 #' @export
 sum_amplitudes <- function(x, y, coherent = FALSE, dB = FALSE) {
-  assertthat::assert_that(
-    is.numeric(x), assertthat::is.scalar(x),
-    is.numeric(y), assertthat::is.scalar(y),
-    is.logical(coherent), assertthat::is.scalar(coherent),
-    length(x) == length(y)
-  )
+  checkmate::qassert(x, "N")
+  checkmate::qassert(y, "N")
+  checkmate::qassert(coherent, "B1")
+  checkmate::qassert(dB, "B1")
+  stopifnot(length(x) == length(y))
   if (dB) {
     if (coherent) {
       20 * log10(10 ^ (x / 20) + 10 ^ (y / 20))
@@ -367,7 +356,7 @@ plot_waveform <- function( # nocov start
 } # nocov end
 
 reduce_by_key <- function(keys, values, f, key_type = "character") {
-  assertthat::assert_that(
+  stopifnot(
     length(keys) == length(values),
     is.function(f)
   )
@@ -387,7 +376,7 @@ reduce_by_key <- function(keys, values, f, key_type = "character") {
 }
 
 convert_env_to_df <- function(env, sort_by_key = TRUE, decreasing = FALSE, key_type = "character") {
-  assertthat::assert_that(
+  stopifnot(
     is.environment(env)
   )
   as.list(env) %>%
@@ -421,7 +410,7 @@ rename_columns <- function(df, replace, warn_missing = TRUE) {
 #' @export
 add_attributes <- function(df, spec) {
   col_names <- names(spec)
-  assertthat::assert_that(
+  stopifnot(
     all(col_names %in% names(df))
   )
   for (i in seq_along(col_names)) {

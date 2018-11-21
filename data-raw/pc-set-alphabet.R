@@ -5,7 +5,7 @@ library(hutil)
 #' Returns a list of all possible pitch class sets.
 #' @return List of all possible pitch class sets.
 get_pc_set_alphabet <- function(format = "both") {
-  assertthat::assert_that(
+  stopifnot(
     format %in% c("by_id", "by_pc_set", "both")
   )
   args <- list()

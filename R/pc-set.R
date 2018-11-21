@@ -1,12 +1,8 @@
 #' @export
 pc_set <- function(pitch_classes, safe = TRUE) {
   if (safe) {
-    assertthat::assert_that(
-      is.numeric(pitch_classes),
-      all(pitch_classes == round(pitch_classes)),
-      all(pitch_classes >= 0 & pitch_classes < 12),
-      !anyDuplicated(pitch_classes)
-    )
+    checkmate::qassert(pitch_classes, "X[0,12)")
+    stopifnot(!anyDuplicated(pitch_classes))
     pitch_classes <- sort(as.integer(pitch_classes))
   }
   class(pitch_classes) <- "pc_set"

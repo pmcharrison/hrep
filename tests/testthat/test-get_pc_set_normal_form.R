@@ -47,7 +47,7 @@ test_that("transpositions of a pitch-class set all get the same normal form", {
         lapply(get_pc_set_norm_form) %>%
         lapply(as.integer) %>%
         unique %>%
-        assertthat::is.scalar()
+        (function(x) length(x) == 1L)
     )
   }
 })
