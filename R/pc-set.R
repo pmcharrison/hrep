@@ -17,25 +17,22 @@ as.pc_set.numeric <- function(x, ...) {
 
 #' @export
 print.pc_set <- function(x, ...) {
-  cat("Pitch-class set: ",
-      paste0("[", paste(x, collapse = ", "), "]\n"),
-      sep = "")
+  cat("Pitch-class set: ", as.character(x), "\n", sep = "")
 }
 
-get_pc_set_storage_key <- function(pc_set) {
-  if (!is(pc_set, "pc_set")) stop()
-  x <- as.numeric(pc_set)
-  if (!checkmate::qtest(x, "X"))
-    stop("cannot encode non-integer pitch-class set")
-  paste(x, collapse = " ")
+#' @export
+as.character.pc_set <- function(x) {
+  paste(as.numeric(x), collapse = " ")
 }
 
 #' @export
 encode.pc_set <- function(pc_set) {
-  key <- get_pc_set_storage_key(pc_set)
+  checkmate::qassert(pc_set, "X")
+  key <- as.character(pc_set)
   pc_set_alphabet$by_pc_set[[key]]
 }
 
+# Vectorised
 decode_pc_set <- function(x) {
   max_id <- length(pc_set_alphabet$by_id)
   if (!is.numeric(x) ||

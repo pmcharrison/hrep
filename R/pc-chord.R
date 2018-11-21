@@ -66,12 +66,9 @@ get_transpositions.pc_chord <- function(x) {
   lapply(0:11, function(int) transpose(ref, int))
 }
 
-get_pc_chord_storage_key <- function(pc_chord) {
-  if (!is(pc_chord, "pc_chord")) stop()
-  x <- as.numeric(pc_chord)
-  if (!checkmate::qtest(x, "X"))
-    stop("cannot encode non-integer pitch-class chord")
-  paste(x, collapse = " ")
+#' @export
+as.character.pc_chord <- function(x) {
+  paste(as.numeric(x), collapse = " ")
 }
 
 #' @export
@@ -79,7 +76,8 @@ is.pc_chord <- function(x) is(x, "pc_chord")
 
 #' @export
 encode.pc_chord <- function(x) {
-  key <- get_pc_chord_storage_key(pc_chord)
+  checkmate::qassert(pc_set, "X")
+  key <- as.character(x)
   pc_chord_alphabet$by_pc_chord[[key]]
 }
 
@@ -105,26 +103,3 @@ get_pc_chord_alphabet_from_corpus <- function(
 get_pc_chord_alphabet_size <- function() {
   length(pc_chord_alphabet$by_id)
 }
-
-# The output of this function is cached in data/ and can be accessed
-# when the hutil pakage is loaded.
-get_pc_chord_alphabet <- function() {
-  pc_chord_alphabet <- unlist(lapply(0:11, list_pc_chords_with_bass_note),
-                              recursive = FALSE)
-  pc_chord_ids <- seq_along(pc_chord_alphabet)
-  map <- new.env(parent = emptyenv())
-  for (pc_chord_id in pc_chord_ids) {
-    pc_chord <- pc_chord_alphabet[[pc_chord_id]]
-    key <- get_pc_chord_storage_key(pc_chord)
-    map[[key]] <- pc_chord_id
-  }
-  list(by_id = pc_chord_alphabet,
-       by_pc_chord = map)
-}
-
-list_pc_chords_with_bass_note <- function(bass_pc) {
-  sets::set_power(x = setdiff(0:11, bass_pc)) %>%
-    as.list %>%
-    lapply(function(y) pc_chord(bass_pc, as.integer(y)))
-}
-

@@ -18,7 +18,7 @@ get_pc_set_alphabet <- function(format = "both") {
   for (i in seq_len(n)) {
     pc_set <- (0:11)[which(as.logical(spec[i, ]))]
     if (length(pc_set) > 0) {
-      res <- c(res, list(pc_set))
+      res <- c(res, list(pc_set(pc_set)))
     }
   }
   if (format == "by_id") {
@@ -26,7 +26,7 @@ get_pc_set_alphabet <- function(format = "both") {
   } else {
     hash <- new.env()
     for (i in seq_along(res)) {
-      key <- get_pc_set_storage_key(res[[i]])
+      key <- as.character(res[[i]])
       hash[[key]] <- i
     }
     if (format == "by_pc_set") {
