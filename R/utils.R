@@ -4,7 +4,7 @@
 #' @param pitch A numeric vector of pitches
 #' @return A numeric vector produced by mapping each element in \code{pitch} to a pitch class
 #' @export
-convert_pitch_to_pc <- function(pitch) {
+pitch_to_pc <- function(pitch) {
   pitch %% 12
 }
 
@@ -14,8 +14,8 @@ convert_pitch_to_pc <- function(pitch) {
 #' @param pitch A numeric vector of pitches, possibly including duplicates
 #' @return A numeric vector of pitch classes, produced by mapping each element in \code{pitch} to a pitch class, sorting, and removing duplicates.
 #' @export
-convert_pitch_to_pc_set <- function(pitch) {
-  sort(unique(convert_pitch_to_pc(pitch)))
+pitch_to_pc_set <- function(pitch) {
+  sort(unique(pitch_to_pc(pitch)))
 }
 
 #' Get the distance between two pitch classes.
@@ -45,7 +45,7 @@ get_ascending_pc_dist <- function(x, y) {
 #' @param tuning_ref_Hz The tuning reference point in Hz, should correspond to the frequency of the A above middle C (typically 440 Hz)
 #' @return Numeric vector of frequencies in Hz
 #' @export
-convert_midi_to_freq <- function(
+midi_to_freq <- function(
   midi,
   stretched_octave = get_midi_params()$stretched_octave,
   tuning_ref_Hz = get_midi_params()$tuning_ref_Hz
@@ -64,7 +64,7 @@ convert_midi_to_freq <- function(
 #' @param tuning_ref_Hz The tuning reference point in Hz, should correspond to the frequency of the A above middle C (typically 440 Hz)
 #' @return Numeric vector of frequencies in Hz
 #' @export
-convert_freq_to_midi <- function(
+freq_to_midi <- function(
   frequency,
   stretched_octave = get_midi_params()$stretched_octave,
   tuning_ref_Hz = get_midi_params()$tuning_ref_Hz
@@ -76,7 +76,7 @@ convert_freq_to_midi <- function(
 }
 
 #' @export
-convert_amplitude_to_dB <- function(
+amplitude_to_dB <- function(
   amplitude,
   unit_amplitude_in_dB
 ) {
@@ -88,7 +88,7 @@ convert_amplitude_to_dB <- function(
 }
 
 #' @export
-convert_dB_to_amplitude <- function(
+dB_to_amplitude <- function(
   dB,
   unit_amplitude_in_dB
 ) {
@@ -155,7 +155,7 @@ expand_harmonics <- function(
     unit_amplitude_in_dB <- 60
     expand_harmonics(
       frequency = frequency,
-      amplitude = convert_dB_to_amplitude(amplitude, unit_amplitude_in_dB),
+      amplitude = dB_to_amplitude(amplitude, unit_amplitude_in_dB),
       dB = FALSE,
       frequency_scale = frequency_scale,
       num_harmonics = num_harmonics,
@@ -163,7 +163,7 @@ expand_harmonics <- function(
       frequency_digits = frequency_digits
     ) %>%
       (function(df) {
-        df$amplitude <- convert_amplitude_to_dB(df$amplitude, unit_amplitude_in_dB)
+        df$amplitude <- amplitude_to_dB(df$amplitude, unit_amplitude_in_dB)
         df
       })
   } else {
@@ -250,7 +250,7 @@ sum_amplitudes <- function(x, y, coherent = FALSE, dB = FALSE) {
 
 #' Note: this could be done more efficiently with ifft
 #' @export
-convert_sparse_spectrum_to_waveform <- function(
+sparse_spectrum_to_waveform <- function(
   frequency,
   amplitude,
   seconds = 1,
@@ -278,7 +278,7 @@ play_sparse_spectrum <- function( # nocov start
   seconds = 1,
   bit = 16
 ) {
-  spectrum <- convert_sparse_spectrum_to_waveform(
+  spectrum <- sparse_spectrum_to_waveform(
     frequency = frequency, amplitude = amplitude,
     second = seconds, sample_rate = sample_rate, bit = bit
   )
@@ -372,10 +372,10 @@ reduce_by_key <- function(keys, values, f, key_type = "character") {
       do.call(f, list(env[[key]], value))
     }
   }
-  convert_env_to_df(env, key_type = key_type)
+  env_to_df(env, key_type = key_type)
 }
 
-convert_env_to_df <- function(env, sort_by_key = TRUE, decreasing = FALSE, key_type = "character") {
+env_to_df <- function(env, sort_by_key = TRUE, decreasing = FALSE, key_type = "character") {
   stopifnot(
     is.environment(env)
   )

@@ -1,7 +1,7 @@
 chord_id_to_pc_set_id_map <- vapply(
   chord_alphabet$by_id,
   function(chord) {
-    encode_pc_set(convert_pitch_to_pc_set(chord))
+    encode_pc_set(pitch_to_pc_set(chord))
   },
   integer(1)
 )

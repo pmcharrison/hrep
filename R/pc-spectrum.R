@@ -164,29 +164,29 @@ get_cosine_similarity <- function(x, y) {
 }
 
 #' #' This function builds a comprehensive memory-based cache for
-#' #' convert_pc_set_to_pc_spectrum.
+#' #' pc_set_to_pc_spectrum.
 #' #' @export
-#' cache_convert_pc_set_to_pc_spectrum <- function(
+#' cache_pc_set_to_pc_spectrum <- function(
 #'   array_dim = 1200,
 #'   num_harmonics = 12,
 #'   rho = 0.75,
 #'   sigma = 6.83
 #' ) {
 #'   alphabet <- pc_set_alphabet$by_id
-#'   cache_convert_pc_set_to_pc_spectrum <- new.env()
+#'   cache_pc_set_to_pc_spectrum <- new.env()
 #'   pb <- txtProgressBar(max = length(alphabet), style = 3)
 #'   for (i in seq_along(alphabet)) {
 #'     pc_set <- alphabet[[i]]
-#'     convert_pc_set_to_pc_spectrum(
+#'     pc_set_to_pc_spectrum(
 #'       pc_set,
 #'       array_dim = array_dim,
 #'       num_harmonics = num_harmonics,
 #'       rho = rho,
 #'       sigma = sigma,
 #'       cache = TRUE,
-#'       cache_env = cache_convert_pc_set_to_pc_spectrum
+#'       cache_env = cache_pc_set_to_pc_spectrum
 #'     )
 #'     setTxtProgressBar(pb, i)
 #'   }
-#'   cache_convert_pc_set_to_pc_spectrum
+#'   cache_pc_set_to_pc_spectrum
 #' }

@@ -2,7 +2,6 @@
 
 ## Immediate
 
-- remove convert_
 - methods for decode and encode
 - corpus
 - piece

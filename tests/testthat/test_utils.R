@@ -79,72 +79,72 @@ test_that("expand_harmonics", {
     ),
     data.frame(
       frequency = 1:4,
-      amplitude = (1 / (1 : 4)) %>% convert_amplitude_to_dB(60)
+      amplitude = (1 / (1 : 4)) %>% amplitude_to_dB(60)
     ),
     check.attributes = FALSE
   )
 })
 
-test_that("convert_midi_to_freq", {
+test_that("midi_to_freq", {
   expect_equal(
-    convert_midi_to_freq(69),
+    midi_to_freq(69),
     440
   )
   expect_equal(
-    convert_midi_to_freq(60) %>% round(digits = 1),
+    midi_to_freq(60) %>% round(digits = 1),
     261.6
   )
   expect_equal(
-    convert_midi_to_freq(21) %>% round(digits = 1),
+    midi_to_freq(21) %>% round(digits = 1),
     27.5
   )
   expect_equal(
-    convert_midi_to_freq(69, stretched_octave = FALSE),
+    midi_to_freq(69, stretched_octave = FALSE),
     440)
-  expect_equal(convert_midi_to_freq(81, stretched_octave = FALSE),
+  expect_equal(midi_to_freq(81, stretched_octave = FALSE),
                880)
-  expect_equal(convert_midi_to_freq(c(69, 81), stretched_octave = FALSE),
+  expect_equal(midi_to_freq(c(69, 81), stretched_octave = FALSE),
                c(440, 880))
 })
 
-test_that("convert_freq_to_midi", {
+test_that("freq_to_midi", {
   expect_equal(
-    convert_freq_to_midi(440),
+    freq_to_midi(440),
     69
   )
   expect_equal(
-    convert_freq_to_midi(261.6) %>% round(digits = 1),
+    freq_to_midi(261.6) %>% round(digits = 1),
     60
   )
   expect_equal(
-    convert_freq_to_midi(880),
+    freq_to_midi(880),
     81
   )
   expect_equal(
-    convert_freq_to_midi(880, stretched_octave = TRUE),
+    freq_to_midi(880, stretched_octave = TRUE),
     80.9
   )
   rand <- rnorm(n = 100, mean = 60, sd = 40)
   expect_equal(
-    rand %>% convert_midi_to_freq %>% convert_freq_to_midi,
+    rand %>% midi_to_freq %>% freq_to_midi,
     rand
   )
   expect_false(
-    (rand %>% convert_midi_to_freq(stretched_octave = TRUE) %>% convert_freq_to_midi == rand) %>% all
+    (rand %>% midi_to_freq(stretched_octave = TRUE) %>% freq_to_midi == rand) %>% all
   )
   expect_equal(
-    rand %>% convert_midi_to_freq(stretched_octave = TRUE) %>%
-      convert_freq_to_midi(stretched_octave = TRUE),
+    rand %>% midi_to_freq(stretched_octave = TRUE) %>%
+      freq_to_midi(stretched_octave = TRUE),
     rand
   )
 })
 
-test_that("convert_env_to_df", {
+test_that("env_to_df", {
   env <- new.env()
   env$cat <- 1
   env$dog <- 2
   expect_equal(
-    convert_env_to_df(env, decreasing = FALSE),
+    env_to_df(env, decreasing = FALSE),
     data.frame(
       key = c("cat", "dog"),
       value = c(1, 2),
@@ -152,7 +152,7 @@ test_that("convert_env_to_df", {
     )
   )
   expect_equal(
-    convert_env_to_df(env, decreasing = TRUE),
+    env_to_df(env, decreasing = TRUE),
     data.frame(
       key = c("dog", "cat"),
       value = c(2, 1),
@@ -184,30 +184,30 @@ test_that("reduce_by_key", {
   )
 })
 
-test_that("convert_amplitude_to_dB", {
+test_that("amplitude_to_dB", {
   expect_equal(
-    convert_amplitude_to_dB(
+    amplitude_to_dB(
       amplitude = 1, unit_amplitude_in_dB = 60
     ),
     60,
     check.attributes = FALSE
   )
   expect_equal(
-    convert_amplitude_to_dB(
+    amplitude_to_dB(
       amplitude = 1, unit_amplitude_in_dB = 30
     ),
     30,
     check.attributes = FALSE
   )
   expect_equal(
-    convert_amplitude_to_dB(
+    amplitude_to_dB(
       amplitude = 10, unit_amplitude_in_dB = 30
     ),
     50,
     check.attributes = FALSE
   )
   expect_equal(
-    convert_amplitude_to_dB(
+    amplitude_to_dB(
       amplitude = 100, unit_amplitude_in_dB = 30
     ),
     70,
@@ -215,23 +215,23 @@ test_that("convert_amplitude_to_dB", {
   )
 })
 
-test_that("convert_dB_to_amplitude", {
+test_that("dB_to_amplitude", {
   expect_equal(
-    convert_dB_to_amplitude(
+    dB_to_amplitude(
       dB = 60, unit_amplitude_in_dB = 60
     ),
     1,
     check.attributes = FALSE
   )
   expect_equal(
-    convert_dB_to_amplitude(
+    dB_to_amplitude(
       dB = 20, unit_amplitude_in_dB = 60
     ),
     0.01,
     check.attributes = FALSE
   )
   expect_equal(
-    convert_dB_to_amplitude(
+    dB_to_amplitude(
       dB = 100, unit_amplitude_in_dB = 60
     ),
     100,
@@ -258,33 +258,33 @@ test_that("sum_amplitudes", {
   )
   expect_equal(
     sum_amplitudes(60, 60, coherent = TRUE, dB = TRUE),
-    convert_amplitude_to_dB(2, unit_amplitude_in_dB = 60),
+    amplitude_to_dB(2, unit_amplitude_in_dB = 60),
     check.attributes = FALSE
   )
 })
 
-test_that("convert_pitch_to_pc", {
+test_that("pitch_to_pc", {
   expect_equal(
-    convert_pitch_to_pc(26),
+    pitch_to_pc(26),
     2
   )
   expect_equal(
-    convert_pitch_to_pc(72),
+    pitch_to_pc(72),
     0
   )
   expect_equal(
-    convert_pitch_to_pc(c(26, 72, 5)),
+    pitch_to_pc(c(26, 72, 5)),
     c(2, 0, 5)
   )
 })
 
-test_that("convert_pitch_to_pc_set", {
+test_that("pitch_to_pc_set", {
   expect_equal(
-    convert_pitch_to_pc_set(c(60, 60, 64, 67)),
+    pitch_to_pc_set(c(60, 60, 64, 67)),
     c(0, 4, 7)
   )
   expect_equal(
-    convert_pitch_to_pc_set(c(67, 60, 59, 42)),
+    pitch_to_pc_set(c(67, 60, 59, 42)),
     c(0, 6, 7, 11)
   )
 })
