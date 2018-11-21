@@ -1,9 +1,11 @@
 #' @export
-coded_seq <- function(x, type) {
+coded_seq <- function(x, type, description = NULL) {
   checkmate::qassert(x, "X")
   checkmate::qassert(type, "S1")
+  checkmate::qassert(description, "S1")
   x <- as.integer(x)
   attr(x, "type") <- type
+  attr(x, "description") <- description
   class(x) <- c("coded_seq", "integer")
   x
 }
@@ -19,6 +21,16 @@ type.coded_seq <- function(x, ...) {
 }
 
 #' @export
+description <- function(x, ...) {
+  UseMethod("description")
+}
+
+#' @export
+description.coded_seq <- function(x) {
+  attr(x, "description")
+}
+
+#' @export
 is.coded_seq <- function(x) {
   is(x, "coded_seq")
 }
@@ -28,6 +40,18 @@ print.coded_seq <- function(x, ...) {
   n <- length(x)
   type <- type(x)
   cat("Encoded sequence: Type = '", type, "', length = ", n, "\n")
+
+  desc <- description(x)
+  cat("\n")
+  cat("\tAn encoded sequence")
+  cat("\n\n")
+  if (is.null(desc)) cat("(No description provided)") else {
+    cat(strwrap(paste0("'", desc, "'")))
+  }
+  cat("\n")
+  cat("Type =", type, "\n")
+  cat("Length =", num_events(x), "\n")
+  cat("\n")
 }
 
 #' @export
@@ -53,3 +77,10 @@ decode <- function(x, type = NULL, ...) {
 decode_empty <- function(x) {
   list()
 }
+
+# normalise_bass.harmony_composition <- function(x) {
+#   chords_int <- as.integer(x)
+#   chords_decoded <- decode_chords(chords_int)
+#   chords_normalised <- lapply(chords_decoded, normalise_bass.chord)
+#   new_harmony_composition(chords_normalised)
+# }
