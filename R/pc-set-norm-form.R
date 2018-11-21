@@ -42,8 +42,8 @@ pc_set_norm_form <- function(x, transposition = NULL) {
 }
 
 #' @export
-as.pc_set.pc_set_norm_form <- function(x, safe = TRUE) {
-  pc_set(as.integer(x), safe = safe)
+as.pc_set.pc_set_norm_form <- function(x) {
+  pc_set(as.integer(x))
 }
 
 #' @export

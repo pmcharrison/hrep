@@ -18,11 +18,10 @@ normalise_pc_set_transition <- function(context_pc_set_id,
     as.integer(NA)
   } else {
     encode_pc_set(transpose(context_pc_set,
-                            transposition,
-                            safe = FALSE))
+                            transposition))
   }
   trans_continuation_pc_set_id <- encode_pc_set(
-    transpose(continuation_pc_set, transposition, safe = FALSE)
+    transpose(continuation_pc_set, transposition)
   )
   c(trans_context_pc_set_id, trans_continuation_pc_set_id)
 }

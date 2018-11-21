@@ -1,8 +1,8 @@
 #' @param x (Numeric vector) MIDI note numbers
 #' @export
-pi_chord <- function(x, safe = TRUE) {
+pi_chord <- function(x) {
   checkmate::qassert(x, "N")
-  if (safe) x <- sort(unique(x))
+  x <- sort(unique(x))
   class(x) <- c("pi_chord", "numeric")
   x
 }
@@ -13,11 +13,11 @@ print.pi_chord <- function(x, ...) {
 }
 
 #' @export
-as.pi_chord <- function(x, safe = TRUE) UseMethod("as.pi_chord")
+as.pi_chord <- function(x) UseMethod("as.pi_chord")
 
 #' @export
-as.pi_chord.numeric <- function(x, safe = TRUE) {
-  pi_chord(x, safe = safe)
+as.pi_chord.numeric <- function(x) {
+  pi_chord(x)
 }
 
 #' @export
@@ -27,7 +27,6 @@ get_bass_pi <- function(x, ...) UseMethod("get_bass_pi")
 get_bass_pi.pi_chord <- function(x, ...) x[1]
 
 #' @export
-as.pc_chord.pi_chord <- function(x, safe = TRUE) {
+as.pc_chord.pi_chord <- function(x) {
   pc_chord(bass_pc = pi_to_pc(get_bass_pi(x)),
-
 }

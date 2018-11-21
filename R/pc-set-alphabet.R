@@ -35,8 +35,7 @@ decode_pc_set <- function(x) {
           round(x) != x)) {
     stop("All pc_set ids must be integers between 1 and ", max_id, ".")
   }
-  lapply(pc_set_alphabet$by_id[x],
-         function(x) pc_set(x, safe = FALSE))
+  lapply(pc_set_alphabet$by_id[x], function(x) pc_set(x))
 }
 
 #' @param pc_chord_id Vectorised
