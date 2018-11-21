@@ -8,11 +8,11 @@ Underlying form:
 
 Cases:
 
-- pc_set
+- pc_set (DONE)
 - pc_set_norm_form
 - pc_set_norm_order
 
-- pc_chord
+- pc_chord (DONE)
 - pc_chord_type
 
 - pi_chord
