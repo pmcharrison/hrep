@@ -21,7 +21,7 @@ transpose.pc_set <- function(x, interval, safe = TRUE) {
 }
 
 #' @export
-transpose.chord <- function(x, interval, safe = TRUE) {
+transpose.pc_chord <- function(x, interval, safe = TRUE) {
   if (safe) {
     check_is_valid_interval(interval)
     interval <- as.integer(interval)
@@ -39,6 +39,6 @@ transpose.chord <- function(x, interval, safe = TRUE) {
 #' }
 #'
 #' #' @export
-#' `+.chord` <- function(x, y) {
+#' `+.pc_chord` <- function(x, y) {
 #'   transpose(x, y)
 #' }

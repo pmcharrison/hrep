@@ -10,8 +10,8 @@ get_pc_set_alphabet_from_corpus <- function(
   if (encode) {
     stop("Encoding not yet supported for pitch-class sets")
   }
-  get_chord_alphabet_from_corpus(corpus) %>%
-    decode_chords %>%
+  get_pc_chord_alphabet_from_corpus(corpus) %>%
+    decode_pc_chords %>%
     lapply(as.integer) %>%
     lapply(convert_pitch_to_pc_set) %>%
     unique %>%
@@ -50,8 +50,8 @@ decode_pc_sets <- function(pc_sets) {
          function(x) new_pc_set(x, safe = FALSE))
 }
 
-#' @param chord_id Vectorised
+#' @param pc_chord_id Vectorised
 #' @export
-map_chord_id_to_pc_set_id <- function(chord_id) {
-  chord_id_to_pc_set_id_map[as.integer(chord_id)]
+map_pc_chord_id_to_pc_set_id <- function(pc_chord_id) {
+  pc_chord_id_to_pc_set_id_map[as.integer(pc_chord_id)]
 }

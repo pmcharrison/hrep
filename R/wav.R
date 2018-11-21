@@ -3,13 +3,13 @@
 
 #' @export
 save_wav <- function(x, file, ...) UseMethod("save_wav")
-save_wav.chord <- function(x, file,
-                           length_sec = 1,
-                           sample_rate = 44100,
-                           bit_rate = 16,
-                           fade_samples = 100,
-                           num_harmonics = get_midi_params()$num_harmonics,
-                           roll_off = get_midi_params()$roll_off) {
+save_wav.pc_chord <- function(x, file,
+                              length_sec = 1,
+                              sample_rate = 44100,
+                              bit_rate = 16,
+                              fade_samples = 100,
+                              num_harmonics = get_midi_params()$num_harmonics,
+                              roll_off = get_midi_params()$roll_off) {
   midi <- as.integer(x)
   freq <- convert_midi_to_freq(midi)
   spectrum <- expand_harmonics(
@@ -36,18 +36,18 @@ save_wav.spectrum <- function(x,
 
 }
 
-  save_discrete_waveform <- function(x,
-                                     file,
-                                     sample_rate = attr(x, "sample_rate"),
-                                     bit_rate = attr(x, "bit_rate")) {
-    tmp_file <- tempfile(fileext = ".wav")
-    tuneR::writeWave(tuneR::Wave(x,
-                                 samp.rate = sample_rate,
-                                 bit = bit_rate),
-                     filename = tmp_file)
-    # Feed through sox to fix encoding problems
-    "sox %s %s" %>% sprintf(shQuote(tmp_file), shQuote(file)) %>% system
-  }
+save_discrete_waveform <- function(x,
+                                   file,
+                                   sample_rate = attr(x, "sample_rate"),
+                                   bit_rate = attr(x, "bit_rate")) {
+  tmp_file <- tempfile(fileext = ".wav")
+  tuneR::writeWave(tuneR::Wave(x,
+                               samp.rate = sample_rate,
+                               bit = bit_rate),
+                   filename = tmp_file)
+  # Feed through sox to fix encoding problems
+  "sox %s %s" %>% sprintf(shQuote(tmp_file), shQuote(file)) %>% system
+}
 
 spectrum_to_waveform <- function(frequency,
                                  amplitude,

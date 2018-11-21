@@ -23,8 +23,8 @@ as.pc_set.pc_set <- function(x, safe = TRUE) {
   x
 }
 #' @export
-as.pc_set.chord <- function(x, safe = TRUE) {
-  get_pc_set.chord(x, safe = safe)
+as.pc_set.pc_chord <- function(x, safe = TRUE) {
+  get_pc_set.pc_chord(x, safe = safe)
 }
 #' @export
 as.pc_set.numeric <- function(x, safe = TRUE, ...) {

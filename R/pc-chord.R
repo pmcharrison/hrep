@@ -21,31 +21,31 @@ pc_chord <- function(bass_pc, non_bass_pc_set, safe = TRUE) {
     non_bass_pc_set <- sort(non_bass_pc_set)
   }
   x <- c(bass_pc, non_bass_pc_set)
-  class(x) <- "chord"
+  class(x) <- "pc_chord"
   x
 }
 
 #' @export
-print.chord <- function(x, ...) {
-  cat("Chord: ",
+print.pc_chord <- function(x, ...) {
+  cat("Pitch-class chord: ",
       "[", get_bass_pc(x), "] ",
       paste(get_non_bass_pc_set(x), collapse = " "), "\n",
       sep = "")
 }
 
 #' @export
-as.chord <- function(x, safe = TRUE) UseMethod("as.chord")
+as.pc_chord <- function(x, safe = TRUE) UseMethod("as.pc_chord")
 #' @export
-as.chord.numeric <- function(x, safe = TRUE) {
+as.pc_chord.numeric <- function(x, safe = TRUE) {
   if (safe) {
     pc_chord(bass_pc = x[1], non_bass_pc_set = x[-1], safe = safe)
   } else {
-    class(x) <- "chord"
+    class(x) <- "pc_chord"
     x
   }
 }
 #' @export
-as.chord.chord <- function(x, safe = TRUE) {
+as.pc_chord.pc_chord <- function(x, safe = TRUE) {
   if (safe) {
     pc_chord(bass_pc = get_bass_pc(x),
              non_bass_pc_set = get_non_bass_pc_set(x),
@@ -56,27 +56,27 @@ as.chord.chord <- function(x, safe = TRUE) {
 #' @export
 get_bass_pc <- function(x) UseMethod("get_bass_pc")
 #' @export
-get_bass_pc.chord <- function(x) x[1]
+get_bass_pc.pc_chord <- function(x) x[1]
 
 #' @export
 get_non_bass_pc_set <- function(x, safe = TRUE) UseMethod("get_non_bass_pc_set")
 #' @export
-get_non_bass_pc_set.chord <- function(x, safe = TRUE) new_pc_set(x[- 1],
+get_non_bass_pc_set.pc_chord <- function(x, safe = TRUE) new_pc_set(x[- 1],
                                                                  safe = safe)
 
 #' @export
 get_pc_set <- function(x, safe = TRUE) UseMethod("get_pc_set")
 #' @export
-get_pc_set.chord <- function(x, safe = TRUE) new_pc_set(sort(as.integer(x)),
+get_pc_set.pc_chord <- function(x, safe = TRUE) new_pc_set(sort(as.integer(x)),
                                                         safe = safe)
 
 #' @export
-normalise_bass.chord <- function(x) {
+normalise_bass.pc_chord <- function(x) {
   transpose(x, - get_bass_pc(x))
 }
 
 #' @export
-get_transpositions.chord <- function(x) {
+get_transpositions.pc_chord <- function(x) {
   ref <- normalise_bass(x)
   lapply(0:11, function(int) transpose(ref, int, safe = FALSE))
 }
@@ -86,7 +86,7 @@ get_transpositions.chord <- function(x) {
 # setMethod(
 #   "normalise_bass", signature(x = "harmony_composition"),
 #   function(x) {
-#     x %>% as.integer %>% decode_chords %>% lapply(normalise_bass) %>%
+#     x %>% as.integer %>% decode_pc_chords %>% lapply(normalise_bass) %>%
 #       as.harmony_composition
 #   }
 # )
