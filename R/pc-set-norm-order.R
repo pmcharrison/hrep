@@ -1,18 +1,18 @@
 #' @export
-print.pc_set_normal_order <- function(x, ...) {
+print.pc_set_norm_order <- function(x, ...) {
   cat("Pitch-class set (normal order): ",
       paste0("[", paste(as.integer(x), collapse = ", "), "]\n"),
       sep = "")
 }
 
-get_pc_set_normal_order <- function(x) UseMethod("get_pc_set_normal_order")
-get_pc_set_normal_order.pc_set <- function(x) {
-  get_pc_set_normal_order(as.integer(x))
+get_pc_set_norm_order <- function(x) UseMethod("get_pc_set_norm_order")
+get_pc_set_norm_order.pc_set <- function(x) {
+  get_pc_set_norm_order(as.integer(x))
 }
-get_pc_set_normal_order.numeric <- function(x) {
-  get_pc_set_normal_order(as.integer(x))
+get_pc_set_norm_order.numeric <- function(x) {
+  get_pc_set_norm_order(as.integer(x))
 }
-get_pc_set_normal_order.integer <- function(x) {
+get_pc_set_norm_order.integer <- function(x) {
   stopifnot(!anyDuplicated(x))
   stopifnot(all(x >= 0L & x < 12L))
   if (identical(length(x), 0L)) {
@@ -34,7 +34,7 @@ get_pc_set_normal_order.integer <- function(x) {
   }
   if (length(best) == 0) stop("No normal orders found!")
   res <- cycles[best[1], ]
-  class(res) <- "pc_set_normal_order"
+  class(res) <- "pc_set_norm_order"
   res
 }
 

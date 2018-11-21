@@ -9,8 +9,8 @@ Underlying form:
 Cases:
 
 - pc_set (DONE)
-- pc_set_norm_form
-- pc_set_norm_order
+- pc_set_norm_form (DONE)
+- pc_set_norm_order (DONE)
 
 - pc_chord (DONE)
 - pc_chord_type
