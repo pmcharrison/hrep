@@ -76,7 +76,7 @@ is.pc_chord <- function(x) is(x, "pc_chord")
 
 #' @export
 encode.pc_chord <- function(x) {
-  checkmate::qassert(pc_set, "X")
+  checkmate::qassert(x, "X")
   key <- as.character(x)
   pc_chord_alphabet$by_pc_chord[[key]]
 }

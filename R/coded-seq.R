@@ -40,15 +40,11 @@ print.coded_seq <- function(x, ...) {
   n <- length(x)
   type <- type(x)
   desc <- description(x)
-  cat("\n")
-  cat("\tAn encoded sequence")
-  cat("\n\n")
+  cat("Encoded sequence of type '", type,
+      "', length = ", num_symbols(x), "\n", sep = "")
   if (!is.null(desc)) {
-    cat(strwrap(paste0("'", desc, "'\n")))
+    cat(strwrap(paste0("Description: '", desc, "'")), "\n\n")
   }
-  cat("Type =", type, "\n")
-  cat("Length =", num_symbols(x))
-  cat("\n")
 }
 
 #' @export
@@ -61,9 +57,8 @@ encode <- function(x, ...) {
 
 #' @export
 encode.list <- function(x, ...) {
-  type <- if (length(x) == 1L) "empty" else class(x[[1]])
-  coded_seq(purrr::map_int(x, encode),
-           type = type)
+  type <- if (length(x) == 0L) "empty" else class(x[[1]])
+  coded_seq(purrr::map_int(x, encode), type = type)
 }
 
 #' @export
