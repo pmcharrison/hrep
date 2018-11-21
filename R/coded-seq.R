@@ -2,7 +2,7 @@
 coded_seq <- function(x, type, description = NULL) {
   checkmate::qassert(x, "X")
   checkmate::qassert(type, "S1")
-  checkmate::qassert(description, "S1")
+  stopifnot(is.null(description) || checkmate::qtest(description, "S1"))
   x <- as.integer(x)
   class(x) <- c("coded_seq", "integer")
   type(x) <- type
@@ -39,18 +39,15 @@ is.coded_seq <- function(x) {
 print.coded_seq <- function(x, ...) {
   n <- length(x)
   type <- type(x)
-  cat("Encoded sequence: Type = '", type, "', length = ", n, "\n")
-
   desc <- description(x)
   cat("\n")
   cat("\tAn encoded sequence")
   cat("\n\n")
-  if (is.null(desc)) cat("(No description provided)") else {
-    cat(strwrap(paste0("'", desc, "'")))
+  if (!is.null(desc)) {
+    cat(strwrap(paste0("'", desc, "'\n")))
   }
-  cat("\n")
   cat("Type =", type, "\n")
-  cat("Length =", num_symbols(x), "\n")
+  cat("Length =", num_symbols(x))
   cat("\n")
 }
 
@@ -69,6 +66,7 @@ encode.list <- function(x, ...) {
            type = type)
 }
 
+#' @export
 decode <- function(x, type = NULL, ...) {
   if (is.null(type)) type <- type(x)
   if (is.null(type)) stop("couldn't infer the type of <x>")
@@ -79,6 +77,16 @@ decode <- function(x, type = NULL, ...) {
 
 decode_empty <- function(x) {
   list()
+}
+
+#' @export
+transform_symbols.coded_seq <- function(x, f) {
+  description <- description(x)
+  decoded <- decode(x)
+  transformed <- lapply(decoded, f)
+  res <- encode(transformed)
+  description(res) <- description
+  res
 }
 
 # normalise_bass.harmony_composition <- function(x) {

@@ -22,3 +22,6 @@ description <- function(x) UseMethod("description")
 type <- function(x) UseMethod("type")
 #' @export
 `type<-` <- function(x, value) UseMethod("type<-")
+
+#' @export
+transform_symbols <- function(x, f) UseMethod("transform_symbols")

@@ -6,15 +6,22 @@ corpus <- function(x, description = NULL, type = NULL) {
   stopifnot(is.null(type) || checkmate::qtest(type, "S1"))
   if (!purrr::map_lgl(x, is.coded_seq))
     stop("every element of <x> must be an object of class 'coded_seq'")
-  types <- unique(purrr::map_chr(x, type))
+  types <- unique(purrr::map_chr(x, function(x) type(x)))
   if (length(types) > 1L)
     stop("every element of <x> must be a coded sequence of the same type ",
          "(observed: ", paste(types, collapse = ", "), ")")
   if (!is.null(type) && !types == type)
     stop("requested type (", type, ") inconsistent with observed type (",
          types, ")")
+  class(x) <- c("corpus", "list")
   type(x) <- type
   description(x) <- description
+  x
+}
+
+#' @export
+as.list.corpus <- function(x) {
+  class(x) <- "list"
   x
 }
 
@@ -51,26 +58,40 @@ num_symbols.corpus <- function(x) {
 
 #' @export
 description.corpus <- function(x) attr(x, "description")
+
+#' @export
 `description<-.corpus` <- function(x, value) {
   attr(x, "description") <- value
   x
 }
 
+type.corpus <- function(x) {
+  attr(x, "type")
+}
+
+`type<-.corpus` <- function(x, value) {
+  attr(x, "type") <- value
+  x
+}
+
+
 # Display ####
 #' @export
 print.corpus <- function(x, ...) {
   desc <- description(x)
-  cat("\n")
-  cat("\tA corpus of encoded sequences")
-  cat("\n\n")
-  if (is.null(desc)) cat("(No description found)") else {
-    cat(strwrap(paste0("'", desc, "'")))
+  cat("\n\tA corpus of encoded sequences\n\n")
+  if (!is.null(desc))
+    cat(strwrap(paste0("'", desc, "'\n")))
+  cat("Num. sequences =", num_sequences(x), "\n")
+  cat("Num. symbols =", num_symbols(x), "\n\n")
+}
+
+#' @export
+transform_symbols.corpus <- function(x, f) {
+  for (i in num_sequences(x)) {
+    x[[i]] <- transform_symbols(x[[i]], f)
   }
-  cat("\n")
-  cat("Num. sequences =", num_sequences(x))
-  cat("\n")
-  cat("Num. symbols =", num_symbols(x))
-  cat("\n\n")
+  x
 }
 
 #' # Other ####

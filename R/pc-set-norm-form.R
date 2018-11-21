@@ -1,10 +1,11 @@
 #' @export
 print.pc_set_norm_form <- function(x, ...) {
+  trans <- get_transposition(x)
   cat("Pitch-class set (normal form): ",
       paste0("[", paste(as.integer(x), collapse = ", "), "]\n"),
       sep = "")
   cat("Transposition from original pitch-class set: ",
-      get_transposition(x), "\n",
+      if (is.null(trans)) "unavailable" else trans, "\n",
       sep = "")
 }
 
@@ -30,7 +31,26 @@ as.pc_set_norm_form.pc_set_norm_order <- function(x) {
   res <- if (length(x_int) == 0) x_int else {
     (x_int - transposition) %% 12L
   }
-  class(res) <- "pc_set_norm_form"
-  attr(res, "transposition") <- - transposition
-  res
+  pc_set_norm_form(res, - transposition)
+}
+
+#' @export
+pc_set_norm_form <- function(x, transposition = NULL) {
+  class(x) <- "pc_set_norm_form"
+  attr(x, "transposition") <- transposition
+  x
+}
+
+#' @export
+as.pc_set.pc_set_norm_form <- function(x, safe = TRUE) {
+  pc_set(as.integer(x), safe = safe)
+}
+
+#' @export
+encode.pc_set_norm_form <- function(x) {
+  encode.pc_set(as.pc_set(x))
+}
+
+decode_pc_set_norm_form <- function(x) {
+  lapply(decode_pc_set(x), pc_set_norm_form)
 }
