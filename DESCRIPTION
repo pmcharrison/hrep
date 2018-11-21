@@ -1,4 +1,4 @@
-Package: HarmonyUtils
+Package: hutil
 Title: Low-level utility functions for harmony analysis packages
 Version: 0.4.0
 Authors@R: person("Peter", "Harrison", email = "pmc.harrison@gmail.com", role = c("aut", "cre"))

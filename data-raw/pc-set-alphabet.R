@@ -1,4 +1,4 @@
-library(HarmonyUtils)
+library(hutil)
 
 #' Get pitch class set alphabet
 #'

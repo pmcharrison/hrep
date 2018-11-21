@@ -163,9 +163,9 @@ test_that("convert_env_to_df", {
 
 test_that("reduce_by_key", {
   expect_equal(
-    HarmonyUtils:::reduce_by_key(keys = c("a", "a", "a", "b", "b"),
-                                 values = c(1, 1, 1, -1, -1),
-                                 function(x, y) x + y),
+    hutil:::reduce_by_key(keys = c("a", "a", "a", "b", "b"),
+                          values = c(1, 1, 1, -1, -1),
+                          function(x, y) x + y),
     data.frame(
       key = c("a", "b"),
       value = c(3, -2),
@@ -173,9 +173,9 @@ test_that("reduce_by_key", {
     )
   )
   expect_equal(
-    HarmonyUtils:::reduce_by_key(keys = c("a", "b", "a", "b", "a"),
-                                 values = c(1, -1, 1, -1, 1),
-                                 function(x, y) x + y),
+    hutil:::reduce_by_key(keys = c("a", "b", "a", "b", "a"),
+                          values = c(1, -1, 1, -1, 1),
+                          function(x, y) x + y),
     data.frame(
       key = c("a", "b"),
       value = c(3, -2),

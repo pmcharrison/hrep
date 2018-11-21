@@ -9,7 +9,7 @@ is.chord <- function(x) is(x, "chord")
 #' @export
 encode_chord <- function(chord) {
   key <- get_chord_storage_key(chord)
-  HarmonyUtils::chord_alphabet$by_chord[[key]]
+  hutil::chord_alphabet$by_chord[[key]]
 }
 
 #' @export
@@ -20,13 +20,13 @@ encode_chords <- function(chords) {
 
 #' @export
 decode_chord <- function(chord) {
-  HarmonyUtils::chord_alphabet$by_id[[chords]]
+  hutil::chord_alphabet$by_id[[chords]]
 }
 
 #' @export
 decode_chords <- function(chords) {
   stopifnot(is.numeric(chords))
-  HarmonyUtils::chord_alphabet$by_id[chords]
+  hutil::chord_alphabet$by_id[chords]
 }
 
 #' @export
@@ -43,11 +43,11 @@ get_chord_alphabet_from_corpus <- function(
 
 #' @export
 get_chord_alphabet_size <- function() {
-  length(HarmonyUtils::chord_alphabet$by_id)
+  length(hutil::chord_alphabet$by_id)
 }
 
 # The output of this function is cached in data/ and can be accessed
-# when the HarmonyUtils pakage is loaded.
+# when the hutil pakage is loaded.
 get_chord_alphabet <- function() {
   chord_alphabet <- unlist(lapply(0:11, list_chords_with_bass_note),
                            recursive = FALSE)

@@ -4,12 +4,12 @@ library(magrittr)
 
 test_that("example 1", {
   c1 <- new_chord(8, c(6, 9, 10))
-  c2 <- HarmonyUtils::transpose(c1, 4)
+  c2 <- hutil::transpose(c1, 4)
   expect_equal(
-    HarmonyUtils::get_bass_pc(c2), 0
+    hutil::get_bass_pc(c2), 0
   )
   expect_equal(
-    HarmonyUtils::get_non_bass_pc_set(c2), c(1, 2, 10)
+    hutil::get_non_bass_pc_set(c2), c(1, 2, 10)
   )
 })
 

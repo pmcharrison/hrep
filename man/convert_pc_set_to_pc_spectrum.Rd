@@ -21,5 +21,5 @@ Convert pitch-class set to pitch-class spectrum
 Takes a list of pitch classes and outputs a pitch-class spectrum obtained by treating each of the pitch classes as complex tones, after Milne & Holland (2016).
 }
 \references{
-\insertRef{Milne2016a}{HarmonyUtils}
+\insertRef{Milne2016a}{hutil}
 }

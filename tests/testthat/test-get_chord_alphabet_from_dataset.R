@@ -1,6 +1,6 @@
 context("get_chord_alphabet_from_corpus")
 
-corpus <- HarmonyUtils::combine_corpora(
+corpus <- hutil::combine_corpora(
   HarmonyCorpora::classical,
   HarmonyCorpora::popular,
   HarmonyCorpora::jazz

@@ -60,7 +60,7 @@ setMethod(
 #' @param sigma The standard deviation of the smoothing Gaussian; default is 6.83, after Milne & Holland (2016)
 #' @export
 #' @references
-#' \insertRef{Milne2016a}{HarmonyUtils}
+#' \insertRef{Milne2016a}{hutil}
 convert_pc_set_to_pc_spectrum <- function(
   pc_set,
   saliences = 1,
@@ -81,7 +81,7 @@ convert_pc_set_to_pc_spectrum <- function(
     cache = cache,
     cache_env = cache_env,
     cache_root = "cache",
-    cache_dir = "HarmonyUtils/convert_pc_set_to_pc_spectrum",
+    cache_dir = "hutil/convert_pc_set_to_pc_spectrum",
     stop_on_missing = cache_stop_on_missing,
     ignore_args = c("cache", "cache_env", "cache_stop_on_missing"),
     expr = expression({
@@ -111,12 +111,12 @@ cache_convert_pc_set_to_pc_spectrum <- function(
   rho = 0.75,
   sigma = 6.83
 ) {
-  alphabet <- HarmonyUtils::pc_set_alphabet$by_id
+  alphabet <- hutil::pc_set_alphabet$by_id
   cache_convert_pc_set_to_pc_spectrum <- new.env()
   pb <- txtProgressBar(max = length(alphabet), style = 3)
   for (i in seq_along(alphabet)) {
     pc_set <- alphabet[[i]]
-    HarmonyUtils::convert_pc_set_to_pc_spectrum(
+    hutil::convert_pc_set_to_pc_spectrum(
       pc_set,
       array_dim = array_dim,
       num_harmonics = num_harmonics,

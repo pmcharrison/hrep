@@ -1,6 +1,6 @@
 context("get_pc_set_alphabet")
 
-x <- HarmonyUtils::pc_set_alphabet$by_id
+x <- hutil::pc_set_alphabet$by_id
 
 test_that("class", {
   expect_is(x, "list")

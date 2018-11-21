@@ -1,4 +1,4 @@
 library(testthat)
-library(HarmonyUtils)
+library(hutil)
 
-test_check("HarmonyUtils")
+test_check("hutil")

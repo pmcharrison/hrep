@@ -3,7 +3,7 @@ library(testthat)
 context("normalise_pc_set_transition")
 
 library(HarmonyStats)
-library(HarmonyUtils)
+library(hutil)
 library(magrittr)
 
 test_that("perfect cadence", {
