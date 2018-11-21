@@ -6,7 +6,7 @@ test_that("random examples", {
     get_bass_pc(chord), 2
   )
   expect_equal(
-    get_non_bass_pc_set(chord), c(4, 7)
+    get_non_bass_pc(chord), c(4, 7)
   )
   expect_equal(
     get_pc_set(chord),

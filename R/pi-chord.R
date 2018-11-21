@@ -29,7 +29,7 @@ get_bass_pi.pi_chord <- function(x, ...) x[1]
 #' @export
 as.pc_chord.pi_chord <- function(x) {
   x <- as.numeric(x)
-  pc_chord(bass_pc = pi_to_pc(x[1]), other_pc = pi_to_pc(x[-1])
+  pc_chord(bass_pc = pi_to_pc(x[1]), other_pc = pi_to_pc(x[-1]))
 }
 
 #' @export

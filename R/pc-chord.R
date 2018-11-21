@@ -3,7 +3,7 @@
 #' @export
 pc_chord <- function(bass_pc, other_pc) {
   checkmate::qassert(bass_pc, "N1[0,12)")
-  checkmate::qassert(other_pc("N[0,12)"))
+  checkmate::qassert(other_pc, "N[0,12)")
   other_pc <- setdiff(sort(unique(other_pc)), bass_pc)
   x <- c(bass_pc, other_pc)
   class(x) <- "pc_chord"
@@ -14,7 +14,7 @@ pc_chord <- function(bass_pc, other_pc) {
 print.pc_chord <- function(x, ...) {
   cat("Pitch-class chord: ",
       "[", get_bass_pc(x), "] ",
-      paste(get_non_bass_pc_set(x), collapse = " "), "\n",
+      paste(get_non_bass_pc(x), collapse = " "), "\n",
       sep = "")
 }
 
@@ -35,9 +35,9 @@ get_bass_pc <- function(x) UseMethod("get_bass_pc")
 get_bass_pc.pc_chord <- function(x) x[1]
 
 #' @export
-get_non_bass_pc_set <- function(x) UseMethod("get_non_bass_pc_set")
+get_non_bass_pc <- function(x) UseMethod("get_non_bass_pc")
 #' @export
-get_non_bass_pc_set.pc_chord <- function(x) pc_set(x[- 1])
+get_non_bass_pc.pc_chord <- function(x) pc_set(x[- 1])
 
 #' @export
 as.numeric.pc_chord <- function(x) {

@@ -9,7 +9,7 @@ test_that("example 1", {
     get_bass_pc(c2), 0
   )
   expect_equal(
-    get_non_bass_pc_set(c2), c(1, 2, 10)
+    get_non_bass_pc(c2), c(1, 2, 10)
   )
 })
 

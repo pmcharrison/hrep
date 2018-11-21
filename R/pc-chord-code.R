@@ -42,7 +42,7 @@ get_pc_chord_alphabet_size <- function() {
 # when the hutil pakage is loaded.
 get_pc_chord_alphabet <- function() {
   pc_chord_alphabet <- unlist(lapply(0:11, list_pc_chords_with_bass_note),
-                           recursive = FALSE)
+                              recursive = FALSE)
   pc_chord_ids <- seq_along(pc_chord_alphabet)
   map <- new.env(parent = emptyenv())
   for (pc_chord_id in pc_chord_ids) {

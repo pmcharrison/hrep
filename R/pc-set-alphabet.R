@@ -6,22 +6,22 @@ get_pc_set_storage_key <- function(pc_set) {
   paste(x, collapse = " ")
 }
 
-#' @export
-get_pc_set_alphabet_from_corpus <- function(
-  corpus, encode = FALSE
-) {
-  if (encode) {
-    stop("Encoding not yet supported for pitch-class sets")
-  }
-  get_pc_chord_alphabet_from_corpus(corpus) %>%
-    decode_pc_chords %>%
-    lapply(as.integer) %>%
-    lapply(pi_to_pc_set) %>%
-    unique %>%
-    (function(x) x[order(vapply(x, function(y) {
-      paste(y, collapse = " ")
-    }, character(1)))])
-}
+#' #' @export
+#' get_pc_set_alphabet_from_corpus <- function(
+#'   corpus, encode = FALSE
+#' ) {
+#'   if (encode) {
+#'     stop("Encoding not yet supported for pitch-class sets")
+#'   }
+#'   get_pc_chord_alphabet_from_corpus(corpus) %>%
+#'     decode_pc_chords %>%
+#'     lapply(as.integer) %>%
+#'     lapply(pi_to_pc_set) %>%
+#'     unique %>%
+#'     (function(x) x[order(vapply(x, function(y) {
+#'       paste(y, collapse = " ")
+#'     }, character(1)))])
+#' }
 
 #' @export
 encode.pc_set <- function(pc_set) {
