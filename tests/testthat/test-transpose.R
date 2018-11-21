@@ -3,7 +3,7 @@ context("transpose")
 library(magrittr)
 
 test_that("example 1", {
-  c1 <- new_chord(8, c(6, 9, 10))
+  c1 <- pc_chord(8, c(6, 9, 10))
   c2 <- hutil::transpose(c1, 4)
   expect_equal(
     hutil::get_bass_pc(c2), 0
@@ -16,7 +16,7 @@ test_that("example 1", {
 test_that("reversible", {
   n <- 10
   for (i in seq_len(10)) {
-    c1 <- new_chord(sample(11, 1), sample(11, 4))
+    c1 <- pc_chord(sample(11, 1), sample(11, 4))
     int <- sample(-11:11, 1)
     c2 <- transpose(c1, int)
     c3 <- transpose(c2, -int)

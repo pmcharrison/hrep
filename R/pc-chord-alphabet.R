@@ -65,5 +65,5 @@ get_chord_alphabet <- function() {
 list_chords_with_bass_note <- function(bass_pc) {
   sets::set_power(x = setdiff(0:11, bass_pc)) %>%
     as.list %>%
-    lapply(function(y) new_chord(bass_pc, as.integer(y)))
+    lapply(function(y) pc_chord(bass_pc, as.integer(y)))
 }

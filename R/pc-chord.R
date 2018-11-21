@@ -1,7 +1,7 @@
 #' @param bass_pc Integer scalar corresponding to bass pitch class
 #' @param pc_set Integer vector corresponding to pitch-class set, may optionally include the bass pitch class
 #' @export
-new_chord <- function(bass_pc, non_bass_pc_set, safe = TRUE) {
+pc_chord <- function(bass_pc, non_bass_pc_set, safe = TRUE) {
   if (safe) {
     if (!is.numeric(non_bass_pc_set)) stop("non_bass_pc_set must be numeric")
     if (!all(non_bass_pc_set == round(non_bass_pc_set))) stop(
@@ -38,7 +38,7 @@ as.chord <- function(x, safe = TRUE) UseMethod("as.chord")
 #' @export
 as.chord.numeric <- function(x, safe = TRUE) {
   if (safe) {
-    new_chord(bass_pc = x[1], non_bass_pc_set = x[-1], safe = safe)
+    pc_chord(bass_pc = x[1], non_bass_pc_set = x[-1], safe = safe)
   } else {
     class(x) <- "chord"
     x
@@ -47,9 +47,9 @@ as.chord.numeric <- function(x, safe = TRUE) {
 #' @export
 as.chord.chord <- function(x, safe = TRUE) {
   if (safe) {
-    new_chord(bass_pc = get_bass_pc(x),
-              non_bass_pc_set = get_non_bass_pc_set(x),
-              safe = TRUE)
+    pc_chord(bass_pc = get_bass_pc(x),
+             non_bass_pc_set = get_non_bass_pc_set(x),
+             safe = TRUE)
   } else x
 }
 
