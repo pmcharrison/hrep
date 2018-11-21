@@ -3,7 +3,6 @@
 ## Immediate
 
 - corpus
-- piece
 - tests
 - README
 
