@@ -7,12 +7,5 @@ get_midi_params <- function(
   frequency_digits = 6,
   unit_amplitude_in_dB = 60
 ) {
-  list(
-    stretched_octave = stretched_octave,
-    tuning_ref_Hz = tuning_ref_Hz,
-    num_harmonics = num_harmonics,
-    roll_off = roll_off,
-    frequency_digits = frequency_digits,
-    unit_amplitude_in_dB = 60
-  )
+  as.list(environment())
 }
