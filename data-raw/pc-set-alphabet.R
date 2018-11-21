@@ -24,10 +24,11 @@ get_pc_set_alphabet <- function(format = "both") {
   if (format == "by_id") {
     res
   } else {
-    hash <- hash::hash(
-      keys = lapply(res, get_pc_set_storage_key),
-      values = seq_along(res)
-    )
+    hash <- new.env()
+    for (i in seq_along(res)) {
+      key <- get_pc_set_storage_key(res[[i]])
+      hash[[key]] <- i
+    }
     if (format == "by_pc_set") {
       hash
     } else if (format == "both") {

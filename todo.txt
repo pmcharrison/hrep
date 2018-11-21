@@ -2,7 +2,6 @@
 
 ## Immediate
 
-- remove dependency on hash
 - corpus
 - piece
 - tests

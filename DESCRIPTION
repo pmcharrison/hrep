@@ -13,7 +13,6 @@ RoxygenNote: 6.1.0
 Imports: 
     plyr,
     sets,
-    hash,
     Rdpack,
     checkmate,
     purrr
