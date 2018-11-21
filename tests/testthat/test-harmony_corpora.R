@@ -8,16 +8,16 @@ test_that("examples", {
   c2 <- as.harmony_composition(x2)
 
   expect_equal(
-    num_events(c1), 20
+    num_symbols(c1), 20
   )
   expect_equal(
-    num_events(c2), 25
+    num_symbols(c2), 25
   )
 
   d <- as.harmony_corpus(list(c1, c2))
 
   expect_equal(
-    num_events(d), 45
+    num_symbols(d), 45
   )
 
   expect_equal(

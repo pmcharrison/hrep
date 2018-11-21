@@ -2,7 +2,6 @@
 
 ## Immediate
 
-- corpus
 - tests
 - README
 

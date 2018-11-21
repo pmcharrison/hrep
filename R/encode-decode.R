@@ -4,30 +4,30 @@ coded_seq <- function(x, type, description = NULL) {
   checkmate::qassert(type, "S1")
   checkmate::qassert(description, "S1")
   x <- as.integer(x)
-  attr(x, "type") <- type
-  attr(x, "description") <- description
   class(x) <- c("coded_seq", "integer")
+  type(x) <- type
+  description(x) <- description
   x
 }
 
 #' @export
-type <- function(x, ...) {
-  UseMethod("type")
-}
-
-#' @export
-type.coded_seq <- function(x, ...) {
+type.coded_seq <- function(x) {
   attr(x, "type")
 }
 
-#' @export
-description <- function(x, ...) {
-  UseMethod("description")
+`type<-.coded_seq` <- function(x, value) {
+  attr(x, "type") <- value
+  x
 }
 
 #' @export
 description.coded_seq <- function(x) {
   attr(x, "description")
+}
+
+`description<-.coded_seq` <- function(x, value) {
+  attr(x, "description") <- value
+  x
 }
 
 #' @export
@@ -50,9 +50,12 @@ print.coded_seq <- function(x, ...) {
   }
   cat("\n")
   cat("Type =", type, "\n")
-  cat("Length =", num_events(x), "\n")
+  cat("Length =", num_symbols(x), "\n")
   cat("\n")
 }
+
+#' @export
+num_symbols.coded_seq <- function(x) length(x)
 
 #' @export
 encode <- function(x, ...) {

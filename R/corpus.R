@@ -1,36 +1,27 @@
 # Creation ####
 #' @export
-new_harmony_corpus <- function(x, description = NULL) {
-  UseMethod("new_harmony_corpus")
-}
-
-#' @export
-new_harmony_corpus.list <- function(x, description = NULL) {
-  for (i in seq_along(x)) {
-    x[[i]] <- as.harmony_composition(x[[i]])
-  }
-  class(x) <- "harmony_corpus"
+corpus <- function(x, description = NULL, type = NULL) {
+  checkmate::qassert(x, "l")
+  stopifnot(is.null(description) || checkmate::qtest(description, "S1"))
+  stopifnot(is.null(type) || checkmate::qtest(type, "S1"))
+  if (!purrr::map_lgl(x, is.coded_seq))
+    stop("every element of <x> must be an object of class 'coded_seq'")
+  types <- unique(purrr::map_chr(x, type))
+  if (length(types) > 1L)
+    stop("every element of <x> must be a coded sequence of the same type ",
+         "(observed: ", paste(types, collapse = ", "), ")")
+  if (!is.null(type) && !types == type)
+    stop("requested type (", type, ") inconsistent with observed type (",
+         types, ")")
+  type(x) <- type
   description(x) <- description
   x
 }
 
-# Coercion ####
-#' @export
-as.list.harmony_corpus <- function(x) {
-  class(x) <- "list"
-  x
-}
-#' @export
-as.harmony_corpus <- function(x) UseMethod("as.harmony_corpus")
-#' @export
-as.harmony_corpus.harmony_corpus <- function(x) x
-#' @export
-as.harmony_corpus.list <- function(x) new_harmony_corpus.list(x)
-
 # Subsetting ####
 #' @export
-`[.harmony_corpus` <- function(x, i) {
-  res <- new_harmony_corpus(as.list(x)[i],
+`[.corpus` <- function(x, i) {
+  res <- new_corpus(as.list(x)[i],
                             description = paste(description(x), "(subset)"))
   if (num_compositions(res) == 1) {
     description(res) <- description(res[[1]])
@@ -38,52 +29,65 @@ as.harmony_corpus.list <- function(x) new_harmony_corpus.list(x)
   res
 }
 #' @export
-`[<-.harmony_corpus` <- function(x, i, value) {
-  stop("Assignment with [ ] not valid for harmony_corpus objects.\n",
+`[<-.corpus` <- function(x, i, value) {
+  stop("Assignment with [ ] not valid for corpus objects.\n",
        "You can update individual compositions with the [[ ]] operator, however.")
 }
 
 # Combination ####
 #' @export
-c.harmony_corpus <- function(...) {
-  new_harmony_corpus(do.call(c, lapply(list(...), as.list)),
+c.corpus <- function(...) {
+  new_corpus(do.call(c, lapply(list(...), as.list)),
                      description = "Combined corpora")
 }
 
 # Properties ####
 #' @export
-num_compositions.harmony_corpus <- function(x) length(x)
+num_sequences.corpus <- function(x) length(x)
 #' @export
-num_events.harmony_corpus <- function(x) {
-  sum(vapply(x, num_events, integer(1)))
+num_symbols.corpus <- function(x) {
+  sum(vapply(x, num_symbols, integer(1)))
 }
 
 #' @export
-description.harmony_corpus <- function(x) attr(x, "description")
-`description<-.harmony_corpus` <- function(x, value) {
+description.corpus <- function(x) attr(x, "description")
+`description<-.corpus` <- function(x, value) {
   attr(x, "description") <- value
   x
 }
 
 # Display ####
 #' @export
-print.harmony_corpus <- function(x, ...) {
+print.corpus <- function(x, ...) {
   desc <- description(x)
   cat("\n")
-  cat("\tA harmony corpus")
+  cat("\tA corpus of encoded sequences")
   cat("\n\n")
   if (is.null(desc)) cat("(No description found)") else {
     cat(strwrap(paste0("'", desc, "'")))
   }
   cat("\n")
-  cat("Num. compositions =", num_compositions(x))
+  cat("Num. sequences =", num_sequences(x))
   cat("\n")
-  cat("Num. events =", num_events(x))
+  cat("Num. symbols =", num_symbols(x))
   cat("\n\n")
 }
 
-# Other ####
-#' @export
-normalise_bass.harmony_corpus <- function(x) {
-  new_harmony_corpus(lapply(as.list(x), normalise_bass))
-}
+#' # Other ####
+#' #' @export
+#' normalise_bass.corpus <- function(x) {
+#'   new_corpus(lapply(as.list(x), normalise_bass))
+#' }
+
+#' # Coercion ####
+#' #' @export
+#' as.list.harmony_corpus <- function(x) {
+#'   class(x) <- "list"
+#'   x
+#' }
+#' #' @export
+#' as.harmony_corpus <- function(x) UseMethod("as.harmony_corpus")
+#' #' @export
+#' as.harmony_corpus.harmony_corpus <- function(x) x
+#' #' @export
+#' as.harmony_corpus.list <- function(x) new_harmony_corpus.list(x)
