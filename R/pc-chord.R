@@ -61,14 +61,14 @@ get_bass_pc.pc_chord <- function(x) x[1]
 #' @export
 get_non_bass_pc_set <- function(x, safe = TRUE) UseMethod("get_non_bass_pc_set")
 #' @export
-get_non_bass_pc_set.pc_chord <- function(x, safe = TRUE) new_pc_set(x[- 1],
-                                                                 safe = safe)
+get_non_bass_pc_set.pc_chord <- function(x, safe = TRUE) pc_set(x[- 1],
+                                                                safe = safe)
 
 #' @export
 get_pc_set <- function(x, safe = TRUE) UseMethod("get_pc_set")
 #' @export
-get_pc_set.pc_chord <- function(x, safe = TRUE) new_pc_set(sort(as.integer(x)),
-                                                        safe = safe)
+get_pc_set.pc_chord <- function(x, safe = TRUE) pc_set(sort(as.integer(x)),
+                                                       safe = safe)
 
 #' @export
 normalise_bass.pc_chord <- function(x) {

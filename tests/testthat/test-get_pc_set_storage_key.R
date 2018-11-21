@@ -6,7 +6,7 @@ test_that("examples", {
     "0 4 7"
   )
   expect_equal(
-    get_pc_set_storage_key(new_pc_set(c(0, 4, 7))),
+    get_pc_set_storage_key(pc_set(c(0, 4, 7))),
     "0 4 7"
   )
 })

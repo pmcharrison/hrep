@@ -1,166 +1,108 @@
 #' @export
-setClass("PCSpectrum",
-         slots = list(
-           values = "numeric"
-         ),
-         prototype = list(
-           values = numeric()
-         )
-)
-
-#' @export
-new_pc_spectrum <- function(values) {
-  new("PCSpectrum", values = values)
+pc_spectrum <- function(x) {
+  checkmate::qassert(x, "R+")
+  x <- as.numeric(x)
+  class(x) <- c("pc_spectrum", "numeric")
+  x
 }
 
 #' @export
-setMethod(
-  "show", signature(object = "PCSpectrum"),
-  function(object) {
-    cat("Pitch-class spectrum ",
-        "(N = ", length(object@values), ", ",
-        "M = ",  mean(object@values, na.rm = FALSE) %>%
-          round(digits = 3), ", ",
-        "SD = ",  sd(object@values, na.rm = FALSE) %>%
-          round(digits = 3), ")",
-        sep = "")
-  }
-)
+print.pc_spectrum <- function(x, ...) {
+  cat("Pitch-class spectrum ",
+      "(N = ", length(x), ", ",
+      "M = ",  mean(x, na.rm = FALSE) %>%
+        round(digits = 3), ", ",
+      "SD = ",  sd(x, na.rm = FALSE) %>%
+        round(digits = 3), ")",
+      sep = "")
+}
 
 #' @export
-setMethod("as.numeric", signature(x = "PCSpectrum"),
-          function(x) x@values)
+as.data.frame.pc_spectrum <- function(x, ...) {
+  n <- length(x)
+  pc <- seq(from = 0, to = 12, length.out = n + 1)[- n]
+  data.frame(pitch_class = pc, weight = as.numeric(x))
+}
 
 #' @export
-setMethod("as.data.frame", signature(x = "PCSpectrum"),
-          function(x) {
-            n <- length(x@values)
-            pc <- seq(from = 0, to = 12, length.out = n + 1)[- n]
-            data.frame(pitch_class = pc,
-                       salience = x@values)
-          })
+plot.pc_spectrum <- function(x, ...) {
+  df <- as.data.frame(x)
+  plot(df$pitch_class, df$weight,
+       type = "l",
+       xlab = "Pitch class",
+       ylab = "Weight"
+  )
+}
 
-#' @export
-setMethod(
-  "plot", signature(x = "PCSpectrum"),
-  function(x, ...) {
-    df <- as.data.frame(x)
-    plot(df$pitch_class, df$salience,
-         type = "l",
-         xlab = "Pitch class",
-         ylab = "Salience"
-    )
-  }
-)
-
-#' Convert pitch-class set to pitch-class spectrum
-#' Takes a list of pitch classes and outputs a pitch-class spectrum obtained by treating each of the pitch classes as complex tones, after Milne & Holland (2016).
-#' @param num_harmonics The number of harmonics in each modelled complex tone (including the fundamental) (numeric scalar)
-#' @param rho The roll-off parameter determining the salience of successive harmonics; default is 0.75, after Milne & Holland (2016)
-#' @param sigma The standard deviation of the smoothing Gaussian; default is 6.83, after Milne & Holland (2016)
+#' Convert to pitch-class spectrum
+#' Converts the input to a pitch-class spectrum.
+#' Musical notes are converted to complex tones, after Milne & Holland (2016).
+#' @param num_harmonics The number of harmonics in each modelled complex tone
+#' (including the fundamental) (numeric scalar)
+#' @param rho The roll-off parameter determining the weight of
+#'  successive harmonics; default is 0.75, after Milne & Holland (2016)
+#' @param sigma The standard deviation of the smoothing Gaussian;
+#' default is 6.83, after Milne & Holland (2016)
 #' @export
 #' @references
 #' \insertRef{Milne2016a}{hutil}
-convert_pc_set_to_pc_spectrum <- function(
-  pc_set,
-  saliences = 1,
-  array_dim = 1200,
-  num_harmonics = 12,
-  rho = 0.75,
-  sigma = 6.83,
-  cache = TRUE,
-  cache_env = NULL,
-  cache_stop_on_missing = FALSE
-) {
-  pc_set <- as.numeric(sort(pc_set))
-  stopifnot(is.numeric(saliences),
-            length(saliences) %in% c(1L, length(pc_set)))
-  if (length(saliences) == 1L) saliences <- rep(saliences, times = length(pc_set))
-  cacheR::cache(
-    fun_name = "convert_pc_set_to_pc_spectrum",
-    cache = cache,
-    cache_env = cache_env,
-    cache_root = "cache",
-    cache_dir = "hutil/convert_pc_set_to_pc_spectrum",
-    stop_on_missing = cache_stop_on_missing,
-    ignore_args = c("cache", "cache_env", "cache_stop_on_missing"),
-    expr = expression({
-      assertthat::assert_that(
-        !anyDuplicated(pc_set)
-      )
-      pc_spectra <- mapply(
-        function(pc, salience) {
-          get_complex_tone(fundamental_pc = pc,
-                           salience = salience,
-                           array_dim = array_dim,
-                           num_harmonics = num_harmonics,
-                           rho = rho,
-                           sigma = sigma)
-        }, pc_set, saliences)
-      pc_spectrum <- rowSums(pc_spectra)
-      new("PCSpectrum", values = pc_spectrum)
-    }))
+as.pc_spectrum <- function(x,
+                           weights = 1,
+                           array_dim = 1200,
+                           num_harmonics = 12,
+                           rho = 0.75,
+                           sigma = 6.83,
+                           ...) {
+  UseMethod("as.pc_spectrum")
 }
 
-#' This function builds a comprehensive memory-based cache for
-#' convert_pc_set_to_pc_spectrum.
 #' @export
-cache_convert_pc_set_to_pc_spectrum <- function(
-  array_dim = 1200,
-  num_harmonics = 12,
-  rho = 0.75,
-  sigma = 6.83
-) {
-  alphabet <- pc_set_alphabet$by_id
-  cache_convert_pc_set_to_pc_spectrum <- new.env()
-  pb <- txtProgressBar(max = length(alphabet), style = 3)
-  for (i in seq_along(alphabet)) {
-    pc_set <- alphabet[[i]]
-    convert_pc_set_to_pc_spectrum(
-      pc_set,
-      array_dim = array_dim,
-      num_harmonics = num_harmonics,
-      rho = rho,
-      sigma = sigma,
-      cache = TRUE,
-      cache_env = cache_convert_pc_set_to_pc_spectrum
-    )
-    setTxtProgressBar(pb, i)
-  }
-  cache_convert_pc_set_to_pc_spectrum
+as.pc_spectrum.pc_set <- function(x,
+                                  weights = 1,
+                                  array_dim = 1200,
+                                  num_harmonics = 12,
+                                  rho = 0.75,
+                                  sigma = 6.83) {
+  if (length(weights) == 1L) weights <- rep(weights, times = length(x))
+  pc_spectra <- mapply(
+    function(pc, weight) {
+      get_complex_tone(fundamental_pc = pc,
+                       weight = weight,
+                       array_dim = array_dim,
+                       num_harmonics = num_harmonics,
+                       rho = rho,
+                       sigma = sigma)
+    }, x, weights)
+  pc_spectrum(rowSums(pc_spectra))
 }
 
-#' Make Gaussian spectral template
-#'
-#' Makes a Gaussian spectral template with unit mass, centred on 0, with standard deviation <sigma>. The template will be truncated to zero for points <truncation-point> standard deviations or further away from the mean, after Milne's implementation.
-new_gaussian_spectral_template <- function(array_dim, sigma, truncation_point = 12) {
-  assertthat::assert_that(
-    array_dim == round(array_dim),
-    array_dim >= 3,
-    is.numeric(sigma),
-    truncation_point > 0
-  )
+#' Pitch-class spectrum, template 1
+#' Makes a Gaussian pitch-class  spectral template with unit mass, centred on 0,
+#' with standard deviation <sigma>.
+#' The template will be truncated to zero for points <truncation-point>
+#' standard deviations or further away from the mean,
+#' after \insertCite{Milne2016a;textual}{hutil}.
+#' @references
+#'   \insertAllCited{}
+pc_spectrum_template_1 <- function(array_dim, sigma, truncation_point) {
+  checkmate::qassert(array_dim, "X1[3,)")
+  checkmate::qassert(sigma, "N1")
+  checkmate::qassert(truncation_point, "N1(0,]")
+
   limit <- floor(sigma * 12)
   template <- numeric(array_dim)
   template[1] <- dnorm(0, mean = 0, sd = sigma)
   seq <- seq(from = 1, to = limit)
-  salience <- dnorm(seq, mean = 0, sd = sigma)
-  template[2:(limit + 1)] <- salience
-  template[array_dim:(array_dim - limit + 1)] <- salience
+  weight <- dnorm(seq, mean = 0, sd = sigma)
+  template[2:(limit + 1)] <- weight
+  template[array_dim:(array_dim - limit + 1)] <- weight
   template
 }
 
-new_gaussian_spectrum <- function(
-  array_dim, mean, mass, sigma, truncation_point = 12
-) {
-  assertthat::assert_that(
-    array_dim == round(array_dim),
-    array_dim > 0,
-    mean >= 0,
-    mean <= array_dim
-  )
+pc_spectrum_template_2 <- function(array_dim, mean, mass, sigma, truncation_point = 12) {
+  stopifnot(mean >= 0, mean <= array_dim)
   origin <- round(mean)
-  template <- new_gaussian_spectral_template(
+  template <- pc_spectrum_template_1(
     array_dim, sigma, truncation_point = truncation_point
   )
   scaled <- template * mass
@@ -176,25 +118,17 @@ new_gaussian_spectrum <- function(
 #' @param num_harmonics Number of harmonics, including the fundamental
 new_complex_tone <- function(
   fundamental_pc,
-  salience,
+  weight,
   array_dim,
   num_harmonics,
   rho,
   sigma
 ) {
-  assertthat::assert_that(
-    is.numeric(fundamental_pc),
-    is.numeric(salience),
-    assertthat::is.scalar(fundamental_pc),
-    assertthat::is.scalar(salience),
-    fundamental_pc < 12,
-    is.numeric(array_dim), assertthat::is.scalar(array_dim),
-    is.numeric(num_harmonics), assertthat::is.scalar(num_harmonics),
-    num_harmonics >= 0,
-    is.numeric(rho), assertthat::is.scalar(rho),
-    is.numeric(sigma), assertthat::is.scalar(sigma),
-    sigma >= 0
-  )
+  checkmate::qassert(fundamental_pc, "N1[0,12)")
+  checkmate::qassert(weight, "N1[0,)")
+  checkmate::qassert(num_harmonics, "X1[0,)")
+  checkmate::qassert(rho, "N1")
+  checkmate::qassert(sigma, "N1[0,)")
   pcs <- vapply(seq_len(num_harmonics),
                 function(i) {
                   (
@@ -202,14 +136,14 @@ new_complex_tone <- function(
                       (array_dim * log(i, 2))
                   ) %% array_dim
                 }, numeric(1))
-  saliences <- vapply(seq_len(num_harmonics),
-                      function(i) {
-                        salience / (i ^ rho)
-                      }, numeric(1))
+  weights <- vapply(seq_len(num_harmonics),
+                    function(i) {
+                      weight / (i ^ rho)
+                    }, numeric(1))
   spectra <- mapply(
-    function(pc, salience) {
-      new_gaussian_spectrum(array_dim, pc, salience, sigma)
-    }, pcs, saliences, SIMPLIFY = TRUE
+    function(pc, weight) {
+      pc_spectrum_template_2(array_dim, pc, weight, sigma)
+    }, pcs, weights, SIMPLIFY = TRUE
   )
   spectrum <- rowSums(spectra)
   spectrum
@@ -218,7 +152,6 @@ new_complex_tone <- function(
 #' Get complex tone
 #'
 #' Wrapper for \code{new_complex_tone} that implements caching.
-#' @export
 get_complex_tone <- memoise::memoise(new_complex_tone)
 
 #' @export
@@ -229,3 +162,31 @@ get_cosine_similarity <- function(x, y) {
     sqrt(sum(y ^ 2))
   numerator / denominator
 }
+
+#' #' This function builds a comprehensive memory-based cache for
+#' #' convert_pc_set_to_pc_spectrum.
+#' #' @export
+#' cache_convert_pc_set_to_pc_spectrum <- function(
+#'   array_dim = 1200,
+#'   num_harmonics = 12,
+#'   rho = 0.75,
+#'   sigma = 6.83
+#' ) {
+#'   alphabet <- pc_set_alphabet$by_id
+#'   cache_convert_pc_set_to_pc_spectrum <- new.env()
+#'   pb <- txtProgressBar(max = length(alphabet), style = 3)
+#'   for (i in seq_along(alphabet)) {
+#'     pc_set <- alphabet[[i]]
+#'     convert_pc_set_to_pc_spectrum(
+#'       pc_set,
+#'       array_dim = array_dim,
+#'       num_harmonics = num_harmonics,
+#'       rho = rho,
+#'       sigma = sigma,
+#'       cache = TRUE,
+#'       cache_env = cache_convert_pc_set_to_pc_spectrum
+#'     )
+#'     setTxtProgressBar(pb, i)
+#'   }
+#'   cache_convert_pc_set_to_pc_spectrum
+#' }

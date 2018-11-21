@@ -25,14 +25,14 @@ test_that("reversible", {
 })
 
 test_that("pc_set", {
-  p1 <- new_pc_set(c(0, 4, 7))
+  p1 <- pc_set(c(0, 4, 7))
   expect_is(transpose(p1, 2), "pc_set")
   expect_equal(
     transpose(p1, 2) %>% as.integer,
     c(2, 6, 9)
   )
   expect_equal(
-    c(0, 4, 7) %>% new_pc_set %>% transpose(-2) %>% as.integer,
+    c(0, 4, 7) %>% pc_set %>% transpose(-2) %>% as.integer,
     c(2, 5, 10)
   )
 })

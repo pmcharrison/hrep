@@ -6,6 +6,7 @@
 - checkmate
 - represent spectra as tibbles
 - remove convert_
+- remove get_ (should this be as_?) (should pc_set_norm_form really be a class?)
 - ensure all are S3
 - tests
 - README
@@ -36,9 +37,9 @@ Cases:
 - sparse_fr_spectrum
 - sparse_pi_spectrum
 - sparse_pc_spectrum
-- full_fr_spectrum
-- full_pi_spectrum
-- full_pc_spectrum
+- fr_spectrum
+- pi_spectrum
+- pc_spectrum
 
 - corpus
 - piece

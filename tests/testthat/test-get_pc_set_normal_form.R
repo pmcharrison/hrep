@@ -17,11 +17,11 @@ test_that("examples", {
     c(0, 1, 2, 4, 6, 9)
   )
   expect_equal(
-    get_pc_set_norm_form(new_pc_set(0)) %>% as.integer,
+    get_pc_set_norm_form(pc_set(0)) %>% as.integer,
     0
   )
   expect_equal(
-    get_pc_set_norm_form(new_pc_set(5)) %>% as.integer,
+    get_pc_set_norm_form(pc_set(5)) %>% as.integer,
     0
   )
 })
@@ -29,7 +29,7 @@ test_that("examples", {
 test_that("transposition", {
   for (i in 0:11) {
     expect_equal(
-      c(0, 4, 7) %>% new_pc_set %>% add(i) %>%
+      c(0, 4, 7) %>% pc_set %>% add(i) %>%
         get_pc_set_norm_form %>%
         get_transposition,
       - i

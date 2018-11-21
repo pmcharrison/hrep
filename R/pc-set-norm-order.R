@@ -16,7 +16,7 @@ get_pc_set_norm_order.integer <- function(x) {
   stopifnot(!anyDuplicated(x))
   stopifnot(all(x >= 0L & x < 12L))
   if (identical(length(x), 0L)) {
-    return(new_pc_set(x))
+    return(pc_set(x))
   }
   n <- length(x)
   cycles <- cycle_vector(x)

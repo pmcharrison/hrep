@@ -16,8 +16,8 @@ transpose.pc_set <- function(x, interval, safe = TRUE) {
   }
   x_int <- as.integer(x)
   interval <- as.integer(interval)
-  new_pc_set(sort((x_int + interval) %% 12L),
-             safe = safe)
+  pc_set(sort((x_int + interval) %% 12L),
+         safe = safe)
 }
 
 #' @export

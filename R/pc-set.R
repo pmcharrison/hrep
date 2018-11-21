@@ -1,5 +1,5 @@
 #' @export
-new_pc_set <- function(pitch_classes, safe = TRUE) {
+pc_set <- function(pitch_classes, safe = TRUE) {
   if (safe) {
     assertthat::assert_that(
       is.numeric(pitch_classes),
@@ -18,7 +18,7 @@ as.pc_set <- function(x, safe = TRUE) UseMethod("as.pc_set")
 #' @export
 as.pc_set.pc_set <- function(x, safe = TRUE) {
   if (safe) {
-    x <- new_pc_set(as.integer(x), safe = TRUE)
+    x <- pc_set(as.integer(x), safe = TRUE)
   }
   x
 }
@@ -28,7 +28,7 @@ as.pc_set.pc_chord <- function(x, safe = TRUE) {
 }
 #' @export
 as.pc_set.numeric <- function(x, safe = TRUE, ...) {
-  new_pc_set(x, safe = safe)
+  pc_set(x, safe = safe)
 }
 
 #' @export

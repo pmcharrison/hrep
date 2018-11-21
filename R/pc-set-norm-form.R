@@ -17,7 +17,7 @@ get_transposition.pc_set_norm_form <- function(x) attr(x, "transposition")
 get_pc_set_norm_form <- function(x) UseMethod("get_pc_set_norm_form")
 #' @export
 get_pc_set_norm_form.numeric <- function(x) {
-  get_pc_set_norm_form(new_pc_set(x))
+  get_pc_set_norm_form(pc_set(x))
 }
 #' @export
 get_pc_set_norm_form.pc_set <- function(x) {
