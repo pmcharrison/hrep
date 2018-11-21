@@ -5,5 +5,5 @@ test_that("style", {
     as.character %>%
     # Remove any functions we wish to ignore
     setdiff("get_complex_tone")
-  sapply(functions, function(x) expect_true(checkFun(x)))
+  sapply(functions, function(x) expect_true(check_fun(x)))
 })
