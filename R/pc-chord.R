@@ -80,20 +80,3 @@ get_transpositions.pc_chord <- function(x) {
   ref <- normalise_bass(x)
   lapply(0:11, function(int) transpose(ref, int, safe = FALSE))
 }
-
-# Not sure if the following are needed at the moment
-
-# setMethod(
-#   "normalise_bass", signature(x = "harmony_composition"),
-#   function(x) {
-#     x %>% as.integer %>% decode_pc_chords %>% lapply(normalise_bass) %>%
-#       as.harmony_composition
-#   }
-# )
-# setMethod(
-#   "normalise_bass", signature(x = "harmony_corpus"),
-#   function(x) {
-#     x@compositions <- lapply(x@compositions, normalise_bass)
-#     x
-#   }
-# )

@@ -13,7 +13,7 @@ get_pc_set_alphabet_from_corpus <- function(
   get_pc_chord_alphabet_from_corpus(corpus) %>%
     decode_pc_chords %>%
     lapply(as.integer) %>%
-    lapply(pitch_to_pc_set) %>%
+    lapply(pi_to_pc_set) %>%
     unique %>%
     (function(x) x[order(vapply(x, function(y) {
       paste(y, collapse = " ")

@@ -1,11 +1,11 @@
 #' Convert pitches to pitch classes
 #'
 #' Converts pitches to pitch classes.
-#' @param pitch A numeric vector of pitches
+#' @param x A numeric vector of pitches
 #' @return A numeric vector produced by mapping each element in \code{pitch} to a pitch class
 #' @export
-pitch_to_pc <- function(pitch) {
-  pitch %% 12
+pi_to_pc <- function(x) {
+  x %% 12
 }
 
 #' Convert pitches to pitch class set
@@ -14,8 +14,8 @@ pitch_to_pc <- function(pitch) {
 #' @param pitch A numeric vector of pitches, possibly including duplicates
 #' @return A numeric vector of pitch classes, produced by mapping each element in \code{pitch} to a pitch class, sorting, and removing duplicates.
 #' @export
-pitch_to_pc_set <- function(pitch) {
-  sort(unique(pitch_to_pc(pitch)))
+pi_to_pc_set <- function(x) {
+  sort(unique(pi_to_pc(x)))
 }
 
 #' Get the distance between two pitch classes.

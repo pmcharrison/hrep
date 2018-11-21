@@ -1,4 +1,4 @@
-context("chord")
+context("pc_chord")
 
 test_that("random examples", {
   chord <- pc_chord(2, c(4, 7))

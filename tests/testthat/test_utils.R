@@ -263,28 +263,28 @@ test_that("sum_amplitudes", {
   )
 })
 
-test_that("pitch_to_pc", {
+test_that("pi_to_pc", {
   expect_equal(
-    pitch_to_pc(26),
+    pi_to_pc(26),
     2
   )
   expect_equal(
-    pitch_to_pc(72),
+    pi_to_pc(72),
     0
   )
   expect_equal(
-    pitch_to_pc(c(26, 72, 5)),
+    pi_to_pc(c(26, 72, 5)),
     c(2, 0, 5)
   )
 })
 
-test_that("pitch_to_pc_set", {
+test_that("pi_to_pc_set", {
   expect_equal(
-    pitch_to_pc_set(c(60, 60, 64, 67)),
+    pi_to_pc_set(c(60, 60, 64, 67)),
     c(0, 4, 7)
   )
   expect_equal(
-    pitch_to_pc_set(c(67, 60, 59, 42)),
+    pi_to_pc_set(c(67, 60, 59, 42)),
     c(0, 6, 7, 11)
   )
 })

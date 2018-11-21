@@ -2,7 +2,9 @@
 
 S3method("[",corpus)
 S3method("[<-",corpus)
+S3method("description<-",corpus)
 S3method(as.data.frame,pc_spectrum)
+S3method(as.list,corpus)
 S3method(as.pc_chord,numeric)
 S3method(as.pc_chord,pc_chord)
 S3method(as.pc_set,numeric)

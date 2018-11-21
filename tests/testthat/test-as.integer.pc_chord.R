@@ -5,5 +5,5 @@ test_that("example", {
   res <- as.integer(chord)
   expect_is(res, "integer")
   expect_equal(res, c(49, 63, 66, 67))
-  expect_equal(as.chord(res), chord)
+  expect_equal(as.pc_chord(res), chord)
 })
