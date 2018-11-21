@@ -40,7 +40,7 @@ test_that("transposition", {
 test_that("transpositions of a pitch-class set all get the same normal form", {
   n <- 30
   for (i in seq_len(n)) {
-    pc_set <- hutil::decode_pc_sets(sample(4e3, 1))[[1]]
+    pc_set <- decode_pc_sets(sample(4e3, 1))[[1]]
     expect_true(
       0:11 %>%
         lapply(function(x) transpose(pc_set, x)) %>%

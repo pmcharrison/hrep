@@ -9,7 +9,7 @@ is.chord <- function(x) is(x, "chord")
 #' @export
 encode_chord <- function(chord) {
   key <- get_chord_storage_key(chord)
-  hutil::chord_alphabet$by_chord[[key]]
+  chord_alphabet$by_chord[[key]]
 }
 
 #' @export
@@ -20,13 +20,13 @@ encode_chords <- function(chords) {
 
 #' @export
 decode_chord <- function(chord) {
-  hutil::chord_alphabet$by_id[[chords]]
+  chord_alphabet$by_id[[chords]]
 }
 
 #' @export
 decode_chords <- function(chords) {
   stopifnot(is.numeric(chords))
-  hutil::chord_alphabet$by_id[chords]
+  chord_alphabet$by_id[chords]
 }
 
 #' @export
@@ -43,7 +43,7 @@ get_chord_alphabet_from_corpus <- function(
 
 #' @export
 get_chord_alphabet_size <- function() {
-  length(hutil::chord_alphabet$by_id)
+  length(chord_alphabet$by_id)
 }
 
 # The output of this function is cached in data/ and can be accessed

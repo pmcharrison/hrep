@@ -28,7 +28,7 @@ encode_pc_set <- function(pc_set) {
 #' @export
 encode_pc_sets <- function(pc_sets) {
   keys <- lapply(pc_sets, get_pc_set_storage_key)
-  unname(hash::values(hutil::pc_set_alphabet$by_pc_set, keys))
+  unname(hash::values(pc_set_alphabet$by_pc_set, keys))
 }
 
 #' @export
@@ -38,7 +38,7 @@ decode_pc_set <- function(pc_set) {
 
 #' @export
 decode_pc_sets <- function(pc_sets) {
-  max_id <- length(hutil::pc_set_alphabet$by_id)
+  max_id <- length(pc_set_alphabet$by_id)
   if (!is.numeric(pc_sets) ||
       any(is.na(pc_sets) |
           pc_sets < 1 |
@@ -46,12 +46,12 @@ decode_pc_sets <- function(pc_sets) {
           round(pc_sets) != pc_sets)) {
     stop("All pc_set ids must be integers between 1 and ", max_id, ".")
   }
-  lapply(hutil::pc_set_alphabet$by_id[pc_sets],
+  lapply(pc_set_alphabet$by_id[pc_sets],
          function(x) new_pc_set(x, safe = FALSE))
 }
 
 #' @param chord_id Vectorised
 #' @export
 map_chord_id_to_pc_set_id <- function(chord_id) {
-  hutil::chord_id_to_pc_set_id_map[as.integer(chord_id)]
+  chord_id_to_pc_set_id_map[as.integer(chord_id)]
 }

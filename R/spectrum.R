@@ -111,12 +111,12 @@ cache_convert_pc_set_to_pc_spectrum <- function(
   rho = 0.75,
   sigma = 6.83
 ) {
-  alphabet <- hutil::pc_set_alphabet$by_id
+  alphabet <- pc_set_alphabet$by_id
   cache_convert_pc_set_to_pc_spectrum <- new.env()
   pb <- txtProgressBar(max = length(alphabet), style = 3)
   for (i in seq_along(alphabet)) {
     pc_set <- alphabet[[i]]
-    hutil::convert_pc_set_to_pc_spectrum(
+    convert_pc_set_to_pc_spectrum(
       pc_set,
       array_dim = array_dim,
       num_harmonics = num_harmonics,

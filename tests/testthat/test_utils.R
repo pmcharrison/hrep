@@ -163,7 +163,7 @@ test_that("convert_env_to_df", {
 
 test_that("reduce_by_key", {
   expect_equal(
-    hutil:::reduce_by_key(keys = c("a", "a", "a", "b", "b"),
+    reduce_by_key(keys = c("a", "a", "a", "b", "b"),
                           values = c(1, 1, 1, -1, -1),
                           function(x, y) x + y),
     data.frame(
@@ -173,7 +173,7 @@ test_that("reduce_by_key", {
     )
   )
   expect_equal(
-    hutil:::reduce_by_key(keys = c("a", "b", "a", "b", "a"),
+    reduce_by_key(keys = c("a", "b", "a", "b", "a"),
                           values = c(1, -1, 1, -1, 1),
                           function(x, y) x + y),
     data.frame(
