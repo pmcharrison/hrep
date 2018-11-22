@@ -8,16 +8,13 @@ print.pc_set_norm_order <- function(x, ...) {
 #' @export
 as.pc_set_norm_order <- function(x) UseMethod("as.pc_set_norm_order")
 #' @export
-as.pc_set_norm_order.pc_set <- function(x) {
-  as.pc_set_norm_order(as.numeric(x))
+as.pc_set_norm_order.numeric <- function(x) {
+  as.pc_set_norm_order(as.pc_set(x))
 }
 #' @export
-as.pc_set_norm_order.numeric <- function(x) {
-  stopifnot(!anyDuplicated(x))
-  stopifnot(all(x >= 0L & x < 12L))
-  if (identical(length(x), 0L)) {
-    return(pc_set(x))
-  }
+as.pc_set_norm_order.pc_set <- function(x) {
+  if (identical(length(x), 0L)) return(x)
+  x <- as.numeric(x)
   n <- length(x)
   cycles <- cycle_vector(x)
   dist <- as.matrix(apply(cycles, 2, function(y) {

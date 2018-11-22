@@ -76,7 +76,7 @@ decode <- function(x, type = NULL, ...) {
   checkmate::qassert(type, "S1")
   f <- paste0("decode.coded_vec_", type)
   vec(do.call(what = f, args = list(as.integer(x))),
-      type = type(x),
+      type = type,
       metadata = metadata(x))
 }
 
@@ -87,10 +87,3 @@ transform_symbols.coded_vec <- function(x, f) {
 
 #' @export
 is.empty.coded_vec <- function(x) length(x) == 0L
-
-# normalise_bass.harmony_composition <- function(x) {
-#   chords_int <- as.integer(x)
-#   chords_decoded <- decode_chords(chords_int)
-#   chords_normalised <- lapply(chords_decoded, normalise_bass.chord)
-#   new_harmony_composition(chords_normalised)
-# }

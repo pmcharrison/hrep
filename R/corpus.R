@@ -121,22 +121,3 @@ transform_symbols.corpus <- function(x, f) {
   }
   x
 }
-
-#' # Other ####
-#' #' @export
-#' normalise_bass.corpus <- function(x) {
-#'   new_corpus(lapply(as.list(x), normalise_bass))
-#' }
-
-#' # Coercion ####
-#' #' @export
-#' as.list.harmony_corpus <- function(x) {
-#'   class(x) <- "list"
-#'   x
-#' }
-#' #' @export
-#' as.harmony_corpus <- function(x) UseMethod("as.harmony_corpus")
-#' #' @export
-#' as.harmony_corpus.harmony_corpus <- function(x) x
-#' #' @export
-#' as.harmony_corpus.list <- function(x) new_harmony_corpus.list(x)

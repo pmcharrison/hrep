@@ -5,24 +5,24 @@ context("decode_pc_sets")
 
 test_that("bad inputs", {
   expect_error(
-    decode_pc_sets(0)
+    decode(0, type = "pc_set")
   )
   expect_error(
-    decode_pc_sets(-1)
+    decode(-1, type = "pc_set")
   )
   expect_error(
-    decode_pc_sets(4100)
+    decode(4100, type = "pc_set")
   )
   expect_error(
-    decode_pc_sets(c(2, 5, 4100))
+    decode(c(2, 5, 4100), type = "pc_set")
   )
   expect_error(
-    decode_pc_sets(c(2, 0, 5))
+    decode(c(2, 0, 5), type = "pc_set")
   )
   expect_error(
-    decode_pc_sets(c(-1, 2, 5))
+    decode(c(-1, 2, 5), type = "pc_set")
   )
   expect_error(
-    decode_pc_sets(NA)
+    decode(NA, type = "pc_set")
   )
 })

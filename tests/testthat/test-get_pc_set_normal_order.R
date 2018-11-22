@@ -16,7 +16,7 @@ test_that("various", {
     c(9, 10, 11, 0, 1, 2, 3)
   )
   expect_equal(
-    as.pc_set_norm_order(c(0, 7, 4)) %>% as.integer,
+    as.pc_set_norm_order(pc_set(c(0, 7, 4))) %>% as.integer,
     c(0, 4, 7)
   )
   expect_equal(
