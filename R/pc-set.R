@@ -33,7 +33,7 @@ encode.pc_set <- function(pc_set) {
 }
 
 # Vectorised
-decode_pc_set <- function(x) {
+decode.coded_vec_pc_set <- function(x) {
   max_id <- length(pc_set_alphabet$by_id)
   if (!is.numeric(x) ||
       any(is.na(x) |

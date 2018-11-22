@@ -81,7 +81,7 @@ encode.pc_chord <- function(x) {
   pc_chord_alphabet$by_pc_chord[[key]]
 }
 
-decode_pc_chord <- function(x) {
+decode.coded_vec_pc_chord <- function(x) {
   checkmate::qassert(x, "X")
   pc_chord_alphabet$by_id[x]
 }

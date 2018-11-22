@@ -60,3 +60,6 @@ transform_symbols.vec <- function(x, f) {
   for (i in seq_along(x)) x[[i]] <- f(x[[i]])
   x
 }
+
+#' @export
+is.empty.vec <- function(x) length(x) == 0L

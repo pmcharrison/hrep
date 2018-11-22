@@ -68,7 +68,7 @@ decode <- function(x, type = NULL, ...) {
   if (is.null(type)) type <- type(x)
   if (is.null(type)) stop("type needs to be provided before decoding")
   checkmate::qassert(type, "S1")
-  f <- paste0("decode_", type)
+  f <- paste0("decode.coded_vec_", type)
   vec(do.call(what = f, args = list(as.integer(x))),
       type = type(x),
       metadata = metadata(x))
@@ -78,6 +78,9 @@ decode <- function(x, type = NULL, ...) {
 transform_symbols.coded_vec <- function(x, f) {
   encode(transform_symbols(decode(x)))
 }
+
+#' @export
+is.empty.coded_vec <- function(x) length(x) == 0L
 
 # normalise_bass.harmony_composition <- function(x) {
 #   chords_int <- as.integer(x)
