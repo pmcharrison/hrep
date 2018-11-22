@@ -6,14 +6,14 @@ test_that("random examples", {
     get_bass_pc(chord), 2
   )
   expect_equal(
-    get_non_bass_pc(chord), c(4, 7)
+    get_non_bass_pc(chord), pc_set(c(4, 7))
   )
   expect_equal(
-    get_pc_set(chord),
+    as.numeric(as.pc_set(chord)),
     c(2, 4, 7)
   )
   expect_equal(
-    get_pc_set(pc_chord(10, c(3, 4))),
+    pc_chord(10, c(3, 4)) %>% as.pc_set %>% as.numeric,
     c(3, 4, 10)
   )
 })
@@ -33,5 +33,4 @@ test_that("input checking", {
   expect_error(pc_chord(c(1, 2), 1:3))
   expect_error(pc_chord(c(12), 1:3))
   expect_error(pc_chord(1, 1:13))
-  expect_error(pc_chord(2, c(3, 3)))
 })

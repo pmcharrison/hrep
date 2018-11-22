@@ -277,14 +277,3 @@ test_that("pi_to_pc", {
     c(2, 0, 5)
   )
 })
-
-test_that("pi_to_pc_set", {
-  expect_equal(
-    pi_to_pc_set(c(60, 60, 64, 67)),
-    c(0, 4, 7)
-  )
-  expect_equal(
-    pi_to_pc_set(c(67, 60, 59, 42)),
-    c(0, 6, 7, 11)
-  )
-})

@@ -10,9 +10,23 @@ transpose.pc_set <- function(x, interval) {
 #' @export
 transpose.pc_chord <- function(x, interval) {
   checkmate::qassert(interval, "N1")
+  x <- as.numeric(x)
   x <- (x + interval) %% 12L
   if (length(x) > 1) {
     x[- 1] <- sort(x[- 1])
   }
-  x
+  pc_chord(x[1], x[- 1])
+}
+
+#' @export
+Ops.pc_set <- function(e1, e2) {
+  stop("cannot perform arithmetic operations on pitch-class sets")
+}
+#' @export
+Ops.pc_chord <- function(e1, e2) {
+  stop("cannot perform arithmetic operations on pitch-class chords")
+}
+#' @export
+Ops.pi_chord <- function(e1, e2) {
+  stop("cannot perform arithmetic operations on pitch chords")
 }

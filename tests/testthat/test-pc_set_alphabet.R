@@ -24,7 +24,7 @@ test_that("duplicates", {
 test_that("example", {
   expect_true(
     length(Filter(
-      function(y) all.equal(y, c(0, 1, 2, 3)),
+      function(y) all.equal(y, pc_set(c(0, 1, 2, 3))),
       x
     )) == 1
   )

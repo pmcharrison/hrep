@@ -9,7 +9,9 @@ test_that("example 1", {
     get_bass_pc(c2), 0
   )
   expect_equal(
-    get_non_bass_pc(c2), c(1, 2, 10)
+    setdiff(as.numeric(as.pc_set(c2)),
+            get_bass_pc(c2)),
+    c(1, 2, 10)
   )
 })
 
@@ -35,42 +37,4 @@ test_that("pc_set", {
     c(0, 4, 7) %>% pc_set %>% transpose(-2) %>% as.integer,
     c(2, 5, 10)
   )
-})
-
-test_that("+/- alias for pc_set", {
-  for (n in 1:30) {
-    pc_set <- decode_pc_sets(sample(4e3, 1))[[1]]
-    int <- sample(12L, 1L) - 1L
-    expect_equal(
-      transpose(pc_set, int),
-      pc_set + int
-    )
-    expect_equal(
-      pc_set + int,
-      int + pc_set
-    )
-    expect_equal(
-      transpose(pc_set, - int),
-      pc_set - int
-    )
-  }
-})
-
-test_that("+/- alias for chord", {
-  for (n in 1:30) {
-    chord <- decode_chord(sample(2e4, 1))
-    int <- sample(12L, 1L) - 1L
-    expect_equal(
-      transpose(chord, int),
-      chord + int
-    )
-    expect_equal(
-      chord + int,
-      int + chord
-    )
-    expect_equal(
-      transpose(chord, - int),
-      chord - int
-    )
-  }
 })

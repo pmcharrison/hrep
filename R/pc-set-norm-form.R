@@ -52,5 +52,5 @@ encode.pc_set_norm_form <- function(x) {
 }
 
 decode.coded_vec_pc_set_norm_form <- function(x) {
-  lapply(decode_pc_set(x), pc_set_norm_form)
+  lapply(decode(x, "pc_set"), pc_set_norm_form)
 }

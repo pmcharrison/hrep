@@ -1,7 +1,7 @@
 #' @param bass_pc Numeric scalar corresponding to bass pitch class
 #' @param pc_set Numeric vector corresponding to pitch-class set, may optionally include the bass pitch class
 #' @export
-pc_chord <- function(bass_pc, other_pc) {
+pc_chord <- function(bass_pc, other_pc = numeric()) {
   checkmate::qassert(bass_pc, "N1[0,12)")
   checkmate::qassert(other_pc, "N[0,12)")
   other_pc <- setdiff(sort(unique(other_pc)), bass_pc)
@@ -84,19 +84,6 @@ encode.pc_chord <- function(x) {
 decode.coded_vec_pc_chord <- function(x) {
   checkmate::qassert(x, "X")
   pc_chord_alphabet$by_id[x]
-}
-
-#' @export
-get_pc_chord_alphabet_from_corpus <- function(
-  corpus, decode = FALSE
-) {
-  stop("needs refactoring")
-  stopifnot(is(corpus, "harmony_corpus"))
-  corpus %>%
-    get_chord_counts %>%
-    names %>%
-    as.integer %>%
-    (function(x) if (decode) decode_pc_chords(x) else x)
 }
 
 #' @export

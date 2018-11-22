@@ -15,9 +15,6 @@ test_that("various", {
   expect_error(
     pc_set(12)
   )
-  expect_error(
-    pc_set(c(0, 2, 2))
-  )
   expect_equal(
     as.integer(pc_set(c(7, 3, 2))),
     c(2, 3, 7)
