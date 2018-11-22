@@ -1,7 +1,11 @@
 #' @importFrom magrittr "%>%"
 NULL
 
-#' @importFrom cacheR clear_cache
-#' @name clear_cache
-#' @export
+#' @importFrom graphics "plot"
+NULL
+
+#' @importFrom methods "as" "is"
+NULL
+
+#' @importFrom stats "dnorm" "sd"
 NULL

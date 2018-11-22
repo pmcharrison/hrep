@@ -15,5 +15,7 @@ Imports:
     sets,
     Rdpack,
     checkmate,
-    purrr
+    purrr,
+    magrittr,
+    methods
 RdMacros: Rdpack

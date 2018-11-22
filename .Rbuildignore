@@ -1,3 +1,5 @@
+^\.cache$
+^todo\.txt$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^cache$

@@ -6,4 +6,4 @@ pc_chord_id_to_pc_set_id_map <- vapply(
   },
   integer(1)
 )
-usethis::use_data(pc_chord_id_to_pc_set_id_map, overwrite = TRUE)
+usethis::use_data(pc_chord_id_to_pc_set_id_map, overwrite = TRUE, internal = FALSE)

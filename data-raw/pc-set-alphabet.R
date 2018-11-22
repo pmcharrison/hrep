@@ -41,4 +41,4 @@ get_pc_set_alphabet <- function(format = "both") {
 }
 
 pc_set_alphabet <- get_pc_set_alphabet("both")
-usethis::use_data(pc_set_alphabet, overwrite = TRUE)
+usethis::use_data(pc_set_alphabet, overwrite = TRUE, internal = FALSE)

@@ -22,4 +22,5 @@ get_pc_chord_alphabet <- function() {
 }
 
 pc_chord_alphabet <- get_pc_chord_alphabet()
-usethis::use_data(pc_chord_alphabet, overwrite = TRUE)
+usethis::use_data(pc_chord_alphabet, overwrite = TRUE, internal = FALSE)
+usethis::use_data(pc_chord_alphabet, overwrite = TRUE, internal = FALSE)
