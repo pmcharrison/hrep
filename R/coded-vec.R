@@ -58,10 +58,16 @@ encode.vec <- function(x) {
 }
 
 #' @export
+encode.coded_vec <- function(x) x
+
+#' @export
 as.coded_vec <- function(x) UseMethod("as.coded_vec")
 
 #' @export
 as.coded_vec.vec <- function(x) encode(x)
+
+#' @export
+is.coded.coded_vec <- function(x) TRUE
 
 #' @export
 decode <- function(x, type = NULL, ...) {

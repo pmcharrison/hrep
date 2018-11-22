@@ -28,3 +28,6 @@ transform_symbols <- function(x, f) UseMethod("transform_symbols")
 
 #' @export
 is.empty <- function(x) UseMethod("is.empty")
+
+#' @export
+is.coded <- function(x) UseMethod("is.coded")

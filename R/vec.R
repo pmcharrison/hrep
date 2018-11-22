@@ -46,6 +46,9 @@ as.list.vec <- function(x) {
 as.vec.coded_vec <- function(x) decode(x)
 
 #' @export
+is.coded.vec <- function(x) FALSE
+
+#' @export
 print.vec <- function(x, ...) {
   cat("Vector of type '", type(x),
       "', length = ", num_symbols(x),

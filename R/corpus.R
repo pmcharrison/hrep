@@ -1,51 +1,56 @@
 # Creation ####
 #' @export
-corpus <- function(x, description = NULL, type = NULL) {
+corpus <- function(x, type, metadata = list()) {
   checkmate::qassert(x, "l")
-  stopifnot(is.null(description) || checkmate::qtest(description, "S1"))
-  stopifnot(is.null(type) || checkmate::qtest(type, "S1"))
-  if (!purrr::map_lgl(x, is.coded_vec))
-    stop("every element of <x> must be an object of class 'coded_vec'")
-  types <- unique(purrr::map_chr(x, function(x) type(x)))
-  if (length(types) > 1L)
-    stop("every element of <x> must be a coded sequence of the same type ",
-         "(observed: ", paste(types, collapse = ", "), ")")
-  if (!is.null(type) && !types == type)
-    stop("requested type (", type, ") inconsistent with observed type (",
-         types, ")")
+  checkmate::qassert(metadata, "l")
+  checkmate::qassert(type, "S1")
+  cl <- if (all(purrr::map_lgl(x, is.coded_vec)))
+    "coded_vec" else if (all(purrr::map_lgl(x, is.vec)))
+      "vec" else stop("every element of <x> must be an object of class ",
+                      "'coded_vec' or 'vec'")
+  if (!all(type == purrr::map_chr(x, function(y) type(y))))
+    stop("not all sequences were of type '", type, "'")
   class(x) <- c("corpus", "list")
   type(x) <- type
-  description(x) <- description
+  metadata(x) <- metadata
+  attr(x, "coded") <- cl == "coded_vec"
   x
 }
 
 #' @export
 as.list.corpus <- function(x) {
-  class(x) <- "list"
+  attributes(x) <- NULL
   x
 }
 
 # Subsetting ####
 #' @export
 `[.corpus` <- function(x, i) {
-  res <- new_corpus(as.list(x)[i],
-                            description = paste(description(x), "(subset)"))
-  if (num_compositions(res) == 1) {
-    description(res) <- description(res[[1]])
-  }
-  res
+  corpus(as.list(x)[i], type = type(x), metadata = metadata(x))
 }
 #' @export
 `[<-.corpus` <- function(x, i, value) {
-  stop("Assignment with [ ] not valid for corpus objects.\n",
-       "You can update individual compositions with the [[ ]] operator, however.")
+  # We perform some sanity checks before allowing the assignment
+  value <- corpus(x = as.list(value), type = type(x))
+  if (!(is.coded(x) == is.coded(value)))
+    stop("coding must be consistent between old corpus and new sequences")
+  value <- as.list(value)
+  NextMethod("[<-.corpus")
+}
+#' @export
+`[[<-.corpus` <- function(x, i, value) {
+  x[i] <- list(value)
+  x
 }
 
 # Combination ####
 #' @export
 c.corpus <- function(...) {
-  new_corpus(do.call(c, lapply(list(...), as.list)),
-                     description = "Combined corpora")
+  x <- list(...)
+  types <- unique(purrr::map_chr(x, type))
+  if (length(types) > 1L) stop("cannot combine corpora of different types")
+  type <- types
+  corpus(do.call(c, lapply(x, as.list)), type = type)
 }
 
 # Properties ####
@@ -57,14 +62,15 @@ num_symbols.corpus <- function(x) {
 }
 
 #' @export
-description.corpus <- function(x) attr(x, "description")
+metadata.corpus <- function(x) attr(x, "metadata")
 
 #' @export
-`description<-.corpus` <- function(x, value) {
-  attr(x, "description") <- value
+`metadata<-.corpus` <- function(x, value) {
+  attr(x, "metadata") <- value
   x
 }
 
+#' @export
 type.corpus <- function(x) {
   attr(x, "type")
 }
@@ -74,16 +80,38 @@ type.corpus <- function(x) {
   x
 }
 
+#' @export
+is.coded.corpus <- function(x) attr(x, "coded")
+
+#' @export
+encode.corpus <- function(x) {
+  if (!is.coded(x)) {
+    for (i in seq_along(x)) x[[i]] <- encode(x[[i]])
+    attr(x, "coded") <- TRUE
+  }
+  x
+}
+
+#' @export
+decode.corpus <- function(x) {
+  if (is.coded(x)) {
+    for (i in seq_along(x)) x[[i]] <- decode(x[[i]])
+    attr(x, "coded") <- FALSE
+  }
+  x
+}
 
 # Display ####
 #' @export
 print.corpus <- function(x, ...) {
-  desc <- description(x)
-  cat("\n\tA corpus of encoded sequences\n\n")
-  if (!is.null(desc))
-    cat(strwrap(paste0("'", desc, "'\n")))
-  cat("Num. sequences =", num_sequences(x), "\n")
-  cat("Num. symbols =", num_symbols(x), "\n\n")
+  n <- num_sequences(x)
+  N <- num_symbols(x)
+  cat("\nA corpus of", n , ngettext(n, "sequence", "sequences"), "\n")
+  cat("  total size =", N, ngettext(N, "symbol", "symbols"), "\n")
+  cat("  symbol type = '", type(x), "'\n", sep = "")
+  cat("  coded =", tolower(is.coded(x)), "\n")
+  if (length(metadata(x)) > 0L) cat(" (Metadata available)", "\n")
+  cat("\n")
 }
 
 #' @export
