@@ -1,5 +1,3 @@
-# pc_set ####
-
 #' @export
 transpose <- function(x, interval) UseMethod("transpose")
 

@@ -14,9 +14,9 @@ num_symbols <- function(x) UseMethod("num_symbols")
 #' normalise_bass <- function(x) UseMethod("normalise_bass")
 
 #' @export
-description <- function(x) UseMethod("description")
+metadata <- function(x) UseMethod("metadata")
 #' @export
-`description<-` <- function(x, value) UseMethod("description<-")
+`metadata<-` <- function(x, value) UseMethod("metadata<-")
 
 #' @export
 type <- function(x) UseMethod("type")

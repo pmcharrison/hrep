@@ -4,8 +4,8 @@ corpus <- function(x, description = NULL, type = NULL) {
   checkmate::qassert(x, "l")
   stopifnot(is.null(description) || checkmate::qtest(description, "S1"))
   stopifnot(is.null(type) || checkmate::qtest(type, "S1"))
-  if (!purrr::map_lgl(x, is.coded_seq))
-    stop("every element of <x> must be an object of class 'coded_seq'")
+  if (!purrr::map_lgl(x, is.coded_vec))
+    stop("every element of <x> must be an object of class 'coded_vec'")
   types <- unique(purrr::map_chr(x, function(x) type(x)))
   if (length(types) > 1L)
     stop("every element of <x> must be a coded sequence of the same type ",
