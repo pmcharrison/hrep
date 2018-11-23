@@ -44,6 +44,9 @@ x_unit <- function(x) UseMethod("x_unit")
 y_unit <- function(x) UseMethod("y_unit")
 
 #' @export
+`y_unit<-` <- function(x, value) UseMethod("y_unit<-")
+
+#' @export
 lower <- function(x) UseMethod("lower")
 
 #' @export
@@ -56,10 +59,19 @@ low_eq <- function(x) UseMethod("low_eq")
 high_eq <- function(x) UseMethod("high_eq")
 
 #' @export
+label <- function(x) UseMethod("label")
+
+#' @export
 x_lab <- function(x) UseMethod("x_lab")
 
 #' @export
 y_lab <- function(x) UseMethod("y_lab")
 
 #' @export
+`y_lab<-` <- function(x, value) UseMethod("y_lab<-")
+
+#' @export
 view <- function(x, ...) UseMethod("view")
+
+#' @export
+transform_y <- function(x, f, y_unit, y_lab) UseMethod("transform_y")

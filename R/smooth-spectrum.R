@@ -1,6 +1,7 @@
 #' @export
 smooth_spectrum <- function(x, x_unit, y_unit, lower, upper, low_eq, high_eq,
-                     x_lab = x_unit, y_lab = y_unit) {
+                            label = "smooth spectrum",
+                            x_lab = x_unit, y_lab = y_unit) {
   checkmate::qassert(x, "N")
   checkmate::qassert(x_unit, "S1")
   checkmate::qassert(y_unit, "S1")
@@ -8,6 +9,7 @@ smooth_spectrum <- function(x, x_unit, y_unit, lower, upper, low_eq, high_eq,
   checkmate::qassert(upper, "N1")
   checkmate::qassert(low_eq, "B1")
   checkmate::qassert(high_eq, "B1")
+  checkmate::qassert(label, "S1")
   checkmate::qassert(x_lab, "S1")
   checkmate::qassert(y_lab, "S1")
   attr(x, "x_unit") <- x_unit
@@ -16,6 +18,7 @@ smooth_spectrum <- function(x, x_unit, y_unit, lower, upper, low_eq, high_eq,
   attr(x, "upper") <- upper
   attr(x, "low_eq") <- low_eq
   attr(x, "high_eq") <- high_eq
+  attr(x, "label") <- label
   attr(x, "x_lab") <- x_lab
   attr(x, "y_lab") <- y_lab
   class(x) <- c("smooth_spectrum", "numeric")
@@ -27,9 +30,8 @@ is.smooth_spectrum <- function(x, ...) is(x, "smooth_spectrum")
 
 #' @export
 print.smooth_spectrum <- function(x, ...) {
-  range <-
   cat(
-    "smooth spectrum\n",
+    label(x), "\n",
     "  size = ", length(x), "\n",
     "  x = ", x_unit(x), "\n",
     "  range(x) = ",
@@ -80,6 +82,9 @@ low_eq.smooth_spectrum <- function(x) attr(x, "low_eq")
 
 #' @export
 high_eq.smooth_spectrum <- function(x) attr(x, "high_eq")
+
+#' @export
+label.smooth_spectrum <- function(x) attr(x, "label")
 
 #' @export
 x_lab.smooth_spectrum <- function(x) attr(x, "x_lab")

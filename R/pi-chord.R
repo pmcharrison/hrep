@@ -8,7 +8,7 @@ pi_chord <- function(x) {
 }
 
 #' @export
-is.pc_chord <- function(x) is(x, "pc_chord")
+is.pi_chord <- function(x) is(x, "pi_chord")
 
 #' @export
 print.pi_chord <- function(x, ...) {

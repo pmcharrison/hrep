@@ -43,7 +43,7 @@ as.pc_smooth_spectrum.pc_smooth_spectrum <- function(x, ...) x
 #' @export
 as.pc_smooth_spectrum.numeric <- function(x, ...) {
   checkmate::qassert(x, "N")
-  if (is.spectrum(x)) stop("<x> is already a spectrum")
+  if (is.smooth_spectrum(x)) stop("<x> is already a spectrum")
   y <- smooth_spectrum(x = x,
                        x_unit = "pc",
                        y_unit = "weight",
@@ -51,6 +51,7 @@ as.pc_smooth_spectrum.numeric <- function(x, ...) {
                        upper = 12,
                        low_eq = TRUE,
                        high_eq = FALSE,
+                       label = "pitch-class spectrum",
                        x_lab = "Pitch class",
                        y_lab = "Weight")
   class(y) <- c("pc_smooth_spectrum", class(y))
@@ -70,18 +71,6 @@ as.pc_smooth_spectrum.pi_chord <- function(x, ...) {
 #' @export
 as.pc_smooth_spectrum.pc_chord <- function(x, ...) {
   pc_smooth_spectrum(as.pc_set(x), ...)
-}
-
-
-#' @export
-print.pc_smooth_spectrum <- function(x, ...) {
-  cat("Pitch-class spectrum ",
-      "(N = ", length(x), ", ",
-      "M = ",  mean(x, na.rm = FALSE) %>%
-        round(digits = 3), ", ",
-      "SD = ",  sd(x, na.rm = FALSE) %>%
-        round(digits = 3), ")",
-      sep = "")
 }
 
 #' Pitch-class spectrum, template 1
