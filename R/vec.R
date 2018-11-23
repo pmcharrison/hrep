@@ -57,6 +57,12 @@ print.vec <- function(x, ...) {
 }
 
 #' @export
+view.vec <- function(x, ...) {
+  if (length(x) > 200) stop("cannot view a vector this long")
+  abcR::view_pi_chord_seq(as.list(transform_symbols(x, as.pi_chord)), ...)
+}
+
+#' @export
 num_symbols.vec <- function(x) length(x)
 
 #' @export
