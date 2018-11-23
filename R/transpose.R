@@ -20,13 +20,16 @@ transpose.pc_chord <- function(x, interval) {
 
 #' @export
 Ops.pc_set <- function(e1, e2) {
-  stop("cannot perform arithmetic operations on pitch-class sets")
+  stop("cannot perform arithmetic operations on pitch-class sets, ",
+       "call 'as.numeric()' first")
 }
 #' @export
 Ops.pc_chord <- function(e1, e2) {
-  stop("cannot perform arithmetic operations on pitch-class chords")
+  stop("cannot perform arithmetic operations on pitch-class chords, ",
+       "call 'as.numeric()' first")
 }
 #' @export
 Ops.pi_chord <- function(e1, e2) {
-  stop("cannot perform arithmetic operations on pitch chords")
+  stop("cannot perform arithmetic operations on pitch chords, ",
+       "call 'as.numeric()' first")
 }
