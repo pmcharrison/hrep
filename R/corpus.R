@@ -18,7 +18,7 @@ corpus <- function(x, type, metadata = list()) {
 }
 
 #' @export
-as.list.corpus <- function(x) {
+as.list.corpus <- function(x, ...) {
   attributes(x) <- NULL
   x
 }
@@ -84,7 +84,7 @@ type.corpus <- function(x) {
 is.coded.corpus <- function(x) attr(x, "coded")
 
 #' @export
-encode.corpus <- function(x) {
+encode.corpus <- function(x, ...) {
   if (!is.coded(x)) {
     for (i in seq_along(x)) x[[i]] <- encode(x[[i]])
     attr(x, "coded") <- TRUE

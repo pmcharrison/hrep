@@ -47,7 +47,7 @@ as.pc_set.pc_set_norm_form <- function(x) {
 }
 
 #' @export
-encode.pc_set_norm_form <- function(x) {
+encode.pc_set_norm_form <- function(x, ...) {
   encode.pc_set(as.pc_set(x))
 }
 

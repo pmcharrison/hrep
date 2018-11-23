@@ -40,13 +40,13 @@ get_non_bass_pc <- function(x) UseMethod("get_non_bass_pc")
 get_non_bass_pc.pc_chord <- function(x) pc_set(x[- 1])
 
 #' @export
-as.numeric.pc_chord <- function(x) {
+as.numeric.pc_chord <- function(x, ...) {
   class(x) <- "numeric"
   x
 }
 
 #' @export
-as.integer.pc_chord <- function(x) {
+as.integer.pc_chord <- function(x, ...) {
   as.integer(as.numeric(x))
 }
 
@@ -67,7 +67,7 @@ get_transpositions.pc_chord <- function(x) {
 }
 
 #' @export
-as.character.pc_chord <- function(x) {
+as.character.pc_chord <- function(x, ...) {
   paste(as.numeric(x), collapse = " ")
 }
 
@@ -75,7 +75,7 @@ as.character.pc_chord <- function(x) {
 is.pc_chord <- function(x) is(x, "pc_chord")
 
 #' @export
-encode.pc_chord <- function(x) {
+encode.pc_chord <- function(x, ...) {
   checkmate::qassert(x, "X")
   key <- as.character(x)
   pc_chord_alphabet$by_pc_chord[[key]]

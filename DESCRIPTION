@@ -3,7 +3,7 @@ Title: Low-level utility functions for harmony analysis packages
 Version: 0.4.0
 Authors@R: person("Peter", "Harrison", email = "pmc.harrison@gmail.com", role = c("aut", "cre"))
 Description: Provides low-level utility functions for harmony analysis packages. In most music analysis situations you will probably want the package HarmonyToolbox instead.
-Depends: R (>= 3.4.2)
+Depends: R (>= 3.4.0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
@@ -17,5 +17,7 @@ Imports:
     checkmate,
     purrr,
     magrittr,
-    methods
+    methods,
+    ggplot2,
+    tuneR
 RdMacros: Rdpack

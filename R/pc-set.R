@@ -21,14 +21,14 @@ print.pc_set <- function(x, ...) {
 }
 
 #' @export
-as.character.pc_set <- function(x) {
+as.character.pc_set <- function(x, ...) {
   paste(as.numeric(x), collapse = " ")
 }
 
 #' @export
-encode.pc_set <- function(pc_set) {
-  checkmate::qassert(pc_set, "X")
-  key <- as.character(pc_set)
+encode.pc_set <- function(x, ...) {
+  checkmate::qassert(x, "X")
+  key <- as.character(x)
   pc_set_alphabet$by_pc_set[[key]]
 }
 

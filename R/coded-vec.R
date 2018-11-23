@@ -51,14 +51,14 @@ encode <- function(x, ...) {
 }
 
 #' @export
-encode.vec <- function(x) {
+encode.vec <- function(x, ...) {
   coded_vec(purrr::map_int(x, encode),
             type = type(x),
             metadata = metadata(x))
 }
 
 #' @export
-encode.coded_vec <- function(x) x
+encode.coded_vec <- function(x, ...) x
 
 #' @export
 as.coded_vec <- function(x) UseMethod("as.coded_vec")

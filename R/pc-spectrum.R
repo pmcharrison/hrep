@@ -62,7 +62,8 @@ as.pc_spectrum.pc_set <- function(x,
                                   array_dim = 1200,
                                   num_harmonics = 12,
                                   rho = 0.75,
-                                  sigma = 6.83) {
+                                  sigma = 6.83,
+                                  ...) {
   if (length(weights) == 1L) weights <- rep(weights, times = length(x))
   pc_spectra <- mapply(
     function(pc, weight) {

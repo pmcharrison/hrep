@@ -270,7 +270,7 @@ play_sparse_spectrum <- function( # nocov start
 ) {
   spectrum <- sparse_spectrum_to_waveform(
     frequency = frequency, amplitude = amplitude,
-    second = seconds, sample_rate = sample_rate, bit = bit
+    seconds = seconds, sample_rate = sample_rate, bit = bit
   )
   tuneR::play(tuneR::Wave(spectrum$y, samp.rate = sample_rate, bit = bit),
               "play")

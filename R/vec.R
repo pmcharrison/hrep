@@ -37,7 +37,7 @@ is.vec <- function(x) {
 }
 
 #' @export
-as.list.vec <- function(x) {
+as.list.vec <- function(x, ...) {
   class(x) <- "list"
   x
 }
