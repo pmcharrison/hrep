@@ -7,6 +7,9 @@ pc_set <- function(pitch_classes) {
 }
 
 #' @export
+is.pc_set <- function(x) is(x, "pc_set")
+
+#' @export
 as.pc_set <- function(x) UseMethod("as.pc_set")
 #' @export
 as.pc_set.pc_set <- function(x) x

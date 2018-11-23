@@ -23,6 +23,9 @@ spectrum <- function(x, x_unit, y_unit, lower, upper, low_eq, high_eq,
 }
 
 #' @export
+is.spectrum <- function(x, ...) is(x, "spectrum")
+
+#' @export
 print.spectrum <- function(x, ...) {
   range <-
   cat(
@@ -56,6 +59,9 @@ plot.spectrum <- function(x, ...) {
   df <- as.data.frame(x)
   plot(df$x, df$y, xlab = x_lab(x), ylab = y_lab(x), type = "l", ...)
 }
+
+#' @export
+view.spectrum <- function(x, ...) plot(x, ...)
 
 #' @export
 x_unit.spectrum <- function(x) attr(x, "x_unit")

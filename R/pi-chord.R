@@ -8,6 +8,9 @@ pi_chord <- function(x) {
 }
 
 #' @export
+is.pc_chord <- function(x) is(x, "pc_chord")
+
+#' @export
 print.pi_chord <- function(x, ...) {
   cat("Pitch chord: ", paste(x, collapse = " "), "\n", sep = "")
 }
