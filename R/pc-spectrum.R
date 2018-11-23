@@ -1,9 +1,17 @@
 #' @export
 pc_spectrum <- function(x) {
-  checkmate::qassert(x, "R+")
-  x <- as.numeric(x)
-  class(x) <- c("pc_spectrum", "numeric")
-  x
+  checkmate::qassert(x, "N")
+  spectrum(x = x,
+           x_unit = "pc",
+           y_unit = "weight",
+           lower = 0,
+           upper = 12,
+           low_eq = TRUE,
+           high_eq = FALSE,
+           x_lab = "Pitch class",
+           y_lab = "Weight")
+  # x <- as.numeric(x)
+  # class(x) <- c("pc_spectrum", "numeric")
 }
 
 #' @export

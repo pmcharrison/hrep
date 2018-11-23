@@ -36,3 +36,30 @@ is.empty <- function(x) UseMethod("is.empty")
 
 #' @export
 is.coded <- function(x) UseMethod("is.coded")
+
+#' @export
+x_unit <- function(x) UseMethod("x_unit")
+
+#' @export
+y_unit <- function(x) UseMethod("y_unit")
+
+#' @export
+lower <- function(x) UseMethod("lower")
+
+#' @export
+upper <- function(x) UseMethod("upper")
+
+#' @export
+low_eq <- function(x) UseMethod("low_eq")
+
+#' @export
+high_eq <- function(x) UseMethod("high_eq")
+
+#' @export
+x_lab <- function(x) UseMethod("x_lab")
+
+#' @export
+y_lab <- function(x) UseMethod("y_lab")
+
+#' @export
+view <- function(x, ...) UseMethod("view")

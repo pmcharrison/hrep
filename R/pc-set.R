@@ -21,6 +21,16 @@ print.pc_set <- function(x, ...) {
 }
 
 #' @export
+view.pc_set <- function(x, ...) {
+  view(as.pi_chord(x), ...)
+}
+
+#' @export
+as.pi_chord.pc_set <- function(x) {
+  pi_chord(60 + x)
+}
+
+#' @export
 as.character.pc_set <- function(x, ...) {
   paste(as.numeric(x), collapse = " ")
 }

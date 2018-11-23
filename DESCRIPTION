@@ -19,5 +19,6 @@ Imports:
     magrittr,
     methods,
     ggplot2,
-    tuneR
+    tuneR,
+    abcR
 RdMacros: Rdpack

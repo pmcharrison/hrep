@@ -25,5 +25,5 @@ Converts the input to a pitch-class spectrum.
 Musical notes are converted to complex tones, after Milne & Holland (2016).
 }
 \references{
-\insertRef{Milne2016a}{hutil}
+\insertRef{Milne2016a}{hrep}
 }

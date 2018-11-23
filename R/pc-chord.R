@@ -19,6 +19,17 @@ print.pc_chord <- function(x, ...) {
 }
 
 #' @export
+view.pc_chord <- function(x, ...) {
+  view(as.pi_chord(x), ...)
+}
+
+#' @export
+as.pi_chord.pc_chord <- function(x) {
+  pi_chord(c(48 + get_bass_pc(x),
+             60 + get_non_bass_pc(x)))
+}
+
+#' @export
 as.pc_chord <- function(x) UseMethod("as.pc_chord")
 #' @export
 as.pc_chord.numeric <- function(x) {

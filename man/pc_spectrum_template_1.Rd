@@ -7,7 +7,7 @@ Makes a Gaussian pitch-class  spectral template with unit mass, centred on 0,
 with standard deviation <sigma>.
 The template will be truncated to zero for points <truncation-point>
 standard deviations or further away from the mean,
-after \insertCite{Milne2016a;textual}{hutil}.}
+after \insertCite{Milne2016a;textual}{hrep}.}
 \usage{
 pc_spectrum_template_1(array_dim, sigma, truncation_point)
 }
@@ -17,7 +17,7 @@ Makes a Gaussian pitch-class  spectral template with unit mass, centred on 0,
 with standard deviation <sigma>.
 The template will be truncated to zero for points <truncation-point>
 standard deviations or further away from the mean,
-after \insertCite{Milne2016a;textual}{hutil}.
+after \insertCite{Milne2016a;textual}{hrep}.
 }
 \references{
 \insertAllCited{}

@@ -13,6 +13,11 @@ print.pi_chord <- function(x, ...) {
 }
 
 #' @export
+view.pi_chord <- function(x, ...) {
+  abcR::view_pi_chord(x, ...)
+}
+
+#' @export
 as.pi_chord <- function(x) UseMethod("as.pi_chord")
 
 #' @export
