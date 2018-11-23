@@ -1,5 +1,5 @@
 library(testthat)
-library(hutil)
+library(hrep)
 
 context("decode_pc_sets")
 

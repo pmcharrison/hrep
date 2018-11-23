@@ -45,7 +45,7 @@ plot.pc_spectrum <- function(x, ...) {
 #' default is 6.83, after Milne & Holland (2016)
 #' @export
 #' @references
-#' \insertRef{Milne2016a}{hutil}
+#' \insertRef{Milne2016a}{hrep}
 as.pc_spectrum <- function(x,
                            weights = 1,
                            array_dim = 1200,
@@ -82,7 +82,7 @@ as.pc_spectrum.pc_set <- function(x,
 #' with standard deviation <sigma>.
 #' The template will be truncated to zero for points <truncation-point>
 #' standard deviations or further away from the mean,
-#' after \insertCite{Milne2016a;textual}{hutil}.
+#' after \insertCite{Milne2016a;textual}{hrep}.
 #' @references
 #'   \insertAllCited{}
 pc_spectrum_template_1 <- function(array_dim, sigma, truncation_point) {

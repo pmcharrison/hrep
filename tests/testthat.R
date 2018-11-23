@@ -1,4 +1,4 @@
 library(testthat)
-library(hutil)
+library(hrep)
 
-test_check("hutil")
+test_check("hrep")
