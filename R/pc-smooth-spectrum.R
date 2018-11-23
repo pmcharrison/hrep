@@ -44,15 +44,15 @@ as.pc_smooth_spectrum.pc_smooth_spectrum <- function(x, ...) x
 as.pc_smooth_spectrum.numeric <- function(x, ...) {
   checkmate::qassert(x, "N")
   if (is.spectrum(x)) stop("<x> is already a spectrum")
-  y <- spectrum(x = x,
-                x_unit = "pc",
-                y_unit = "weight",
-                lower = 0,
-                upper = 12,
-                low_eq = TRUE,
-                high_eq = FALSE,
-                x_lab = "Pitch class",
-                y_lab = "Weight")
+  y <- smooth_spectrum(x = x,
+                       x_unit = "pc",
+                       y_unit = "weight",
+                       lower = 0,
+                       upper = 12,
+                       low_eq = TRUE,
+                       high_eq = FALSE,
+                       x_lab = "Pitch class",
+                       y_lab = "Weight")
   class(y) <- c("pc_smooth_spectrum", class(y))
   y
 }

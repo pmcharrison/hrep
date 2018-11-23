@@ -1,5 +1,5 @@
 #' @export
-spectrum <- function(x, x_unit, y_unit, lower, upper, low_eq, high_eq,
+smooth_spectrum <- function(x, x_unit, y_unit, lower, upper, low_eq, high_eq,
                      x_lab = x_unit, y_lab = y_unit) {
   checkmate::qassert(x, "N")
   checkmate::qassert(x_unit, "S1")
@@ -18,18 +18,18 @@ spectrum <- function(x, x_unit, y_unit, lower, upper, low_eq, high_eq,
   attr(x, "high_eq") <- high_eq
   attr(x, "x_lab") <- x_lab
   attr(x, "y_lab") <- y_lab
-  class(x) <- "spectrum"
+  class(x) <- c("smooth_spectrum", "numeric")
   x
 }
 
 #' @export
-is.spectrum <- function(x, ...) is(x, "spectrum")
+is.smooth_spectrum <- function(x, ...) is(x, "smooth_spectrum")
 
 #' @export
-print.spectrum <- function(x, ...) {
+print.smooth_spectrum <- function(x, ...) {
   range <-
   cat(
-    "spectrum\n",
+    "smooth spectrum\n",
     "  size = ", length(x), "\n",
     "  x = ", x_unit(x), "\n",
     "  range(x) = ",
@@ -43,7 +43,7 @@ print.spectrum <- function(x, ...) {
 }
 
 #' @export
-as.data.frame.spectrum <- function(x, ...) {
+as.data.frame.smooth_spectrum <- function(x, ...) {
   n <- length(x)
   n_seq <- n + (!low_eq(x)) + (!high_eq(x))
   x_seq <- seq(from = lower(x), to = upper(x), length.out = n_seq)
@@ -55,38 +55,34 @@ as.data.frame.spectrum <- function(x, ...) {
 }
 
 #' @export
-plot.spectrum <- function(x, ...) {
+plot.smooth_spectrum <- function(x, ...) {
   df <- as.data.frame(x)
   plot(df$x, df$y, xlab = x_lab(x), ylab = y_lab(x), type = "l", ...)
 }
 
 #' @export
-view.spectrum <- function(x, ...) plot(x, ...)
+view.smooth_spectrum <- function(x, ...) plot(x, ...)
 
 #' @export
-x_unit.spectrum <- function(x) attr(x, "x_unit")
+x_unit.smooth_spectrum <- function(x) attr(x, "x_unit")
 
 #' @export
-y_unit.spectrum <- function(x) attr(x, "y_unit")
+y_unit.smooth_spectrum <- function(x) attr(x, "y_unit")
 
 #' @export
-lower.spectrum <- function(x) attr(x, "lower")
+lower.smooth_spectrum <- function(x) attr(x, "lower")
 
 #' @export
-upper.spectrum <- function(x) attr(x, "upper")
+upper.smooth_spectrum <- function(x) attr(x, "upper")
 
 #' @export
-low_eq.spectrum <- function(x) attr(x, "low_eq")
+low_eq.smooth_spectrum <- function(x) attr(x, "low_eq")
 
 #' @export
-high_eq.spectrum <- function(x) attr(x, "high_eq")
+high_eq.smooth_spectrum <- function(x) attr(x, "high_eq")
 
 #' @export
-x_lab.spectrum <- function(x) attr(x, "x_lab")
+x_lab.smooth_spectrum <- function(x) attr(x, "x_lab")
 
 #' @export
-y_lab.spectrum <- function(x) attr(x, "y_lab")
-
-
-
-# sparse_spectrum
+y_lab.smooth_spectrum <- function(x) attr(x, "y_lab")

@@ -2,16 +2,7 @@
 % Please edit documentation in R/pc-smooth-spectrum.R
 \name{pc_spectrum_template_1}
 \alias{pc_spectrum_template_1}
-\title{#' @export
-plot.pc_spectrum <- function(x, ...) {
-  df <- as.data.frame(x)
-  plot(df$pitch_class, df$weight,
-       type = "l",
-       xlab = "Pitch class",
-       ylab = "Weight"
-  )
-}
-Pitch-class spectrum, template 1
+\title{Pitch-class spectrum, template 1
 Makes a Gaussian pitch-class  spectral template with unit mass, centred on 0,
 with standard deviation <sigma>.
 The template will be truncated to zero for points <truncation-point>
@@ -21,15 +12,6 @@ after \insertCite{Milne2016a;textual}{hrep}.}
 pc_spectrum_template_1(array_dim, sigma, truncation_point)
 }
 \description{
-#' @export
-plot.pc_spectrum <- function(x, ...) {
-  df <- as.data.frame(x)
-  plot(df$pitch_class, df$weight,
-       type = "l",
-       xlab = "Pitch class",
-       ylab = "Weight"
-  )
-}
 Pitch-class spectrum, template 1
 Makes a Gaussian pitch-class  spectral template with unit mass, centred on 0,
 with standard deviation <sigma>.
