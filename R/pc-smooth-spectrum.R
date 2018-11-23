@@ -84,18 +84,6 @@ print.pc_smooth_spectrum <- function(x, ...) {
       sep = "")
 }
 
-#' #' @export
-#' plot.pc_spectrum <- function(x, ...) {
-#'   df <- as.data.frame(x)
-#'   plot(df$pitch_class, df$weight,
-#'        type = "l",
-#'        xlab = "Pitch class",
-#'        ylab = "Weight"
-#'   )
-#' }
-
-
-
 #' Pitch-class spectrum, template 1
 #' Makes a Gaussian pitch-class  spectral template with unit mass, centred on 0,
 #' with standard deviation <sigma>.
@@ -182,31 +170,3 @@ get_cosine_similarity <- function(x, y) {
     sqrt(sum(y ^ 2))
   numerator / denominator
 }
-
-#' #' This function builds a comprehensive memory-based cache for
-#' #' pc_set_to_pc_spectrum.
-#' #' @export
-#' cache_pc_set_to_pc_spectrum <- function(
-#'   array_dim = 1200,
-#'   num_harmonics = 12,
-#'   rho = 0.75,
-#'   sigma = 6.83
-#' ) {
-#'   alphabet <- pc_set_alphabet$by_id
-#'   cache_pc_set_to_pc_spectrum <- new.env()
-#'   pb <- txtProgressBar(max = length(alphabet), style = 3)
-#'   for (i in seq_along(alphabet)) {
-#'     pc_set <- alphabet[[i]]
-#'     pc_set_to_pc_spectrum(
-#'       pc_set,
-#'       array_dim = array_dim,
-#'       num_harmonics = num_harmonics,
-#'       rho = rho,
-#'       sigma = sigma,
-#'       cache = TRUE,
-#'       cache_env = cache_pc_set_to_pc_spectrum
-#'     )
-#'     setTxtProgressBar(pb, i)
-#'   }
-#'   cache_pc_set_to_pc_spectrum
-#' }
