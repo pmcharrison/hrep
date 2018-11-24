@@ -1,9 +1,10 @@
 #' @export
-pc_set <- function(pitch_classes) {
-  checkmate::qassert(pitch_classes, "X[0,12)")
-  pitch_classes <- sort(unique(pitch_classes))
-  class(pitch_classes) <- "pc_set"
-  pitch_classes
+pc_set <- function(...) {
+  pc <- c(...)
+  checkmate::qassert(pc, "X[0,12)")
+  pc <- sort(unique(pc))
+  class(pc) <- "pc_set"
+  pc
 }
 
 #' @export
@@ -36,6 +37,13 @@ as.pi_chord.pc_set <- function(x) {
 #' @export
 as.character.pc_set <- function(x, ...) {
   paste(as.numeric(x), collapse = " ")
+}
+
+#' @export
+c.pc_set <- function(...) {
+  x <- lapply(list(...), unclass)
+  x <- do.call(c, x)
+  pc_set(sort(unique(x)))
 }
 
 #' @export

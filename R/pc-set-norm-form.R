@@ -10,6 +10,12 @@ print.pc_set_norm_form <- function(x, ...) {
 }
 
 #' @export
+c.pc_set_norm_form <- function(...) {
+  x <- lapply(list(...), as.pc_set)
+  x <- do.call(c, x)
+}
+
+#' @export
 get_transposition <- function(x) UseMethod("get_transposition")
 #' @export
 get_transposition.pc_set_norm_form <- function(x) attr(x, "transposition")

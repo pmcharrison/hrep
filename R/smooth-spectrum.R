@@ -29,6 +29,13 @@ smooth_spectrum <- function(x, x_unit, y_unit, lower, upper, low_eq, high_eq,
 is.smooth_spectrum <- function(x, ...) is(x, "smooth_spectrum")
 
 #' @export
+c.smooth_spectrum <- function(...) {
+  x <- lapply(list(...), unclass)
+  attributes(x) <- NULL
+  x <- do.call(c, x)
+}
+
+#' @export
 print.smooth_spectrum <- function(x, ...) {
   cat(
     label(x), "\n",

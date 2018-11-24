@@ -1,6 +1,7 @@
 #' @param x (Numeric vector) MIDI note numbers
 #' @export
-pi_chord <- function(x) {
+pi_chord <- function(...) {
+  x <- c(...)
   checkmate::qassert(x, "N")
   x <- sort(unique(x))
   class(x) <- c("pi_chord", "numeric")
@@ -13,6 +14,13 @@ is.pi_chord <- function(x) is(x, "pi_chord")
 #' @export
 print.pi_chord <- function(x, ...) {
   cat("Pitch chord: ", paste(x, collapse = " "), "\n", sep = "")
+}
+
+#' @export
+c.pi_chord <- function(...) {
+  x <- lapply(list(...), unclass)
+  x <- do.call(c, x)
+  pi_chord(sort(unique(x)))
 }
 
 #' @export

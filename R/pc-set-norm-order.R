@@ -6,6 +6,17 @@ print.pc_set_norm_order <- function(x, ...) {
 }
 
 #' @export
+c.pc_set_norm_order <- function(...) {
+  x <- lapply(list(...), as.pc_set)
+  x <- do.call(c, x)
+}
+
+#' @export
+as.pc_set.pc_set_norm_order <- function(x) {
+  pc_set(sort(x))
+}
+
+#' @export
 as.pc_set_norm_order <- function(x) UseMethod("as.pc_set_norm_order")
 #' @export
 as.pc_set_norm_order.numeric <- function(x) {

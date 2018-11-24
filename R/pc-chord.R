@@ -14,6 +14,12 @@ pc_chord <- function(bass_pc, other_pc = numeric()) {
 is.pc_chord <- function(x) is(x, "pc_chord")
 
 #' @export
+c.pc_chord <- function(...) {
+  x <- lapply(list(...), unclass)
+  x <- do.call(c, x)
+}
+
+#' @export
 print.pc_chord <- function(x, ...) {
   cat("Pitch-class chord: ",
       "[", get_bass_pc(x), "] ",
