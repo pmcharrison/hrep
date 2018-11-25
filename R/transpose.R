@@ -15,7 +15,7 @@ transpose.pc_chord <- function(x, interval) {
   if (length(x) > 1) {
     x[- 1] <- sort(x[- 1])
   }
-  pc_chord(x[1], x[- 1])
+  pc_chord(x)
 }
 
 #' @export

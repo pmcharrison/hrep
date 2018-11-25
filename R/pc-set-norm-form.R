@@ -50,7 +50,7 @@ print.pc_set_norm_form <- function(x, ...) {
 
 #' @export
 c.pc_set_norm_form <- function(...) {
-  x <- lapply(list(...), as.pc_set)
+  x <- lapply(list(...), pc_set)
   x <- do.call(c, x)
 }
 
@@ -61,7 +61,7 @@ get_transposition.pc_set_norm_form <- function(x) attr(x, "transposition")
 
 #' @export
 encode.pc_set_norm_form <- function(x, ...) {
-  encode.pc_set(as.pc_set(x))
+  encode(pc_set(x))
 }
 
 decode.coded_vec_pc_set_norm_form <- function(x) {

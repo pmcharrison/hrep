@@ -1,11 +1,39 @@
 #' @export
-pi_sparse_spectrum <- function(x, dB = FALSE, amplitude = if (dB) 60 else 1, ...) {
-  stopifnot(is.pi_chord(x))
-  expand_harmonics(frequency = as.numeric(x),
-                   amplitude = amplitude,
-                   dB = dB,
-                   frequency_scale = "midi",
-                   ...)
+.pi_sparse_spectrum <- function(x, y, dB) {
+  checkmate::qassert(x, "N")
+  checkmate::qassert(y, "N")
+  checkmate::qassert(dB, "B1")
+  stopifnot(length(x) == length(y))
+
+  sparse_spectrum(x = x, y = y,
+                  x_unit = "midi",
+                  y_unit = if (dB) "dB" else "amplitude",
+                  label = "pitch spectrum",
+                  x_lab = "Pitch",
+                  y_lab = if (dB) "level (dB)" else "Amplitude")
+}
+
+#' @export
+pi_sparse_spectrum <- function(x, ...) {
+  UseMethod("pi_sparse_spectrum")
+}
+
+#' @export
+pi_sparse_spectrum.pi_chord <- function(x,
+                                        dB = FALSE,
+                                        amplitude = if (dB) 60 else 1,
+                                        ...) {
+  res <- expand_harmonics(frequency = as.numeric(x),
+                          amplitude = amplitude,
+                          dB = dB,
+                          frequency_scale = "midi",
+                          ...)
+  .pi_sparse_spectrum(x = res$frequency, y = res$amplitude, dB = dB)
+}
+
+#' @export
+pi_sparse_spectrum.default <- function(x, ...) {
+  pi_sparse_spectrum(pi_chord(x), ...)
 }
 
 #' @param frequency Numeric vector of frequencies
@@ -62,13 +90,7 @@ expand_harmonics <- function(
           function(x, y) sum_amplitudes(x, y, coherent = FALSE),
           key_type = "numeric"
         )
-      }) %>% rename_columns(c(key = "x", value = "y"))
-    sparse_spectrum(x = res$x, y = res$y,
-                    x_unit = "midi",
-                    y_unit = if (dB) "dB" else "amplitude",
-                    label = "pitch spectrum",
-                    x_lab = "Pitch",
-                    y_lab = if (dB) "level (dB)" else "Amplitude")
+      }) %>% rename_columns(c(key = "frequency", value = "amplitude"))
   }
 }
 

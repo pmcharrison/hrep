@@ -12,17 +12,13 @@ c.pc_set_norm_order <- function(...) {
 }
 
 #' @export
-as.pc_set.pc_set_norm_order <- function(x) {
-  pc_set(sort(x))
-}
-
-#' @export
 pc_set_norm_order <- function(x) UseMethod("pc_set_norm_order")
 
 #' @export
 pc_set_norm_order.numeric <- function(x) {
   pc_set_norm_order(pc_set(unclass(x)))
 }
+
 #' @export
 pc_set_norm_order.pc_set <- function(x) {
   if (identical(length(x), 0L)) return(x)

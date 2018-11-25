@@ -1,7 +1,7 @@
 #' @export
 .pc_set <- function(...) {
   pc <- unclass(c(...))
-  checkmate::qassert(pc, "X[0,12)")
+  checkmate::qassert(pc, "N[0,12)")
   stopifnot(!anyDuplicated(pc), isTRUE(all.equal(pc, sort(pc))))
   class(pc) <- "pc_set"
   pc
@@ -31,6 +31,11 @@ pc_set.pc_chord <- function(x) {
 pc_set.pi_chord <- function(x) {
   x <- as.numeric(x)
   .pc_set(sort(unique(pi_to_pc(x))))
+}
+
+#' @export
+pc_set.pc_set_norm_order <- function(x) {
+  pc_set(sort(x))
 }
 
 #' @export

@@ -75,7 +75,7 @@ print.pc_chord <- function(x, ...) {
 
 #' @export
 view.pc_chord <- function(x, ...) {
-  view(as.pi_chord(x), ...)
+  view(pi_chord(x), ...)
 }
 
 #' @export

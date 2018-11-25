@@ -13,10 +13,11 @@
                        label = "pitch-class spectrum",
                        x_lab = "Pitch class",
                        y_lab = "Weight")
-  class(y) <- c("pc_smooth_spectrum", "numeric")
+  class(y) <- c("pc_smooth_spectrum", class(y))
   y
 }
 
+#' @export
 pc_smooth_spectrum <- function(x, ...) {
   UseMethod("pc_smooth_spectrum")
 }
@@ -40,7 +41,6 @@ pc_smooth_spectrum.pc_set <- function(x,
                                       rho = 0.75,
                                       sigma = 6.83,
                                       ...) {
-  stopifnot(is.pc_set(x))
   if (length(weights) == 1L) weights <- rep(weights, times = length(x))
   pc_spectra <- mapply(
     function(pc, weight) {
@@ -51,7 +51,7 @@ pc_smooth_spectrum.pc_set <- function(x,
                        rho = rho,
                        sigma = sigma)
     }, x, weights)
-  as.pc_smooth_spectrum(rowSums(pc_spectra))
+  .pc_smooth_spectrum(rowSums(pc_spectra))
 }
 
 #' @export
@@ -60,13 +60,8 @@ pc_smooth_spectrum.pc_smooth_spectrum <- function(x, ...) {
 }
 
 #' @export
-pc_smooth_spectrum.pi_chord <- function(x, ...) {
+pc_smooth_spectrum.default <- function(x, ...) {
   pc_smooth_spectrum(pc_set(x), ...)
-}
-
-#' @export
-as.pc_smooth_spectrum.pc_chord <- function(x, ...) {
-  pc_smooth_spectrum(as.pc_set(x), ...)
 }
 
 #' @export
