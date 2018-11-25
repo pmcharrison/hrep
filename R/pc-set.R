@@ -1,23 +1,45 @@
 #' @export
-pc_set <- function(...) {
-  pc <- c(...)
+.pc_set <- function(...) {
+  pc <- unclass(c(...))
   checkmate::qassert(pc, "X[0,12)")
-  pc <- sort(unique(pc))
+  stopifnot(!anyDuplicated(pc), isTRUE(all.equal(pc, sort(pc))))
   class(pc) <- "pc_set"
   pc
 }
 
 #' @export
-is.pc_set <- function(x) is(x, "pc_set")
+pc_set <- function(x) {
+  UseMethod("pc_set")
+}
 
 #' @export
-as.pc_set <- function(x) UseMethod("as.pc_set")
-#' @export
-as.pc_set.pc_set <- function(x) x
-#' @export
-as.pc_set.numeric <- function(x, ...) {
-  pc_set(x)
+pc_set.numeric <- function(x) {
+  pc_set(pi_chord(unclass(x)))
 }
+
+#' @export
+pc_set.pc_set <- function(x) {
+  x
+}
+
+#' @export
+pc_set.pc_chord <- function(x) {
+  .pc_set(sort(as.numeric(x)))
+}
+
+#' @export
+pc_set.pi_chord <- function(x) {
+  x <- as.numeric(x)
+  .pc_set(sort(unique(pi_to_pc(x))))
+}
+
+#' @export
+pc_set.pc_set_norm_form <- function(x) {
+  .pc_set(as.numeric(x))
+}
+
+#' @export
+is.pc_set <- function(x) is(x, "pc_set")
 
 #' @export
 print.pc_set <- function(x, ...) {
@@ -26,12 +48,7 @@ print.pc_set <- function(x, ...) {
 
 #' @export
 view.pc_set <- function(x, ...) {
-  view(as.pi_chord(x), ...)
-}
-
-#' @export
-as.pi_chord.pc_set <- function(x) {
-  pi_chord(60 + x)
+  view(pi_chord(x), ...)
 }
 
 #' @export

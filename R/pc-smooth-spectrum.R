@@ -1,3 +1,26 @@
+#' @export
+.pc_smooth_spectrum <- function(x) {
+  checkmate::qassert(x, "N")
+  x <- unclass(x)
+  # if (is.smooth_spectrum(x)) stop("<x> is already a spectrum")
+  y <- smooth_spectrum(x = x,
+                       x_unit = "pc",
+                       y_unit = "weight",
+                       lower = 0,
+                       upper = 12,
+                       low_eq = TRUE,
+                       high_eq = FALSE,
+                       label = "pitch-class spectrum",
+                       x_lab = "Pitch class",
+                       y_lab = "Weight")
+  class(y) <- c("pc_smooth_spectrum", "numeric")
+  y
+}
+
+pc_smooth_spectrum <- function(x, ...) {
+  UseMethod("pc_smooth_spectrum")
+}
+
 #' Convert to pitch-class spectrum
 #' Converts the input to a pitch-class spectrum.
 #' Musical notes are converted to complex tones, after Milne & Holland (2016).
@@ -10,13 +33,13 @@
 #' @export
 #' @references
 #' \insertRef{Milne2016a}{hrep}
-pc_smooth_spectrum <- function(x,
-                               weights = 1,
-                               array_dim = 1200,
-                               num_harmonics = 12,
-                               rho = 0.75,
-                               sigma = 6.83,
-                               ...) {
+pc_smooth_spectrum.pc_set <- function(x,
+                                      weights = 1,
+                                      array_dim = 1200,
+                                      num_harmonics = 12,
+                                      rho = 0.75,
+                                      sigma = 6.83,
+                                      ...) {
   stopifnot(is.pc_set(x))
   if (length(weights) == 1L) weights <- rep(weights, times = length(x))
   pc_spectra <- mapply(
@@ -32,46 +55,23 @@ pc_smooth_spectrum <- function(x,
 }
 
 #' @export
-is.pc_smooth_spectrum <- function(x) is(x, "pc_smooth_spectrum")
-
-#' @export
-as.pc_smooth_spectrum <- function(x, ...) UseMethod("as.pc_smooth_spectrum")
-
-#' @export
-as.pc_smooth_spectrum.pc_smooth_spectrum <- function(x, ...) x
-
-#' @export
-as.pc_smooth_spectrum.numeric <- function(x, ...) {
-  checkmate::qassert(x, "N")
-  if (is.smooth_spectrum(x)) stop("<x> is already a spectrum")
-  y <- smooth_spectrum(x = x,
-                       x_unit = "pc",
-                       y_unit = "weight",
-                       lower = 0,
-                       upper = 12,
-                       low_eq = TRUE,
-                       high_eq = FALSE,
-                       label = "pitch-class spectrum",
-                       x_lab = "Pitch class",
-                       y_lab = "Weight")
-  class(y) <- c("pc_smooth_spectrum", class(y))
-  y
+pc_smooth_spectrum.pc_smooth_spectrum <- function(x, ...) {
+  x
 }
 
 #' @export
-as.pc_smooth_spectrum.pc_set <- function(x, ...) {
-  pc_smooth_spectrum(x, ...)
-}
-
-#' @export
-as.pc_smooth_spectrum.pi_chord <- function(x, ...) {
-  pc_smooth_spectrum(as.pc_set(x), ...)
+pc_smooth_spectrum.pi_chord <- function(x, ...) {
+  pc_smooth_spectrum(pc_set(x), ...)
 }
 
 #' @export
 as.pc_smooth_spectrum.pc_chord <- function(x, ...) {
   pc_smooth_spectrum(as.pc_set(x), ...)
 }
+
+#' @export
+is.pc_smooth_spectrum <- function(x) is(x, "pc_smooth_spectrum")
+
 
 #' Pitch-class spectrum, template 1
 #' Makes a Gaussian pitch-class  spectral template with unit mass, centred on 0,

@@ -1,10 +1,37 @@
-#' @param x (Numeric vector) MIDI note numbers
+#' @param x (Numeric vector) MIDI note numbers in ascending order
 #' @export
-pi_chord <- function(...) {
-  x <- c(...)
+.pi_chord <- function(...) {
+  x <- unclass(c(...))
   checkmate::qassert(x, "N")
-  x <- sort(unique(x))
-  class(x) <- c("pi_chord", "numeric")
+  stopifnot(!anyDuplicated(x), isTRUE(all.equal(x, sort(x))))
+            class(x) <- c("pi_chord", "numeric")
+            x
+}
+
+#' @export
+pi_chord <- function(x) {
+  UseMethod("pi_chord")
+}
+
+#' @export
+pi_chord.numeric <- function(x) {
+  .pi_chord(sort(unique(unclass(x))))
+}
+
+#' @export
+pi_chord.pc_set <- function(x) {
+  ref <- if (is.integer(x)) 60L else 60
+  pi_chord(ref + x)
+}
+
+#' @export
+pi_chord.pc_chord <- function(x) {
+  .pi_chord(c(48 + get_bass_pc(x),
+              60 + get_non_bass_pc(x)))
+}
+
+#' @export
+pi_chord.pi_chord <- function(x) {
   x
 }
 
@@ -29,27 +56,11 @@ view.pi_chord <- function(x, ...) {
 }
 
 #' @export
-as.pi_chord <- function(x) UseMethod("as.pi_chord")
-
-#' @export
-as.pi_chord.numeric <- function(x) {
-  pi_chord(x)
+get_bass_pi <- function(x, ...) {
+  UseMethod("get_bass_pi")
 }
 
 #' @export
-get_bass_pi <- function(x, ...) UseMethod("get_bass_pi")
-
-#' @export
-get_bass_pi.pi_chord <- function(x, ...) x[1]
-
-#' @export
-as.pc_chord.pi_chord <- function(x) {
-  x <- as.numeric(x)
-  pc_chord(bass_pc = pi_to_pc(x[1]), other_pc = pi_to_pc(x[-1]))
-}
-
-#' @export
-as.pc_set.pi_chord <- function(x) {
-  x <- as.numeric(x)
-  pc_set(sort(unique(pi_to_pc(x))))
+get_bass_pi.pi_chord <- {
+  function(x, ...) x[1]
 }
