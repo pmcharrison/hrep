@@ -70,7 +70,9 @@ plot.smooth_spectrum <- function(x, ...) {
 }
 
 #' @export
-view.smooth_spectrum <- function(x, ...) plot(x, ...)
+view.smooth_spectrum <- function(x, ...) {
+   View(as.data.frame(x, ...))
+}
 
 #' @export
 x_unit.smooth_spectrum <- function(x) attr(x, "x_unit")

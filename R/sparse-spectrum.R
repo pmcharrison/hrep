@@ -56,7 +56,9 @@ plot.sparse_spectrum <- function(x, ...) {
 }
 
 #' @export
-view.sparse_spectrum <- function(x, ...) plot(x, ...)
+view.sparse_spectrum <- function(x, ...) {
+  View(as.data.frame(x, ...))
+}
 
 #' @export
 x_unit.sparse_spectrum <- function(x) attr(x, "x_unit")
