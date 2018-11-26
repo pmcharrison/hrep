@@ -114,15 +114,15 @@ is.pc_chord <- function(x) is(x, "pc_chord")
 encode.pc_chord <- function(x, ...) {
   checkmate::qassert(x, "X")
   key <- as.character(x)
-  pc_chord_alphabet$by_pc_chord[[key]]
+  hrep::pc_chord_alphabet$by_pc_chord[[key]]
 }
 
 decode.coded_vec_pc_chord <- function(x) {
   checkmate::qassert(x, "X")
-  pc_chord_alphabet$by_id[x]
+  hrep::pc_chord_alphabet$by_id[x]
 }
 
 #' @export
 get_pc_chord_alphabet_size <- function() {
-  length(pc_chord_alphabet$by_id)
+  length(hrep::pc_chord_alphabet$by_id)
 }

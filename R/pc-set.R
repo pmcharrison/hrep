@@ -72,12 +72,12 @@ c.pc_set <- function(...) {
 encode.pc_set <- function(x, ...) {
   checkmate::qassert(x, "X")
   key <- as.character(x)
-  pc_set_alphabet$by_pc_set[[key]]
+  hrep::pc_set_alphabet$by_pc_set[[key]]
 }
 
 # Vectorised
 decode.coded_vec_pc_set <- function(x) {
-  max_id <- length(pc_set_alphabet$by_id)
+  max_id <- length(hrep::pc_set_alphabet$by_id)
   if (!is.numeric(x) ||
       any(is.na(x) |
           x < 1 |
@@ -85,13 +85,13 @@ decode.coded_vec_pc_set <- function(x) {
           round(x) != x)) {
     stop("All pc_set ids must be integers between 1 and ", max_id, ".")
   }
-  lapply(pc_set_alphabet$by_id[x], function(x) pc_set(x))
+  lapply(hrep::pc_set_alphabet$by_id[x], function(x) pc_set(x))
 }
 
 #' @param pc_chord_id Vectorised
 #' @export
 map_pc_chord_id_to_pc_set_id <- function(pc_chord_id) {
-  pc_chord_id_to_pc_set_id_map[as.integer(pc_chord_id)]
+  hrep::pc_chord_id_to_pc_set_id_map[as.integer(pc_chord_id)]
 }
 
 #' #' @export
