@@ -12,9 +12,6 @@ test_that("various", {
   expect_error(
     pc_set("cat")
   )
-  expect_error(
-    pc_set(12)
-  )
   expect_equal(
     as.integer(pc_set(c(7, 3, 2))),
     c(2, 3, 7)

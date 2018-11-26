@@ -12,7 +12,6 @@ Suggests: testthat
 RoxygenNote: 6.1.0
 Imports: 
     plyr,
-    sets,
     Rdpack,
     checkmate,
     purrr,
@@ -21,4 +20,6 @@ Imports:
     ggplot2,
     tuneR,
     abcR
+Suggests:
+    sets
 RdMacros: Rdpack

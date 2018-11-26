@@ -1,27 +1,27 @@
 library(testthat)
 library(magrittr)
 
-context("as.pc_set_norm_form")
+context("pc_set_norm_form")
 
 test_that("examples", {
   expect_equal(
-    as.pc_set_norm_form(c(0, 4, 7)) %>% as.integer,
+    pc_set_norm_form(c(0, 4, 7)) %>% as.integer,
     c(0, 4, 7)
   )
   expect_equal(
-    as.pc_set_norm_form(c(3, 6, 7, 10)) %>% as.integer,
+    pc_set_norm_form(c(3, 6, 7, 10)) %>% as.integer,
     c(0, 3, 4, 7)
   )
   expect_equal(
-    as.pc_set_norm_form(c(0, 3, 6, 7, 8, 10)) %>% as.integer,
+    pc_set_norm_form(c(0, 3, 6, 7, 8, 10)) %>% as.integer,
     c(0, 1, 2, 4, 6, 9)
   )
   expect_equal(
-    as.pc_set_norm_form(pc_set(0)) %>% as.integer,
+    pc_set_norm_form(pc_set(0)) %>% as.integer,
     0
   )
   expect_equal(
-    as.pc_set_norm_form(pc_set(5)) %>% as.integer,
+    pc_set_norm_form(pc_set(5)) %>% as.integer,
     0
   )
 })
@@ -30,7 +30,7 @@ test_that("transposition", {
   for (i in 0:11) {
     expect_equal(
       c(0, 4, 7) %>% pc_set %>% transpose(i) %>%
-        as.pc_set_norm_form %>%
+        pc_set_norm_form %>%
         get_transposition,
       - i
     )
@@ -44,7 +44,7 @@ test_that("transpositions of a pitch-class set all get the same normal form", {
     expect_true(
       0:11 %>%
         lapply(function(x) transpose(pc_set, x)) %>%
-        lapply(as.pc_set_norm_form) %>%
+        lapply(pc_set_norm_form) %>%
         lapply(as.integer) %>%
         unique %>%
         (function(x) length(x) == 1L)

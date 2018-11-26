@@ -14,7 +14,7 @@ test_that("Example results", {
   expect_equal(
     list(c(48, 64, 67), c(48, 63, 67)) %>%
       lapply(pi_chord) %>%
-      lapply(as.pc_chord) %>%
+      lapply(pc_chord) %>%
       vec("pc_chord") %>%
       encode() %>%
       map_pc_chord_id_to_pc_set_id %>%

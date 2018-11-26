@@ -3,13 +3,13 @@ context("transpose")
 library(magrittr)
 
 test_that("example 1", {
-  c1 <- pc_chord(8, c(6, 9, 10))
+  c1 <- pc_chord(c(8, 6, 9, 10))
   c2 <- transpose(c1, 4)
   expect_equal(
     get_bass_pc(c2), 0
   )
   expect_equal(
-    setdiff(as.numeric(as.pc_set(c2)),
+    setdiff(as.numeric(pc_set(c2)),
             get_bass_pc(c2)),
     c(1, 2, 10)
   )
@@ -18,7 +18,7 @@ test_that("example 1", {
 test_that("reversible", {
   n <- 10
   for (i in seq_len(10)) {
-    c1 <- pc_chord(sample(11, 1), sample(11, 4))
+    c1 <- pc_chord(sample(11, 5))
     int <- sample(-11:11, 1)
     c2 <- transpose(c1, int)
     c3 <- transpose(c2, -int)

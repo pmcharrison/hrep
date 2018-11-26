@@ -1,7 +1,33 @@
 context("pc_chord")
 
+test_that("pi_chord", {
+  expect_equal(
+    pc_chord(pi_chord(c(48L, 64L, 67L))),
+    pc_chord(c(0, 4, 7))
+  )
+  expect_equal(
+    pc_chord(pi_chord(c(48L, 67L, 64L))),
+    pc_chord(c(0, 4, 7))
+  )
+  expect_equal(
+    pc_chord(pi_chord(c(0L, 5L, 7L))),
+    pc_chord(c(0, 5, 7))
+  )
+})
+
+test_that("pc_set", {
+  expect_equal(
+    pc_chord(pc_set(c(0, 4, 7))),
+    pc_chord(c(0, 4, 7))
+  )
+  expect_equal(
+    pc_chord(pc_set(c(5, 8, 9))),
+    pc_chord(c(5, 8, 9))
+  )
+})
+
 test_that("random examples", {
-  chord <- pc_chord(2, c(4, 7))
+  chord <- pc_chord(c(2, 4, 7))
   expect_equal(
     get_bass_pc(chord), 2
   )
@@ -9,28 +35,18 @@ test_that("random examples", {
     get_non_bass_pc(chord), pc_set(c(4, 7))
   )
   expect_equal(
-    as.numeric(as.pc_set(chord)),
+    as.numeric(pc_set(chord)),
     c(2, 4, 7)
   )
   expect_equal(
-    pc_chord(10, c(3, 4)) %>% as.pc_set %>% as.numeric,
+    pc_chord(c(10, 3, 4)) %>% pc_set %>% as.numeric,
     c(3, 4, 10)
   )
 })
 
 test_that("equivalences", {
   expect_equal(
-    pc_chord(3, c(5, 7, 9)),
-    pc_chord(3, c(9, 7, 5))
+    pc_chord(c(3, 5, 7, 9)),
+    pc_chord(c(3, 9, 7, 5))
   )
-  expect_equal(
-    pc_chord(3, c(3, 5, 7, 9)),
-    pc_chord(3, c(9, 7, 5))
-  )
-})
-
-test_that("input checking", {
-  expect_error(pc_chord(c(1, 2), 1:3))
-  expect_error(pc_chord(c(12), 1:3))
-  expect_error(pc_chord(1, 1:13))
 })

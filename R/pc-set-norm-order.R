@@ -7,7 +7,7 @@ print.pc_set_norm_order <- function(x, ...) {
 
 #' @export
 c.pc_set_norm_order <- function(...) {
-  x <- lapply(list(...), as.pc_set)
+  x <- lapply(list(...), pc_set)
   x <- do.call(c, x)
 }
 

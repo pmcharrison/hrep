@@ -10,7 +10,7 @@
                   y_unit = if (dB) "dB" else "amplitude",
                   label = "pitch spectrum",
                   x_lab = "Pitch",
-                  y_lab = if (dB) "level (dB)" else "Amplitude")
+                  y_lab = if (dB) "Level (dB)" else "Amplitude")
 }
 
 #' @export
@@ -65,14 +65,17 @@ expand_harmonics <- function(
       roll_off = roll_off,
       frequency_digits = frequency_digits
     ) %>%
-      transform_y(function(x) amplitude_to_dB(x, unit_amplitude_in_dB),
-                  y_unit = "dB", "Level (dB)")
+      (function(df) {
+        df$amplitude <- amplitude_to_dB(df$amplitude,
+                                        unit_amplitude_in_dB)
+        df
+      })
   } else {
     template <- get_harmonic_template(
       num_harmonics, 1, roll_off,
       interval_scale = if (frequency_scale == "Hz") "ratio" else "midi"
     )
-    res <- mapply(
+    mapply(
       FUN = function(fundamental_frequency, fundamental_amplitude) {
         data.frame(
           frequency = add_interval(fundamental_frequency,
