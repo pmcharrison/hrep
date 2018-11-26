@@ -69,4 +69,4 @@ pc_chord_id_to_pc_set_id_map <- vapply(
 
 usethis::use_data(pc_chord_alphabet, pc_set_alphabet,
                   pc_chord_id_to_pc_set_id_map,
-                  overwrite = TRUE, internal = TRUE)
+                  overwrite = TRUE, internal = FALSE)

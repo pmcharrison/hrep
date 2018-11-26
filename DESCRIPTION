@@ -8,7 +8,7 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
-Suggests: testthat
+Suggests: testthat, sets
 RoxygenNote: 6.1.0
 Imports: 
     plyr,
@@ -20,6 +20,4 @@ Imports:
     ggplot2,
     tuneR,
     abcR
-Suggests:
-    sets
 RdMacros: Rdpack
