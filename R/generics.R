@@ -29,7 +29,7 @@ type.default <- function(x) NULL
 `type<-` <- function(x, value) UseMethod("type<-")
 
 #' @export
-transform_symbols <- function(x, f) UseMethod("transform_symbols")
+transform_symbols <- function(x, f, type) UseMethod("transform_symbols")
 
 #' @export
 is.empty <- function(x) UseMethod("is.empty")

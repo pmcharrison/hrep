@@ -115,9 +115,12 @@ print.corpus <- function(x, ...) {
 }
 
 #' @export
-transform_symbols.corpus <- function(x, f) {
+transform_symbols.corpus <- function(x, f, type) {
+  stopifnot(is.function(f))
+  checkmate::qassert(type, "S1")
   for (i in num_sequences(x)) {
-    x[[i]] <- transform_symbols(x[[i]], f)
+    x[[i]] <- transform_symbols(x[[i]], f, type)
   }
+  type(x) <- type
   x
 }

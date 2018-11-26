@@ -81,8 +81,8 @@ decode <- function(x, type = NULL, ...) {
 }
 
 #' @export
-transform_symbols.coded_vec <- function(x, f) {
-  encode(transform_symbols(decode(x)))
+transform_symbols.coded_vec <- function(x, f, type) {
+  encode(transform_symbols(decode(x), f, type))
 }
 
 #' @export
