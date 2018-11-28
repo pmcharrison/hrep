@@ -10,8 +10,8 @@ normalise_pc_set_transition <- function(context_pc_set_id,
     if (is.null(context_pc_set)) continuation_pc_set else context_pc_set
   transposition <- get_transposition(pc_set_norm_form(anchor_pc_set))
   trans_context_pc_set_id <- if (is.na(context_pc_set_id))
-    as.integer(NA) else encode(transpose(context_pc_set, transposition))
-  trans_continuation_pc_set_id <- encode(transpose(continuation_pc_set,
-                                                   transposition))
+    as.integer(NA) else encode(tp(context_pc_set, transposition))
+  trans_continuation_pc_set_id <- encode(tp(continuation_pc_set,
+                                            transposition))
   c(trans_context_pc_set_id, trans_continuation_pc_set_id)
 }

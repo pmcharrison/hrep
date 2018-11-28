@@ -29,7 +29,7 @@ test_that("examples", {
 test_that("transposition", {
   for (i in 0:11) {
     expect_equal(
-      c(0, 4, 7) %>% pc_set %>% transpose(i) %>%
+      c(0, 4, 7) %>% pc_set %>% tp(i) %>%
         pc_set_norm_form %>%
         get_transposition,
       - i
@@ -43,7 +43,7 @@ test_that("transpositions of a pitch-class set all get the same normal form", {
     pc_set <- sample(4e3, 1) %>% decode(type = "pc_set") %>% extract2(1)
     expect_true(
       0:11 %>%
-        lapply(function(x) transpose(pc_set, x)) %>%
+        lapply(function(x) tp(pc_set, x)) %>%
         lapply(pc_set_norm_form) %>%
         lapply(as.integer) %>%
         unique %>%

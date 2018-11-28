@@ -26,7 +26,7 @@ pc_set_norm_order.pc_set <- function(x) {
   n <- length(x)
   cycles <- cycle_vector(x)
   dist <- as.matrix(apply(cycles, 2, function(y) {
-    get_ascending_pc_dist(cycles[, 1], y)
+    ascending_pc_dist(cycles[, 1], y)
   }))
   best <- seq_len(n)
   # First look at the distance between first and last PCs,

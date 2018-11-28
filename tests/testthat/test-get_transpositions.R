@@ -2,7 +2,7 @@ context("get_transpositions")
 
 test_that("invariance", {
   c1 <- pc_chord(c(3, 5, 9))
-  c2 <- transpose(c1, 3)
+  c2 <- tp(c1, 3)
   expect_equal(
     get_transpositions(c1),
     get_transpositions(c2)

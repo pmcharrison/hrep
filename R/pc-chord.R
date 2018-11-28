@@ -93,13 +93,13 @@ get_non_bass_pc.pc_chord <- function(x) pc_set(x[- 1])
 
 #' @export
 normalise_bass.pc_chord <- function(x) {
-  transpose(x, - get_bass_pc(x))
+  tp(x, - get_bass_pc(x))
 }
 
 #' @export
 get_transpositions.pc_chord <- function(x) {
   ref <- normalise_bass(x)
-  lapply(0:11, function(int) transpose(ref, int))
+  lapply(0:11, function(int) tp(ref, int))
 }
 
 #' @export
@@ -123,6 +123,6 @@ decode.coded_vec_pc_chord <- function(x) {
 }
 
 #' @export
-get_pc_chord_alphabet_size <- function() {
+pc_chord_alphabet_size <- function() {
   length(hrep::pc_chord_alphabet$by_id)
 }

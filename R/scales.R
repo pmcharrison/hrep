@@ -12,7 +12,7 @@ pi_to_pc <- function(x) {
 #' @param x Vector of pitch classes
 #' @param y Vector of pitch classes
 #' @export
-get_pc_dist <- function(x, y) {
+pc_dist <- function(x, y) {
   pmin(
     abs(x - y),
     12 - abs(x - y)
@@ -23,7 +23,7 @@ get_pc_dist <- function(x, y) {
 #' @param x Vector of pitch classes
 #' @param y Vector of pitch classes
 #' @export
-get_ascending_pc_dist <- function(x, y) {
+ascending_pc_dist <- function(x, y) {
   ifelse(x <= y, y - x, y + 12L - x)
 }
 

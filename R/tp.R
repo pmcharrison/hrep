@@ -1,14 +1,14 @@
 #' @export
-transpose <- function(x, interval) UseMethod("transpose")
+tp <- function(x, interval) UseMethod("tp")
 
 #' @export
-transpose.pc_set <- function(x, interval) {
+tp.pc_set <- function(x, interval) {
   checkmate::qassert(interval, "N1")
   pc_set(sort((as.numeric(x) + interval) %% 12L))
 }
 
 #' @export
-transpose.pc_chord <- function(x, interval) {
+tp.pc_chord <- function(x, interval) {
   checkmate::qassert(interval, "N1")
   x <- as.numeric(x)
   x <- (x + interval) %% 12L
