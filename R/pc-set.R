@@ -57,6 +57,15 @@ view.pc_set <- function(x, ...) {
 }
 
 #' @export
+pc_set.character <- function(x) {
+  stopifnot(length(x) == 1L)
+  y <- as.numeric(strsplit(x, split = " ")[[1]])
+  if (anyNA(y)) stop("malformed character input, should be of the form ",
+                     "'0 4 7'")
+  pc_set(y)
+}
+
+#' @export
 as.character.pc_set <- function(x, ...) {
   paste(as.numeric(x), collapse = " ")
 }

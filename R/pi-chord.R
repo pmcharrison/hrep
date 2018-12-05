@@ -19,6 +19,20 @@ pi_chord.numeric <- function(x) {
 }
 
 #' @export
+pi_chord.character <- function(x) {
+  stopifnot(length(x) == 1L)
+  y <- as.numeric(strsplit(x, split = " ")[[1]])
+  if (anyNA(y)) stop("malformed character input, should be of the form ",
+                     "'60 64 67'")
+  pi_chord(y)
+}
+
+#' @export
+as.character.pi_chord <- function(x, ...) {
+  paste(as.numeric(x), collapse = " ")
+}
+
+#' @export
 pi_chord.pc_set <- function(x) {
   ref <- if (is.integer(x)) 60L else 60
   pi_chord(ref + x)

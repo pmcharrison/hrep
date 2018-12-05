@@ -103,6 +103,15 @@ get_transpositions.pc_chord <- function(x) {
 }
 
 #' @export
+pc_chord.character <- function(x) {
+  stopifnot(length(x) == 1L)
+  y <- as.numeric(strsplit(x, split = " ")[[1]])
+  if (anyNA(y)) stop("malformed character input, should be of the form ",
+                     "'4 0 7'")
+  pc_chord(y)
+}
+
+#' @export
 as.character.pc_chord <- function(x, ...) {
   paste(as.numeric(x), collapse = " ")
 }

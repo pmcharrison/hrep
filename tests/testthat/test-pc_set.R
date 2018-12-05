@@ -10,7 +10,7 @@ test_that("various", {
     pc_set(c(4, 7, 0))
   )
   expect_error(
-    pc_set("cat")
+    suppressWarnings(pc_set("cat"))
   )
   expect_equal(
     as.integer(pc_set(c(7, 3, 2))),
