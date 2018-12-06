@@ -145,12 +145,3 @@ new_complex_tone <- function(
 #'
 #' Wrapper for \code{new_complex_tone} that implements caching.
 get_complex_tone <- memoise::memoise(new_complex_tone)
-
-#' @export
-get_cosine_similarity <- function(x, y) {
-  numerator <- sum(x * y)
-  denominator <-
-    sqrt(sum(x ^ 2)) *
-    sqrt(sum(y ^ 2))
-  numerator / denominator
-}
