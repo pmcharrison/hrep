@@ -4,9 +4,7 @@
 \alias{freq_to_midi}
 \title{Convert frequencies to MIDI note numbers}
 \usage{
-freq_to_midi(frequency,
-  stretched_octave = get_midi_params()$stretched_octave,
-  tuning_ref_Hz = get_midi_params()$tuning_ref_Hz)
+freq_to_midi(frequency, stretched_octave = FALSE, tuning_ref_Hz = 440)
 }
 \arguments{
 \item{stretched_octave}{Logical scalar; whether or not to use a stretched octave. Default is \code{FALSE}}

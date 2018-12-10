@@ -4,8 +4,7 @@
 \alias{midi_to_freq}
 \title{Convert MIDI note numbers to frequencies}
 \usage{
-midi_to_freq(midi, stretched_octave = get_midi_params()$stretched_octave,
-  tuning_ref_Hz = get_midi_params()$tuning_ref_Hz)
+midi_to_freq(midi, stretched_octave = FALSE, tuning_ref_Hz = 440)
 }
 \arguments{
 \item{midi}{Numeric vector of MIDI note numbers}

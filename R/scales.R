@@ -37,8 +37,8 @@ ascending_pc_dist <- function(x, y) {
 #' @export
 midi_to_freq <- function(
   midi,
-  stretched_octave = get_midi_params()$stretched_octave,
-  tuning_ref_Hz = get_midi_params()$tuning_ref_Hz
+  stretched_octave = FALSE,
+  tuning_ref_Hz = 440
 ) {
   checkmate::qassert(midi, "N")
   checkmate::qassert(stretched_octave, "B1")
@@ -56,8 +56,8 @@ midi_to_freq <- function(
 #' @export
 freq_to_midi <- function(
   frequency,
-  stretched_octave = get_midi_params()$stretched_octave,
-  tuning_ref_Hz = get_midi_params()$tuning_ref_Hz
+  stretched_octave = FALSE,
+  tuning_ref_Hz = 440
 ) {
   checkmate::qassert(frequency, "N(0,)")
   checkmate::qassert(stretched_octave, "B1")

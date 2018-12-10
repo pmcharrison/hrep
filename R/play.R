@@ -9,8 +9,8 @@ save_wav.pc_chord <- function(x, file,
                               sample_rate = 44100,
                               bit_rate = 16,
                               fade_samples = 100,
-                              num_harmonics = get_midi_params()$num_harmonics,
-                              roll_off = get_midi_params()$roll_off) {
+                              num_harmonics = 11,
+                              roll_off = 1) {
   midi <- as.numeric(x)
   freq <- midi_to_freq(midi)
   spectrum <- expand_harmonics(

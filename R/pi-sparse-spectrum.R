@@ -143,7 +143,7 @@ expand_harmonics_check_inputs <- function(
 get_harmonic_template <- function(
   num_harmonics,
   amplitude,
-  roll_off = get_midi_params()$roll_off,
+  roll_off = 1,
   interval_scale = "ratio",
   round_midi_intervals = TRUE
 ) {
