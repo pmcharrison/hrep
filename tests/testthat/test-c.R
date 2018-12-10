@@ -53,3 +53,6 @@ test_that("smooth_spectrum", {
     c(x, y)
   )
 })
+
+
+test_that()

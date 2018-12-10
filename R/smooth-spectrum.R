@@ -30,9 +30,7 @@ is.smooth_spectrum <- function(x, ...) is(x, "smooth_spectrum")
 
 #' @export
 c.smooth_spectrum <- function(...) {
-  x <- lapply(list(...), unclass)
-  attributes(x) <- NULL
-  x <- do.call(c, x)
+  stop("no method exists for combining smooth spectra of this type")
 }
 
 #' @export

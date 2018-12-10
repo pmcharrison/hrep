@@ -21,11 +21,26 @@ fr_sparse_spectrum <- function(x, ...) {
 }
 
 #' @export
-fr_sparse_spectrum.pi_sparse_spectrum <- function(x) {
+fr_sparse_spectrum.pi_sparse_spectrum <- function(x, ...) {
   .fr_sparse_spectrum(
     frequency = midi_to_freq(pitch(x)),
     amplitude = amp(x)
   )
+}
+
+#' @export
+fr_sparse_spectrum.pi_chord <- function(x, ...) {
+  fr_sparse_spectrum(pi_sparse_spectrum(x, ...))
+}
+
+#' @export
+fr_sparse_spectrum.pc_set <- function(x, ...) {
+  fr_sparse_spectrum(pi_chord(x), ...)
+}
+
+#' @export
+fr_sparse_spectrum.pc_chord <- function(x, ...) {
+  fr_sparse_spectrum(pi_chord(x), ...)
 }
 
 #' @export
@@ -52,4 +67,19 @@ amp.fr_sparse_spectrum <- function(x) {
             length(value) == length(amp(x)))
   x$y <- value
   x
+}
+
+#' @export
+c.fr_sparse_spectrum <- function(...) {
+  all <- list(...) %T>%
+    {stopifnot(all(vapply(., is("fr_sparse_spectrum"), logical(1))))} %>%
+    lapply(as.data.frame) %>%
+    do.call(rbind, args = .) %>%
+    {reduce_by_key(
+      keys = .$x,
+      values = .$y,
+      function(x, y) sum_amplitudes(x, y, coherent = FALSE),
+      key_type = "numeric"
+    )} %>%
+    {.fr_sparse_spectrum(frequency = .$key, amplitude = .$value)}
 }
