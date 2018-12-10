@@ -19,5 +19,6 @@ Imports:
     methods,
     ggplot2,
     tuneR,
-    abcR
+    abcR,
+    tibble
 RdMacros: Rdpack

@@ -28,7 +28,7 @@ pc_smooth_spectrum <- function(x, ...) {
 #' @param num_harmonics The number of harmonics in each modelled complex tone
 #' (including the fundamental) (numeric scalar)
 #' @param rho The roll-off parameter determining the weight of
-#'  successive harmonics; default is 0.75, after Milne & Holland (2016)
+#' successive harmonics; default is 0.75, after Milne & Holland (2016)
 #' @param sigma The standard deviation of the smoothing Gaussian;
 #' default is 6.83, after Milne & Holland (2016)
 #' @export
