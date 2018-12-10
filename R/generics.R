@@ -79,10 +79,10 @@ view <- function(x, ...) UseMethod("view")
 transform_y <- function(x, f, y_unit, y_lab) UseMethod("transform_y")
 
 #' @export
-frequency <- function(x) UseMethod("frequency")
+freq <- function(x) UseMethod("freq")
 
 #' @export
-`frequency<-` <- function(x, value) UseMethod("frequency<-")
+`freq<-` <- function(x, value) UseMethod("freq<-")
 
 #' @export
 pitch <- function(x) UseMethod("pitch")
@@ -91,7 +91,7 @@ pitch <- function(x) UseMethod("pitch")
 `pitch<-` <- function(x, value) UseMethod("pitch<-")
 
 #' @export
-amplitude <- function(x) UseMethod("amplitude")
+amp <- function(x) UseMethod("amp")
 
 #' @export
-`amplitude<-` <- function(x, value) UseMethod("amplitude<-")
+`amp<-` <- function(x, value) UseMethod("amp<-")

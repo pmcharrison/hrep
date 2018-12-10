@@ -24,32 +24,32 @@ fr_sparse_spectrum <- function(x, ...) {
 fr_sparse_spectrum.pi_sparse_spectrum <- function(x) {
   .fr_sparse_spectrum(
     frequency = midi_to_freq(pitch(x)),
-    amplitude = amplitude(x)
+    amplitude = amp(x)
   )
 }
 
 #' @export
-frequency.fr_sparse_spectrum <- function(x) {
+freq.fr_sparse_spectrum <- function(x) {
   x$x
 }
 
 #' @export
-`frequency.fr_sparse_spectrum<-` <- function(x, value) {
+`freq.fr_sparse_spectrum<-` <- function(x, value) {
   stopifnot(is.numeric(value),
-            length(value) == length(frequency(x)))
+            length(value) == length(freq(x)))
   x$x <- value
   x
 }
 
 #' @export
-amplitude.fr_sparse_spectrum <- function(x) {
+amp.fr_sparse_spectrum <- function(x) {
   x$y
 }
 
 #' @export
-`amplitude.fr_sparse_spectrum<-` <- function(x, value) {
+`amp.fr_sparse_spectrum<-` <- function(x, value) {
   stopifnot(is.numeric(value),
-            length(value) == length(amplitude(x)))
+            length(value) == length(amp(x)))
   x$y <- value
   x
 }

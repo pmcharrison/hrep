@@ -26,7 +26,7 @@ expand_harmonics.fr_sparse_spectrum <- function(x,
                                                 ...) {
   template <- tibble::tibble(n = seq_len(num_harmonics),
                              amplitude = 1 / (n ^ roll_off))
-  purrr::map2(frequency(x), amplitude(x),
+  purrr::map2(freq(x), amp(x),
               function(freq, amp) {
                 tibble::tibble(
                   frequency = round(freq * template$n,

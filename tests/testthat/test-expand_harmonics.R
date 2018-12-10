@@ -28,7 +28,7 @@ test_that("misc", {
 test_that("roll-off", {
   pi_chord(0) %>%
     expand_harmonics(num_harmonics = 6, roll_off = 2) %>%
-    {amplitude(.)} %>%
+    {amp(.)} %>%
     expect_equal(c(1, 1 / 2 ^ 2, 1 / 3 ^ 2, 1 / 4 ^ 2, 1 / 5 ^ 2, 1 / 6 ^ 2))
 })
 

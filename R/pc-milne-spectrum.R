@@ -1,8 +1,7 @@
 #' @export
-.pc_smooth_spectrum <- function(x) {
+.pc_milne_spectrum <- function(x) {
   checkmate::qassert(x, "N")
   x <- unclass(x)
-  # if (is.smooth_spectrum(x)) stop("<x> is already a spectrum")
   y <- smooth_spectrum(x = x,
                        x_unit = "pc",
                        y_unit = "weight",
@@ -13,13 +12,13 @@
                        label = "pitch-class spectrum",
                        x_lab = "Pitch class",
                        y_lab = "Weight")
-  class(y) <- c("pc_smooth_spectrum", class(y))
+  class(y) <- c("pc_milne_spectrum", class(y))
   y
 }
 
 #' @export
-pc_smooth_spectrum <- function(x, ...) {
-  UseMethod("pc_smooth_spectrum")
+pc_milne_spectrum <- function(x, ...) {
+  UseMethod("pc_milne_spectrum")
 }
 
 #' Convert to pitch-class spectrum
@@ -34,7 +33,7 @@ pc_smooth_spectrum <- function(x, ...) {
 #' @export
 #' @references
 #' \insertRef{Milne2016a}{hrep}
-pc_smooth_spectrum.pc_set <- function(x,
+pc_milne_spectrum.pc_set <- function(x,
                                       weights = 1,
                                       array_dim = 1200,
                                       num_harmonics = 12,
@@ -51,21 +50,21 @@ pc_smooth_spectrum.pc_set <- function(x,
                        rho = rho,
                        sigma = sigma)
     }, x, weights)
-  .pc_smooth_spectrum(rowSums(pc_spectra))
+  .pc_milne_spectrum(rowSums(pc_spectra))
 }
 
 #' @export
-pc_smooth_spectrum.pc_smooth_spectrum <- function(x, ...) {
+pc_milne_spectrum.pc_milne_spectrum <- function(x, ...) {
   x
 }
 
 #' @export
-pc_smooth_spectrum.default <- function(x, ...) {
-  pc_smooth_spectrum(pc_set(x), ...)
+pc_milne_spectrum.default <- function(x, ...) {
+  pc_milne_spectrum(pc_set(x), ...)
 }
 
 #' @export
-is.pc_smooth_spectrum <- function(x) is(x, "pc_smooth_spectrum")
+is.pc_milne_spectrum <- function(x) is(x, "pc_milne_spectrum")
 
 
 #' Pitch-class spectrum, template 1
