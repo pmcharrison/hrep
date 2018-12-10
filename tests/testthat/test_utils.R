@@ -8,8 +8,8 @@ test_that("expand_harmonics", {
       num_harmonics = 1
     ),
     data.frame(
-      frequency = c(1, 2),
-      amplitude = c(1, 1)
+      x = c(1, 2),
+      y = c(1, 1)
     ),
     check.attributes = FALSE
   )
@@ -20,8 +20,8 @@ test_that("expand_harmonics", {
       num_harmonics = 3
     ),
     data.frame(
-      frequency = c(1, 2, 3, 4, 6),
-      amplitude = c(1, sqrt(1.25), 1 / 3, 1 / 2, 1 / 3)
+      x = c(1, 2, 3, 4, 6),
+      y = c(1, sqrt(1.25), 1 / 3, 1 / 2, 1 / 3)
     ),
     check.attributes = FALSE
   )
@@ -34,8 +34,8 @@ test_that("expand_harmonics", {
       frequency_scale = "midi"
     ),
     data.frame(
-      frequency = c(0, 12, 19, 24, 28, 31),
-      amplitude = c(1, 1/2, 1/3, 1/4, 1/5, 1/6)
+      x = c(0, 12, 19, 24, 28, 31),
+      y = c(1, 1/2, 1/3, 1/4, 1/5, 1/6)
     ),
     check.attributes = FALSE
   )
@@ -49,8 +49,8 @@ test_that("expand_harmonics", {
       roll_off = 2
     ),
     data.frame(
-      frequency = c(0, 12, 19, 24, 28, 31),
-      amplitude = c(1, 1 / 2 ^ 2, 1 / 3 ^ 2, 1 / 4 ^ 2, 1 / 5 ^ 2, 1 / 6 ^ 2)
+      x = c(0, 12, 19, 24, 28, 31),
+      y = c(1, 1 / 2 ^ 2, 1 / 3 ^ 2, 1 / 4 ^ 2, 1 / 5 ^ 2, 1 / 6 ^ 2)
     ),
     check.attributes = FALSE
   )
@@ -64,8 +64,8 @@ test_that("expand_harmonics", {
       roll_off = 2
     ),
     data.frame(
-      frequency = c(10, 22, 29, 34, 38, 41),
-      amplitude = c(1, 1 / 2 ^ 2, 1 / 3 ^ 2, 1 / 4 ^ 2, 1 / 5 ^ 2, 1 / 6 ^ 2)
+      x = c(10, 22, 29, 34, 38, 41),
+      y = c(1, 1 / 2 ^ 2, 1 / 3 ^ 2, 1 / 4 ^ 2, 1 / 5 ^ 2, 1 / 6 ^ 2)
     ),
     check.attributes = FALSE
   )
@@ -78,8 +78,8 @@ test_that("expand_harmonics", {
       dB = TRUE
     ),
     data.frame(
-      frequency = 1:4,
-      amplitude = (1 / (1 : 4)) %>% amplitude_to_dB(60)
+      x = 1:4,
+      y = (1 / (1 : 4)) %>% amplitude_to_dB(60)
     ),
     check.attributes = FALSE
   )

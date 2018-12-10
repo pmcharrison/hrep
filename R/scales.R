@@ -73,7 +73,6 @@ amplitude_to_dB <- function(
   checkmate::qassert(unit_amplitude_in_dB, "N1")
   amplitude_ref = 10 ^ (- unit_amplitude_in_dB / 20)
   res <- 20 * log10(amplitude / amplitude_ref)
-  attr(res, "units") <- "dB"
   res
 }
 
@@ -85,7 +84,6 @@ dB_to_amplitude <- function(
   checkmate::qassert(unit_amplitude_in_dB, "N1")
   amplitude_ref = 10 ^ (- unit_amplitude_in_dB / 20)
   res <- amplitude_ref * 10 ^ (dB / 20)
-  attr(res, "units") <- "not dB"
   res
 }
 

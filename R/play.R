@@ -20,8 +20,8 @@ save_wav.pc_chord <- function(x, file,
     frequency_scale = "Hz",
     num_harmonics
   )
-  spectrum_to_waveform(frequency = spectrum$frequency,
-                       amplitude = spectrum$amplitude,
+  spectrum_to_waveform(frequency = spectrum$x,
+                       amplitude = spectrum$y,
                        length_sec = length_sec,
                        sample_rate = sample_rate) %>%
     fade_waveform(fade_samples = fade_samples) %>%
