@@ -42,17 +42,22 @@ test_that("pi_chord", {
   )
 })
 
-test_that("smooth_spectrum", {
-  x <- rnorm(10)
-  y <- rnorm(10)
-  expect_equal(
-    c(
-      smooth_spectrum(x, "x", "y", 0, 10, TRUE, TRUE, "test"),
-      smooth_spectrum(y, "x", "y", 0, 10, TRUE, TRUE, "test")
-    ),
-    c(x, y)
-  )
+test_that("fr_sparse_spectrum", {
+  x <- .fr_sparse_spectrum(c(100, 200, 300), c(1, 1, 1))
+  y <- .fr_sparse_spectrum(c(200, 300, 400), c(1, 1, 1))
+  z <- c(x, y)
+  expect_is(z, "fr_sparse_spectrum")
+  expect_equal(freq(z), 100 * 1:4)
+  expect_equal(amp(z),
+               c(1, sum_amplitudes(c(1, 1), c(1, 1)), 1))
 })
 
-
-test_that()
+test_that("pi_sparse_spectrum", {
+  x <- .pi_sparse_spectrum(c(100, 200, 300), c(1, 1, 1))
+  y <- .pi_sparse_spectrum(c(200, 300, 400), c(1, 1, 1))
+  z <- c(x, y)
+  expect_is(z, "pi_sparse_spectrum")
+  expect_equal(pitch(z), 100 * 1:4)
+  expect_equal(amp(z),
+               c(1, sum_amplitudes(c(1, 1), c(1, 1)), 1))
+})

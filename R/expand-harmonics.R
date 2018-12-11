@@ -17,7 +17,7 @@ expand_harmonics <- function(x, ...) {
 #' @param roll_off (Numeric scalar) Parametrises the amount of amplitude roll-off
 #' in the harmonics, with greater values corresponding to higher roll-off.
 #' @param frequency_digits (Integerish scalar) Number of significant digits
-#' to which frequencies are rounded before adjacent partials are combined.
+#' to which frequencies are rounded.
 #' @export
 expand_harmonics.fr_sparse_spectrum <- function(x,
                                                 num_harmonics = 11, # including the fundamental
@@ -28,18 +28,12 @@ expand_harmonics.fr_sparse_spectrum <- function(x,
                              amplitude = 1 / (n ^ roll_off))
   purrr::map2(freq(x), amp(x),
               function(freq, amp) {
-                tibble::tibble(
+                .fr_sparse_spectrum(
                   frequency = round(freq * template$n,
                                     digits = frequency_digits),
                   amplitude = amp * template$amplitude)
               }) %>%
-    do.call(rbind, .) %>%
-    {reduce_by_key(
-      keys = .$frequency, values = .$amplitude,
-      function(x, y) sum_amplitudes(x, y, coherent = FALSE),
-      key_type = "numeric"
-    )} %>%
-    {.fr_sparse_spectrum(frequency = .$key, amplitude = .$value)}
+    do.call(c, .)
 }
 
 #' @export

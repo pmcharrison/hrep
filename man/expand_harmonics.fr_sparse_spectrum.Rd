@@ -15,7 +15,7 @@ including the fundamental frequency.}
 in the harmonics, with greater values corresponding to higher roll-off.}
 
 \item{frequency_digits}{(Integerish scalar) Number of significant digits
-to which frequencies are rounded before adjacent partials are combined.}
+to which frequencies are rounded.}
 }
 \description{
 Expands each tone in an object into its implied harmonics.

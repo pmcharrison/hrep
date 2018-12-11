@@ -99,3 +99,31 @@ transform_y.sparse_spectrum <- function(x, f, y_unit, y_lab) {
   y_lab(x) <- y_lab
   x
 }
+
+# Combines a set of sparse spectra into one sparse spectrum,
+# summing their amplitudes (assuming incoherent wave superposition).
+combine_sparse_spectra_amplitudes <- function(...,
+                                              class,
+                                              constructor,
+                                              x_digits) {
+  input <- list(...)
+  checkmate::qassert(class, "S1")
+  checkmate::qassert(x_digits, "X1")
+  stopifnot(is.function(constructor),
+            all(vapply(input,
+                       function(x) is(x, class) && is(x, "sparse_spectrum"),
+                       logical(1))))
+  lapply(input, as.data.frame) %>%
+    do.call(rbind, args = .) %>%
+    {
+      .$x <- round(.$x, digits = x_digits)
+      .
+    } %>%
+    {reduce_by_key(
+      keys = .$x,
+      values = .$y,
+      function(x, y) sum_amplitudes(x, y, coherent = FALSE),
+      key_type = "numeric"
+    )} %>%
+    {constructor(.$key, .$value)}
+}

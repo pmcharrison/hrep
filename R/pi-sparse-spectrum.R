@@ -71,3 +71,13 @@ amp.pi_sparse_spectrum <- function(x) {
   x$y <- value
   x
 }
+
+#' @param pitch_digits (Integerish scalar) Number of significant digits
+#' to which pitches are rounded.
+#' @export
+c.pi_sparse_spectrum <- function(..., pitch_digits = 6) {
+  combine_sparse_spectra_amplitudes(...,
+                                    class = "pi_sparse_spectrum",
+                                    constructor = .pi_sparse_spectrum,
+                                    x_digits = pitch_digits)
+}
