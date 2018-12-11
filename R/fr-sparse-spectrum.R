@@ -69,12 +69,12 @@ amp.fr_sparse_spectrum <- function(x) {
   x
 }
 
-#' @param frequency_digits (Integerish scalar) Number of significant digits
+#' @param x_digits (Integerish scalar) Number of significant digits
 #' to which frequencies are rounded.
 #' @export
-c.fr_sparse_spectrum <- function(..., frequency_digits = 6) {
+c.fr_sparse_spectrum <- function(..., x_digits = 6) {
   combine_sparse_spectra_amplitudes(...,
                                     class = "fr_sparse_spectrum",
                                     constructor = .fr_sparse_spectrum,
-                                    x_digits = frequency_digits)
+                                    x_digits = x_digits)
 }
