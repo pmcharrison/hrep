@@ -22,3 +22,4 @@ Imports:
     abcR,
     tibble
 RdMacros: Rdpack
+Remotes: pmcharrison/abcR

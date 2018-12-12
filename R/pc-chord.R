@@ -92,11 +92,6 @@ get_non_bass_pc <- function(x) UseMethod("get_non_bass_pc")
 get_non_bass_pc.pc_chord <- function(x) pc_set(x[- 1])
 
 #' @export
-normalise_bass.pc_chord <- function(x) {
-  tp(x, - get_bass_pc(x))
-}
-
-#' @export
 get_transpositions.pc_chord <- function(x) {
   ref <- normalise_bass(x)
   lapply(0:11, function(int) tp(ref, int))

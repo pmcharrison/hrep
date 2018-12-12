@@ -19,6 +19,13 @@ tp.pc_chord <- function(x, interval) {
 }
 
 #' @export
+tp.pi_chord <- function(x, interval) {
+  checkmate::qassert(interval, "N1")
+  x <- as.numeric(x)
+  .pi_chord(x + interval)
+}
+
+#' @export
 Ops.pc_set <- function(e1, e2) {
   e1 <- unclass(e1)
   e2 <- unclass(e2)
