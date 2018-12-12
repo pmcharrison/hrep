@@ -1,26 +1,3 @@
-#' Note: this could be done more efficiently with ifft
-#' @export
-sparse_spectrum_to_waveform <- function(
-  frequency,
-  amplitude,
-  seconds = 1,
-  sample_rate = 44e3,
-  bit = 16
-) {
-  x <- seq(from = 0, to = seconds, length.out = sample_rate * seconds)
-  y <- mapply(
-    function(freq, amplitude) {
-      sin(2 * pi * freq * x) * amplitude
-    },
-    frequency,
-    amplitude
-  ) %>% rowSums %>%
-    (function (y) y / max(abs(y))) %>%
-    magrittr::multiply_by(2 ^ (bit - 1) - 1) %>%
-    round
-  data.frame(t = x, y = y)
-}
-
 reduce_by_key <- function(keys, values, f, key_type = "character") {
   stopifnot(
     length(keys) == length(values),
