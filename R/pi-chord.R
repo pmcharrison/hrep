@@ -28,6 +28,11 @@ pi_chord.character <- function(x) {
 }
 
 #' @export
+as.numeric.pi_chord <- function(x, ...) {
+  unclass(x)
+}
+
+#' @export
 as.character.pi_chord <- function(x, ...) {
   paste(as.numeric(x), collapse = " ")
 }
@@ -47,6 +52,11 @@ pi_chord.pc_chord <- function(x) {
 #' @export
 pi_chord.pi_chord <- function(x) {
   x
+}
+
+#' @export
+pi_chord.fr_chord <- function(x) {
+  pi_chord(freq_to_midi(as.numeric(x)))
 }
 
 #' @export

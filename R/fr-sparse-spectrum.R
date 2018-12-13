@@ -34,12 +34,7 @@ fr_sparse_spectrum.pi_chord <- function(x, ...) {
 }
 
 #' @export
-fr_sparse_spectrum.pc_set <- function(x, ...) {
-  fr_sparse_spectrum(pi_chord(x), ...)
-}
-
-#' @export
-fr_sparse_spectrum.pc_chord <- function(x, ...) {
+fr_sparse_spectrum.default <- function(x, ...) {
   fr_sparse_spectrum(pi_chord(x), ...)
 }
 

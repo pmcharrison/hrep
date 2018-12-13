@@ -34,6 +34,11 @@ pc_set.pi_chord <- function(x) {
 }
 
 #' @export
+pc_set.fr_chord <- function(x) {
+  pc_set(pi_chord(x))
+}
+
+#' @export
 pc_set.pc_set_norm_order <- function(x) {
   pc_set(sort(x))
 }

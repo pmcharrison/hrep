@@ -43,13 +43,16 @@ pc_chord.pi_chord <- function(x) {
 }
 
 #' @export
-pc_chord.pc_chord <- function(x)
+pc_chord.fr_chord <- function(x) {
+  pc_chord(pi_chord(x))
+}
 
-  #' @export
-  as.numeric.pc_chord <- function(x, ...) {
-    class(x) <- "numeric"
-    x
-  }
+#' @export
+as.numeric.pc_chord <- function(x, ...) {
+  class(x) <- "numeric"
+  x
+}
+
 
 #' @export
 as.integer.pc_chord <- function(x, ...) {
