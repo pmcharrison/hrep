@@ -2,7 +2,7 @@
 #' @export
 .pi_chord <- function(...) {
   x <- unclass(c(...))
-  checkmate::qassert(x, "N")
+  checkmate::qassert(x, "N+")
   stopifnot(!anyDuplicated(x), isTRUE(all.equal(x, sort(x))))
             class(x) <- c("pi_chord", "numeric")
             x
