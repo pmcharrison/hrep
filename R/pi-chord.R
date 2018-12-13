@@ -8,6 +8,9 @@
             x
 }
 
+#' Pitch chord
+#'
+#' Creates a pitch chord object.
 #' @export
 pi_chord <- function(x) {
   UseMethod("pi_chord")

@@ -8,6 +8,9 @@
   x
 }
 
+#' Frequency chord
+#'
+#' Creates a frequency chord object.
 #' @export
 fr_chord <- function(x) {
   UseMethod("fr_chord")
