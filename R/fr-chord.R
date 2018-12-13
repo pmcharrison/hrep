@@ -37,6 +37,7 @@ as.numeric.fr_chord <- function(x, ...) {
   unclass(x)
 }
 
+#' @export
 fr_chord.pi_chord <- function(x) {
   .fr_chord(midi_to_freq(as.numeric(x)))
 }
