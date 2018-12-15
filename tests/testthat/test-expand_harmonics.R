@@ -39,3 +39,34 @@ test_that("MIDI transposition", {
     expect_equal(c(10, 22, 29, 34, 38, 41),
                  tolerance = 1)
 })
+
+test_that("rounding", {
+  c(60, 64, 67) %>% pi_chord %>% expand_harmonics(round = TRUE) %>%
+    as.data.frame %>% extract2("x") %>%
+    {checkmate::qtest(., "X")} %>% expect_true
+
+  c(0) %>% pi_chord %>% expand_harmonics(round = TRUE,
+                                         num_harmonics = 5) %>%
+    as.data.frame() %>%
+    expect_equal(data.frame(x = c(0, 12, 19, 24, 28),
+                            y = c(1, 1/2, 1/3, 1/4, 1/5)))
+
+  c(7) %>% pi_chord %>% expand_harmonics(round = TRUE,
+                                         num_harmonics = 5) %>%
+    as.data.frame() %>%
+    expect_equal(data.frame(x = c(7, 19, 26, 31, 35),
+                            y = c(1, 1/2, 1/3, 1/4, 1/5)))
+
+  c(0, 7) %>% pi_chord %>% expand_harmonics(round = TRUE,
+                                            num_harmonics = 5) %>%
+    as.data.frame() %>%
+    expect_equal(data.frame(x = c(0, 7, 12, 19,
+                                  24, 26, 28, 31, 35),
+                            y = c(1, 1, 1/2, sum_amplitudes(1/3, 1/2),
+                                  1/4, 1/3, 1/5, 1/4, 1/5)))
+
+  expect_equal(
+    c(0, 7) %>% pi_chord %>% expand_harmonics(round = TRUE),
+    c(0, 7) %>% pi_sparse_spectrum(round = TRUE)
+  )
+})

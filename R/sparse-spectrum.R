@@ -38,8 +38,8 @@ print.sparse_spectrum <- function(x, ...) {
 
 #' @export
 as.data.frame.sparse_spectrum <- function(x, ...) {
-  class(x) <- "data.frame"
-  x
+  data.frame(x = x$x,
+             y = x$y)
 }
 
 #' @export

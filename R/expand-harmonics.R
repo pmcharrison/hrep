@@ -20,12 +20,12 @@ expand_harmonics <- function(x, ...) {
 #' to which frequencies are rounded.
 #' @export
 expand_harmonics.fr_sparse_spectrum <- function(x,
-                                                num_harmonics = 11, # including the fundamental
+                                                num_harmonics = 11L,
                                                 roll_off = 1,
                                                 frequency_digits = 6,
                                                 ...) {
-  template <- tibble::tibble(n = seq_len(num_harmonics),
-                             amplitude = 1 / (n ^ roll_off))
+  template <- fr_harmonic_template(num_harmonics, roll_off)
+
   purrr::map2(freq(x), amp(x),
               function(freq, amp) {
                 .fr_sparse_spectrum(
@@ -36,14 +36,38 @@ expand_harmonics.fr_sparse_spectrum <- function(x,
     do.call(c, .)
 }
 
+#' @param round Whether or not the harmonic template should be rounded
 #' @export
-expand_harmonics.pi_sparse_spectrum <- function(x, ...) {
-  fr_sparse_spectrum(x) %>%
-    expand_harmonics(...) %>%
-    pi_sparse_spectrum()
+expand_harmonics.pi_sparse_spectrum <- function(x,
+                                                num_harmonics = 11L,  # including the fundamental
+                                                roll_off = 1,
+                                                round = FALSE,
+                                                ...) {
+  template <- pi_harmonic_template(num_harmonics, roll_off, round)
+
+  purrr::map2(pitch(x), amp(x),
+              function(pitch, amp) {
+                .pi_sparse_spectrum(
+                  pitch = pitch + template$interval,
+                  amplitude = amp * template$amplitude)
+              }) %>%
+    do.call(c, .)
 }
 
 #' @export
 expand_harmonics.pi_chord <- function(x, ...) {
   pi_sparse_spectrum(x, ...)
+}
+
+fr_harmonic_template <- function(num_harmonics, roll_off) {
+  tibble::tibble(n = seq_len(num_harmonics),
+                 amplitude = 1 / (n ^ roll_off))
+}
+
+pi_harmonic_template <- function(num_harmonics, roll_off, round = FALSE) {
+  x <- tibble::tibble(n = seq_len(num_harmonics),
+                      interval = 12 * log(n, base = 2),
+                      amplitude = 1 / (n ^ roll_off))
+  if (round) x$interval <- round(x$interval)
+  x
 }

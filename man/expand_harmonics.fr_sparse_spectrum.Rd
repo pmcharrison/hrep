@@ -4,7 +4,7 @@
 \alias{expand_harmonics.fr_sparse_spectrum}
 \title{Expand harmonics}
 \usage{
-\method{expand_harmonics}{fr_sparse_spectrum}(x, num_harmonics = 11,
+\method{expand_harmonics}{fr_sparse_spectrum}(x, num_harmonics = 11L,
   roll_off = 1, frequency_digits = 6, ...)
 }
 \arguments{
