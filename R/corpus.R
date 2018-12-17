@@ -1,4 +1,15 @@
 # Creation ####
+
+#' Corpus
+#'
+#' Creates \code{corpus} objects,
+#' which comprise ordered sets of (possibly coded) vectors,
+#' each describing a sequence of discrete symbols.
+#' @param x List of sequences, where each sequence is an object of class
+#' \code{vec} or \code{coded_vec}.
+#' @param type (Character scalar) Symbol type.
+#' @param metadata (List) List of metadata information.
+#' @return An object of class \code{corpus}.
 #' @export
 corpus <- function(x, type, metadata = list()) {
   checkmate::qassert(x, "l")

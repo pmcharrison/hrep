@@ -1,3 +1,13 @@
+#' Coded vector
+#'
+#' This function creates a coded vector.
+#' Coded vectors are used to represent sequences of symbols
+#' from a finite alphabet.
+#' Each symbol should be coded as an integer using a bijective mapping.
+#' @param x (Integer vector) The coded sequence.
+#' @param type (Character scalar) Identifies the symbol type.
+#' @param metadata (List) A (possibly-empty) list of metadata information.
+#' @return An object of class \code{coded_vec}.
 #' @export
 coded_vec <- function(x, type, metadata = list()) {
   checkmate::qassert(x, "X")
