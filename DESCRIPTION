@@ -13,7 +13,7 @@ Suggests:
     sets (>= 1.0.18)
 RoxygenNote: 6.1.0
 Imports: 
-    plyr (>= 1.8.4),
+    plyr,
     Rdpack (>= 0.9.0),
     checkmate (>= 1.8.5),
     purrr (>= 0.2.5),

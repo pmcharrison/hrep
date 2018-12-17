@@ -112,7 +112,6 @@ decode.corpus <- function(x) {
   x
 }
 
-# Display ####
 #' @export
 print.corpus <- function(x, ...) {
   n <- num_sequences(x)
@@ -126,12 +125,12 @@ print.corpus <- function(x, ...) {
 }
 
 #' @export
-transform_symbols.corpus <- function(x, f, type) {
+transform_symbols.corpus <- function(x, f, type, progress = "text") {
   stopifnot(is.function(f))
   checkmate::qassert(type, "S1")
-  for (i in num_sequences(x)) {
-    x[[i]] <- transform_symbols(x[[i]], f, type)
-  }
-  type(x) <- type
-  x
+  corpus(
+    plyr::llply(x, transform_symbols, f, type, .progress = progress),
+    type = type,
+    metadata = metadata(x)
+  )
 }
