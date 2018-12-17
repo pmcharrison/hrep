@@ -85,3 +85,23 @@ transform_symbols.vec <- function(x, f, type) {
 
 #' @export
 is.empty.vec <- function(x) length(x) == 0L
+
+#' @export
+`[.vec` <- function(x, i) {
+  vec(as.list(x)[i], type = type(x), metadata = metadata(x))
+}
+
+#' @export
+`[<-.vec` <- function(x, i, value) {
+  target_type <- type(x)
+  if (!all(purrr::map_lgl(x, ~ is(., target_type))))
+    stop("not all elements of <x> were of type ", target_type)
+  NextMethod("[<-.corpus")
+}
+
+#' @export
+`[[<-.vec` <- function(x, i, value) {
+  if (!is(value, type(x)))
+    stop("new value was not of type ", type(x))
+  NextMethod("[<-.corpus")
+}

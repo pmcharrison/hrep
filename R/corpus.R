@@ -33,7 +33,7 @@ as.list.corpus <- function(x, ...) {
   # We perform some sanity checks before allowing the assignment
   value <- corpus(x = as.list(value), type = type(x))
   if (!(is.coded(x) == is.coded(value)))
-    stop("coding must be consistent between old corpus and new sequences")
+    stop("old corpus and new value must either be both uncoded or both coded")
   value <- as.list(value)
   NextMethod("[<-.corpus")
 }

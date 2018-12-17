@@ -87,3 +87,20 @@ transform_symbols.coded_vec <- function(x, f, type) {
 
 #' @export
 is.empty.coded_vec <- function(x) length(x) == 0L
+
+#' @export
+`[.coded_vec` <- function(x, i) {
+  coded_vec(as.integer(x)[i], type = type(x), metadata = metadata(x))
+}
+
+#' @export
+`[<-.coded_vec` <- function(x, i, value) {
+  checkmate::qassert(value, "X")
+  NextMethod("[<-.corpus")
+}
+
+#' @export
+`[[<-.coded_vec` <- function(x, i, value) {
+  checkmate::qassert(value, "X1")
+  NextMethod("[<-.corpus")
+}
