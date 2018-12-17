@@ -80,7 +80,13 @@ as.coded_vec.vec <- function(x) encode(x)
 is.coded.coded_vec <- function(x) TRUE
 
 #' @export
-decode <- function(x, type = NULL, ...) {
+decode <- function(x, type = NULL) {
+  UseMethod("decode")
+}
+
+#' @export
+decode.numeric <- function(x, type = NULL) {
+  checkmate::qassert(x, "X")
   if (is.null(type)) type <- type(x)
   if (is.null(type)) stop("type needs to be provided before decoding")
   checkmate::qassert(type, "S1")
