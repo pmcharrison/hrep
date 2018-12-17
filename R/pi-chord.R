@@ -10,18 +10,26 @@
 
 #' Pitch chord
 #'
-#' Creates a pitch chord object.
+#' This function represents an object as a pitch chord.
+#' A pitch chord is defined as a set of non-duplicated
+#' pitches, expressed as MIDI note numbers.
+#' @param x Object to represent as a pitch chord.
+#' @return Returns an object of class \code{pi_chord}.
+#' @export
+#' @rdname pi_chord
 #' @export
 pi_chord <- function(x) {
   UseMethod("pi_chord")
 }
 
 #' @export
+#' @rdname pi_chord
 pi_chord.numeric <- function(x) {
   .pi_chord(sort(unique(unclass(x))))
 }
 
 #' @export
+#' @rdname pi_chord
 pi_chord.character <- function(x) {
   stopifnot(length(x) == 1L)
   y <- as.numeric(strsplit(x, split = " ")[[1]])
@@ -41,23 +49,27 @@ as.character.pi_chord <- function(x, ...) {
 }
 
 #' @export
+#' @rdname pi_chord
 pi_chord.pc_set <- function(x) {
   ref <- if (is.integer(x)) 60L else 60
   pi_chord(ref + x)
 }
 
 #' @export
+#' @rdname pi_chord
 pi_chord.pc_chord <- function(x) {
   .pi_chord(c(48 + get_bass_pc(x),
               60 + get_non_bass_pc(x)))
 }
 
 #' @export
+#' @rdname pi_chord
 pi_chord.pi_chord <- function(x) {
   x
 }
 
 #' @export
+#' @rdname pi_chord
 pi_chord.fr_chord <- function(x) {
   pi_chord(freq_to_midi(as.numeric(x)))
 }

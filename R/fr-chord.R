@@ -10,18 +10,26 @@
 
 #' Frequency chord
 #'
-#' Creates a frequency chord object.
+#' This function represents an object as a frequency chord.
+#' A frequency chord is defined as a set of non-duplicated
+#' frequencies, expressed in Hz.
+#' @param x Object to represent as a frequency chord.
+#' @return Returns an object of class \code{fr_chord}.
+#' @export
+#' @rdname fr_chord
 #' @export
 fr_chord <- function(x) {
   UseMethod("fr_chord")
 }
 
 #' @export
+#' @rdname fr_chord
 fr_chord.numeric <- function(x) {
   .fr_chord(sort(unique(unclass(x))))
 }
 
 #' @export
+#' @rdname fr_chord
 fr_chord.character <- function(x) {
   stopifnot(length(x) == 1L)
   y <- as.numeric(strsplit(x, split = " ")[[1]])
@@ -41,21 +49,25 @@ as.numeric.fr_chord <- function(x, ...) {
 }
 
 #' @export
+#' @rdname fr_chord
 fr_chord.pi_chord <- function(x) {
   .fr_chord(midi_to_freq(as.numeric(x)))
 }
 
 #' @export
+#' @rdname fr_chord
 fr_chord.pc_set <- function(x) {
   fr_chord(pi_chord(x))
 }
 
 #' @export
+#' @rdname fr_chord
 fr_chord.pc_chord <- function(x) {
   fr_chord(pi_chord(x))
 }
 
 #' @export
+#' @rdname fr_chord
 fr_chord.fr_chord <- function(x) {
   x
 }

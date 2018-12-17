@@ -2,10 +2,36 @@
 % Please edit documentation in R/pi-chord.R
 \name{pi_chord}
 \alias{pi_chord}
+\alias{pi_chord.numeric}
+\alias{pi_chord.character}
+\alias{pi_chord.pc_set}
+\alias{pi_chord.pc_chord}
+\alias{pi_chord.pi_chord}
+\alias{pi_chord.fr_chord}
 \title{Pitch chord}
 \usage{
 pi_chord(x)
+
+\method{pi_chord}{numeric}(x)
+
+\method{pi_chord}{character}(x)
+
+\method{pi_chord}{pc_set}(x)
+
+\method{pi_chord}{pc_chord}(x)
+
+\method{pi_chord}{pi_chord}(x)
+
+\method{pi_chord}{fr_chord}(x)
+}
+\arguments{
+\item{x}{Object to represent as a pitch chord.}
+}
+\value{
+Returns an object of class \code{pi_chord}.
 }
 \description{
-Creates a pitch chord object.
+This function represents an object as a pitch chord.
+A pitch chord is defined as a set of non-duplicated
+pitches, expressed as MIDI note numbers.
 }

@@ -13,12 +13,21 @@
   x
 }
 
+#' Pitch-class chord
+#'
+#' This function represents an object as a pitch-class chord.
+#' A pitch-class chord is defined by the combination of
+#' a pitch-class set and a bass pitch class.
+#' @param x Object to represent as a pitch-class chord.
+#' @return Returns an object of class \code{pc_chord}.
 #' @export
+#' @rdname pc_chord
 pc_chord <- function(x) {
   UseMethod("pc_chord")
 }
 
 #' @export
+#' @rdname pc_chord
 pc_chord.numeric <- function(x) {
   bass_pc <- pi_to_pc(x[1])
   other_pc <- sort(unique(pi_to_pc(x[-1])))
@@ -26,23 +35,27 @@ pc_chord.numeric <- function(x) {
 }
 
 #' @export
+#' @rdname pc_chord
 pc_chord.pc_set <- function(x) {
   x <- as.numeric(x)
   .pc_chord(x[1], x[-1])
 }
 
 #' @export
+#' @rdname pc_chord
 pc_chord.pc_chord <- function(x) {
   x
 }
 
 #' @export
+#' @rdname pc_chord
 pc_chord.pi_chord <- function(x) {
   x <- as.numeric(x)
   .pc_chord(bass_pc = pi_to_pc(x[1]), other_pc = pi_to_pc(x[-1]))
 }
 
 #' @export
+#' @rdname pc_chord
 pc_chord.fr_chord <- function(x) {
   pc_chord(pi_chord(x))
 }

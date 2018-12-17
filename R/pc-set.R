@@ -7,33 +7,44 @@
   pc
 }
 
+#' Pitch-class set
+#'
+#' This function represents an object as a pitch-class set.
+#' @param x Object to represent as a pitch-class set.
+#' @return Returns an object of class \code{pc_set}.
 #' @export
+#' @rdname pc_set
 pc_set <- function(x) {
   UseMethod("pc_set")
 }
 
 #' @export
+#' @rdname pc_set
 pc_set.numeric <- function(x) {
   pc_set(pi_chord(unclass(x)))
 }
 
 #' @export
+#' @rdname pc_set
 pc_set.pc_set <- function(x) {
   x
 }
 
 #' @export
+#' @rdname pc_set
 pc_set.pc_chord <- function(x) {
   .pc_set(sort(as.numeric(x)))
 }
 
 #' @export
+#' @rdname pc_set
 pc_set.pi_chord <- function(x) {
   x <- as.numeric(x)
   .pc_set(sort(unique(pi_to_pc(x))))
 }
 
 #' @export
+#' @rdname pc_set
 pc_set.fr_chord <- function(x) {
   pc_set(pi_chord(x))
 }
