@@ -15,26 +15,41 @@
   res
 }
 
+#' Pitch sparse spectrum
+#'
+#' This function represents an input object as a 'pitch sparse spectrum'.
+#' A pitch sparse spectrum describes an input sonority as a finite set
+#' of spectral components, each defined by a
+#' pitch (expressed on the MIDI pitch scale)
+#' and an amplitude (expressed in arbitrary units, but with the
+#' fundamental frequencies of chord pitches typically taking the value 1).
+#' @param x Input sonority.
+#' @param ... Further arguments passed to \code{\link{expand_harmonics}()},
+#' depending on the method invoked.
+#' @return An object of class \code{pi_sparse_spectrum}.
+#' @rdname pi_sparse_spectrum
 #' @export
 pi_sparse_spectrum <- function(x, ...) {
   UseMethod("pi_sparse_spectrum")
 }
 
+#' @rdname pi_sparse_spectrum
 #' @export
-pi_sparse_spectrum.fr_sparse_spectrum <- function(x, ...) {
+pi_sparse_spectrum.fr_sparse_spectrum <- function(x) {
   .pi_sparse_spectrum(
     pitch = freq_to_midi(freq(x)),
     amplitude = amp(x)
   )
 }
 
+#' @rdname pi_sparse_spectrum
 #' @export
 pi_sparse_spectrum.default <- function(x, ...) {
   pi_sparse_spectrum(pi_chord(x), ...)
 }
 
+#' @rdname pi_sparse_spectrum
 #' @export
-#' @param ... Further arguments passed to \code{\link{expand_harmonics}()}.
 pi_sparse_spectrum.pi_chord <- function(x,
                                         amplitude = 1,
                                         ...) {
