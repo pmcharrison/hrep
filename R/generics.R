@@ -24,8 +24,8 @@ metadata.default <- function(x) list()
 #' @export
 type <- function(x) UseMethod("type")
 
-#' #' @export
-#' type.default <- function(x) NULL
+#' @export
+type.default <- function(x) stop("x had undefined type")
 
 #' @export
 `type<-` <- function(x, value) UseMethod("type<-")

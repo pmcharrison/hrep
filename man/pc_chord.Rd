@@ -5,6 +5,7 @@
 \alias{pc_chord.numeric}
 \alias{pc_chord.pc_set}
 \alias{pc_chord.pc_chord}
+\alias{pc_chord.pc_chord_type}
 \alias{pc_chord.pi_chord}
 \alias{pc_chord.fr_chord}
 \title{Pitch-class chord}
@@ -16,6 +17,8 @@ pc_chord(x)
 \method{pc_chord}{pc_set}(x)
 
 \method{pc_chord}{pc_chord}(x)
+
+\method{pc_chord}{pc_chord_type}(x)
 
 \method{pc_chord}{pi_chord}(x)
 

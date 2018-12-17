@@ -49,6 +49,12 @@ pc_chord.pc_chord <- function(x) {
 
 #' @export
 #' @rdname pc_chord
+pc_chord.pc_chord_type <- function(x) {
+  .pc_chord(bass_pc = x[1], other_pc = x[-1])
+}
+
+#' @export
+#' @rdname pc_chord
 pc_chord.pi_chord <- function(x) {
   x <- as.numeric(x)
   .pc_chord(bass_pc = pi_to_pc(x[1]), other_pc = pi_to_pc(x[-1]))
@@ -104,8 +110,11 @@ get_bass_pc.pc_chord <- function(x) x[1]
 
 #' @export
 get_non_bass_pc <- function(x) UseMethod("get_non_bass_pc")
+
+# Note: we don't return a pitch-class set, because pitch class sets
+# may not be empty.
 #' @export
-get_non_bass_pc.pc_chord <- function(x) pc_set(x[- 1])
+get_non_bass_pc.pc_chord <- function(x) x[- 1]
 
 #' @export
 get_transpositions.pc_chord <- function(x) {
