@@ -1,6 +1,7 @@
 #' @export
 .pc_chord_type <- function(x) {
   checkmate::qassert(x, "N+[0,12)")
+  x <- as.numeric(x)
   stopifnot(x[1] == 0,
             !anyDuplicated(x),
             isTRUE(all.equal(x, sort(x))))

@@ -2,12 +2,13 @@
 #' @param other_pc Numeric vector corresponding to pitch-class set, may optionally include the bass pitch class
 #' @export
 .pc_chord <- function(bass_pc, other_pc = numeric()) {
+  bass_pc <- as.numeric(bass_pc)
+  other_pc <- as.numeric(other_pc)
   checkmate::qassert(bass_pc, "N1[0,12)")
   checkmate::qassert(other_pc, "N[0,12)")
   stopifnot(!anyDuplicated(other_pc),
             !bass_pc %in% other_pc,
             isTRUE(all.equal(other_pc, sort(other_pc))))
-  # other_pc <- setdiff(sort(unique(other_pc)), bass_pc)
   x <- c(bass_pc, other_pc)
   class(x) <- "pc_chord"
   x
@@ -57,7 +58,7 @@ pc_chord.pc_chord_type <- function(x) {
 #' @rdname pc_chord
 pc_chord.pi_chord <- function(x) {
   x <- as.numeric(x)
-  .pc_chord(bass_pc = pi_to_pc(x[1]), other_pc = pi_to_pc(x[-1]))
+  .pc_chord(bass_pc = pi_to_pc(x[1]), other_pc = sort(pi_to_pc(x[-1])))
 }
 
 #' @export

@@ -26,4 +26,7 @@ test_that("examples", {
     as.list %>%
     expect_equal(list(vec(x = purrr::map(x, pc_set), type = "pc_set"),
                       vec(x = purrr::map(y, pc_set), type = "pc_set")))
+
+  hrep::pc_set(c(0, 4, 7)) %>% represent("pc_chord_type") %>%
+    expect_equal(pc_chord_type(c(0, 4, 7)))
 })
