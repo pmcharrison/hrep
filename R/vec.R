@@ -71,16 +71,11 @@ num_symbols.vec <- function(x) length(x)
 transform_symbols.vec <- function(x, f, type) {
   stopifnot(is.function(f))
   checkmate::qassert(type, "S1")
-  for (i in seq_along(x)) {
-    tmp <- f(x[[i]])
-    if (!is(tmp, type))
-      stop("transformed symbol had invalid type ",
-           "(requested = ", type, ", ",
-           "returned = ", class(tmp), ")")
-    x[[i]] <- tmp
-  }
-  type(x) <- type
-  x
+  vec(
+    x = purrr::map(as.list(x), f),
+    type = type,
+    metadata = metadata(x)
+  )
 }
 
 #' @export

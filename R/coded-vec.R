@@ -86,6 +86,12 @@ decode <- function(x, type = NULL) {
 
 #' @export
 decode.numeric <- function(x, type = NULL) {
+  x <- as.integer(x)
+  decode(x, type)
+}
+
+#' @export
+decode.integer <- function(x, type = NULL) {
   checkmate::qassert(x, "X")
   if (is.null(type)) type <- type(x)
   if (is.null(type)) stop("type needs to be provided before decoding")
