@@ -32,7 +32,7 @@ test_that("random examples", {
     get_bass_pc(chord), 2
   )
   expect_equal(
-    get_non_bass_pc(chord), pc_set(c(4, 7))
+    get_non_bass_pc(chord), c(4, 7)
   )
   expect_equal(
     as.numeric(pc_set(chord)),
@@ -41,6 +41,11 @@ test_that("random examples", {
   expect_equal(
     pc_chord(c(10, 3, 4)) %>% pc_set %>% as.numeric,
     c(3, 4, 10)
+  )
+
+  expect_equal(
+    c(64, 67, 72) %>% pi_chord %>% pc_chord %>% pi_chord %>% as.numeric,
+    c(52, 60, 67)
   )
 })
 
