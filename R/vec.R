@@ -67,6 +67,7 @@ view.vec <- function(x, annotate = NULL, ...) {
 #' @export
 num_symbols.vec <- function(x) length(x)
 
+#' @rdname transform_symbols
 #' @export
 transform_symbols.vec <- function(x, f, type) {
   stopifnot(is.function(f))

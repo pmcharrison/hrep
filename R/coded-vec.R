@@ -102,6 +102,7 @@ decode.integer <- function(x, type = NULL) {
       metadata = metadata(x))
 }
 
+#' @rdname transform_symbols
 #' @export
 transform_symbols.coded_vec <- function(x, f, type) {
   encode(transform_symbols(decode(x), f, type))

@@ -30,8 +30,18 @@ type.default <- function(x) stop("x had undefined type")
 #' @export
 `type<-` <- function(x, value) UseMethod("type<-")
 
+#' Transform symbols
+#'
+#' Transforms the symbols within an object.
+#' @param x Object to transform.
+#' @param f Function to apply to each symbol.
+#' @param type Character scalar identifying the new symbol type.
+#' @param ... Further arguments to be passed to methods.
+#' @rdname transform_symbols
 #' @export
-transform_symbols <- function(x, f, type) UseMethod("transform_symbols")
+transform_symbols <- function(x, f, type, ...) {
+  UseMethod("transform_symbols")
+}
 
 #' @export
 is.empty <- function(x) UseMethod("is.empty")

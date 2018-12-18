@@ -124,6 +124,9 @@ print.corpus <- function(x, ...) {
   cat("\n")
 }
 
+#' @param progress (Scalar character) Progress bar type, to be passed to
+#' \code{\link[plyr]{llply}}.
+#' @rdname transform_symbols
 #' @export
 transform_symbols.corpus <- function(x, f, type,
                                      progress = if (interactive()) "text" else "none") {
