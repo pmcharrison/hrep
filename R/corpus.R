@@ -125,7 +125,8 @@ print.corpus <- function(x, ...) {
 }
 
 #' @export
-transform_symbols.corpus <- function(x, f, type, progress = "text") {
+transform_symbols.corpus <- function(x, f, type,
+                                     progress = if (interactive()) "text" else "none") {
   stopifnot(is.function(f))
   checkmate::qassert(type, "S1")
   corpus(
