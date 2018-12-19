@@ -1,33 +1,72 @@
-# Properties ####
+#' Number of sequences
+#'
+#' Counts the number of sequences in an object.
+#' @param x Object to analyse.
+#' @return The number of sequences in \code{x}, as an integer scalar.
+#' @rdname num_sequences
 #' @export
 num_sequences <- function(x) UseMethod("num_sequences")
 
-#' Number of symbols
+#' Size
 #'
-#' Number of symbols in an object (includes duplicates)
+#' Returns the size of an object, counted in symbols.
+#' For an object of class \code{\link{{vec}}, this will be the length of the vector.
+#' For an object of class \code{\link{{corpus}},
+#' this will be the sum of the lengths of its constituent sequences.
+#' @param x Object to analyse.
+#' @return The size of \code{x}, as an integer scalar.
+#' @rdname size
 #' @export
-num_symbols <- function(x) UseMethod("num_symbols")
+size <- function(x) UseMethod("size")
 
-#' @export
-get_transpositions <- function(x) UseMethod("get_transpositions")
-
-#' @export
-normalise_bass <- function(x) UseMethod("normalise_bass")
-
+#' Metadata
+#'
+#' Additional information about an object may be stored in its
+#' metadata attribute.
+#' @param x Method whose metadata should be accessed.
+#' @rdname metadata
 #' @export
 metadata <- function(x) UseMethod("metadata")
+
+#' @rdname metadata
 #' @export
 metadata.default <- function(x) list()
+
+#' @rdname metadata
 #' @export
 `metadata<-` <- function(x, value) UseMethod("metadata<-")
 
+#' Type
+#'
+#' A \strong{type} is a way of representing a chord symbol.
+#'
+#' @details
+#' Various types are available:
+#' * \code{\link{fr_chord}}
+#' * \code{\link{fr_sparse_spectrum}}
+#' * \code{\link{pi_chord}}
+#' * \code{\link{pi_sparse_spectrum}}
+#' * \code{\link{pc_chord}}
+#' * \code{\link{pc_chord_type}}
+#' * \code{\link{pc_set}}
+#' * \code{\link{pc_set_norm_form}}
+#' * \code{\link{pc_set_norm_order}}
+#' * \code{\link{pc_milne_spectrum}}
+#'
+#' Various objects can be typed:
+#' * Individual chord objects, e.g. \code{\link{pc_set}}
+#' * Chord sequences, as created by \code{\link{vec}} and \code{\link{coded_vec}}
+#' * Corpora of chord sequences, as created by \code{\link{corpus}}
+#' @param x Object whose type should be accessed.
+#' @return The type of \code{x}.
+#' @md
+#' @rdname type
 #' @export
 type <- function(x) UseMethod("type")
 
 #' @export
 type.default <- function(x) stop("x had undefined type")
 
-#' @export
 `type<-` <- function(x, value) UseMethod("type<-")
 
 #' Transform symbols
@@ -42,9 +81,6 @@ type.default <- function(x) stop("x had undefined type")
 transform_symbols <- function(x, f, type, ...) {
   UseMethod("transform_symbols")
 }
-
-#' @export
-is.empty <- function(x) UseMethod("is.empty")
 
 #' @export
 is.coded <- function(x) UseMethod("is.coded")

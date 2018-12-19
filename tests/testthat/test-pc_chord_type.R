@@ -3,7 +3,7 @@ context("test-pc_chord_type")
 library(magrittr)
 
 test_that("examples", {
-  c(0, 4, 7) %>% pc_chord_type %>% encode %>% decode("pc_chord_type") %>%
+  c(0, 4, 7) %>% pc_chord_type %>% encode %>% decode %>%
     extract2(1) %>%
     expect_equal(pc_chord_type(c(0, 4, 7)))
 
@@ -32,7 +32,7 @@ test_that("alphabet", {
   n <- pc_chord_type_alphabet_size()
   char <- character(n)
   for (i in seq_len(n)) {
-    x <- decode(i, "pc_chord_type")[[1]]
+    x <- i %>% coded_vec("pc_chord_type") %>% decode %>% extract2(1)
     expect_is(x, "pc_chord_type")
     char[i] <- as.character(x)
   }

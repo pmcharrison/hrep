@@ -2,9 +2,18 @@
 % Please edit documentation in R/coded-vec.R
 \name{coded_vec}
 \alias{coded_vec}
+\alias{[.coded_vec}
+\alias{[<-.coded_vec}
+\alias{[[<-.coded_vec}
 \title{Coded vector}
 \usage{
 coded_vec(x, type, metadata = list())
+
+\method{[}{coded_vec}(x, i)
+
+\method{[}{coded_vec}(x, i) <- value
+
+\method{[[}{coded_vec}(x, i) <- value
 }
 \arguments{
 \item{x}{(Integer vector) The coded sequence.}

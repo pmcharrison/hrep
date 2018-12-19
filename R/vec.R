@@ -11,6 +11,7 @@ vec <- function(x, type, metadata = list()) {
   x
 }
 
+#' @rdname type
 #' @export
 type.vec <- function(x) {
   attr(x, "type")
@@ -21,6 +22,7 @@ type.vec <- function(x) {
   x
 }
 
+#' @rdname metadata
 #' @export
 metadata.vec <- function(x) {
   attr(x, "metadata")
@@ -78,9 +80,6 @@ transform_symbols.vec <- function(x, f, type) {
     metadata = metadata(x)
   )
 }
-
-#' @export
-is.empty.vec <- function(x) length(x) == 0L
 
 #' @export
 `[.vec` <- function(x, i) {

@@ -94,7 +94,7 @@ c.pc_set <- function(...) {
 }
 
 #' @export
-encode.pc_set <- function(x, ...) {
+encode.pc_set <- function(x) {
   checkmate::qassert(x, "X")
   key <- as.character(x)
   hrep::pc_set_alphabet$by_pc_set[[key]]

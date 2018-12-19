@@ -1,5 +1,3 @@
-# Creation ####
-
 #' Corpus
 #'
 #' Creates \code{corpus} objects,
@@ -10,6 +8,7 @@
 #' @param type (Character scalar) Symbol type.
 #' @param metadata (List) List of metadata information.
 #' @return An object of class \code{corpus}.
+#' @rdname corpus
 #' @export
 corpus <- function(x, type, metadata = list()) {
   checkmate::qassert(x, "l")
@@ -28,17 +27,20 @@ corpus <- function(x, type, metadata = list()) {
   x
 }
 
+#' @rdname corpus
 #' @export
 as.list.corpus <- function(x, ...) {
   attributes(x) <- NULL
   x
 }
 
-# Subsetting ####
+#' @rdname corpus
 #' @export
 `[.corpus` <- function(x, i) {
   corpus(as.list(x)[i], type = type(x), metadata = metadata(x))
 }
+
+#' @rdname corpus
 #' @export
 `[<-.corpus` <- function(x, i, value) {
   # We perform some sanity checks before allowing the assignment
@@ -48,13 +50,15 @@ as.list.corpus <- function(x, ...) {
   value <- as.list(value)
   NextMethod("[<-.corpus")
 }
+
+#' @rdname corpus
 #' @export
 `[[<-.corpus` <- function(x, i, value) {
   x[i] <- list(value)
   x
 }
 
-# Combination ####
+#' @rdname corpus
 #' @export
 c.corpus <- function(...) {
   x <- list(...)
@@ -64,23 +68,28 @@ c.corpus <- function(...) {
   corpus(do.call(c, lapply(x, as.list)), type = type)
 }
 
-# Properties ####
+#' @rdname num_sequences
 #' @export
 num_sequences.corpus <- function(x) length(x)
+
+#' @rdname num_symbols
 #' @export
 num_symbols.corpus <- function(x) {
   sum(vapply(x, num_symbols, integer(1)))
 }
 
+#' @rdname metadata
 #' @export
 metadata.corpus <- function(x) attr(x, "metadata")
 
+#' @rdname metadata
 #' @export
 `metadata<-.corpus` <- function(x, value) {
   attr(x, "metadata") <- value
   x
 }
 
+#' @rdname type
 #' @export
 type.corpus <- function(x) {
   attr(x, "type")
@@ -91,11 +100,13 @@ type.corpus <- function(x) {
   x
 }
 
+#' @rdname is.coded
 #' @export
 is.coded.corpus <- function(x) attr(x, "coded")
 
+#' @rdname encode
 #' @export
-encode.corpus <- function(x, ...) {
+encode.corpus <- function(x) {
   if (!is.coded(x)) {
     for (i in seq_along(x)) x[[i]] <- encode(x[[i]])
     attr(x, "coded") <- TRUE
@@ -103,6 +114,7 @@ encode.corpus <- function(x, ...) {
   x
 }
 
+#' @rdname decode
 #' @export
 decode.corpus <- function(x) {
   if (is.coded(x)) {

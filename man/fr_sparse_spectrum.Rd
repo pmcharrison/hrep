@@ -6,6 +6,7 @@
 \alias{fr_sparse_spectrum.pi_chord}
 \alias{fr_sparse_spectrum.default}
 \alias{fr_sparse_spectrum.list}
+\alias{c.fr_sparse_spectrum}
 \title{Frequency sparse spectrum}
 \usage{
 fr_sparse_spectrum(x, ...)
@@ -17,6 +18,8 @@ fr_sparse_spectrum(x, ...)
 \method{fr_sparse_spectrum}{default}(x, ...)
 
 \method{fr_sparse_spectrum}{list}(x, ...)
+
+\method{c}{fr_sparse_spectrum}(..., x_digits = 6)
 }
 \arguments{
 \item{x}{Input sonority.
@@ -30,6 +33,9 @@ and the second element being a numeric vector of amplitudes.
 
 \item{...}{Further arguments passed to \code{\link{expand_harmonics}()},
 depending on the method invoked.}
+
+\item{x_digits}{(Integerish scalar) Number of significant digits
+to which frequencies are rounded when being combined.}
 }
 \value{
 An object of class \code{fr_sparse_spectrum}.
@@ -43,4 +49,8 @@ A frequency sparse spectrum comprises a finite set of spectral components,
 each defined by a frequency (in Hz)
 and an amplitude (expressed in arbitrary units, but with the
 fundamental frequencies of chord pitches typically taking the value 1).
+
+Frequency sparse spectra can be combined into one spectrum using \code{c(...)}.
+Amplitudes are summed assuming incoherent wave superposition
+(see \code{\link{sum_amplitudes}}).
 }

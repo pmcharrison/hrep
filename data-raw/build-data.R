@@ -1,10 +1,7 @@
 library(hrep)
 library(magrittr)
 
-get_pc_set_alphabet <- function(format = "both") {
-  stopifnot(
-    format %in% c("by_id", "by_pc_set", "both")
-  )
+get_pc_set_alphabet <- function() {
   args <- list()
   for (i in 0:11) {
     args[[as.character(i)]] <- c(FALSE, TRUE)
@@ -15,26 +12,18 @@ get_pc_set_alphabet <- function(format = "both") {
   for (i in seq_len(n)) {
     pc_set <- (0:11)[which(as.logical(spec[i, ]))]
     if (length(pc_set) > 0) {
-      res <- c(res, list(pc_set(pc_set)))
+      res[[length(res) + 1L]] <- pc_set(pc_set)
     }
   }
-  if (format == "by_id") {
-    res
-  } else {
-    hash <- new.env()
-    for (i in seq_along(res)) {
-      key <- as.character(res[[i]])
-      hash[[key]] <- i
-    }
-    if (format == "by_pc_set") {
-      hash
-    } else if (format == "both") {
-      list(
-        by_id = res,
-        by_pc_set = hash
-      )
-    } else stop("Unrecognised <format>")
+  hash <- new.env()
+  for (i in seq_along(res)) {
+    key <- as.character(res[[i]])
+    hash[[key]] <- coded_vec(i, "pc_set")
   }
+  list(
+    by_id = res,
+    by_pc_set = hash
+  )
 }
 
 list_pc_chords_with_bass_note <- function(bass_pc) {
@@ -51,14 +40,14 @@ get_pc_chord_alphabet <- function() {
   for (pc_chord_id in pc_chord_ids) {
     pc_chord <- pc_chord_alphabet[[pc_chord_id]]
     key <- as.character(pc_chord)
-    map[[key]] <- pc_chord_id
+    map[[key]] <- coded_vec(pc_chord_id, "pc_chord")
   }
   list(by_id = pc_chord_alphabet,
        by_pc_chord = map)
 }
 
 pc_chord_alphabet <- get_pc_chord_alphabet()
-pc_set_alphabet <- get_pc_set_alphabet("both")
+pc_set_alphabet <- get_pc_set_alphabet()
 pc_chord_id_to_pc_set_id_map <- vapply(
   pc_chord_alphabet$by_id,
   function(pc_chord) {

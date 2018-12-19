@@ -20,6 +20,7 @@ coded_vec <- function(x, type, metadata = list()) {
   x
 }
 
+#' @rdname type
 #' @export
 type.coded_vec <- function(x) {
   attr(x, "type")
@@ -30,6 +31,7 @@ type.coded_vec <- function(x) {
   x
 }
 
+#' @rdname metadata
 #' @export
 metadata.coded_vec <- function(x) {
   attr(x, "metadata")
@@ -40,6 +42,11 @@ metadata.coded_vec <- function(x) {
   x
 }
 
+#' Type-checking for "coded_vec"
+#'
+#' Checks whether an object is of type "coded_vec".
+#' @param x Object to check.
+#' @return Logical scalar.
 #' @export
 is.coded_vec <- function(x) {
   is(x, "coded_vec")
@@ -52,53 +59,55 @@ print.coded_vec <- function(x, ...) {
       if (length(metadata(x)) > 0L) " (metadata available)", "\n", sep = "")
 }
 
+#' @rdname num_symbols
 #' @export
 num_symbols.coded_vec <- function(x) length(x)
 
+#' Encode
+#'
+#' Transforms a given object into an integer-based encoding.
+#' @param x Object to transform.
+#' @return Encoded object.
+#' @seealso \code{\link{decode}} for the reverse operation.
 #' @export
-encode <- function(x, ...) {
+encode <- function(x) {
   UseMethod("encode")
 }
 
+#' @rdname encode
 #' @export
-encode.vec <- function(x, ...) {
+encode.vec <- function(x) {
   coded_vec(purrr::map_int(x, encode),
             type = type(x),
             metadata = metadata(x))
 }
 
+#' @rdname encode
 #' @export
-encode.coded_vec <- function(x, ...) x
+encode.coded_vec <- function(x) x
 
-#' @export
-as.coded_vec <- function(x) UseMethod("as.coded_vec")
-
-#' @export
-as.coded_vec.vec <- function(x) encode(x)
-
+#' @rdname is.coded
 #' @export
 is.coded.coded_vec <- function(x) TRUE
 
+
+#' Decode
+#'
+#' Decodes an object from an integer-based encoding.
+#' @param x Object to decode.
+#' @seealso \code{\link{encode}} for the reverse operation.
+#' @rdname decode
 #' @export
-decode <- function(x, type = NULL) {
+decode <- function(x) {
   UseMethod("decode")
 }
 
+#' @rdname decode
 #' @export
-decode.numeric <- function(x, type = NULL) {
-  x <- as.integer(x)
-  decode(x, type)
-}
-
-#' @export
-decode.integer <- function(x, type = NULL) {
-  checkmate::qassert(x, "X")
-  if (is.null(type)) type <- type(x)
-  if (is.null(type)) stop("type needs to be provided before decoding")
-  checkmate::qassert(type, "S1")
-  f <- paste0("decode.coded_vec_", type)
-  vec(do.call(what = f, args = list(as.integer(x))),
-      type = type,
+decode.integer <- function(x) {
+  f <- paste0("decode.coded_vec_", type(x))
+  vec(do.call(what = f, args = list(x)),
+      type = type(x),
       metadata = metadata(x))
 }
 
@@ -108,20 +117,20 @@ transform_symbols.coded_vec <- function(x, f, type) {
   encode(transform_symbols(decode(x), f, type))
 }
 
-#' @export
-is.empty.coded_vec <- function(x) length(x) == 0L
-
+#' @rdname coded_vec
 #' @export
 `[.coded_vec` <- function(x, i) {
   coded_vec(as.integer(x)[i], type = type(x), metadata = metadata(x))
 }
 
+#' @rdname coded_vec
 #' @export
 `[<-.coded_vec` <- function(x, i, value) {
   checkmate::qassert(value, "X")
   NextMethod("[<-.corpus")
 }
 
+#' @rdname coded_vec
 #' @export
 `[[<-.coded_vec` <- function(x, i, value) {
   checkmate::qassert(value, "X1")

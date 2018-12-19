@@ -69,21 +69,17 @@ pc_chord_type.sparse_spectrum <- function(x) {
 }
 
 #' @export
-encode.pc_chord_type <- function(x, ...) {
+encode.pc_chord_type <- function(x) {
   checkmate::qassert(x, "X")
   key <- as.character(x)
-  hrep::pc_chord_alphabet$by_pc_chord[[key]]
+  i <- as.integer(hrep::pc_chord_alphabet$by_pc_chord[[key]])
+  coded_vec(i, "pc_chord_type")
 }
 
 decode.coded_vec_pc_chord_type <- function(x) {
   checkmate::qassert(x, "X")
   purrr::map(hrep::pc_chord_alphabet$by_id[x],
              ~ .pc_chord_type(as.integer(.)))
-}
-
-#' @export
-pc_chord_type_alphabet_size <- function() {
-  pc_chord_alphabet_size() / 12L
 }
 
 #' @export

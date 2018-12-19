@@ -1,4 +1,4 @@
-#' @export
+#' @keywords internal
 .fr_sparse_spectrum <- function(frequency, amplitude) {
   checkmate::qassert(frequency, "N")
   checkmate::qassert(amplitude, "N")
@@ -72,11 +72,13 @@ fr_sparse_spectrum.list <- function(x, ...) {
                       amplitude = x[[2]])
 }
 
+#' @rdname freq
 #' @export
 freq.fr_sparse_spectrum <- function(x) {
   x$x
 }
 
+#' @rdname freq
 #' @export
 `freq.fr_sparse_spectrum<-` <- function(x, value) {
   stopifnot(is.numeric(value),
@@ -85,11 +87,13 @@ freq.fr_sparse_spectrum <- function(x) {
   x
 }
 
+#' @rdname amp
 #' @export
 amp.fr_sparse_spectrum <- function(x) {
   x$y
 }
 
+#' @rdname amp
 #' @export
 `amp.fr_sparse_spectrum<-` <- function(x, value) {
   stopifnot(is.numeric(value),
@@ -98,8 +102,13 @@ amp.fr_sparse_spectrum <- function(x) {
   x
 }
 
+#' @details
+#' Frequency sparse spectra can be combined into one spectrum using \code{c(...)}.
+#' Amplitudes are summed assuming incoherent wave superposition
+#' (see \code{\link{sum_amplitudes}}).
+#' @rdname fr_sparse_spectrum
 #' @param x_digits (Integerish scalar) Number of significant digits
-#' to which frequencies are rounded.
+#' to which frequencies are rounded when being combined.
 #' @export
 c.fr_sparse_spectrum <- function(..., x_digits = 6) {
   combine_sparse_spectra_amplitudes(...,

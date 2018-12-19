@@ -1,5 +1,5 @@
 #' @param x (Numeric vector) Frequencies in ascending order
-#' @export
+#' @keywords internal
 .fr_chord <- function(...) {
   x <- unclass(c(...))
   checkmate::qassert(x, "N+")
@@ -38,11 +38,13 @@ fr_chord.character <- function(x) {
   fr_chord(y)
 }
 
+#' @rdname fr_chord
 #' @export
 as.character.fr_chord <- function(x, ...) {
   paste(as.numeric(x), collapse = " ")
 }
 
+#' @rdname fr_chord
 #' @export
 as.numeric.fr_chord <- function(x, ...) {
   unclass(x)
@@ -72,9 +74,11 @@ fr_chord.fr_chord <- function(x) {
   x
 }
 
+#' @rdname fr_chord
 #' @export
 is.fr_chord <- function(x) is(x, "fr_chord")
 
+#' @rdname fr_chord
 #' @export
 print.fr_chord <- function(x, digits = 3L, ...) {
   cat("Frequency chord: ",
@@ -82,6 +86,7 @@ print.fr_chord <- function(x, digits = 3L, ...) {
             collapse = ", "), "\n", sep = "")
 }
 
+#' @rdname fr_chord
 #' @export
 c.fr_chord <- function(...) {
   x <- lapply(list(...), unclass)
@@ -89,12 +94,25 @@ c.fr_chord <- function(...) {
   fr_chord(sort(unique(x)))
 }
 
+#' Get bass frequency
+#'
+#' Gets the bass frequency from a sonority.
+#' @param x Object to analyse.
+#' @return Bass frequency, as a numeric scalar.
+#' @rdname get_bass_fr
 #' @export
-get_bass_fr <- function(x, ...) {
+get_bass_fr <- function(x) {
   UseMethod("get_bass_fr")
 }
 
+#' @rdname get_bass_fr
+#' @export
+get_bass_fr.default <- function(x) {
+  get_bass_fr(fr_chord(x))
+}
+
+#' @rdname get_bass_fr
 #' @export
 get_bass_fr.fr_chord <- {
-  function(x, ...) x[1]
+  function(x) x[1]
 }

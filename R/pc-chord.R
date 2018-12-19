@@ -118,12 +118,6 @@ get_non_bass_pc <- function(x) UseMethod("get_non_bass_pc")
 get_non_bass_pc.pc_chord <- function(x) x[- 1]
 
 #' @export
-get_transpositions.pc_chord <- function(x) {
-  ref <- normalise_bass(x)
-  lapply(0:11, function(int) tp(ref, int))
-}
-
-#' @export
 pc_chord.character <- function(x) {
   stopifnot(length(x) == 1L)
   y <- as.numeric(strsplit(x, split = " ")[[1]])
@@ -141,7 +135,7 @@ as.character.pc_chord <- function(x, ...) {
 is.pc_chord <- function(x) is(x, "pc_chord")
 
 #' @export
-encode.pc_chord <- function(x, ...) {
+encode.pc_chord <- function(x) {
   checkmate::qassert(x, "X")
   key <- as.character(x)
   hrep::pc_chord_alphabet$by_pc_chord[[key]]
@@ -150,9 +144,4 @@ encode.pc_chord <- function(x, ...) {
 decode.coded_vec_pc_chord <- function(x) {
   checkmate::qassert(x, "X")
   hrep::pc_chord_alphabet$by_id[x]
-}
-
-#' @export
-pc_chord_alphabet_size <- function() {
-  length(hrep::pc_chord_alphabet$by_id)
 }

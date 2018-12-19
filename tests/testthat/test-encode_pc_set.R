@@ -7,8 +7,6 @@ test_that("format", {
 test_that("encoding and decoding pc-sets", {
   expect_equal(encode(pc_set(0)), 1)
   rand <- sample(4e3, 20)
-  expect_equal(
-    rand,
-    as.integer(encode(decode(rand, type = "pc_set")))
-  )
+  rand %>% coded_vec("pc_set") %>% decode %>% encode %>% as.integer %>%
+    expect_equal(rand)
 })

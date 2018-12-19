@@ -60,7 +60,7 @@ get_transposition <- function(x) UseMethod("get_transposition")
 get_transposition.pc_set_norm_form <- function(x) attr(x, "transposition")
 
 #' @export
-encode.pc_set_norm_form <- function(x, ...) {
+encode.pc_set_norm_form <- function(x) {
   encode(pc_set(x))
 }
 

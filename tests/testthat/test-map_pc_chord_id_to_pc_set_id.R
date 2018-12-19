@@ -18,7 +18,8 @@ test_that("Example results", {
       vec("pc_chord") %>%
       encode() %>%
       map_pc_chord_id_to_pc_set_id %>%
-      decode("pc_set") %>%
+      coded_vec("pc_set") %>%
+      decode() %>%
       lapply(as.numeric),
     list(
       c(0, 4, 7),

@@ -40,7 +40,7 @@ test_that("transposition", {
 test_that("transpositions of a pitch-class set all get the same normal form", {
   n <- 30
   for (i in seq_len(n)) {
-    pc_set <- sample(4e3, 1) %>% decode(type = "pc_set") %>% extract2(1)
+    pc_set <- sample(4e3, 1) %>% coded_vec("pc_set") %>% decode %>% extract2(1)
     expect_true(
       0:11 %>%
         lapply(function(x) tp(pc_set, x)) %>%

@@ -31,7 +31,7 @@ in the harmonics, with greater values corresponding to higher roll-off.}
 \item{frequency_digits}{(Integerish scalar) Number of significant digits
 to which frequencies are rounded.}
 
-\item{round}{Whether or not the harmonic template should be rounded}
+\item{round}{Whether or not the harmonic template should be rounded.}
 }
 \description{
 Expands each tone in an object into its implied harmonics.
