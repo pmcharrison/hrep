@@ -62,3 +62,6 @@ See \insertCite{Milne2016a;textual}{hrep} for details.
 \references{
 \insertAllCited{}
 }
+\seealso{
+\code{\link{.pc_milne_spectrum}}.
+}

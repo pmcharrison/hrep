@@ -1,3 +1,11 @@
+#' Constructor function for pitch-class Milne spectrum
+#'
+#' This function constructs a "pc_milne_spectrum" object.
+#' @param x A numeric vector of pitch-class weights,
+#' typically (but not necessarily) of length 1200.
+#' @return An object of class "pc_milne_spectrum".
+#' @seealso \code{\link{pc_milne_spectrum}}.
+#' @export
 .pc_milne_spectrum <- function(x) {
   checkmate::qassert(x, "N")
   x <- unclass(x)
@@ -30,6 +38,7 @@
 #' @param ... Further arguments passed to specific methods.
 #' @return An object of class \code{pc_milne_spectrum}.
 #' @rdname pc_milne_spectrum
+#' @seealso \code{\link{.pc_milne_spectrum}}.
 #' @export
 pc_milne_spectrum <- function(x, ...) {
   UseMethod("pc_milne_spectrum")
