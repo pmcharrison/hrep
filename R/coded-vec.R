@@ -21,7 +21,6 @@ coded_vec <- function(x, type, metadata = list()) {
   x
 }
 
-#' @rdname type
 #' @export
 type.coded_vec <- function(x) {
   attr(x, "type")
@@ -130,22 +129,17 @@ transform_symbols.coded_vec <- function(x, f, type, ...) {
   encode(transform_symbols(decode(x), f, type))
 }
 
-#' @rdname coded_vec
 #' @export
 `[.coded_vec` <- function(x, i) {
   coded_vec(as.integer(x)[i], type = type(x), metadata = metadata(x))
 }
 
-#' @param i (Integerish vector) Index/indices to access.
-#' @param value New value(s).
-#' @rdname coded_vec
 #' @export
 `[<-.coded_vec` <- function(x, i, value) {
   checkmate::qassert(value, "X")
   NextMethod("[<-.corpus")
 }
 
-#' @rdname coded_vec
 #' @export
 `[[<-.coded_vec` <- function(x, i, value) {
   checkmate::qassert(value, "X1")

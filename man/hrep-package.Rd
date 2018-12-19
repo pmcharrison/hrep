@@ -4,9 +4,9 @@
 \name{hrep-package}
 \alias{hrep}
 \alias{hrep-package}
-\title{hrep: Low-level utility functions for harmony analysis packages}
+\title{hrep: Harmony Representations}
 \description{
-Provides low-level utility functions for harmony analysis packages. In most music analysis situations you will probably want the package HarmonyToolbox instead.
+This package provides methods for representing and manipulating chord sequences.
 }
 \author{
 \strong{Maintainer}: Peter Harrison \email{pmc.harrison@gmail.com}

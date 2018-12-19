@@ -2,24 +2,9 @@
 % Please edit documentation in R/corpus.R
 \name{corpus}
 \alias{corpus}
-\alias{as.list.corpus}
-\alias{[.corpus}
-\alias{[<-.corpus}
-\alias{[[<-.corpus}
-\alias{c.corpus}
 \title{Corpus}
 \usage{
 corpus(x, type, metadata = list())
-
-\method{as.list}{corpus}(x, ...)
-
-\method{[}{corpus}(x, i)
-
-\method{[}{corpus}(x, i) <- value
-
-\method{[[}{corpus}(x, i) <- value
-
-\method{c}{corpus}(...)
 }
 \arguments{
 \item{x}{List of sequences, where each sequence is an object of class
@@ -28,12 +13,6 @@ corpus(x, type, metadata = list())
 \item{type}{(Character scalar) Symbol type.}
 
 \item{metadata}{(List) List of metadata information.}
-
-\item{...}{Corpora to combine.}
-
-\item{i}{(Integerish vector) Index/indices to access.}
-
-\item{value}{New value(s).}
 }
 \value{
 An object of class \code{corpus}.

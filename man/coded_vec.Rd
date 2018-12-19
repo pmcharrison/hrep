@@ -2,18 +2,9 @@
 % Please edit documentation in R/coded-vec.R
 \name{coded_vec}
 \alias{coded_vec}
-\alias{[.coded_vec}
-\alias{[<-.coded_vec}
-\alias{[[<-.coded_vec}
 \title{Coded vector}
 \usage{
 coded_vec(x, type, metadata = list())
-
-\method{[}{coded_vec}(x, i)
-
-\method{[}{coded_vec}(x, i) <- value
-
-\method{[[}{coded_vec}(x, i) <- value
 }
 \arguments{
 \item{x}{(Integer vector) The coded sequence.}
@@ -21,10 +12,6 @@ coded_vec(x, type, metadata = list())
 \item{type}{(Character scalar) Identifies the symbol \code{\link{type}}.}
 
 \item{metadata}{(List) A (possibly-empty) list of metadata information.}
-
-\item{i}{(Integerish vector) Index/indices to access.}
-
-\item{value}{New value(s).}
 }
 \value{
 An object of class "coded_vec".

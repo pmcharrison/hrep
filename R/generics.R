@@ -60,9 +60,10 @@ metadata.default <- function(x) list()
 #' @param x Object whose type should be accessed.
 #' @return The type of \code{x}.
 #' @md
-#' @rdname type
 #' @export
-type <- function(x) UseMethod("type")
+type <- function(x) {
+  UseMethod("type")
+}
 
 #' @export
 type.default <- function(x) stop("x had undefined type")

@@ -27,20 +27,17 @@ corpus <- function(x, type, metadata = list()) {
   x
 }
 
-#' @rdname corpus
 #' @export
 as.list.corpus <- function(x, ...) {
   attributes(x) <- NULL
   x
 }
 
-#' @rdname corpus
 #' @export
 `[.corpus` <- function(x, i) {
   corpus(as.list(x)[i], type = type(x), metadata = metadata(x))
 }
 
-#' @rdname corpus
 #' @export
 `[<-.corpus` <- function(x, i, value) {
   # We perform some sanity checks before allowing the assignment
@@ -51,17 +48,12 @@ as.list.corpus <- function(x, ...) {
   NextMethod("[<-.corpus")
 }
 
-#' @param i (Integerish vector) Index/indices to access.
-#' @param value New value(s).
-#' @rdname corpus
 #' @export
 `[[<-.corpus` <- function(x, i, value) {
   x[i] <- list(value)
   x
 }
 
-#' @param ... Corpora to combine.
-#' @rdname corpus
 #' @export
 c.corpus <- function(...) {
   x <- list(...)

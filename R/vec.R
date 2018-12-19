@@ -27,7 +27,6 @@ vec <- function(x, type, metadata = list()) {
   x
 }
 
-#' @rdname type
 #' @export
 type.vec <- function(x) {
   attr(x, "type")
@@ -102,13 +101,11 @@ transform_symbols.vec <- function(x, f, type, ...) {
   )
 }
 
-#' @rdname vec
 #' @export
 `[.vec` <- function(x, i) {
   vec(as.list(x)[i], type = type(x), metadata = metadata(x))
 }
 
-#' @rdname vec
 #' @export
 `[<-.vec` <- function(x, i, value) {
   target_type <- type(x)
@@ -117,9 +114,6 @@ transform_symbols.vec <- function(x, f, type, ...) {
   NextMethod("[<-.corpus")
 }
 
-#' @param i (Integerish vector) Index/indices to access.
-#' @param value New value(s) to assign.
-#' @rdname vec
 #' @export
 `[[<-.vec` <- function(x, i, value) {
   if (!is(value, type(x)))

@@ -2,18 +2,9 @@
 % Please edit documentation in R/vec.R
 \name{vec}
 \alias{vec}
-\alias{[.vec}
-\alias{[<-.vec}
-\alias{[[<-.vec}
 \title{Vector}
 \usage{
 vec(x, type, metadata = list())
-
-\method{[}{vec}(x, i)
-
-\method{[}{vec}(x, i) <- value
-
-\method{[[}{vec}(x, i) <- value
 }
 \arguments{
 \item{x}{List of (un-encoded) chord symbols, each of class \code{type}.}
@@ -21,10 +12,6 @@ vec(x, type, metadata = list())
 \item{type}{(Character scalar) Identifies the symbol \code{\link{type}}.}
 
 \item{metadata}{(List) A (possibly-empty) list of metadata information.}
-
-\item{i}{(Integerish vector) Index/indices to access.}
-
-\item{value}{New value(s) to assign.}
 }
 \value{
 An object of class "vec".
