@@ -118,20 +118,3 @@ decode.coded_vec_pc_set <- function(x) {
 map_pc_chord_id_to_pc_set_id <- function(pc_chord_id) {
   hrep::pc_chord_id_to_pc_set_id_map[as.integer(pc_chord_id)]
 }
-
-#' #' @export
-#' get_pc_set_alphabet_from_corpus <- function(
-#'   corpus, encode = FALSE
-#' ) {
-#'   if (encode) {
-#'     stop("Encoding not yet supported for pitch-class sets")
-#'   }
-#'   get_pc_chord_alphabet_from_corpus(corpus) %>%
-#'     decode_pc_chords %>%
-#'     lapply(as.integer) %>%
-#'     lapply(pi_to_pc_set) %>%
-#'     unique %>%
-#'     (function(x) x[order(vapply(x, function(y) {
-#'       paste(y, collapse = " ")
-#'     }, character(1)))])
-#' }
