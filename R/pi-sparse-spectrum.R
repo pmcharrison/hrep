@@ -44,6 +44,17 @@ pi_sparse_spectrum.fr_sparse_spectrum <- function(x) {
 
 #' @rdname pi_sparse_spectrum
 #' @export
+pi_sparse_spectrum.list <- function(x, ...) {
+  stopifnot(length(x) == 2L,
+            is.numeric(x[[1]]),
+            is.numeric(x[[2]]),
+            length(x[[1]]) == length(x[[2]]))
+  .pi_sparse_spectrum(pitch = x[[1]],
+                      amplitude = x[[2]])
+}
+
+#' @rdname pi_sparse_spectrum
+#' @export
 pi_sparse_spectrum.default <- function(x, ...) {
   pi_sparse_spectrum(pi_chord(x), ...)
 }

@@ -16,30 +16,54 @@
   y
 }
 
+#' Pitch-class Milne spectrum
+#'
+#' This function represents an input object as a
+#' 'pitch-class Milne spectrum'.
+#' A pitch-class Milne spectrum defines 'perceptual weight'
+#' as a continuous function of 'pitch class'.
+#' @details
+#' This spectrum is typically constructed from musical chords
+#' by expanding each note into its implied harmonics
+#' and applying a Gaussian smoothing to account for perceptual uncertainties.
+#' See \insertCite{Milne2016a;textual}{hrep} for details.
+#' @param x Input sonority.
+#' @param ... Further arguments passed to specific methods.
+#' @return An object of class \code{pc_milne_spectrum}.
+#' @rdname pc_milne_spectrum
 #' @export
 pc_milne_spectrum <- function(x, ...) {
   UseMethod("pc_milne_spectrum")
 }
 
-#' Convert to pitch-class spectrum
-#' Converts the input to a pitch-class spectrum.
-#' Musical notes are converted to complex tones, after Milne & Holland (2016).
-#' @param num_harmonics The number of harmonics in each modelled complex tone
-#' (including the fundamental) (numeric scalar)
-#' @param rho The roll-off parameter determining the weight of
-#' successive harmonics; default is 0.75, after Milne & Holland (2016)
-#' @param sigma The standard deviation of the smoothing Gaussian;
-#' default is 6.83, after Milne & Holland (2016)
-#' @export
+#' @param num_harmonics (Integerish scalar)
+#' Number of harmonics to use when expanding tones into their implied harmonics,
+#' and when defining the harmonic template
+#' (including the fundamental frequency).
+#' Defaults to 12, after
+#' \insertCite{Milne2016;textual}{har18}.
+#' @param rho (Numeric scalar)
+#' Roll-off parameter for harmonic expansion.
+#' Defaults to 0.75, after
+#' \insertCite{Milne2016;textual}{har18}.
+#' @param sigma (Numeric scalar)
+#' Standard deviation of the Gaussian smoothing distribution (cents).
+#' Defaults to 6.83, after
+#' \insertCite{Milne2016;textual}{har18}.
+#' @param array_dim (Integerish scalar)
+#' Dimensionality of the pitch-class spectrum array.
+#' Defaults to 1200, after
+#' \insertCite{Milne2016;textual}{har18}.
+#' @rdname pc_milne_spectrum
 #' @references
-#' \insertRef{Milne2016a}{hrep}
+#' \insertAllCited{}
+#' @export
 pc_milne_spectrum.pc_set <- function(x,
-                                      weights = 1,
-                                      array_dim = 1200,
-                                      num_harmonics = 12,
-                                      rho = 0.75,
-                                      sigma = 6.83,
-                                      ...) {
+                                     weights = 1,
+                                     num_harmonics = 12,
+                                     rho = 0.75,
+                                     sigma = 6.83,
+                                     array_dim = 1200) {
   if (length(weights) == 1L) weights <- rep(weights, times = length(x))
   pc_spectra <- mapply(
     function(pc, weight) {
@@ -53,11 +77,7 @@ pc_milne_spectrum.pc_set <- function(x,
   .pc_milne_spectrum(rowSums(pc_spectra))
 }
 
-#' @export
-pc_milne_spectrum.pc_milne_spectrum <- function(x, ...) {
-  x
-}
-
+#' @rdname pc_milne_spectrum
 #' @export
 pc_milne_spectrum.default <- function(x, ...) {
   pc_milne_spectrum(pc_set(x), ...)

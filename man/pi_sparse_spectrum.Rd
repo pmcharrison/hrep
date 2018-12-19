@@ -3,6 +3,7 @@
 \name{pi_sparse_spectrum}
 \alias{pi_sparse_spectrum}
 \alias{pi_sparse_spectrum.fr_sparse_spectrum}
+\alias{pi_sparse_spectrum.list}
 \alias{pi_sparse_spectrum.default}
 \alias{pi_sparse_spectrum.pi_chord}
 \title{Pitch sparse spectrum}
@@ -10,6 +11,8 @@
 pi_sparse_spectrum(x, ...)
 
 \method{pi_sparse_spectrum}{fr_sparse_spectrum}(x)
+
+\method{pi_sparse_spectrum}{list}(x, ...)
 
 \method{pi_sparse_spectrum}{default}(x, ...)
 
