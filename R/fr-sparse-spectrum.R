@@ -72,30 +72,26 @@ fr_sparse_spectrum.list <- function(x, ...) {
                       amplitude = x[[2]])
 }
 
-#' @rdname freq
 #' @export
 freq.fr_sparse_spectrum <- function(x) {
   x$x
 }
 
-#' @rdname freq
 #' @export
-`freq.fr_sparse_spectrum<-` <- function(x, value) {
+`freq<-.fr_sparse_spectrum` <- function(x, value) {
   stopifnot(is.numeric(value),
             length(value) == length(freq(x)))
   x$x <- value
   x
 }
 
-#' @rdname amp
 #' @export
 amp.fr_sparse_spectrum <- function(x) {
   x$y
 }
 
-#' @rdname amp
 #' @export
-`amp.fr_sparse_spectrum<-` <- function(x, value) {
+`amp<-.fr_sparse_spectrum` <- function(x, value) {
   stopifnot(is.numeric(value),
             length(value) == length(amp(x)))
   x$y <- value

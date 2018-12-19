@@ -7,14 +7,14 @@
 \alias{transform_symbols.vec}
 \title{Transform symbols}
 \usage{
-\method{transform_symbols}{coded_vec}(x, f, type)
+\method{transform_symbols}{coded_vec}(x, f, type, ...)
 
 \method{transform_symbols}{corpus}(x, f, type, progress = if
-  (interactive()) "text" else "none")
+  (interactive()) "text" else "none", ...)
 
 transform_symbols(x, f, type, ...)
 
-\method{transform_symbols}{vec}(x, f, type)
+\method{transform_symbols}{vec}(x, f, type, ...)
 }
 \arguments{
 \item{x}{Object to transform.}
@@ -23,10 +23,10 @@ transform_symbols(x, f, type, ...)
 
 \item{type}{Character scalar identifying the new symbol type.}
 
+\item{...}{Further arguments to be passed to methods.}
+
 \item{progress}{(Scalar character) Progress bar type, to be passed to
 \code{\link[plyr]{llply}}.}
-
-\item{...}{Further arguments to be passed to methods.}
 }
 \value{
 The transformed object.

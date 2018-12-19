@@ -5,9 +5,10 @@
 #' from a finite alphabet.
 #' Each symbol should be coded as an integer using a bijective mapping.
 #' @param x (Integer vector) The coded sequence.
-#' @param type (Character scalar) Identifies the symbol type.
+#' @param type (Character scalar) Identifies the symbol \code{\link{type}}.
 #' @param metadata (List) A (possibly-empty) list of metadata information.
-#' @return An object of class \code{coded_vec}.
+#' @return An object of class "coded_vec".
+#' @seealso \code{\link{vec}}.
 #' @export
 coded_vec <- function(x, type, metadata = list()) {
   checkmate::qassert(x, "X")
@@ -31,12 +32,12 @@ type.coded_vec <- function(x) {
   x
 }
 
-#' @rdname metadata
 #' @export
 metadata.coded_vec <- function(x) {
   attr(x, "metadata")
 }
 
+#' @export
 `metadata<-.coded_vec` <- function(x, value) {
   attr(x, "metadata") <- value
   x
@@ -52,16 +53,18 @@ is.coded_vec <- function(x) {
   is(x, "coded_vec")
 }
 
+
+
 #' @export
 print.coded_vec <- function(x, ...) {
   cat("Encoded vector of type '", type(x),
-      "', length = ", num_symbols(x),
+      "', length = ", num_elements(x),
       if (length(metadata(x)) > 0L) " (metadata available)", "\n", sep = "")
 }
 
-#' @rdname num_symbols
+#' @rdname num_elements
 #' @export
-num_symbols.coded_vec <- function(x) length(x)
+num_elements.coded_vec <- function(x) length(x)
 
 #' Encode
 #'
@@ -123,7 +126,7 @@ decode.integer <- function(x) {
 
 #' @rdname transform_symbols
 #' @export
-transform_symbols.coded_vec <- function(x, f, type) {
+transform_symbols.coded_vec <- function(x, f, type, ...) {
   encode(transform_symbols(decode(x), f, type))
 }
 
@@ -133,6 +136,8 @@ transform_symbols.coded_vec <- function(x, f, type) {
   coded_vec(as.integer(x)[i], type = type(x), metadata = metadata(x))
 }
 
+#' @param i (Integerish vector) Index/indices to access.
+#' @param value New value(s).
 #' @rdname coded_vec
 #' @export
 `[<-.coded_vec` <- function(x, i, value) {

@@ -42,7 +42,6 @@ remove_row_names <- function(df) {
   df
 }
 
-#' @export
 rename_columns <- function(df, replace, warn_missing = TRUE) {
   names(df) <- plyr::revalue(
     names(df), replace = replace, warn_missing = warn_missing
@@ -50,7 +49,6 @@ rename_columns <- function(df, replace, warn_missing = TRUE) {
   df
 }
 
-#' @export
 add_attributes <- function(df, spec) {
   col_names <- names(spec)
   stopifnot(
@@ -68,7 +66,6 @@ add_attributes <- function(df, spec) {
   df
 }
 
-#' @export
 rep_to_match <- function(x, y) {
   if (length(x) == 1) {
     rep(x, times = length(y))

@@ -51,6 +51,8 @@ as.list.corpus <- function(x, ...) {
   NextMethod("[<-.corpus")
 }
 
+#' @param i (Integerish vector) Index/indices to access.
+#' @param value New value(s).
 #' @rdname corpus
 #' @export
 `[[<-.corpus` <- function(x, i, value) {
@@ -58,6 +60,7 @@ as.list.corpus <- function(x, ...) {
   x
 }
 
+#' @param ... Corpora to combine.
 #' @rdname corpus
 #' @export
 c.corpus <- function(...) {
@@ -72,24 +75,21 @@ c.corpus <- function(...) {
 #' @export
 num_sequences.corpus <- function(x) length(x)
 
-#' @rdname num_symbols
+#' @rdname num_elements
 #' @export
-num_symbols.corpus <- function(x) {
-  sum(vapply(x, num_symbols, integer(1)))
+num_elements.corpus <- function(x) {
+  sum(vapply(x, num_elements, integer(1)))
 }
 
-#' @rdname metadata
 #' @export
 metadata.corpus <- function(x) attr(x, "metadata")
 
-#' @rdname metadata
 #' @export
 `metadata<-.corpus` <- function(x, value) {
   attr(x, "metadata") <- value
   x
 }
 
-#' @rdname type
 #' @export
 type.corpus <- function(x) {
   attr(x, "type")
@@ -127,7 +127,7 @@ decode.corpus <- function(x) {
 #' @export
 print.corpus <- function(x, ...) {
   n <- num_sequences(x)
-  N <- num_symbols(x)
+  N <- num_elements(x)
   cat("\nA corpus of", n , ngettext(n, "sequence", "sequences"), "\n")
   cat("  total size =", N, ngettext(N, "symbol", "symbols"), "\n")
   cat("  symbol type = '", type(x), "'\n", sep = "")
@@ -141,7 +141,8 @@ print.corpus <- function(x, ...) {
 #' @rdname transform_symbols
 #' @export
 transform_symbols.corpus <- function(x, f, type,
-                                     progress = if (interactive()) "text" else "none") {
+                                     progress = if (interactive()) "text" else "none",
+                                     ...) {
   stopifnot(is.function(f))
   checkmate::qassert(type, "S1")
   corpus(

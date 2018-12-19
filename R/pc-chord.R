@@ -84,14 +84,6 @@ as.integer.pc_chord <- function(x, ...) {
   as.integer(as.numeric(x))
 }
 
-#' Pitch-class chord type checking
-#'
-#' Checks whether an object is of class "pc_chord".
-#' @param x Object to check.
-#' @return Scalar logical.
-#' @export
-is.pc_chord <- function(x) is(x, "pc_chord")
-
 #' @export
 c.pc_chord <- function(...) {
   x <- lapply(list(...), unclass)
@@ -170,7 +162,6 @@ pc_chord.character <- function(x) {
   pc_chord(y)
 }
 
-#' @rdname pc_chord
 #' @export
 as.character.pc_chord <- function(x, ...) {
   paste(as.numeric(x), collapse = " ")

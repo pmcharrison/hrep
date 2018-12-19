@@ -31,7 +31,7 @@ test_that("transposition", {
     expect_equal(
       c(0, 4, 7) %>% pc_set %>% tp(i) %>%
         pc_set_norm_form %>%
-        get_transposition,
+         transposition,
       - i
     )
   }

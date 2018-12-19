@@ -20,8 +20,7 @@
 #' When created from a pitch-class set, a normal-form pitch-class set
 #' is associated with the interval by which it was transposed
 #' from the original pitch-class set.
-#' This transposition can be accessed with the function
-#' \code{\link{transposition}}.
+#' This transposition can be accessed with the function \code{transposition()}.
 #' @rdname pc_set_norm_form
 #' @export
 pc_set_norm_form <- function(x) {
@@ -83,5 +82,6 @@ encode.pc_set_norm_form <- function(x) {
 }
 
 decode.coded_vec_pc_set_norm_form <- function(x) {
-  lapply(decode(x, "pc_set"), pc_set_norm_form)
+  x <- coded_vec(x, "pc_set")
+  lapply(decode(x), pc_set_norm_form)
 }

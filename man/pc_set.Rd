@@ -7,6 +7,9 @@
 \alias{pc_set.pc_chord}
 \alias{pc_set.pi_chord}
 \alias{pc_set.fr_chord}
+\alias{pc_set.pc_set_norm_order}
+\alias{pc_set.pc_set_norm_form}
+\alias{pc_set.character}
 \title{Pitch-class set}
 \usage{
 pc_set(x)
@@ -20,6 +23,12 @@ pc_set(x)
 \method{pc_set}{pi_chord}(x)
 
 \method{pc_set}{fr_chord}(x)
+
+\method{pc_set}{pc_set_norm_order}(x)
+
+\method{pc_set}{pc_set_norm_form}(x)
+
+\method{pc_set}{character}(x)
 }
 \arguments{
 \item{x}{Object to represent as a pitch-class set.}

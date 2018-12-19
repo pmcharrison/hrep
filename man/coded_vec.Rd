@@ -18,16 +18,23 @@ coded_vec(x, type, metadata = list())
 \arguments{
 \item{x}{(Integer vector) The coded sequence.}
 
-\item{type}{(Character scalar) Identifies the symbol type.}
+\item{type}{(Character scalar) Identifies the symbol \code{\link{type}}.}
 
 \item{metadata}{(List) A (possibly-empty) list of metadata information.}
+
+\item{i}{(Integerish vector) Index/indices to access.}
+
+\item{value}{New value(s).}
 }
 \value{
-An object of class \code{coded_vec}.
+An object of class "coded_vec".
 }
 \description{
 This function creates a coded vector.
 Coded vectors are used to represent sequences of symbols
 from a finite alphabet.
 Each symbol should be coded as an integer using a bijective mapping.
+}
+\seealso{
+\code{\link{vec}}.
 }

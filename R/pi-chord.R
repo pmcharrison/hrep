@@ -1,3 +1,6 @@
+#' pi_chord constructor
+#'
+#' Constructor function for objects of class "pi_chord".
 #' @param x (Numeric vector) MIDI note numbers in ascending order
 #' @keywords internal
 .pi_chord <- function(...) {
@@ -119,4 +122,4 @@ get_bass_pi.default <- function(x) {
 
 #' @rdname get_bass_pi
 #' @export
-get_bass_pi.pi_chord <- function(x, ...) x[1]
+get_bass_pi.pi_chord <- function(x) x[1]

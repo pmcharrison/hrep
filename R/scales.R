@@ -48,8 +48,9 @@ midi_to_freq <- function(
 
 #' Convert frequencies to MIDI note numbers
 #'
-#' Converts frequencies (Hz) to MIDI note numbers, optionally using stretched octaves. Non-integer MIDI note numbers are permitted as output.
-#' @param midi Numeric vector of MIDI note numbers
+#' Converts frequencies (Hz) to MIDI note numbers, optionally using stretched octaves.
+#' Non-integer MIDI note numbers are permitted as output.
+#' @param frequency Numeric vector of frequencies (Hz).
 #' @param stretched_octave Logical scalar; whether or not to use a stretched octave. Default is \code{FALSE}
 #' @param tuning_ref_Hz The tuning reference point in Hz, should correspond to the frequency of the A above middle C (typically 440 Hz)
 #' @return Numeric vector of frequencies in Hz
@@ -65,6 +66,14 @@ freq_to_midi <- function(
   69 + log(frequency / tuning_ref_Hz, base = 2) * if (stretched_octave) 11.9 else 12
 }
 
+#' Convert amplitude to decibels
+#'
+#' Represents an input amplitude vector in decibels.
+#' @param amplitude Numeric vector of amplitudes, on a linear scale.
+#' @param unit_amplitude_in_dB (Numeric scalar)
+#' The decibel value to which an amplitude of 1 should be mapped.
+#' @return Numeric vector of decibels.
+#' @seealso \code{\link{dB_to_amplitude}}.
 #' @export
 amplitude_to_dB <- function(
   amplitude,
@@ -76,6 +85,14 @@ amplitude_to_dB <- function(
   res
 }
 
+#' Convert decibels to amplitude
+#'
+#' Represents an input vector of decibels to a linear amplitude scale.
+#' @param dB Numeric vector of decibels
+#' @param unit_amplitude_in_dB (Numeric scalar)
+#' The decibel value that should be mapped to an amplitude of 1.
+#' @return Numeric vector of amplitudes, on a linear scale.
+#' @seealso \code{\link{amplitude_to_dB}}.
 #' @export
 dB_to_amplitude <- function(
   dB,
@@ -99,11 +116,11 @@ add_interval <- function(frequency, interval, frequency_scale) {
 
 #' Sum amplitudes
 #'
-#' Sums amplitudes for pairs of pure tones (can be vectorised).
-#' @param x First amplitude to sum (numeric vector)
-#' @param y Second amplitude to sum (numeric vector)
-#' @param coherent Whether or not the phases of the two tones are coherent (logical scalar)
-#' @param dB Whether or not the amplitudes are provided in decibels (dB)
+#' Sums amplitudes for pairs of pure tones (vectorised).
+#' @param x (Numeric vector) First amplitude to sum.
+#' @param y (Numeric vector) Second amplitude to sum.
+#' @param coherent (Logical scalar) Whether or not the phases of the two tones are coherent.
+#' @param dB (Logical scalar) Whether or not the amplitudes are provided in decibels.
 #' @export
 sum_amplitudes <- function(x, y, coherent = FALSE, dB = FALSE) {
   checkmate::qassert(x, "N")

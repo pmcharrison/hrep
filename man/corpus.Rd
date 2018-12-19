@@ -28,6 +28,12 @@ corpus(x, type, metadata = list())
 \item{type}{(Character scalar) Symbol type.}
 
 \item{metadata}{(List) List of metadata information.}
+
+\item{...}{Corpora to combine.}
+
+\item{i}{(Integerish vector) Index/indices to access.}
+
+\item{value}{New value(s).}
 }
 \value{
 An object of class \code{corpus}.

@@ -1,10 +1,20 @@
-#' @export
-representations <- c("fr_chord", "fr_sparse_spectrum",
-                     "pi_chord", "pi_sparse_spectrum",
-                     "pc_chord", "pc_chord_type",
-                     "pc_set", "pc_set_norm_form", "pc_set_norm_order",
-                     "pc_milne_spectrum")
+.representations <- c("fr_chord", "fr_sparse_spectrum",
+                      "pi_chord", "pi_sparse_spectrum",
+                      "pc_chord", "pc_chord_type",
+                      "pc_set", "pc_set_norm_form", "pc_set_norm_order",
+                      "pc_milne_spectrum")
 
+#' Representations
+#'
+#' Returns the available representations in the hrep package.
+#' @return Character vector of representation labels.
+representations <- function() .representations
+
+#' Represent
+#'
+#' Represents an object using a particular type.
+#' @param x Input object.
+#' @param type Target type (see \code{\link{type}}).
 #' @param ... Further arguments to pass to \code{\link{represent}()}.
 #' @rdname represent
 #' @export
@@ -16,7 +26,7 @@ represent <- function(x, type, ...) {
 #' @export
 represent.default <- function(x, type, ...) {
   checkmate::qassert(type, "S1")
-  stopifnot(type %in% representations)
+  stopifnot(type %in% representations())
   get(type, mode = "function")(x)
 }
 

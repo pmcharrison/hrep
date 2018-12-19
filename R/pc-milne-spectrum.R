@@ -35,6 +35,9 @@ pc_milne_spectrum <- function(x, ...) {
   UseMethod("pc_milne_spectrum")
 }
 
+#' @param weights (Numeric vector)
+#' Vector of weights to assign to each pitch class.
+#' If a scalar value is provided, this value is assigned to all pitch classes.
 #' @param num_harmonics (Integerish scalar)
 #' Number of harmonics to use when expanding tones into their implied harmonics,
 #' and when defining the harmonic template
@@ -62,7 +65,8 @@ pc_milne_spectrum.pc_set <- function(x,
                                      num_harmonics = 12,
                                      rho = 0.75,
                                      sigma = 6.83,
-                                     array_dim = 1200) {
+                                     array_dim = 1200,
+                                     ...) {
   if (length(weights) == 1L) weights <- rep(weights, times = length(x))
   pc_spectra <- mapply(
     function(pc, weight) {
@@ -91,14 +95,12 @@ pc_milne_spectrum.default <- function(x, ...) {
 is.pc_milne_spectrum <- function(x) is(x, "pc_milne_spectrum")
 
 
-#' Pitch-class spectrum, template 1
-#' Makes a Gaussian pitch-class  spectral template with unit mass, centred on 0,
-#' with standard deviation <sigma>.
-#' The template will be truncated to zero for points <truncation-point>
-#' standard deviations or further away from the mean,
-#' after \insertCite{Milne2016a;textual}{hrep}.
-#' @references
-#'   \insertAllCited{}
+# Pitch-class spectrum, template 1
+# Makes a Gaussian pitch-class  spectral template with unit mass, centred on 0,
+# with standard deviation <sigma>.
+# The template will be truncated to zero for points <truncation-point>
+# standard deviations or further away from the mean,
+# after \insertCite{Milne2016a;textual}{hrep}.
 pc_spectrum_template_1 <- function(array_dim, sigma, truncation_point) {
   checkmate::qassert(array_dim, "X1[3,)")
   checkmate::qassert(sigma, "N1")
@@ -165,7 +167,7 @@ new_complex_tone <- function(
   spectrum
 }
 
-#' Get complex tone
-#'
-#' Wrapper for \code{new_complex_tone} that implements caching.
+# Get complex tone
+#
+# Wrapper for \code{new_complex_tone} that implements caching.
 get_complex_tone <- memoise::memoise(new_complex_tone)

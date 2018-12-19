@@ -86,5 +86,6 @@ amp <- function(x) UseMethod("amp")
 #' @export
 `amp<-` <- function(x, value) UseMethod("amp<-")
 
+#' @rdname access
 #' @export
 transposition <- function(x) UseMethod("transposition")

@@ -1,5 +1,7 @@
 context("pc_set_alphabet")
 
+library(magrittr)
+
 x <- pc_set_alphabet$by_id
 
 test_that("class", {
@@ -37,7 +39,12 @@ test_that("consistency with previous versions", {
                    mustWork = TRUE),
        envir = old)
   expect_equal(
-    pc_set_alphabet,
-    old$pc_set_alphabet
+    pc_set_alphabet$by_id,
+    old$pc_set_alphabet$by_id
+  )
+  expect_equal(
+    pc_set_alphabet$by_pc_set %>% as.list %>%
+      sapply(as.integer, simplify = FALSE) %>% unlist %>% sort,
+    old$pc_set_alphabet$by_pc_set %>% as.list %>% unlist %>% sort
   )
 })

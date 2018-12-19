@@ -7,15 +7,16 @@
 freq_to_midi(frequency, stretched_octave = FALSE, tuning_ref_Hz = 440)
 }
 \arguments{
+\item{frequency}{Numeric vector of frequencies (Hz).}
+
 \item{stretched_octave}{Logical scalar; whether or not to use a stretched octave. Default is \code{FALSE}}
 
 \item{tuning_ref_Hz}{The tuning reference point in Hz, should correspond to the frequency of the A above middle C (typically 440 Hz)}
-
-\item{midi}{Numeric vector of MIDI note numbers}
 }
 \value{
 Numeric vector of frequencies in Hz
 }
 \description{
-Converts frequencies (Hz) to MIDI note numbers, optionally using stretched octaves. Non-integer MIDI note numbers are permitted as output.
+Converts frequencies (Hz) to MIDI note numbers, optionally using stretched octaves.
+Non-integer MIDI note numbers are permitted as output.
 }

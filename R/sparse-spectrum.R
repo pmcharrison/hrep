@@ -1,4 +1,3 @@
-#' @export
 sparse_spectrum <- function(x, y,
                             x_unit, y_unit,
                             label = "sparse spectrum",
@@ -21,7 +20,6 @@ sparse_spectrum <- function(x, y,
   df
 }
 
-#' @export
 is.sparse_spectrum <- function(x, ...) is(x, "sparse_spectrum")
 
 #' @export
@@ -57,7 +55,7 @@ plot.sparse_spectrum <- function(x, ...) {
 
 #' @export
 view.sparse_spectrum <- function(x, ...) {
-  View(as.data.frame(x, ...))
+  utils::View(as.data.frame(x, ...))
 }
 
 #' @export
@@ -89,7 +87,6 @@ y_lab.sparse_spectrum <- function(x) attr(x, "y_lab")
   x
 }
 
-#' @export
 transform_y.sparse_spectrum <- function(x, f, y_unit, y_lab) {
   stopifnot(is.function(f))
   checkmate::qassert(y_unit, "S1")

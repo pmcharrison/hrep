@@ -61,13 +61,13 @@ expand_harmonics.pi_chord <- function(x, ...) {
 
 fr_harmonic_template <- function(num_harmonics, roll_off) {
   tibble::tibble(n = seq_len(num_harmonics),
-                 amplitude = 1 / (n ^ roll_off))
+                 amplitude = 1 / (.data$n ^ roll_off))
 }
 
 pi_harmonic_template <- function(num_harmonics, roll_off, round = FALSE) {
   x <- tibble::tibble(n = seq_len(num_harmonics),
-                      interval = 12 * log(n, base = 2),
-                      amplitude = 1 / (n ^ roll_off))
+                      interval = 12 * log(.data$n, base = 2),
+                      amplitude = 1 / (.data$n ^ roll_off))
   if (round) x$interval <- round(x$interval)
   x
 }

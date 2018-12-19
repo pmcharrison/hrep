@@ -4,15 +4,11 @@
 \alias{fr_chord}
 \alias{fr_chord.numeric}
 \alias{fr_chord.character}
-\alias{as.character.fr_chord}
-\alias{as.numeric.fr_chord}
 \alias{fr_chord.pi_chord}
 \alias{fr_chord.pc_set}
 \alias{fr_chord.pc_chord}
 \alias{fr_chord.fr_chord}
 \alias{is.fr_chord}
-\alias{print.fr_chord}
-\alias{c.fr_chord}
 \title{Frequency chord}
 \usage{
 fr_chord(x)
@@ -20,10 +16,6 @@ fr_chord(x)
 \method{fr_chord}{numeric}(x)
 
 \method{fr_chord}{character}(x)
-
-\method{as.character}{fr_chord}(x, ...)
-
-\method{as.numeric}{fr_chord}(x, ...)
 
 \method{fr_chord}{pi_chord}(x)
 
@@ -34,10 +26,6 @@ fr_chord(x)
 \method{fr_chord}{fr_chord}(x)
 
 is.fr_chord(x)
-
-\method{print}{fr_chord}(x, digits = 3L, ...)
-
-\method{c}{fr_chord}(...)
 }
 \arguments{
 \item{x}{Object to represent as a frequency chord.}

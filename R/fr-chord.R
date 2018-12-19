@@ -43,13 +43,11 @@ fr_chord.character <- function(x) {
   fr_chord(y)
 }
 
-#' @rdname fr_chord
 #' @export
 as.character.fr_chord <- function(x, ...) {
   paste(as.numeric(x), collapse = " ")
 }
 
-#' @rdname fr_chord
 #' @export
 as.numeric.fr_chord <- function(x, ...) {
   unclass(x)
@@ -83,7 +81,6 @@ fr_chord.fr_chord <- function(x) {
 #' @export
 is.fr_chord <- function(x) is(x, "fr_chord")
 
-#' @rdname fr_chord
 #' @export
 print.fr_chord <- function(x, digits = 3L, ...) {
   cat("Frequency chord: ",
@@ -91,7 +88,6 @@ print.fr_chord <- function(x, digits = 3L, ...) {
             collapse = ", "), "\n", sep = "")
 }
 
-#' @rdname fr_chord
 #' @export
 c.fr_chord <- function(...) {
   x <- lapply(list(...), unclass)

@@ -20,6 +20,8 @@ int_vec(x)
 }
 \arguments{
 \item{x}{Object to analyse.}
+
+\item{...}{Further arguments passed to other methods.}
 }
 \value{
 An integer vector of length 6,

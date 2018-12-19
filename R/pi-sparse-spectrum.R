@@ -1,4 +1,3 @@
-#' @export
 .pi_sparse_spectrum <- function(pitch, amplitude) {
   checkmate::qassert(pitch, "N")
   checkmate::qassert(amplitude, "N")
@@ -36,7 +35,7 @@ pi_sparse_spectrum <- function(x, ...) {
 
 #' @rdname pi_sparse_spectrum
 #' @export
-pi_sparse_spectrum.fr_sparse_spectrum <- function(x) {
+pi_sparse_spectrum.fr_sparse_spectrum <- function(x, ...) {
   .pi_sparse_spectrum(
     pitch = freq_to_midi(freq(x)),
     amplitude = amp(x)
@@ -60,6 +59,9 @@ pi_sparse_spectrum.default <- function(x, ...) {
   pi_sparse_spectrum(pi_chord(x), ...)
 }
 
+#' @param amplitude (Numeric vector)
+#' Vector of amplitudes to assign to each pitch.
+#' If a scalar value is provided, this value is assigned to all pitches
 #' @rdname pi_sparse_spectrum
 #' @export
 pi_sparse_spectrum.pi_chord <- function(x,
@@ -79,7 +81,7 @@ pitch.pi_sparse_spectrum <- function(x) {
 }
 
 #' @export
-`pitch.pi_sparse_spectrum<-` <- function(x, value) {
+`pitch<-.pi_sparse_spectrum` <- function(x, value) {
   stopifnot(is.numeric(value),
             length(value) == length(pitch(x)))
   x$x <- value
@@ -92,13 +94,18 @@ amp.pi_sparse_spectrum <- function(x) {
 }
 
 #' @export
-`amp.pi_sparse_spectrum<-` <- function(x, value) {
+`amp<-.pi_sparse_spectrum` <- function(x, value) {
   stopifnot(is.numeric(value),
             length(value) == length(amp(x)))
   x$y <- value
   x
 }
 
+#' @details
+#' Pitch sparse spectra can be combined into one spectrum using \code{c(...)}.
+#' Amplitudes are summed assuming incoherent wave superposition
+#' (see \code{\link{sum_amplitudes}}).
+#' @rdname pi_sparse_spectrum
 #' @param x_digits (Integerish scalar) Number of significant digits
 #' to which pitches are rounded.
 #' @export

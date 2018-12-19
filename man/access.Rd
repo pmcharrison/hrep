@@ -17,6 +17,7 @@
 \alias{pitch<-}
 \alias{amp}
 \alias{amp<-}
+\alias{transposition}
 \title{Accessors}
 \usage{
 x_unit(x)
@@ -48,6 +49,8 @@ pitch(x) <- value
 amp(x)
 
 amp(x) <- value
+
+transposition(x)
 }
 \arguments{
 \item{x}{Object to access.}
@@ -71,5 +74,6 @@ These functions allow access to certain object properties.
 \item \code{freq}: numeric vector of frequencies
 \item \code{pitch}: numeric vector of pitches
 \item \code{amp}: numeric vector of amplitudes
+\item \code{transposition}: object's transposition
 }
 }

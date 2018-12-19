@@ -1,4 +1,3 @@
-#' @export
 smooth_spectrum <- function(x, x_unit, y_unit, lower, upper, low_eq, high_eq,
                             label = "smooth spectrum",
                             x_lab = x_unit, y_lab = y_unit) {
@@ -25,7 +24,6 @@ smooth_spectrum <- function(x, x_unit, y_unit, lower, upper, low_eq, high_eq,
   x
 }
 
-#' @export
 is.smooth_spectrum <- function(x, ...) is(x, "smooth_spectrum")
 
 #' @export
@@ -69,7 +67,7 @@ plot.smooth_spectrum <- function(x, ...) {
 
 #' @export
 view.smooth_spectrum <- function(x, ...) {
-   View(as.data.frame(x, ...))
+   utils::View(as.data.frame(x, ...))
 }
 
 #' @export

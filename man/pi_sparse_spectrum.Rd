@@ -6,23 +6,33 @@
 \alias{pi_sparse_spectrum.list}
 \alias{pi_sparse_spectrum.default}
 \alias{pi_sparse_spectrum.pi_chord}
+\alias{c.pi_sparse_spectrum}
 \title{Pitch sparse spectrum}
 \usage{
 pi_sparse_spectrum(x, ...)
 
-\method{pi_sparse_spectrum}{fr_sparse_spectrum}(x)
+\method{pi_sparse_spectrum}{fr_sparse_spectrum}(x, ...)
 
 \method{pi_sparse_spectrum}{list}(x, ...)
 
 \method{pi_sparse_spectrum}{default}(x, ...)
 
 \method{pi_sparse_spectrum}{pi_chord}(x, amplitude = 1, ...)
+
+\method{c}{pi_sparse_spectrum}(..., x_digits = 6)
 }
 \arguments{
 \item{x}{Input sonority.}
 
 \item{...}{Further arguments passed to \code{\link{expand_harmonics}()},
 depending on the method invoked.}
+
+\item{amplitude}{(Numeric vector)
+Vector of amplitudes to assign to each pitch.
+If a scalar value is provided, this value is assigned to all pitches}
+
+\item{x_digits}{(Integerish scalar) Number of significant digits
+to which pitches are rounded.}
 }
 \value{
 An object of class \code{pi_sparse_spectrum}.
@@ -36,4 +46,8 @@ of spectral components, each defined by a
 pitch (expressed on the MIDI pitch scale)
 and an amplitude (expressed in arbitrary units, but with the
 fundamental frequencies of chord pitches typically taking the value 1).
+
+Pitch sparse spectra can be combined into one spectrum using \code{c(...)}.
+Amplitudes are summed assuming incoherent wave superposition
+(see \code{\link{sum_amplitudes}}).
 }

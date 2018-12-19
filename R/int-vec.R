@@ -63,6 +63,7 @@ print.int_vec <- function(x, ...) {
   cat("Interval vector: ", as.character(x), "\n", sep = "")
 }
 
+#' @param ... Further arguments passed to other methods.
 #' @rdname int_vec
 #' @export
 as.numeric.int_vec <- function(x, ...) {

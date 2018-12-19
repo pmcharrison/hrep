@@ -9,7 +9,7 @@
 pc_milne_spectrum(x, ...)
 
 \method{pc_milne_spectrum}{pc_set}(x, weights = 1, num_harmonics = 12,
-  rho = 0.75, sigma = 6.83, array_dim = 1200)
+  rho = 0.75, sigma = 6.83, array_dim = 1200, ...)
 
 \method{pc_milne_spectrum}{default}(x, ...)
 }
@@ -17,6 +17,10 @@ pc_milne_spectrum(x, ...)
 \item{x}{Input sonority.}
 
 \item{...}{Further arguments passed to specific methods.}
+
+\item{weights}{(Numeric vector)
+Vector of weights to assign to each pitch class.
+If a scalar value is provided, this value is assigned to all pitch classes.}
 
 \item{num_harmonics}{(Integerish scalar)
 Number of harmonics to use when expanding tones into their implied harmonics,

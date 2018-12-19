@@ -1,12 +1,21 @@
+#' Transpose
+#'
+#' Transposes a sonority.
+#' @param x Input sonority.
+#' @param interval (Numeric scalar) Transposition interval.
+#' @return Transposed sonority.
+#' @rdname tp
 #' @export
 tp <- function(x, interval) UseMethod("tp")
 
+#' @rdname tp
 #' @export
 tp.pc_set <- function(x, interval) {
   checkmate::qassert(interval, "N1")
   pc_set(sort((as.numeric(x) + interval) %% 12L))
 }
 
+#' @rdname tp
 #' @export
 tp.pc_chord <- function(x, interval) {
   checkmate::qassert(interval, "N1")
@@ -18,6 +27,7 @@ tp.pc_chord <- function(x, interval) {
   pc_chord(x)
 }
 
+#' @rdname tp
 #' @export
 tp.pi_chord <- function(x, interval) {
   checkmate::qassert(interval, "N1")

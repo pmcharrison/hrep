@@ -13,3 +13,4 @@ new_complex_tone(fundamental_pc, weight, array_dim, num_harmonics, rho,
 \description{
 Returns an array describing the pitch-class spectrum for a given complex tone.
 }
+\keyword{internal}

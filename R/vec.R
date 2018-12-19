@@ -1,3 +1,19 @@
+#' Vector
+#'
+#' This function creates an object of the class "vec".
+#'
+#' "vec" objects are typed vectors of chord symbols.
+#' Their underlying representation is a list,
+#' where every list element is of a specified type (see \code{\link{type}}).
+#'
+#' @param x List of (un-encoded) chord symbols, each of class \code{type}.
+#' @param type (Character scalar) Identifies the symbol \code{\link{type}}.
+#' @param metadata (List) A (possibly-empty) list of metadata information.
+#'
+#' @return An object of class "vec".
+#'
+#' @rdname vec
+#' @seealso \code{\link{coded_vec}}, code{\link{encode}}, code{\link{decode}}.
 #' @export
 vec <- function(x, type, metadata = list()) {
   checkmate::qassert(x, "l")
@@ -22,7 +38,6 @@ type.vec <- function(x) {
   x
 }
 
-#' @rdname metadata
 #' @export
 metadata.vec <- function(x) {
   attr(x, "metadata")
@@ -33,6 +48,11 @@ metadata.vec <- function(x) {
   x
 }
 
+#' Check for class "vec"
+#'
+#' Checks whether an object is of class "vec".
+#' @param x Object to check.
+#' @return Logical scalar.
 #' @export
 is.vec <- function(x) {
   is(x, "vec")
@@ -46,18 +66,18 @@ as.list.vec <- function(x, ...) {
 }
 
 #' @export
-as.vec.coded_vec <- function(x) decode(x)
-
-#' @export
 is.coded.vec <- function(x) FALSE
 
 #' @export
 print.vec <- function(x, ...) {
   cat("Vector of type '", type(x),
-      "', length = ", num_symbols(x),
+      "', length = ", num_elements(x),
       if (length(metadata(x)) > 0L) " (metadata available)", "\n", sep = "")
 }
 
+#' @param annotate An optional character vector of the same length
+#' as \code{x}, with which to annotate each element.
+#' @rdname view
 #' @export
 view.vec <- function(x, annotate = NULL, ...) {
   if (length(x) > 200) stop("cannot view a vector this long")
@@ -66,12 +86,13 @@ view.vec <- function(x, annotate = NULL, ...) {
                           ...)
 }
 
+#' @rdname num_elements
 #' @export
-num_symbols.vec <- function(x) length(x)
+num_elements.vec <- function(x) length(x)
 
 #' @rdname transform_symbols
 #' @export
-transform_symbols.vec <- function(x, f, type) {
+transform_symbols.vec <- function(x, f, type, ...) {
   stopifnot(is.function(f))
   checkmate::qassert(type, "S1")
   vec(
@@ -81,11 +102,13 @@ transform_symbols.vec <- function(x, f, type) {
   )
 }
 
+#' @rdname vec
 #' @export
 `[.vec` <- function(x, i) {
   vec(as.list(x)[i], type = type(x), metadata = metadata(x))
 }
 
+#' @rdname vec
 #' @export
 `[<-.vec` <- function(x, i, value) {
   target_type <- type(x)
@@ -94,6 +117,9 @@ transform_symbols.vec <- function(x, f, type) {
   NextMethod("[<-.corpus")
 }
 
+#' @param i (Integerish vector) Index/indices to access.
+#' @param value New value(s) to assign.
+#' @rdname vec
 #' @export
 `[[<-.vec` <- function(x, i, value) {
   if (!is(value, type(x)))

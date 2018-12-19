@@ -8,16 +8,16 @@ test_that("examples", {
   c2 <- coded_vec(x2, "x")
 
   expect_equal(
-    num_symbols(c1), 20
+    num_elements(c1), 20
   )
   expect_equal(
-    num_symbols(c2), 25
+    num_elements(c2), 25
   )
 
   d <- corpus(list(c1, c2), type = "x")
 
   expect_equal(
-    num_symbols(d), 45
+    num_elements(d), 45
   )
 
   expect_equal(

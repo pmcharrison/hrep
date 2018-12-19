@@ -7,17 +7,17 @@
 #' @export
 num_sequences <- function(x) UseMethod("num_sequences")
 
-#' Size
+#' Number of elements
 #'
-#' Returns the size of an object, counted in symbols.
+#' Returns the number of elements in an object.
 #' For an object of class \code{\link{vec}}, this will be the length of the vector.
 #' For an object of class \code{\link{corpus}},
 #' this will be the sum of the lengths of its constituent sequences.
 #' @param x Object to analyse.
 #' @return The size of \code{x}, as an integer scalar.
-#' @rdname size
+#' @rdname num_elements
 #' @export
-size <- function(x) UseMethod("size")
+num_elements <- function(x) UseMethod("num_elements")
 
 #' Metadata
 #'
@@ -28,10 +28,10 @@ size <- function(x) UseMethod("size")
 #' @export
 metadata <- function(x) UseMethod("metadata")
 
-#' @rdname metadata
 #' @export
 metadata.default <- function(x) list()
 
+#' @param value New value.
 #' @rdname metadata
 #' @export
 `metadata<-` <- function(x, value) UseMethod("metadata<-")
