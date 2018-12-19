@@ -1,6 +1,12 @@
+#' Pitch-class chord constructor
+#'
+#' This hidden function constructs a pitch-class chord object.
+#' It is unforgiving with respect to input formats,
+#' unlike \code{\link{pc_chord}}.
 #' @param bass_pc Numeric scalar corresponding to bass pitch class
-#' @param other_pc Numeric vector corresponding to pitch-class set, may optionally include the bass pitch class
-#' @export
+#' @param other_pc Numeric vector corresponding to pitch-class set,
+#' may optionally include the bass pitch class
+#' @keywords internal
 .pc_chord <- function(bass_pc, other_pc = numeric()) {
   bass_pc <- as.numeric(bass_pc)
   other_pc <- as.numeric(other_pc)
@@ -73,12 +79,16 @@ as.numeric.pc_chord <- function(x, ...) {
   x
 }
 
-
 #' @export
 as.integer.pc_chord <- function(x, ...) {
   as.integer(as.numeric(x))
 }
 
+#' Pitch-class chord type checking
+#'
+#' Checks whether an object is of class "pc_chord".
+#' @param x Object to check.
+#' @return Scalar logical.
 #' @export
 is.pc_chord <- function(x) is(x, "pc_chord")
 
@@ -96,27 +106,61 @@ print.pc_chord <- function(x, ...) {
       sep = "")
 }
 
+#' @rdname view
 #' @export
 view.pc_chord <- function(x, ...) {
   view(pi_chord(x), ...)
 }
 
+#' @rdname pc_chord
 #' @export
 pc_chord <- function(x) UseMethod("pc_chord")
 
+#' Get bass pitch class
+#'
+#' Gets the bass pitch class of a sonority.
+#' @param x Object to analyse.
+#' @return The bass pitch class, as a numeric scalar.
+#' @rdname get_bass_pc
 #' @export
 get_bass_pc <- function(x) UseMethod("get_bass_pc")
+
+#' @rdname get_bass_pc
+#' @export
+get_bass_pc.default <- function(x) {
+  get_bass_pc(pc_chord(x))
+}
+
+#' @rdname get_bass_pc
 #' @export
 get_bass_pc.pc_chord <- function(x) x[1]
 
+#' Get non-bass pitch classes
+#'
+#' Gets the non-bass pitch classes in a sonority.
+#' @param x Object to analyse.
+#' @return The non-bass pitch classes, as a numeric vector.
+#' @rdname get_non_bass_pc
 #' @export
-get_non_bass_pc <- function(x) UseMethod("get_non_bass_pc")
+get_non_bass_pc <- function(x) {
+  # Note: we don't return a pitch-class set, because pitch class sets
+  # are not allowed to be empty
+  UseMethod("get_non_bass_pc")
+}
 
-# Note: we don't return a pitch-class set, because pitch class sets
-# may not be empty.
+#' @rdname get_bass_pc
 #' @export
-get_non_bass_pc.pc_chord <- function(x) x[- 1]
+get_non_bass_pc.default <- function(x) {
+  get_non_bass_pc(pc_chord(x))
+}
 
+#' @rdname get_bass_pc
+#' @export
+get_non_bass_pc.pc_chord <- function(x) {
+  x[- 1]
+}
+
+#' @rdname pc_chord
 #' @export
 pc_chord.character <- function(x) {
   stopifnot(length(x) == 1L)
@@ -126,14 +170,23 @@ pc_chord.character <- function(x) {
   pc_chord(y)
 }
 
+#' @rdname pc_chord
 #' @export
 as.character.pc_chord <- function(x, ...) {
   paste(as.numeric(x), collapse = " ")
 }
 
+#' Check for class "pc_chord"
+#'
+#' Checks whether an object is of class "pc_chord".
+#' @param x Object to analyse
+#' @return Logical scalar.
 #' @export
-is.pc_chord <- function(x) is(x, "pc_chord")
+is.pc_chord <- function(x) {
+  is(x, "pc_chord")
+}
 
+#' @rdname encode
 #' @export
 encode.pc_chord <- function(x) {
   checkmate::qassert(x, "X")

@@ -1,4 +1,3 @@
-#' @export
 .pc_milne_spectrum <- function(x) {
   checkmate::qassert(x, "N")
   x <- unclass(x)
@@ -83,6 +82,11 @@ pc_milne_spectrum.default <- function(x, ...) {
   pc_milne_spectrum(pc_set(x), ...)
 }
 
+#' Check for class "pc_milne_spectrum"
+#'
+#' Checks whether an object is of class "pc_milne_spectrum".
+#' @param x Object to check.
+#' @return Logical scalar.
 #' @export
 is.pc_milne_spectrum <- function(x) is(x, "pc_milne_spectrum")
 
@@ -127,6 +131,7 @@ pc_spectrum_template_2 <- function(array_dim, mean, mass, sigma, truncation_poin
 #'
 #' Returns an array describing the pitch-class spectrum for a given complex tone.
 #' @param num_harmonics Number of harmonics, including the fundamental
+#' @keywords internal
 new_complex_tone <- function(
   fundamental_pc,
   weight,

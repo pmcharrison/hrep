@@ -1,4 +1,7 @@
-#' @export
+#' Pitch-class chord type constructor
+#'
+#' This is the low-level construct for pitch-class chord type.
+#' @keywords internal
 .pc_chord_type <- function(x) {
   checkmate::qassert(x, "N+[0,12)")
   x <- as.numeric(x)
@@ -34,6 +37,8 @@ pc_chord_type.pc_chord <- function(x) {
   .pc_chord_type(as.numeric(tp(x, - get_bass_pc(x))))
 }
 
+#' @export
+#' @rdname pc_chord_type
 pc_chord_type.pi_chord <- function(x) {
   pc_chord_type(pc_chord(x))
 }

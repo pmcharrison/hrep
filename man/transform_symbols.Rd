@@ -28,6 +28,9 @@ transform_symbols(x, f, type, ...)
 
 \item{...}{Further arguments to be passed to methods.}
 }
+\value{
+The transformed object.
+}
 \description{
 Transforms the symbols within an object.
 }

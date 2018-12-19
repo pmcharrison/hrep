@@ -5,20 +5,30 @@ print.pc_set_norm_order <- function(x, ...) {
       sep = "")
 }
 
-#' @export
 c.pc_set_norm_order <- function(...) {
   x <- lapply(list(...), pc_set)
   x <- do.call(c, x)
 }
 
+#' Pitch-class set (normal order)
+#'
+#' The normal order of a pitch-class set is a maximally compact
+#' reordering of the original pitch-class set.
+#' This function expresses an input sonority
+#' as a normal-order pitch-class set.
+#' @param x Input sonority.
+#' @return An object of class "pc_set_norm_order"
+#' @rdname pc_set_norm_order
 #' @export
 pc_set_norm_order <- function(x) UseMethod("pc_set_norm_order")
 
+#' @rdname pc_set_norm_order
 #' @export
 pc_set_norm_order.numeric <- function(x) {
   pc_set_norm_order(pc_set(unclass(x)))
 }
 
+#' @rdname pc_set_norm_order
 #' @export
 pc_set_norm_order.pc_set <- function(x) {
   if (identical(length(x), 0L)) return(x)

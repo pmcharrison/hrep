@@ -8,6 +8,8 @@
 \alias{pc_chord.pc_chord_type}
 \alias{pc_chord.pi_chord}
 \alias{pc_chord.fr_chord}
+\alias{pc_chord.character}
+\alias{as.character.pc_chord}
 \title{Pitch-class chord}
 \usage{
 pc_chord(x)
@@ -23,6 +25,12 @@ pc_chord(x)
 \method{pc_chord}{pi_chord}(x)
 
 \method{pc_chord}{fr_chord}(x)
+
+pc_chord(x)
+
+\method{pc_chord}{character}(x)
+
+\method{as.character}{pc_chord}(x, ...)
 }
 \arguments{
 \item{x}{Object to represent as a pitch-class chord.}

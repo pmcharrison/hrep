@@ -66,8 +66,18 @@ num_symbols.coded_vec <- function(x) length(x)
 #' Encode
 #'
 #' Transforms a given object into an integer-based encoding.
+#'
 #' @param x Object to transform.
 #' @return Encoded object.
+#'
+#' @details
+#' Encoding is currently defined for the following types:
+#' * \code{\link{pc_set}}
+#' * \code{\link{pc_chord}}
+#' * \code{\link{pc_chord_type}}
+#'
+#' An error will be thrown when trying to encode objects of other types.
+#' @md
 #' @seealso \code{\link{decode}} for the reverse operation.
 #' @export
 encode <- function(x) {

@@ -13,5 +13,8 @@ size(x)
 The size of \code{x}, as an integer scalar.
 }
 \description{
-Size
+Returns the size of an object, counted in symbols.
+For an object of class \code{\link{vec}}, this will be the length of the vector.
+For an object of class \code{\link{corpus}},
+this will be the sum of the lengths of its constituent sequences.
 }

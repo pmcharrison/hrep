@@ -1,4 +1,3 @@
-#' @export
 .pc_set <- function(...) {
   pc <- unclass(c(...))
   checkmate::qassert(pc, "N+[0,12)")
@@ -49,16 +48,23 @@ pc_set.fr_chord <- function(x) {
   pc_set(pi_chord(x))
 }
 
+#' @rdname pc_set
 #' @export
 pc_set.pc_set_norm_order <- function(x) {
   pc_set(sort(x))
 }
 
+#' @rdname pc_set
 #' @export
 pc_set.pc_set_norm_form <- function(x) {
   .pc_set(as.numeric(x))
 }
 
+#' Check for type "pc_set"
+#'
+#' Checks whether an object is of type "pc_set".
+#' @param x Object to test.
+#' @return Scalar logical.
 #' @export
 is.pc_set <- function(x) is(x, "pc_set")
 
@@ -67,11 +73,13 @@ print.pc_set <- function(x, ...) {
   cat("Pitch-class set: ", as.character(x), "\n", sep = "")
 }
 
+#' @rdname view
 #' @export
 view.pc_set <- function(x, ...) {
   view(pi_chord(x), ...)
 }
 
+#' @rdname pc_set
 #' @export
 pc_set.character <- function(x) {
   stopifnot(length(x) == 1L)
@@ -93,6 +101,7 @@ c.pc_set <- function(...) {
   pc_set(sort(unique(x)))
 }
 
+#' @rdname encode
 #' @export
 encode.pc_set <- function(x) {
   checkmate::qassert(x, "X")
@@ -113,7 +122,13 @@ decode.coded_vec_pc_set <- function(x) {
   lapply(hrep::pc_set_alphabet$by_id[x], function(x) pc_set(x))
 }
 
-#' @param pc_chord_id Vectorised
+#' Map pitch-class chords to pitch-class sets
+#'
+#' This vectorised function maps encoded pitch-class chords ("pc_chord")
+#' (as produced by \code{\link{encode}})
+#' to encoded pitch-class sets ("pc_set").
+#' @param pc_chord_id Numeric vector of pitch-class chord codes.
+#' @return Numeric vector of pitch-class set codes.
 #' @export
 map_pc_chord_id_to_pc_set_id <- function(pc_chord_id) {
   hrep::pc_chord_id_to_pc_set_id_map[as.integer(pc_chord_id)]

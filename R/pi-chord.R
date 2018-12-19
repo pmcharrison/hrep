@@ -1,5 +1,5 @@
 #' @param x (Numeric vector) MIDI note numbers in ascending order
-#' @export
+#' @keywords internal
 .pi_chord <- function(...) {
   x <- unclass(c(...))
   checkmate::qassert(x, "N+")
@@ -74,6 +74,11 @@ pi_chord.fr_chord <- function(x) {
   pi_chord(freq_to_midi(as.numeric(x)))
 }
 
+#' Check for type "pi_chord"
+#'
+#' Checks whether an object is of type "pi_chord".
+#' @param x Object to check.
+#' @return Logical scalar.
 #' @export
 is.pi_chord <- function(x) is(x, "pi_chord")
 
@@ -89,17 +94,29 @@ c.pi_chord <- function(...) {
   pi_chord(sort(unique(x)))
 }
 
+#' @rdname view
 #' @export
 view.pi_chord <- function(x, ...) {
   abcR::view_pi_chord(x, ...)
 }
 
+#' Get bass pitch
+#'
+#' Gets the bass pitch of a sonority.
+#' @param x Input sonority.
+#' @return The bass pitch, as a MIDI note number (numeric scalar).
+#' @rdname get_bass_pi
 #' @export
-get_bass_pi <- function(x, ...) {
+get_bass_pi <- function(x) {
   UseMethod("get_bass_pi")
 }
 
+#' @rdname get_bass_pi
 #' @export
-get_bass_pi.pi_chord <- {
-  function(x, ...) x[1]
+get_bass_pi.default <- function(x) {
+  get_bass_pi(pi_chord(x))
 }
+
+#' @rdname get_bass_pi
+#' @export
+get_bass_pi.pi_chord <- function(x, ...) x[1]

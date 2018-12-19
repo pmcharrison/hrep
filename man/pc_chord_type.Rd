@@ -4,6 +4,7 @@
 \alias{pc_chord_type}
 \alias{pc_chord_type.numeric}
 \alias{pc_chord_type.pc_chord}
+\alias{pc_chord_type.pi_chord}
 \alias{pc_chord_type.pc_set}
 \alias{pc_chord_type.pc_set_norm_form}
 \alias{pc_chord_type.smooth_spectrum}
@@ -15,6 +16,8 @@ pc_chord_type(x)
 \method{pc_chord_type}{numeric}(x)
 
 \method{pc_chord_type}{pc_chord}(x)
+
+\method{pc_chord_type}{pi_chord}(x)
 
 \method{pc_chord_type}{pc_set}(x)
 

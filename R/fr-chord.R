@@ -1,3 +1,8 @@
+#' Frequency chord constructor
+#'
+#' This hidden function constructs a frequency chord object.
+#' It is unforgiving with respect to input formats,
+#' unlike \code{\link{fr_chord}}.
 #' @param x (Numeric vector) Frequencies in ascending order
 #' @keywords internal
 .fr_chord <- function(...) {
