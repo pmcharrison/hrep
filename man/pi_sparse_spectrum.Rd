@@ -29,6 +29,8 @@ An object of class \code{pi_sparse_spectrum}.
 }
 \description{
 This function represents an input object as a 'pitch sparse spectrum'.
+}
+\details{
 A pitch sparse spectrum describes an input sonority as a finite set
 of spectral components, each defined by a
 pitch (expressed on the MIDI pitch scale)

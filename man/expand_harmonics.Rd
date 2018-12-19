@@ -2,15 +2,36 @@
 % Please edit documentation in R/expand-harmonics.R
 \name{expand_harmonics}
 \alias{expand_harmonics}
+\alias{expand_harmonics.fr_sparse_spectrum}
+\alias{expand_harmonics.pi_sparse_spectrum}
+\alias{expand_harmonics.pi_chord}
 \title{Expand harmonics}
 \usage{
 expand_harmonics(x, ...)
+
+\method{expand_harmonics}{fr_sparse_spectrum}(x, num_harmonics = 11L,
+  roll_off = 1, frequency_digits = 6, ...)
+
+\method{expand_harmonics}{pi_sparse_spectrum}(x, num_harmonics = 11L,
+  roll_off = 1, round = FALSE, ...)
+
+\method{expand_harmonics}{pi_chord}(x, ...)
 }
 \arguments{
 \item{x}{Object whose harmonics should be expanded.}
 
-\item{...}{Further parameters to be passed to
-\code{\link{expand_harmonics.fr_sparse_spectrum}}.}
+\item{...}{Further parameters to be passed to individual methods.}
+
+\item{num_harmonics}{(Integerish scalar) Number of harmonics produced by each tone,
+including the fundamental frequency.}
+
+\item{roll_off}{(Numeric scalar) Parametrises the amount of amplitude roll-off
+in the harmonics, with greater values corresponding to higher roll-off.}
+
+\item{frequency_digits}{(Integerish scalar) Number of significant digits
+to which frequencies are rounded.}
+
+\item{round}{Whether or not the harmonic template should be rounded}
 }
 \description{
 Expands each tone in an object into its implied harmonics.

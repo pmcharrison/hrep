@@ -2,22 +2,20 @@
 #'
 #' Expands each tone in an object into its implied harmonics.
 #' @param x Object whose harmonics should be expanded.
-#' @param ... Further parameters to be passed to
-#' \code{\link{expand_harmonics.fr_sparse_spectrum}}.
+#' @param ... Further parameters to be passed to individual methods.
+#' @rdname expand_harmonics
 #' @export
 expand_harmonics <- function(x, ...) {
   UseMethod("expand_harmonics")
 }
 
-#' Expand harmonics
-#'
-#' Expands each tone in an object into its implied harmonics.
 #' @param num_harmonics (Integerish scalar) Number of harmonics produced by each tone,
 #' including the fundamental frequency.
 #' @param roll_off (Numeric scalar) Parametrises the amount of amplitude roll-off
 #' in the harmonics, with greater values corresponding to higher roll-off.
 #' @param frequency_digits (Integerish scalar) Number of significant digits
 #' to which frequencies are rounded.
+#' @rdname expand_harmonics
 #' @export
 expand_harmonics.fr_sparse_spectrum <- function(x,
                                                 num_harmonics = 11L,
@@ -36,7 +34,8 @@ expand_harmonics.fr_sparse_spectrum <- function(x,
     do.call(c, .)
 }
 
-#' @param round Whether or not the harmonic template should be rounded
+#' @param round Whether or not the harmonic template should be rounded.
+#' @rdname expand_harmonics
 #' @export
 expand_harmonics.pi_sparse_spectrum <- function(x,
                                                 num_harmonics = 11L,  # including the fundamental
@@ -54,6 +53,7 @@ expand_harmonics.pi_sparse_spectrum <- function(x,
     do.call(c, .)
 }
 
+#' @rdname expand_harmonics
 #' @export
 expand_harmonics.pi_chord <- function(x, ...) {
   pi_sparse_spectrum(x, ...)

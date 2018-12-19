@@ -15,7 +15,26 @@
   res
 }
 
+#' Frequency sparse spectrum
+#'
+#' This function represents an input object as a
+#' 'frequency sparse spectrum'.
+#' @details
+#' A frequency sparse spectrum comprises a finite set of spectral components,
+#' each defined by a frequency (in Hz)
+#' and an amplitude (expressed in arbitrary units, but with the
+#' fundamental frequencies of chord pitches typically taking the value 1).
+#' @param x Input sonority.
+#' * Numeric vectors will be treated as vectors of MIDI note numbers,
+#' and expanded into their implied harmonics.
+#' * Two-element lists will be treated as finalised spectra,
+#' with the first element being a numeric vector of frequencies,
+#' and the second element being a numeric vector of amplitudes.
+#' @param ... Further arguments passed to \code{\link{expand_harmonics}()},
+#' depending on the method invoked.
+#' @return An object of class \code{fr_sparse_spectrum}.
 #' @rdname fr_sparse_spectrum
+#' @md
 #' @export
 fr_sparse_spectrum <- function(x, ...) {
   UseMethod("fr_sparse_spectrum")
