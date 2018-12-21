@@ -77,6 +77,12 @@ pi_chord.fr_chord <- function(x) {
   pi_chord(freq_to_midi(as.numeric(x)))
 }
 
+#' @export
+#' @rdname pi_chord
+pi_chord.pi_chord_type <- function(x) {
+  .pi_chord(60 + x)
+}
+
 #' Check for type "pi_chord"
 #'
 #' Checks whether an object is of type "pi_chord".

@@ -8,6 +8,7 @@
 \alias{pi_chord.pc_chord}
 \alias{pi_chord.pi_chord}
 \alias{pi_chord.fr_chord}
+\alias{pi_chord.pi_chord_type}
 \title{Pitch chord}
 \usage{
 pi_chord(x)
@@ -23,6 +24,8 @@ pi_chord(x)
 \method{pi_chord}{pi_chord}(x)
 
 \method{pi_chord}{fr_chord}(x)
+
+\method{pi_chord}{pi_chord_type}(x)
 }
 \arguments{
 \item{x}{Object to represent as a pitch chord.}

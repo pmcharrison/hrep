@@ -20,7 +20,7 @@ pc_set <- function(x) {
 #' @export
 #' @rdname pc_set
 pc_set.numeric <- function(x) {
-  pc_set(pi_chord(unclass(x)))
+  pc_set(pi_chord(x))
 }
 
 #' @export

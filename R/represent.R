@@ -1,5 +1,6 @@
 .representations <- c("fr_chord", "fr_sparse_spectrum",
-                      "pi_chord", "pi_sparse_spectrum",
+                      "pi_chord", "pi_chord_type",
+                      "pi_sparse_spectrum",
                       "pc_chord", "pc_chord_type",
                       "pc_set", "pc_set_norm_form", "pc_set_norm_order",
                       "pc_milne_spectrum")
