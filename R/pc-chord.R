@@ -37,7 +37,8 @@ pc_chord <- function(x) {
 #' @rdname pc_chord
 pc_chord.numeric <- function(x) {
   bass_pc <- pi_to_pc(x[1])
-  other_pc <- sort(unique(pi_to_pc(x[-1])))
+  other_pc <- setdiff(sort(unique(pi_to_pc(x[-1]))),
+                      bass_pc)
   .pc_chord(bass_pc, other_pc)
 }
 
@@ -63,8 +64,7 @@ pc_chord.pc_chord_type <- function(x) {
 #' @export
 #' @rdname pc_chord
 pc_chord.pi_chord <- function(x) {
-  x <- as.numeric(x)
-  .pc_chord(bass_pc = pi_to_pc(x[1]), other_pc = sort(pi_to_pc(x[-1])))
+  pc_chord(as.numeric(x))
 }
 
 #' @export
