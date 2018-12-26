@@ -21,6 +21,13 @@ test_that("examples", {
 
   c(40, 53, 54) %>% pc_chord_type %>% as.numeric %>%
     expect_equal(c(0, 1, 2))
+
+  c(0, 4, 7) %>% pc_chord_type %>% pi_chord %>% as.numeric %>%
+    expect_equal(c(48, 64, 67))
+
+  "0 5 8" %>% pc_chord_type() %>% expect_equal(pc_chord_type(c(0, 5, 8)))
+
+  "1 5 8" %>% pc_chord_type() %>% expect_equal(pc_chord_type(c(0, 4, 7)))
 })
 
 test_that("transposition", {

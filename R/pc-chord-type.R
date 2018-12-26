@@ -27,7 +27,7 @@ pc_chord_type <- function(x) {
 
 #' @export
 #' @rdname pc_chord_type
-pc_chord_type.numeric <- function(x) {
+pc_chord_type.default <- function(x) {
   pc_chord_type(pi_chord(x))
 }
 

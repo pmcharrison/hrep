@@ -7,4 +7,8 @@ test_that("examples", {
 
   "0 3 7" %>% pc_chord %>% pi_chord_type %>% as.integer %>%
     expect_equal(c(0, 12 + 3, 12 + 7))
+
+  "0 3 7" %>% pi_chord_type %>% pi_chord %>% as.numeric %>%
+    expect_equal(c(60, 63, 67))
+})
 })

@@ -2,7 +2,7 @@
 % Please edit documentation in R/pc-chord-type.R, R/pi-chord-type.R
 \name{pc_chord_type}
 \alias{pc_chord_type}
-\alias{pc_chord_type.numeric}
+\alias{pc_chord_type.default}
 \alias{pc_chord_type.pc_chord}
 \alias{pc_chord_type.pi_chord}
 \alias{pc_chord_type.pc_set}
@@ -16,7 +16,7 @@
 \usage{
 pc_chord_type(x)
 
-\method{pc_chord_type}{numeric}(x)
+\method{pc_chord_type}{default}(x)
 
 \method{pc_chord_type}{pc_chord}(x)
 
