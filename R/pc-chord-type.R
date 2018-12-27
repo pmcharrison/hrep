@@ -73,6 +73,7 @@ pc_chord_type.sparse_spectrum <- function(x) {
   stop("no methods exist for coercing sparse spectra to pitch-class chord types")
 }
 
+#' @rdname encode
 #' @export
 encode.pc_chord_type <- function(x) {
   checkmate::qassert(x, "X")
