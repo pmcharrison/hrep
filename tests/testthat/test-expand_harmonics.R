@@ -1,18 +1,18 @@
 context("test-expand_harmonics")
 
 test_that("misc", {
-  .fr_sparse_spectrum(frequency = c(1, 2),
+  .sparse_fr_spectrum(frequency = c(1, 2),
                       amplitude = c(1, 1)) %>%
     expand_harmonics(num_harmonics = 1) %T>%
-    expect_is("fr_sparse_spectrum") %>%
+    expect_is("sparse_fr_spectrum") %>%
     expect_equal(data.frame(x = c(1, 2),
                             y = c(1, 1)),
                  check.attributes = FALSE)
 
-  .fr_sparse_spectrum(frequency = c(1, 2),
+  .sparse_fr_spectrum(frequency = c(1, 2),
                       amplitude = c(1, 1)) %>%
     expand_harmonics(num_harmonics = 3) %T>%
-    expect_is("fr_sparse_spectrum") %>%
+    expect_is("sparse_fr_spectrum") %>%
     expect_equal(data.frame(x = c(1, 2, 3, 4, 6),
                             y = c(1, sqrt(1.25), 1 / 3, 1 / 2, 1 / 3)),
                  check.attributes = FALSE)
@@ -67,6 +67,6 @@ test_that("rounding", {
 
   expect_equal(
     c(0, 7) %>% pi_chord %>% expand_harmonics(round = TRUE),
-    c(0, 7) %>% pi_sparse_spectrum(round = TRUE)
+    c(0, 7) %>% sparse_pi_spectrum(round = TRUE)
   )
 })

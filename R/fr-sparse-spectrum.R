@@ -1,5 +1,5 @@
 #' @keywords internal
-.fr_sparse_spectrum <- function(frequency, amplitude) {
+.sparse_fr_spectrum <- function(frequency, amplitude) {
   checkmate::qassert(frequency, "N")
   checkmate::qassert(amplitude, "N")
   stopifnot(length(frequency) == length(amplitude))
@@ -11,7 +11,7 @@
                          label = "frequency spectrum",
                          x_lab = "Frequency (Hz)",
                          y_lab = "Amplitude (arbitrary units)")
-  class(res) <- c("fr_sparse_spectrum", class(res))
+  class(res) <- c("sparse_fr_spectrum", class(res))
   res
 }
 
@@ -32,53 +32,53 @@
 #' and the second element being a numeric vector of amplitudes.
 #' @param ... Further arguments passed to \code{\link{expand_harmonics}()},
 #' depending on the method invoked.
-#' @return An object of class \code{fr_sparse_spectrum}.
-#' @rdname fr_sparse_spectrum
+#' @return An object of class \code{sparse_fr_spectrum}.
+#' @rdname sparse_fr_spectrum
 #' @md
 #' @export
-fr_sparse_spectrum <- function(x, ...) {
-  UseMethod("fr_sparse_spectrum")
+sparse_fr_spectrum <- function(x, ...) {
+  UseMethod("sparse_fr_spectrum")
 }
 
-#' @rdname fr_sparse_spectrum
+#' @rdname sparse_fr_spectrum
 #' @export
-fr_sparse_spectrum.pi_sparse_spectrum <- function(x, ...) {
-  .fr_sparse_spectrum(
+sparse_fr_spectrum.pi_sparse_spectrum <- function(x, ...) {
+  .sparse_fr_spectrum(
     frequency = midi_to_freq(pitch(x)),
     amplitude = amp(x)
   )
 }
 
-#' @rdname fr_sparse_spectrum
+#' @rdname sparse_fr_spectrum
 #' @export
-fr_sparse_spectrum.pi_chord <- function(x, ...) {
-  fr_sparse_spectrum(pi_sparse_spectrum(x, ...))
+sparse_fr_spectrum.pi_chord <- function(x, ...) {
+  sparse_fr_spectrum(pi_sparse_spectrum(x, ...))
 }
 
-#' @rdname fr_sparse_spectrum
+#' @rdname sparse_fr_spectrum
 #' @export
-fr_sparse_spectrum.default <- function(x, ...) {
-  fr_sparse_spectrum(pi_chord(x), ...)
+sparse_fr_spectrum.default <- function(x, ...) {
+  sparse_fr_spectrum(pi_chord(x), ...)
 }
 
-#' @rdname fr_sparse_spectrum
+#' @rdname sparse_fr_spectrum
 #' @export
-fr_sparse_spectrum.list <- function(x, ...) {
+sparse_fr_spectrum.list <- function(x, ...) {
   stopifnot(length(x) == 2L,
             is.numeric(x[[1]]),
             is.numeric(x[[2]]),
             length(x[[1]]) == length(x[[2]]))
-  .fr_sparse_spectrum(frequency = x[[1]],
+  .sparse_fr_spectrum(frequency = x[[1]],
                       amplitude = x[[2]])
 }
 
 #' @export
-freq.fr_sparse_spectrum <- function(x) {
+freq.sparse_fr_spectrum <- function(x) {
   x$x
 }
 
 #' @export
-`freq<-.fr_sparse_spectrum` <- function(x, value) {
+`freq<-.sparse_fr_spectrum` <- function(x, value) {
   stopifnot(is.numeric(value),
             length(value) == length(freq(x)))
   x$x <- value
@@ -86,12 +86,12 @@ freq.fr_sparse_spectrum <- function(x) {
 }
 
 #' @export
-amp.fr_sparse_spectrum <- function(x) {
+amp.sparse_fr_spectrum <- function(x) {
   x$y
 }
 
 #' @export
-`amp<-.fr_sparse_spectrum` <- function(x, value) {
+`amp<-.sparse_fr_spectrum` <- function(x, value) {
   stopifnot(is.numeric(value),
             length(value) == length(amp(x)))
   x$y <- value
@@ -102,13 +102,13 @@ amp.fr_sparse_spectrum <- function(x) {
 #' Frequency sparse spectra can be combined into one spectrum using \code{c(...)}.
 #' Amplitudes are summed assuming incoherent wave superposition
 #' (see \code{\link{sum_amplitudes}}).
-#' @rdname fr_sparse_spectrum
+#' @rdname sparse_fr_spectrum
 #' @param x_digits (Integerish scalar) Number of significant digits
 #' to which frequencies are rounded when being combined.
 #' @export
-c.fr_sparse_spectrum <- function(..., x_digits = 6) {
+c.sparse_fr_spectrum <- function(..., x_digits = 6) {
   combine_sparse_spectra_amplitudes(...,
-                                    class = "fr_sparse_spectrum",
-                                    constructor = .fr_sparse_spectrum,
+                                    class = "sparse_fr_spectrum",
+                                    constructor = .sparse_fr_spectrum,
                                     x_digits = x_digits)
 }

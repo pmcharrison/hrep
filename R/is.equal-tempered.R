@@ -31,6 +31,6 @@ is.equal_tempered.pc_chord <- function(x, ...) {
 
 #' @rdname is.equal_tempered
 #' @export
-is.equal_tempered.pi_sparse_spectrum <- function(x, ...) {
+is.equal_tempered.sparse_pi_spectrum <- function(x, ...) {
   checkmate::qtest(pitch(x), "X")
 }

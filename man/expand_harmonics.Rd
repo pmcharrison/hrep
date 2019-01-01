@@ -2,17 +2,17 @@
 % Please edit documentation in R/expand-harmonics.R
 \name{expand_harmonics}
 \alias{expand_harmonics}
-\alias{expand_harmonics.fr_sparse_spectrum}
-\alias{expand_harmonics.pi_sparse_spectrum}
+\alias{expand_harmonics.sparse_fr_spectrum}
+\alias{expand_harmonics.sparse_pi_spectrum}
 \alias{expand_harmonics.pi_chord}
 \title{Expand harmonics}
 \usage{
 expand_harmonics(x, ...)
 
-\method{expand_harmonics}{fr_sparse_spectrum}(x, num_harmonics = 11L,
+\method{expand_harmonics}{sparse_fr_spectrum}(x, num_harmonics = 11L,
   roll_off = 1, frequency_digits = 6, ...)
 
-\method{expand_harmonics}{pi_sparse_spectrum}(x, num_harmonics = 11L,
+\method{expand_harmonics}{sparse_pi_spectrum}(x, num_harmonics = 11L,
   roll_off = 1, round = FALSE, ...)
 
 \method{expand_harmonics}{pi_chord}(x, ...)

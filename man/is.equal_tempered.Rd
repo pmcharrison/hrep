@@ -5,7 +5,7 @@
 \alias{is.equal_tempered.pi_chord}
 \alias{is.equal_tempered.pc_set}
 \alias{is.equal_tempered.pc_chord}
-\alias{is.equal_tempered.pi_sparse_spectrum}
+\alias{is.equal_tempered.sparse_pi_spectrum}
 \title{Check for equal temperament}
 \usage{
 is.equal_tempered(x, ...)
@@ -16,7 +16,7 @@ is.equal_tempered(x, ...)
 
 \method{is.equal_tempered}{pc_chord}(x, ...)
 
-\method{is.equal_tempered}{pi_sparse_spectrum}(x, ...)
+\method{is.equal_tempered}{sparse_pi_spectrum}(x, ...)
 }
 \arguments{
 \item{x}{Chord to check.}

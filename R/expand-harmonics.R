@@ -17,7 +17,7 @@ expand_harmonics <- function(x, ...) {
 #' to which frequencies are rounded.
 #' @rdname expand_harmonics
 #' @export
-expand_harmonics.fr_sparse_spectrum <- function(x,
+expand_harmonics.sparse_fr_spectrum <- function(x,
                                                 num_harmonics = 11L,
                                                 roll_off = 1,
                                                 frequency_digits = 6,
@@ -26,7 +26,7 @@ expand_harmonics.fr_sparse_spectrum <- function(x,
 
   purrr::map2(freq(x), amp(x),
               function(freq, amp) {
-                .fr_sparse_spectrum(
+                .sparse_fr_spectrum(
                   frequency = round(freq * template$n,
                                     digits = frequency_digits),
                   amplitude = amp * template$amplitude)
@@ -37,7 +37,7 @@ expand_harmonics.fr_sparse_spectrum <- function(x,
 #' @param round Whether or not the harmonic template should be rounded.
 #' @rdname expand_harmonics
 #' @export
-expand_harmonics.pi_sparse_spectrum <- function(x,
+expand_harmonics.sparse_pi_spectrum <- function(x,
                                                 num_harmonics = 11L,  # including the fundamental
                                                 roll_off = 1,
                                                 round = FALSE,
@@ -46,7 +46,7 @@ expand_harmonics.pi_sparse_spectrum <- function(x,
 
   purrr::map2(pitch(x), amp(x),
               function(pitch, amp) {
-                .pi_sparse_spectrum(
+                .sparse_pi_spectrum(
                   pitch = pitch + template$interval,
                   amplitude = amp * template$amplitude)
               }) %>%
@@ -56,7 +56,7 @@ expand_harmonics.pi_sparse_spectrum <- function(x,
 #' @rdname expand_harmonics
 #' @export
 expand_harmonics.pi_chord <- function(x, ...) {
-  pi_sparse_spectrum(x, ...)
+  sparse_pi_spectrum(x, ...)
 }
 
 fr_harmonic_template <- function(num_harmonics, roll_off) {

@@ -19,15 +19,15 @@ A \strong{type} is a way of representing a chord symbol.
 Various types are available:
 \itemize{
 \item \code{\link{fr_chord}}
-\item \code{\link{fr_sparse_spectrum}}
+\item \code{\link{sparse_fr_spectrum}}
 \item \code{\link{pi_chord}}
-\item \code{\link{pi_sparse_spectrum}}
+\item \code{\link{sparse_pi_spectrum}}
 \item \code{\link{pc_chord}}
 \item \code{\link{pc_chord_type}}
 \item \code{\link{pc_set}}
 \item \code{\link{pc_set_norm_form}}
 \item \code{\link{pc_set_norm_order}}
-\item \code{\link{pc_milne_spectrum}}
+\item \code{\link{milne_pc_spectrum}}
 }
 
 Various objects can be typed:

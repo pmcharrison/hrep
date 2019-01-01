@@ -43,15 +43,15 @@ metadata.default <- function(x) list()
 #' @details
 #' Various types are available:
 #' * \code{\link{fr_chord}}
-#' * \code{\link{fr_sparse_spectrum}}
+#' * \code{\link{sparse_fr_spectrum}}
 #' * \code{\link{pi_chord}}
-#' * \code{\link{pi_sparse_spectrum}}
+#' * \code{\link{sparse_pi_spectrum}}
 #' * \code{\link{pc_chord}}
 #' * \code{\link{pc_chord_type}}
 #' * \code{\link{pc_set}}
 #' * \code{\link{pc_set_norm_form}}
 #' * \code{\link{pc_set_norm_order}}
-#' * \code{\link{pc_milne_spectrum}}
+#' * \code{\link{milne_pc_spectrum}}
 #'
 #' Various objects can be typed:
 #' * Individual chord objects, e.g. \code{\link{pc_set}}

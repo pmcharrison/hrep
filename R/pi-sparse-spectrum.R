@@ -1,4 +1,4 @@
-.pi_sparse_spectrum <- function(pitch, amplitude) {
+.sparse_pi_spectrum <- function(pitch, amplitude) {
   checkmate::qassert(pitch, "N")
   checkmate::qassert(amplitude, "N")
   stopifnot(length(pitch) == length(amplitude))
@@ -10,7 +10,7 @@
                          label = "pitch spectrum",
                          x_lab = "Pitch (MIDI)",
                          y_lab = "Amplitude (arbitrary units)")
-  class(res) <- c("pi_sparse_spectrum", class(res))
+  class(res) <- c("sparse_pi_spectrum", class(res))
   res
 }
 
@@ -26,62 +26,62 @@
 #' @param x Input sonority.
 #' @param ... Further arguments passed to \code{\link{expand_harmonics}()},
 #' depending on the method invoked.
-#' @return An object of class \code{pi_sparse_spectrum}.
-#' @rdname pi_sparse_spectrum
+#' @return An object of class \code{sparse_pi_spectrum}.
+#' @rdname sparse_pi_spectrum
 #' @export
-pi_sparse_spectrum <- function(x, ...) {
-  UseMethod("pi_sparse_spectrum")
+sparse_pi_spectrum <- function(x, ...) {
+  UseMethod("sparse_pi_spectrum")
 }
 
-#' @rdname pi_sparse_spectrum
+#' @rdname sparse_pi_spectrum
 #' @export
-pi_sparse_spectrum.fr_sparse_spectrum <- function(x, ...) {
-  .pi_sparse_spectrum(
+sparse_pi_spectrum.fr_sparse_spectrum <- function(x, ...) {
+  .sparse_pi_spectrum(
     pitch = freq_to_midi(freq(x)),
     amplitude = amp(x)
   )
 }
 
-#' @rdname pi_sparse_spectrum
+#' @rdname sparse_pi_spectrum
 #' @export
-pi_sparse_spectrum.list <- function(x, ...) {
+sparse_pi_spectrum.list <- function(x, ...) {
   stopifnot(length(x) == 2L,
             is.numeric(x[[1]]),
             is.numeric(x[[2]]),
             length(x[[1]]) == length(x[[2]]))
-  .pi_sparse_spectrum(pitch = x[[1]],
+  .sparse_pi_spectrum(pitch = x[[1]],
                       amplitude = x[[2]])
 }
 
-#' @rdname pi_sparse_spectrum
+#' @rdname sparse_pi_spectrum
 #' @export
-pi_sparse_spectrum.default <- function(x, ...) {
-  pi_sparse_spectrum(pi_chord(x), ...)
+sparse_pi_spectrum.default <- function(x, ...) {
+  sparse_pi_spectrum(pi_chord(x), ...)
 }
 
 #' @param amplitude (Numeric vector)
 #' Vector of amplitudes to assign to each pitch.
 #' If a scalar value is provided, this value is assigned to all pitches
-#' @rdname pi_sparse_spectrum
+#' @rdname sparse_pi_spectrum
 #' @export
-pi_sparse_spectrum.pi_chord <- function(x,
+sparse_pi_spectrum.pi_chord <- function(x,
                                         amplitude = 1,
                                         ...) {
   checkmate::qassert(amplitude, "N")
   if (length(amplitude) == 1L) amplitude <- rep_to_match(amplitude, x)
   stopifnot(length(amplitude) == length(x))
-  expand_harmonics(.pi_sparse_spectrum(pitch = as.numeric(x),
+  expand_harmonics(.sparse_pi_spectrum(pitch = as.numeric(x),
                                        amplitude = amplitude),
                    ...)
 }
 
 #' @export
-pitch.pi_sparse_spectrum <- function(x) {
+pitch.sparse_pi_spectrum <- function(x) {
   x$x
 }
 
 #' @export
-`pitch<-.pi_sparse_spectrum` <- function(x, value) {
+`pitch<-.sparse_pi_spectrum` <- function(x, value) {
   stopifnot(is.numeric(value),
             length(value) == length(pitch(x)))
   x$x <- value
@@ -89,12 +89,12 @@ pitch.pi_sparse_spectrum <- function(x) {
 }
 
 #' @export
-amp.pi_sparse_spectrum <- function(x) {
+amp.sparse_pi_spectrum <- function(x) {
   x$y
 }
 
 #' @export
-`amp<-.pi_sparse_spectrum` <- function(x, value) {
+`amp<-.sparse_pi_spectrum` <- function(x, value) {
   stopifnot(is.numeric(value),
             length(value) == length(amp(x)))
   x$y <- value
@@ -105,13 +105,13 @@ amp.pi_sparse_spectrum <- function(x) {
 #' Pitch sparse spectra can be combined into one spectrum using \code{c(...)}.
 #' Amplitudes are summed assuming incoherent wave superposition
 #' (see \code{\link{sum_amplitudes}}).
-#' @rdname pi_sparse_spectrum
+#' @rdname sparse_pi_spectrum
 #' @param x_digits (Integerish scalar) Number of significant digits
 #' to which pitches are rounded.
 #' @export
-c.pi_sparse_spectrum <- function(..., x_digits = 6) {
+c.sparse_pi_spectrum <- function(..., x_digits = 6) {
   combine_sparse_spectra_amplitudes(...,
-                                    class = "pi_sparse_spectrum",
-                                    constructor = .pi_sparse_spectrum,
+                                    class = "sparse_pi_spectrum",
+                                    constructor = .sparse_pi_spectrum,
                                     x_digits = x_digits)
 }

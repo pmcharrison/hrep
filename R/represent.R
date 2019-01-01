@@ -1,9 +1,9 @@
-.representations <- c("fr_chord", "fr_sparse_spectrum",
+.representations <- c("fr_chord", "sparse_fr_spectrum",
                       "pi_chord", "pi_chord_type",
-                      "pi_sparse_spectrum",
+                      "sparse_pi_spectrum",
                       "pc_chord", "pc_chord_type",
                       "pc_set", "pc_set_norm_form", "pc_set_norm_order",
-                      "pc_milne_spectrum")
+                      "milne_pc_spectrum")
 
 #' Representations
 #'
