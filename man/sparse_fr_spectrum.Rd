@@ -7,7 +7,7 @@
 \alias{sparse_fr_spectrum.default}
 \alias{sparse_fr_spectrum.list}
 \alias{c.sparse_fr_spectrum}
-\title{Frequency sparse spectrum}
+\title{Sparse frequency spectrum}
 \usage{
 sparse_fr_spectrum(x, ...)
 
@@ -42,15 +42,15 @@ An object of class \code{sparse_fr_spectrum}.
 }
 \description{
 This function represents an input object as a
-'frequency sparse spectrum'.
+sparse frequency spectrum.
 }
 \details{
-A frequency sparse spectrum comprises a finite set of spectral components,
+A sparse frequency spectrum comprises a finite set of spectral components,
 each defined by a frequency (in Hz)
 and an amplitude (expressed in arbitrary units, but with the
 fundamental frequencies of chord pitches typically taking the value 1).
 
-Frequency sparse spectra can be combined into one spectrum using \code{c(...)}.
+Sparse frequency spectra can be combined into one spectrum using \code{c(...)}.
 Amplitudes are summed assuming incoherent wave superposition
 (see \code{\link{sum_amplitudes}}).
 }

@@ -7,7 +7,7 @@
 \alias{sparse_pi_spectrum.default}
 \alias{sparse_pi_spectrum.pi_chord}
 \alias{c.sparse_pi_spectrum}
-\title{Pitch sparse spectrum}
+\title{Sparse pitch spectrum}
 \usage{
 sparse_pi_spectrum(x, ...)
 
@@ -38,16 +38,16 @@ to which pitches are rounded.}
 An object of class \code{sparse_pi_spectrum}.
 }
 \description{
-This function represents an input object as a 'pitch sparse spectrum'.
+This function represents an input object as a sparse pitch spectrum.
 }
 \details{
-A pitch sparse spectrum describes an input sonority as a finite set
+A sparse pitch spectrum describes an input sonority as a finite set
 of spectral components, each defined by a
 pitch (expressed on the MIDI pitch scale)
 and an amplitude (expressed in arbitrary units, but with the
 fundamental frequencies of chord pitches typically taking the value 1).
 
-Pitch sparse spectra can be combined into one spectrum using \code{c(...)}.
+Sparse pitch spectra can be combined into one spectrum using \code{c(...)}.
 Amplitudes are summed assuming incoherent wave superposition
 (see \code{\link{sum_amplitudes}}).
 }

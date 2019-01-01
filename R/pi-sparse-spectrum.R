@@ -14,11 +14,11 @@
   res
 }
 
-#' Pitch sparse spectrum
+#' Sparse pitch spectrum
 #'
-#' This function represents an input object as a 'pitch sparse spectrum'.
+#' This function represents an input object as a sparse pitch spectrum.
 #' @details
-#' A pitch sparse spectrum describes an input sonority as a finite set
+#' A sparse pitch spectrum describes an input sonority as a finite set
 #' of spectral components, each defined by a
 #' pitch (expressed on the MIDI pitch scale)
 #' and an amplitude (expressed in arbitrary units, but with the
@@ -102,7 +102,7 @@ amp.sparse_pi_spectrum <- function(x) {
 }
 
 #' @details
-#' Pitch sparse spectra can be combined into one spectrum using \code{c(...)}.
+#' Sparse pitch spectra can be combined into one spectrum using \code{c(...)}.
 #' Amplitudes are summed assuming incoherent wave superposition
 #' (see \code{\link{sum_amplitudes}}).
 #' @rdname sparse_pi_spectrum
