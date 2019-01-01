@@ -42,7 +42,7 @@ sparse_fr_spectrum <- function(x, ...) {
 
 #' @rdname sparse_fr_spectrum
 #' @export
-sparse_fr_spectrum.pi_sparse_spectrum <- function(x, ...) {
+sparse_fr_spectrum.sparse_pi_spectrum <- function(x, ...) {
   .sparse_fr_spectrum(
     frequency = midi_to_freq(pitch(x)),
     amplitude = amp(x)
@@ -52,7 +52,7 @@ sparse_fr_spectrum.pi_sparse_spectrum <- function(x, ...) {
 #' @rdname sparse_fr_spectrum
 #' @export
 sparse_fr_spectrum.pi_chord <- function(x, ...) {
-  sparse_fr_spectrum(pi_sparse_spectrum(x, ...))
+  sparse_fr_spectrum(sparse_pi_spectrum(x, ...))
 }
 
 #' @rdname sparse_fr_spectrum

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fr-sparse-spectrum.R
 \name{sparse_fr_spectrum}
 \alias{sparse_fr_spectrum}
-\alias{sparse_fr_spectrum.pi_sparse_spectrum}
+\alias{sparse_fr_spectrum.sparse_pi_spectrum}
 \alias{sparse_fr_spectrum.pi_chord}
 \alias{sparse_fr_spectrum.default}
 \alias{sparse_fr_spectrum.list}
@@ -11,7 +11,7 @@
 \usage{
 sparse_fr_spectrum(x, ...)
 
-\method{sparse_fr_spectrum}{pi_sparse_spectrum}(x, ...)
+\method{sparse_fr_spectrum}{sparse_pi_spectrum}(x, ...)
 
 \method{sparse_fr_spectrum}{pi_chord}(x, ...)
 
