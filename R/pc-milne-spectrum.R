@@ -1,12 +1,12 @@
 #' Constructor function for pitch-class Milne spectrum
 #'
-#' This function constructs a "pc_milne_spectrum" object.
+#' This function constructs a "milne_pc_spectrum" object.
 #' @param x A numeric vector of pitch-class weights,
 #' typically (but not necessarily) of length 1200.
-#' @return An object of class "pc_milne_spectrum".
-#' @seealso \code{\link{pc_milne_spectrum}}.
+#' @return An object of class "milne_pc_spectrum".
+#' @seealso \code{\link{milne_pc_spectrum}}.
 #' @export
-.pc_milne_spectrum <- function(x) {
+.milne_pc_spectrum <- function(x) {
   checkmate::qassert(x, "N")
   x <- unclass(x)
   y <- smooth_spectrum(x = x,
@@ -19,7 +19,7 @@
                        label = "pitch-class spectrum",
                        x_lab = "Pitch class",
                        y_lab = "Weight")
-  class(y) <- c("pc_milne_spectrum", class(y))
+  class(y) <- c("milne_pc_spectrum", class(y))
   y
 }
 
@@ -36,12 +36,12 @@
 #' See \insertCite{Milne2016a;textual}{hrep} for details.
 #' @param x Input sonority.
 #' @param ... Further arguments passed to specific methods.
-#' @return An object of class \code{pc_milne_spectrum}.
-#' @rdname pc_milne_spectrum
-#' @seealso \code{\link{.pc_milne_spectrum}}.
+#' @return An object of class \code{milne_pc_spectrum}.
+#' @rdname milne_pc_spectrum
+#' @seealso \code{\link{.milne_pc_spectrum}}.
 #' @export
-pc_milne_spectrum <- function(x, ...) {
-  UseMethod("pc_milne_spectrum")
+milne_pc_spectrum <- function(x, ...) {
+  UseMethod("milne_pc_spectrum")
 }
 
 #' @param weights (Numeric vector)
@@ -65,11 +65,11 @@ pc_milne_spectrum <- function(x, ...) {
 #' Dimensionality of the pitch-class spectrum array.
 #' Defaults to 1200, after
 #' \insertCite{Milne2016;textual}{har18}.
-#' @rdname pc_milne_spectrum
+#' @rdname milne_pc_spectrum
 #' @references
 #' \insertAllCited{}
 #' @export
-pc_milne_spectrum.pc_set <- function(x,
+milne_pc_spectrum.pc_set <- function(x,
                                      weights = 1,
                                      num_harmonics = 12,
                                      rho = 0.75,
@@ -86,22 +86,22 @@ pc_milne_spectrum.pc_set <- function(x,
                        rho = rho,
                        sigma = sigma)
     }, x, weights)
-  .pc_milne_spectrum(rowSums(pc_spectra))
+  .milne_pc_spectrum(rowSums(pc_spectra))
 }
 
-#' @rdname pc_milne_spectrum
+#' @rdname milne_pc_spectrum
 #' @export
-pc_milne_spectrum.default <- function(x, ...) {
-  pc_milne_spectrum(pc_set(x), ...)
+milne_pc_spectrum.default <- function(x, ...) {
+  milne_pc_spectrum(pc_set(x), ...)
 }
 
-#' Check for class "pc_milne_spectrum"
+#' Check for class "milne_pc_spectrum"
 #'
-#' Checks whether an object is of class "pc_milne_spectrum".
+#' Checks whether an object is of class "milne_pc_spectrum".
 #' @param x Object to check.
 #' @return Logical scalar.
 #' @export
-is.pc_milne_spectrum <- function(x) is(x, "pc_milne_spectrum")
+is.milne_pc_spectrum <- function(x) is(x, "milne_pc_spectrum")
 
 
 # Pitch-class spectrum, template 1
