@@ -1,9 +1,13 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# hrep
+# hrep - Harmony Representations
 
-The goal of hrep is to …
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+
+`hrep` is an R package that provides methods for representing and
+manipulating chord sequences. It is currently still under active
+development, but we plan an official release in 2019.
 
 ## Development notes
 
