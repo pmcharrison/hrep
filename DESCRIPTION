@@ -10,7 +10,8 @@ LazyData: true
 ByteCompile: true
 Suggests: 
     testthat (>= 2.0.0),
-    sets (>= 1.0.18)
+    sets (>= 1.0.18),
+    covr
 RoxygenNote: 6.1.0
 Imports: 
     plyr,
