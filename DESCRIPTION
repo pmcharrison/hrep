@@ -1,6 +1,6 @@
 Package: hrep
 Title: Harmony Representations
-Version: 0.5.0
+Version: 0.5.1
 Authors@R: person("Peter", "Harrison", email = "pmc.harrison@gmail.com", role = c("aut", "cre"))
 Description: This package provides methods for representing and manipulating chord sequences.
 Depends: R (>= 3.4.0)
