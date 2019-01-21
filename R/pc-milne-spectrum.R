@@ -33,7 +33,7 @@
 #' This spectrum is typically constructed from musical chords
 #' by expanding each note into its implied harmonics
 #' and applying a Gaussian smoothing to account for perceptual uncertainties.
-#' See \insertCite{Milne2016a;textual}{hrep} for details.
+#' See \insertCite{Milne2016;textual}{hrep} for details.
 #' @param x Input sonority.
 #' @param ... Further arguments passed to specific methods.
 #' @return An object of class \code{milne_pc_spectrum}.
@@ -52,19 +52,19 @@ milne_pc_spectrum <- function(x, ...) {
 #' and when defining the harmonic template
 #' (including the fundamental frequency).
 #' Defaults to 12, after
-#' \insertCite{Milne2016;textual}{har18}.
+#' \insertCite{Milne2016;textual}{hrep}.
 #' @param rho (Numeric scalar)
 #' Roll-off parameter for harmonic expansion.
 #' Defaults to 0.75, after
-#' \insertCite{Milne2016;textual}{har18}.
+#' \insertCite{Milne2016;textual}{hrep}.
 #' @param sigma (Numeric scalar)
 #' Standard deviation of the Gaussian smoothing distribution (cents).
 #' Defaults to 6.83, after
-#' \insertCite{Milne2016;textual}{har18}.
+#' \insertCite{Milne2016;textual}{hrep}.
 #' @param array_dim (Integerish scalar)
 #' Dimensionality of the pitch-class spectrum array.
 #' Defaults to 1200, after
-#' \insertCite{Milne2016;textual}{har18}.
+#' \insertCite{Milne2016;textual}{hrep}.
 #' @rdname milne_pc_spectrum
 #' @references
 #' \insertAllCited{}
@@ -109,7 +109,7 @@ is.milne_pc_spectrum <- function(x) is(x, "milne_pc_spectrum")
 # with standard deviation <sigma>.
 # The template will be truncated to zero for points <truncation-point>
 # standard deviations or further away from the mean,
-# after \insertCite{Milne2016a;textual}{hrep}.
+# after \insertCite{Milne2016;textual}{hrep}.
 pc_spectrum_template_1 <- function(array_dim, sigma, truncation_point) {
   checkmate::qassert(array_dim, "X1[3,)")
   checkmate::qassert(sigma, "N1")

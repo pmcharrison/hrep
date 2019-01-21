@@ -27,22 +27,22 @@ Number of harmonics to use when expanding tones into their implied harmonics,
 and when defining the harmonic template
 (including the fundamental frequency).
 Defaults to 12, after
-\insertCite{Milne2016;textual}{har18}.}
+\insertCite{Milne2016;textual}{hrep}.}
 
 \item{rho}{(Numeric scalar)
 Roll-off parameter for harmonic expansion.
 Defaults to 0.75, after
-\insertCite{Milne2016;textual}{har18}.}
+\insertCite{Milne2016;textual}{hrep}.}
 
 \item{sigma}{(Numeric scalar)
 Standard deviation of the Gaussian smoothing distribution (cents).
 Defaults to 6.83, after
-\insertCite{Milne2016;textual}{har18}.}
+\insertCite{Milne2016;textual}{hrep}.}
 
 \item{array_dim}{(Integerish scalar)
 Dimensionality of the pitch-class spectrum array.
 Defaults to 1200, after
-\insertCite{Milne2016;textual}{har18}.}
+\insertCite{Milne2016;textual}{hrep}.}
 }
 \value{
 An object of class \code{milne_pc_spectrum}.
@@ -57,7 +57,7 @@ as a continuous function of 'pitch class'.
 This spectrum is typically constructed from musical chords
 by expanding each note into its implied harmonics
 and applying a Gaussian smoothing to account for perceptual uncertainties.
-See \insertCite{Milne2016a;textual}{hrep} for details.
+See \insertCite{Milne2016;textual}{hrep} for details.
 }
 \references{
 \insertAllCited{}
