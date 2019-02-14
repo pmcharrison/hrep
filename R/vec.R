@@ -68,10 +68,16 @@ as.list.vec <- function(x, ...) {
 is.coded.vec <- function(x) FALSE
 
 #' @export
-print.vec <- function(x, ...) {
-  cat("Vector of type '", type(x),
-      "', length = ", num_elements(x),
-      if (length(metadata(x)) > 0L) " (metadata available)", "\n", sep = "")
+print.vec <- function(x, detail = FALSE, ...) {
+  if (detail) {
+    for (i in seq_along(x)) {
+      cat("[[", i, "]] ", capture.output(x[[i]]), "\n", sep = "")
+    }
+  } else {
+    cat("Vector of type '", type(x),
+        "', length = ", num_elements(x),
+        if (length(metadata(x)) > 0L) " (metadata available)", "\n", sep = "")
+  }
 }
 
 #' @param annotate An optional character vector of the same length
