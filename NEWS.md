@@ -1,0 +1,2 @@
+- Added a `NEWS.md` file to track changes to the package.
+- Added `milne_pc_spec_dist` for computing spectral distances between sonorities.
