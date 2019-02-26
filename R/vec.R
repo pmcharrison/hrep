@@ -71,7 +71,7 @@ is.coded.vec <- function(x) FALSE
 print.vec <- function(x, detail = FALSE, ...) {
   if (detail) {
     for (i in seq_along(x)) {
-      cat("[[", i, "]] ", capture.output(x[[i]]), "\n", sep = "")
+      cat("[[", i, "]] ", utils::capture.output(x[[i]]), "\n", sep = "")
     }
   } else {
     cat("Vector of type '", type(x),
