@@ -1,4 +1,4 @@
-#' Constructor function for pitch-class Milne spectrum
+#' Constructor function for Milne pitch-class spectrum
 #'
 #' This function constructs a "milne_pc_spectrum" object.
 #' @param x A numeric vector of pitch-class weights,
@@ -23,11 +23,11 @@
   y
 }
 
-#' Pitch-class Milne spectrum
+#' Milne pitch-class spectrum
 #'
 #' This function represents an input object as a
-#' 'pitch-class Milne spectrum'.
-#' A pitch-class Milne spectrum defines 'perceptual weight'
+#' 'Milne pitch-class spectrum'.
+#' A Milne pitch-class spectrum defines 'perceptual weight'
 #' as a continuous function of 'pitch class'.
 #' @details
 #' This spectrum is typically constructed from musical chords
