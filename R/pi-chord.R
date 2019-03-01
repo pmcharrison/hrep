@@ -28,6 +28,8 @@ pi_chord <- function(x) {
 #' @export
 #' @rdname pi_chord
 pi_chord.numeric <- function(x) {
+  if (is.smooth_spectrum(x))
+    stop("cannot translate smooth spectra to pi_chord representations")
   .pi_chord(sort(unique(unclass(x))))
 }
 

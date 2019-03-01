@@ -41,7 +41,7 @@ as.data.frame.sparse_spectrum <- function(x, ...) {
 }
 
 #' @export
-plot.sparse_spectrum <- function(x, ...) {
+plot.sparse_spectrum <- function(x, ggplot = FALSE, ...) {
   df <- as.data.frame(x)
   n <- nrow(df)
   df2 <- data.frame(x = numeric(n * 3), y = numeric(n * 3))
@@ -50,7 +50,15 @@ plot.sparse_spectrum <- function(x, ...) {
     df2$x[I + 1:3] <- df$x[i]
     df2$y[I + 2L] <- df$y[i]
   }
-  plot(df2$x, df2$y, xlab = x_lab(x), ylab = y_lab(x), type = "l", ...)
+  if (ggplot) {
+    tibble::tibble(x = df2$x, y = df2$y) %>%
+      ggplot2::ggplot(ggplot2::aes_string(x = "x", y = "y")) +
+      ggplot2::geom_line() +
+      ggplot2::scale_x_continuous(x_lab(x)) +
+      ggplot2::scale_y_continuous(y_lab(x))
+  } else {
+    plot(df2$x, df2$y, xlab = x_lab(x), ylab = y_lab(x), type = "l", ...)
+  }
 }
 
 #' @export

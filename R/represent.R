@@ -3,7 +3,7 @@
                       "sparse_pi_spectrum",
                       "pc_chord", "pc_chord_type",
                       "pc_set", "pc_set_norm_form", "pc_set_norm_order",
-                      "milne_pc_spectrum")
+                      "milne_pc_spectrum", "wave")
 
 #' Representations
 #'

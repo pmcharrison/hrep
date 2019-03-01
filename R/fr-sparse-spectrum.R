@@ -10,7 +10,7 @@
                          y_unit = "amplitude",
                          label = "frequency spectrum",
                          x_lab = "Frequency (Hz)",
-                         y_lab = "Amplitude (arbitrary units)")
+                         y_lab = "Amplitude")
   class(res) <- c("sparse_fr_spectrum", class(res))
   res
 }
