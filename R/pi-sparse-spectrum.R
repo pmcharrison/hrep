@@ -9,7 +9,7 @@
                          y_unit = "amplitude",
                          label = "pitch spectrum",
                          x_lab = "Pitch (MIDI)",
-                         y_lab = "Amplitude (arbitrary units)")
+                         y_lab = "Amplitude")
   class(res) <- c("sparse_pi_spectrum", class(res))
   res
 }

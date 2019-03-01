@@ -18,6 +18,7 @@
 #' * \code{pitch}: numeric vector of pitches
 #' * \code{amp}: numeric vector of amplitudes
 #' * \code{transposition}: object's transposition
+#' * \code{sample_rate}: object's sample rate
 #' @rdname access
 #' @name access
 NULL
@@ -89,3 +90,20 @@ amp <- function(x) UseMethod("amp")
 #' @rdname access
 #' @export
 transposition <- function(x) UseMethod("transposition")
+
+#' @rdname access
+#' @export
+sample_rate <- function(x) UseMethod("sample_rate")
+
+`sample_rate<-` <- function(x, value) UseMethod("sample_rate<-")
+
+#' @export
+sample_rate.numeric <- function(x) {
+  attr(x, "sample_rate")
+}
+
+`sample_rate<-.numeric` <- function(x, value) {
+  checkmate::qassert(value, "X1")
+  attr(x, "sample_rate") <- value
+  x
+}

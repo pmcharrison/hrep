@@ -18,6 +18,7 @@
 \alias{amp}
 \alias{amp<-}
 \alias{transposition}
+\alias{sample_rate}
 \title{Accessors}
 \usage{
 x_unit(x)
@@ -51,6 +52,8 @@ amp(x)
 amp(x) <- value
 
 transposition(x)
+
+sample_rate(x)
 }
 \arguments{
 \item{x}{Object to access.}
@@ -75,5 +78,6 @@ These functions allow access to certain object properties.
 \item \code{pitch}: numeric vector of pitches
 \item \code{amp}: numeric vector of amplitudes
 \item \code{transposition}: object's transposition
+\item \code{sample_rate}: object's sample rate
 }
 }
