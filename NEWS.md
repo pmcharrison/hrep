@@ -1,3 +1,5 @@
+# hrep 0.8.0
+
 - Added methods for synthesising audio.
 
 # hrep 0.7.0
