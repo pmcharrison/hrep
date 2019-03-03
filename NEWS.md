@@ -1,3 +1,5 @@
+- Added methods for synthesising audio.
+
 # hrep 0.7.0
 
 - Added wave representation.
