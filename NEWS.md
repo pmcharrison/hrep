@@ -1,3 +1,5 @@
+- Added synthesis of sparse harmonic spectra.
+
 # hrep 0.8.0
 
 - Added methods for synthesising audio.
