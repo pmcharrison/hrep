@@ -1,4 +1,4 @@
-#' Play sound (pluck)
+#' Play sound (sox)
 #'
 #' Plays a sound with a plucked timbre.
 #'
@@ -15,14 +15,14 @@
 #' @param ... Further parameters to pass to \code{\link{save_wav_pluck}}.
 #'
 #' @export
-play_pluck <- function(x, ...) {
-  UseMethod("play_pluck")
+play_sox <- function(x, ...) {
+  UseMethod("play_sox")
 }
 
 #' @export
-play_pluck.default <- function(x, ...) {
+play_sox.default <- function(x, ...) {
   file <- tempfile(fileext = ".wav")
-  save_wav_pluck(x, file = file, ...)
+  save_wav_sox(x, file = file, ...)
   system(paste0("play ", shQuote(file)))
   file.remove(file)
 }

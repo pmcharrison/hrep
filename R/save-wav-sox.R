@@ -1,6 +1,6 @@
-#' Save wav file (pluck)
+#' Save wav file (sox)
 #'
-#' Saves object to a wav file using the 'pluck' timbre from sox
+#' Saves object to a wav file using the 'sox' timbre from sox
 #' (\url{http://sox.sourceforge.net/}).
 #'
 #' @note
@@ -17,37 +17,37 @@
 #' @param ... Parameters passed to methods.
 #'
 #' @export
-save_wav_pluck <- function(x, file, chord_length = 1) {
-  UseMethod("save_wav_pluck")
+save_wav_sox <- function(x, file, chord_length = 1) {
+  UseMethod("save_wav_sox")
 }
 
 #' @export
-save_wav_pluck.default <- function(x, ...) {
-  save_wav_pluck(pi_chord(x), ...)
+save_wav_sox.default <- function(x, ...) {
+  save_wav_sox(pi_chord(x), ...)
 }
 
 #' @export
-save_wav_pluck.vec <- function(x, file, ...) {
+save_wav_sox.vec <- function(x, file, ...) {
   files <- paste("chord-", seq_along(x), "-", sep = "") %>%
     tempfile(fileext = ".wav")
-  for (i in seq_along(x)) save_wav_pluck(x[[i]], files[i], ...)
+  for (i in seq_along(x)) save_wav_sox(x[[i]], files[i], ...)
   cmd <- c("sox", shQuote(files), shQuote(file)) %>% paste(collapse = " ")
   system(cmd)
   file.remove(files)
 }
 
 #' @export
-save_wav_pluck.coded_vec <- function(x, file, ...) {
-  save_wav_pluck(decode(x), file, ...)
+save_wav_sox.coded_vec <- function(x, file, ...) {
+  save_wav_sox(decode(x), file, ...)
 }
 
 #' @export
-save_wav_pluck.pi_chord <- function(x, ...) {
-  save_wav_pluck(fr_chord(x), ...)
+save_wav_sox.pi_chord <- function(x, ...) {
+  save_wav_sox(fr_chord(x), ...)
 }
 
 #' @export
-save_wav_pluck.fr_chord <- function(x, file, chord_length = 1) {
+save_wav_sox.fr_chord <- function(x, file, chord_length = 1) {
   checkmate::qassert(file, "S1")
   checkmate::qassert(chord_length, "N1(0,)")
   len <- sprintf("%.10f", as.numeric(chord_length))
