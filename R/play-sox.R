@@ -1,6 +1,6 @@
 #' Play sound (sox)
 #'
-#' Plays a sound with a plucked timbre.
+#' Plays a sound using the command-line tool sox.
 #'
 #' The sound is synthesised using \code{\link{save_wav_pluck}}
 #' and saved to a temporary file, which is then played from the R session.

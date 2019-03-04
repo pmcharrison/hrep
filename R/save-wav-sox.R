@@ -17,23 +17,13 @@
 #' @param ... Parameters passed to methods.
 #'
 #' @export
-save_wav_sox <- function(x, file, chord_length = 1) {
+save_wav_sox <- function(x, file, ...) {
   UseMethod("save_wav_sox")
 }
 
 #' @export
 save_wav_sox.default <- function(x, ...) {
   save_wav_sox(pi_chord(x), ...)
-}
-
-#' @export
-save_wav_sox.vec <- function(x, file, ...) {
-  files <- paste("chord-", seq_along(x), "-", sep = "") %>%
-    tempfile(fileext = ".wav")
-  for (i in seq_along(x)) save_wav_sox(x[[i]], files[i], ...)
-  cmd <- c("sox", shQuote(files), shQuote(file)) %>% paste(collapse = " ")
-  system(cmd)
-  file.remove(files)
 }
 
 #' @export
@@ -47,14 +37,56 @@ save_wav_sox.pi_chord <- function(x, ...) {
 }
 
 #' @export
-save_wav_sox.fr_chord <- function(x, file, chord_length = 1) {
-  checkmate::qassert(file, "S1")
-  checkmate::qassert(chord_length, "N1(0,)")
-  len <- sprintf("%.10f", as.numeric(chord_length))
-  freq <- sprintf("%.10f", as.numeric(x))
-  tones <- purrr::map_chr(freq,
-                          ~ sprintf('"|sox -n -p synth %s pluck %s"', len, .)) %>%
+save_wav_sox.sparse_pi_spectrum <- function(x, ...) {
+  save_wav_sox(sparse_fr_spectrum(x), ...)
+}
+
+#' @export
+save_wav_sox.fr_chord <- function(x, file, timbre = "pluck", ...) {
+  save_wav_sox(
+    .sparse_fr_spectrum(frequency = as.numeric(x),
+                        amplitude = rep(1, times = length(x))),
+    file = file,
+    timbre = timbre,
+    ...
+  )
+}
+
+#' @export
+save_wav_sox.vec <- function(x, file, reverb = 20, ...) {
+  files <- paste("chord-", seq_along(x), "-", sep = "") %>%
+    tempfile(fileext = ".wav")
+  for (i in seq_along(x)) save_wav_sox(x[[i]], files[i], ...)
+  cmd <- c("sox", shQuote(files), shQuote(file),
+           "reverb", reverb) %>%
     paste(collapse = " ")
-  cmd <- sprintf('sox --norm=-3 -m %s %s', tones, file)
   system(cmd)
+  file.remove(files)
+}
+
+#' @export
+save_wav_sox.sparse_fr_spectrum <- function(x,
+                                            file,
+                                            chord_length = 1,
+                                            rise_length = 0.01,
+                                            fade_length = 0.01,
+                                            timbre = "sine",
+                                            partial_volume = 0.1,
+                                            spectrum_gain = "auto",
+                                            volume = 0.1,
+                                            ...) {
+  fade_length <- fade_length
+  frequencies <- freq(x)
+  if (timbre == "pluck" && any(frequencies > 4000))
+    stop("cannot play plucked notes with frequencies greater than 4,000 Hz")
+  amplitudes <- amp(x) * volume
+  tone_cmd <- purrr::map2_chr(frequencies, amplitudes, function(fr, amp) {
+    '-v {amp} "|sox -n -p synth {chord_length} {timbre} {fr}"' %>%
+      glue::glue()
+  }) %>% paste(collapse = " ")
+  norm_cmd <- if (spectrum_gain == "auto") "--norm=-3" else ""
+  gain_cmd <- if (spectrum_gain == "auto") "" else paste0("gain ", spectrum_gain)
+  "sox {norm_cmd} -m {tone_cmd} {file} {gain_cmd} fade {rise_length} {chord_length} {fade_length}" %>%
+    glue::glue() %>%
+    system()
 }

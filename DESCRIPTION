@@ -25,6 +25,7 @@ Imports:
     tuneR (>= 1.3.3),
     abcR (>= 0.0.0.9005),
     tibble (>= 1.4.2),
-    utils
+    utils,
+    glue
 RdMacros: Rdpack
 Remotes: pmcharrison/abcR
