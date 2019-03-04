@@ -62,6 +62,7 @@ save_wav_sox.vec <- function(x, file, reverb = 20, ...) {
     paste(collapse = " ")
   system(cmd)
   file.remove(files)
+  invisible()
 }
 
 #' @export
