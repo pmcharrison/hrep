@@ -1,3 +1,7 @@
+# hrep 0.9.0
+
+- Expanding sound synthesis capabilities.
+
 # hrep 0.8.0
 
 - Added methods for synthesising audio.
