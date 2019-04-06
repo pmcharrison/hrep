@@ -2,9 +2,29 @@
 % Please edit documentation in R/save-wav-sox.R
 \name{save_wav_sox}
 \alias{save_wav_sox}
+\alias{save_wav_sox.coded_vec}
+\alias{save_wav_sox.pi_chord}
+\alias{save_wav_sox.sparse_pi_spectrum}
+\alias{save_wav_sox.fr_chord}
+\alias{save_wav_sox.vec}
+\alias{save_wav_sox.sparse_fr_spectrum}
 \title{Save wav file (sox)}
 \usage{
 save_wav_sox(x, file, ...)
+
+\method{save_wav_sox}{coded_vec}(x, file, ...)
+
+\method{save_wav_sox}{pi_chord}(x, file, ...)
+
+\method{save_wav_sox}{sparse_pi_spectrum}(x, file, ...)
+
+\method{save_wav_sox}{fr_chord}(x, file, timbre = "pluck", ...)
+
+\method{save_wav_sox}{vec}(x, file, reverb = 20, ...)
+
+\method{save_wav_sox}{sparse_fr_spectrum}(x, file, chord_length = 1,
+  rise_length = 0.01, fade_length = 0.01, timbre = "sine",
+  spectrum_gain = "auto", volume = 0.1, ...)
 }
 \arguments{
 \item{x}{Object to save; methods exist for individual chords
@@ -15,10 +35,40 @@ Chords are coerced to a \code{\link{pi_chord}} representation.}
 
 \item{...}{Parameters passed to methods.}
 
-\item{chord_length}{(Numeric scalar) Length of each output chord, in seconds.}
+\item{timbre}{(Character scalar)
+Timbre to use for synthesizing tones.
+Only applies to representations that have not already undergone
+harmonic expansion.
+This parameter is passed to the \code{type} argument of
+the \code{sox synth} command.
+Valid values include
+sine, square, triangle, sawtooth, trapezium, exp, noise,
+tpdfnoise, pinknoise, brownnoise, pluck.}
+
+\item{reverb}{(Numeric scalar)
+Reverberance parameter for \code{sox reverb},
+expressed as a percentage.}
+
+\item{chord_length}{(Numeric scalar)
+Chord length (seconds).}
+
+\item{rise_length}{(Numeric scalar)
+Chord fade-in time (seconds).}
+
+\item{fade_length}{(Numeric scalar)
+Chord fade-out time (seconds).}
+
+\item{spectrum_gain}{(Coerced to character scalar)
+If "auto", then the chord's audio output is peak-normalised to
+a fixed value (using "--norm=-3" in sox).
+Other values will be passed directly to the "gain" parameter in sox.}
+
+\item{volume}{(Numeric scalar)
+Amplitude multipler (higher values make the sound louder).
+Only relevant when \code{spectrum_gain} is not \code{auto}.}
 }
 \description{
-Saves object to a wav file using the 'sox' timbre from sox
+Saves object to a wav file using sox
 (\url{http://sox.sourceforge.net/}).
 }
 \note{

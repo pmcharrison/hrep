@@ -7,15 +7,15 @@
 play_sox(x, ...)
 }
 \arguments{
-\item{x}{Object to play (see \code{\link{save_wav_pluck}} for valid options).}
+\item{x}{Object to play (see \code{\link{save_wav_sox}} for valid options).}
 
-\item{...}{Further parameters to pass to \code{\link{save_wav_pluck}}.}
+\item{...}{Further parameters to pass to \code{\link{save_wav_sox}}.}
 }
 \description{
 Plays a sound using the command-line tool sox.
 }
 \details{
-The sound is synthesised using \code{\link{save_wav_pluck}}
+The sound is synthesised using \code{\link{save_wav_sox}}
 and saved to a temporary file, which is then played from the R session.
 }
 \note{
