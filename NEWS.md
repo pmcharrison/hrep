@@ -1,4 +1,4 @@
-- Added synthesis of sparse harmonic spectra.
+- Expanding sound synthesis capabilities.
 
 # hrep 0.8.0
 
