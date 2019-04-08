@@ -189,3 +189,33 @@ decode.coded_vec_pc_chord <- function(x) {
   checkmate::qassert(x, "X")
   hrep::pc_chord_alphabet$by_id[x]
 }
+
+#' Edit bass pitch class
+#'
+#' Edits the bass pitch class of a sonority.
+#' Throws an error if the proposed pitch class was not already
+#' in the sonority's pitch-class set.
+#'
+#' @param x Original sonority.
+#'
+#' @param new
+#' (Numeric scalar)
+#' New bass pitch class.
+#'
+#' @return A sonority with the updated bass pitch class.
+#'
+#' @rdname edit_bass_pc
+#' @export
+edit_bass_pc <- function(x, new) {
+  UseMethod("edit_bass_pc")
+}
+
+#' @rdname edit_bass_pc
+#' @export
+edit_bass_pc.pc_chord <- function(x, new) {
+  checkmate::qassert(new, "N1")
+  if (!new %in% x)
+    stop("requested bass pitch class was not found in original chord")
+  non_bass <- sort(setdiff(x, new))
+  .pc_chord(new, non_bass)
+}
