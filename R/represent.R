@@ -28,7 +28,7 @@ represent <- function(x, type, ...) {
 represent.default <- function(x, type, ...) {
   checkmate::qassert(type, "S1")
   stopifnot(type %in% representations())
-  get(type, mode = "function")(x)
+  get(type, mode = "function")(x, ...)
 }
 
 #' @rdname represent

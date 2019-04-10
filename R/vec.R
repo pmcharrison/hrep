@@ -106,7 +106,7 @@ transform_symbols.vec <- function(x, f, type, ...) {
   stopifnot(is.function(f))
   checkmate::qassert(type, "S1")
   vec(
-    x = purrr::map(as.list(x), f),
+    x = purrr::map(as.list(x), f, ...),
     type = type,
     metadata = metadata(x)
   )

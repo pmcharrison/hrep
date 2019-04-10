@@ -138,7 +138,7 @@ transform_symbols.corpus <- function(x, f, type,
   stopifnot(is.function(f))
   checkmate::qassert(type, "S1")
   corpus(
-    plyr::llply(x, transform_symbols, f, type, .progress = progress),
+    plyr::llply(x, transform_symbols, f, type = type, ..., .progress = progress),
     type = type,
     metadata = metadata(x)
   )
