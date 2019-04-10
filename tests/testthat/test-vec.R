@@ -23,3 +23,15 @@ test_that("indexing", {
                       type = "pc_set",
                       metadata = list("meta")))
 })
+
+test_that("subclasses", {
+  x <- c(0, 4, 7) %>% pc_chord %>% list() %>% vec("pc_chord")
+
+  expect_equal(class(x),
+               c("vec_pc_chord", "vec", "list"))
+
+  x <- represent(x, "pc_set")
+
+  expect_equal(class(x),
+               c("vec_pc_set", "vec", "list"))
+})

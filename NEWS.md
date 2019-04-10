@@ -1,3 +1,5 @@
+- Introducing S3 subclasses for different vector types.
+
 # hrep 0.9.0
 
 - Expanding sound synthesis capabilities.
