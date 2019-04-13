@@ -19,7 +19,7 @@
                        label = "pitch-class spectrum",
                        x_lab = "Pitch class",
                        y_lab = "Weight")
-  class(y) <- c("milne_pc_spectrum", class(y))
+  class(y) <- c("milne_pc_spectrum", "chord", class(y))
   y
 }
 

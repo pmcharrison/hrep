@@ -2,7 +2,7 @@
   pc <- unclass(c(...))
   checkmate::qassert(pc, "N+[0,12)")
   stopifnot(!anyDuplicated(pc), isTRUE(all.equal(pc, sort(pc))))
-  class(pc) <- "pc_set"
+  class(pc) <- c("pc_set", "chord", class(pc))
   pc
 }
 

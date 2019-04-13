@@ -7,7 +7,7 @@
   x <- unclass(c(...))
   checkmate::qassert(x, "N+")
   stopifnot(!anyDuplicated(x), isTRUE(all.equal(x, sort(x))))
-            class(x) <- c("pi_chord", "numeric")
+            class(x) <- c("pi_chord", "chord", "numeric")
             x
 }
 

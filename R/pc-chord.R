@@ -16,7 +16,7 @@
             !bass_pc %in% other_pc,
             isTRUE(all.equal(other_pc, sort(other_pc))))
   x <- c(bass_pc, other_pc)
-  class(x) <- "pc_chord"
+  class(x) <- c("pc_chord", "chord", class(x))
   x
 }
 

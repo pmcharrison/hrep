@@ -38,8 +38,13 @@ test_that("consistency with previous versions", {
                    package = "hrep",
                    mustWork = TRUE),
        envir = old)
+  by_id <- pc_set_alphabet$by_id
+  for (i in seq_along(by_id)) {
+    expect_equal(class(by_id[[i]]), c("pc_set", "chord", "numeric"))
+    class(by_id[[i]]) <- "pc_set"
+  }
   expect_equal(
-    pc_set_alphabet$by_id,
+    by_id,
     old$pc_set_alphabet$by_id
   )
   expect_equal(

@@ -8,7 +8,7 @@
   stopifnot(x[1] == 0,
             !anyDuplicated(x),
             isTRUE(all.equal(x, sort(x))))
-  class(x) <- c("pc_chord_type", "pc_chord")
+  class(x) <- c("pc_chord_type", "pc_chord", "chord")
   x
 }
 

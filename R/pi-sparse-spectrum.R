@@ -10,7 +10,7 @@
                          label = "pitch spectrum",
                          x_lab = "Pitch (MIDI)",
                          y_lab = "Amplitude")
-  class(res) <- c("sparse_pi_spectrum", class(res))
+  class(res) <- c("sparse_pi_spectrum", "chord", class(res))
   res
 }
 
