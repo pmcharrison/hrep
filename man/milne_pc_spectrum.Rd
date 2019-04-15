@@ -4,6 +4,7 @@
 \alias{milne_pc_spectrum}
 \alias{milne_pc_spectrum.pc_set}
 \alias{milne_pc_spectrum.default}
+\alias{milne_pc_spectrum.milne_pc_spectrum}
 \title{Milne pitch-class spectrum}
 \usage{
 milne_pc_spectrum(x, ...)
@@ -12,6 +13,8 @@ milne_pc_spectrum(x, ...)
   rho = 0.75, sigma = 6.83, array_dim = 1200, ...)
 
 \method{milne_pc_spectrum}{default}(x, ...)
+
+\method{milne_pc_spectrum}{milne_pc_spectrum}(x, ...)
 }
 \arguments{
 \item{x}{Input sonority.}

@@ -95,6 +95,12 @@ milne_pc_spectrum.default <- function(x, ...) {
   milne_pc_spectrum(pc_set(x), ...)
 }
 
+#' @rdname milne_pc_spectrum
+#' @export
+milne_pc_spectrum.milne_pc_spectrum <- function(x, ...) {
+  x
+}
+
 #' Check for class "milne_pc_spectrum"
 #'
 #' Checks whether an object is of class "milne_pc_spectrum".
