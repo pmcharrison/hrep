@@ -7,7 +7,7 @@
 \usage{
 corpus(x, type, metadata = list())
 
-is.corpus(x, ...)
+is.corpus(x)
 }
 \arguments{
 \item{x}{List of sequences, where each sequence is an object of class

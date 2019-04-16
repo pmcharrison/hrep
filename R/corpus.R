@@ -29,7 +29,7 @@ corpus <- function(x, type, metadata = list()) {
 
 #' @rdname corpus
 #' @export
-is.corpus <- function(x, ...) {
+is.corpus <- function(x) {
   is(x, "corpus")
 }
 
