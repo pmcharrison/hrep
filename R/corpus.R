@@ -27,6 +27,12 @@ corpus <- function(x, type, metadata = list()) {
   x
 }
 
+#' @rdname corpus
+#' @export
+is.corpus <- function(x, ...) {
+  is(x, "corpus")
+}
+
 #' @export
 as.list.corpus <- function(x, ...) {
   attributes(x) <- NULL
