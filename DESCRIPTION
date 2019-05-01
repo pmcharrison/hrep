@@ -29,3 +29,5 @@ Imports:
     glue
 RdMacros: Rdpack
 Remotes: pmcharrison/abcR
+URL: https://github.com/pmcharrison/hrep
+BugReports: https://github.com/pmcharrison/hrep/issues
