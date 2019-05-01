@@ -10,3 +10,12 @@ os:
 
 after_success:
     - Rscript -e 'covr::coveralls()'
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_PAT
+  keep-history: true
+  local-dir: docs
+  on:
+    branch: master
