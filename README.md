@@ -16,6 +16,9 @@ status](https://coveralls.io/repos/github/pmcharrison/hrep/badge.svg)](https://c
 manipulating chord sequences. It is currently still under active
 development, but we plan an official release in 2019.
 
+We recommend you explore the [online
+documentation](https://pmcharrison.github.io/hrep).
+
 ## Development notes
 
   - The integer representation of a given representation must begin at 1
