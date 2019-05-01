@@ -12,7 +12,7 @@ after_success:
   - Rscript -e 'covr::coveralls()'
 
 before_install:
-  - tlmgr install xcolor
+  - sudo tlmgr install xcolor
 
 before_deploy: Rscript -e 'remotes::install_cran("pkgdown")'
 deploy:
