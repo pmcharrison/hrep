@@ -1,3 +1,8 @@
+# hrep 0.10.0
+
+- Added documentation website.
+- Introduced S3 subclasses for different vector types.
+
 # hrep 0.9.0
 
 - Expanding sound synthesis capabilities.

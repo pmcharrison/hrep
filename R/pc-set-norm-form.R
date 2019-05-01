@@ -3,7 +3,7 @@
   stopifnot(is.null(transposition) || checkmate::qtest(transposition, "N1"))
   stopifnot(!anyDuplicated(x))
   stopifnot(identical(x, sort(x)))
-  class(x) <- c("pc_set_norm_form", "pc_set")
+  class(x) <- c("pc_set_norm_form", "pc_set", "chord")
   attr(x, "transposition") <- transposition
   x
 }

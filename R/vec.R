@@ -21,7 +21,11 @@ vec <- function(x, type, metadata = list()) {
   checkmate::qassert(metadata, "l")
   if (!all(purrr::map_lgl(x, ~ is(., type))))
     stop("not all elements of <x> were of type ", type)
-  class(x) <- c("vec", "list")
+  if (!grepl("^[A-Za-z][A-Za-z0-9_]*$", type))
+    stop("invalid type label")
+  class(x) <- c(paste0("vec_", type),
+                "vec",
+                "list")
   type(x) <- type
   metadata(x) <- metadata
   x
@@ -34,6 +38,7 @@ type.vec <- function(x) {
 
 `type<-.vec` <- function(x, value) {
   attr(x, "type") <- value
+  class(x)[1] <- paste0("vec_", value)
   x
 }
 
@@ -101,7 +106,7 @@ transform_symbols.vec <- function(x, f, type, ...) {
   stopifnot(is.function(f))
   checkmate::qassert(type, "S1")
   vec(
-    x = purrr::map(as.list(x), f),
+    x = purrr::map(as.list(x), f, ...),
     type = type,
     metadata = metadata(x)
   )

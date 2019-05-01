@@ -2,9 +2,12 @@
 % Please edit documentation in R/corpus.R
 \name{corpus}
 \alias{corpus}
+\alias{is.corpus}
 \title{Corpus}
 \usage{
 corpus(x, type, metadata = list())
+
+is.corpus(x)
 }
 \arguments{
 \item{x}{List of sequences, where each sequence is an object of class

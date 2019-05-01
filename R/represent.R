@@ -28,36 +28,36 @@ represent <- function(x, type, ...) {
 represent.default <- function(x, type, ...) {
   checkmate::qassert(type, "S1")
   stopifnot(type %in% representations())
-  get(type, mode = "function")(x)
+  get(type, mode = "function")(x, ...)
 }
 
 #' @rdname represent
 #' @export
 represent.corpus <- function(x, type, ...) {
-  f <- function(sym) represent(sym, type)
+  f <- function(sym, ...) represent(sym, type, ...)
   transform_symbols(x, f, type, ...)
 }
 
 #' @rdname represent
 #' @export
 represent.vec <- function(x, type, ...) {
-  f <- function(sym) represent(sym, type)
+  f <- function(sym, ...) represent(sym, type, ...)
   transform_symbols(x, f, type, ...)
 }
 
 #' @rdname represent
 #' @export
 represent.coded_vec <- function(x, type, ...) {
-  f <- function(sym) represent(sym, type)
+  f <- function(sym, ...) represent(sym, type, ...)
   transform_symbols(x, f, type, ...)
 }
 
 #' @rdname represent
 #' @export
 represent.list <- function(x, type, ...) {
-  f <- function(sym) represent(sym, type)
+  f <- function(sym, ...) represent(sym, type, ...)
   vec(
-    x = purrr::map(x, f),
+    x = purrr::map(x, f, ...),
     type = type
   )
 }

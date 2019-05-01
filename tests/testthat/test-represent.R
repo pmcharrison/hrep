@@ -29,4 +29,9 @@ test_that("examples", {
 
   hrep::pc_set(c(0, 4, 7)) %>% represent("pc_chord_type") %>%
     expect_equal(pc_chord_type(c(0, 4, 7)))
+
+  hrep::pc_set(c(0, 4, 7)) %>%
+    represent("milne_pc_spectrum", array_dim = 100) %>%
+    length() %>%
+    expect_equal(100)
 })

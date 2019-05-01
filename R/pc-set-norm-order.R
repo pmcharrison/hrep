@@ -49,7 +49,7 @@ pc_set_norm_order.pc_set <- function(x) {
   }
   if (length(best) == 0) stop("No normal orders found!")
   res <- cycles[best[1], ]
-  class(res) <- c("pc_set_norm_order", "numeric")
+  class(res) <- c("pc_set_norm_order", "chord", "numeric")
   res
 }
 

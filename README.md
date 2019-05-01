@@ -3,7 +3,7 @@
 
 # hrep - Harmony Representations
 
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build
 status](https://travis-ci.org/pmcharrison/hrep.svg?branch=master)](https://travis-ci.org/pmcharrison/hrep)
 [![AppVeyor build
@@ -15,6 +15,9 @@ status](https://coveralls.io/repos/github/pmcharrison/hrep/badge.svg)](https://c
 `hrep` is an R package that provides methods for representing and
 manipulating chord sequences. It is currently still under active
 development, but we plan an official release in 2019.
+
+We recommend you explore the [online
+documentation](https://pmcharrison.github.io/hrep).
 
 ## Development notes
 

@@ -19,7 +19,7 @@
                        label = "pitch-class spectrum",
                        x_lab = "Pitch class",
                        y_lab = "Weight")
-  class(y) <- c("milne_pc_spectrum", class(y))
+  class(y) <- c("milne_pc_spectrum", "chord", class(y))
   y
 }
 
@@ -95,6 +95,12 @@ milne_pc_spectrum.default <- function(x, ...) {
   milne_pc_spectrum(pc_set(x), ...)
 }
 
+#' @rdname milne_pc_spectrum
+#' @export
+milne_pc_spectrum.milne_pc_spectrum <- function(x, ...) {
+  x
+}
+
 #' Check for class "milne_pc_spectrum"
 #'
 #' Checks whether an object is of class "milne_pc_spectrum".
@@ -120,6 +126,8 @@ pc_spectrum_template_1 <- function(array_dim, sigma, truncation_point) {
   template[1] <- dnorm(0, mean = 0, sd = sigma)
   seq <- seq(from = 1, to = limit)
   weight <- dnorm(seq, mean = 0, sd = sigma)
+  if (limit + 1 > array_dim)
+    stop("array_dim is too small to create this spectrum")
   template[2:(limit + 1)] <- weight
   template[array_dim:(array_dim - limit + 1)] <- weight
   template

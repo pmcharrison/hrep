@@ -11,7 +11,7 @@
                          label = "frequency spectrum",
                          x_lab = "Frequency (Hz)",
                          y_lab = "Amplitude")
-  class(res) <- c("sparse_fr_spectrum", class(res))
+  class(res) <- c("sparse_fr_spectrum", "chord", class(res))
   res
 }
 

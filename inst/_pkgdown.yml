@@ -1,0 +1,98 @@
+template:
+  params:
+    bootswatch: cerulean
+reference:
+- title: Types
+  desc: These provide different ways of representing chords.
+  contents:
+  - '`type`'
+  - '`represent`'
+  - '`representations`'
+  - '`fr_chord`'
+  - '`.milne_pc_spectrum`'
+  - '`milne_pc_spectrum`'
+  - '`pc_chord`'
+  - '`pc_chord_type`'
+  - '`pc_set`'
+  - '`pc_set_norm_form`'
+  - '`pi_chord`'
+  - '`pi_chord_type`'
+  - '`sparse_fr_spectrum`'
+  - '`sparse_pi_spectrum`'
+  - '`.wave`'
+  - '`wave`'
+- title: Alphabets
+  desc: Several types have alphabets defined to allow integer encodings.
+  contents:
+  - '`pc_chord_alphabet`'
+  - '`pc_set_alphabet`'
+  - '`pc_chord_id_to_pc_set_id_map`'
+  - '`alphabet_size`'
+  - '`list_chords`'
+  - '`map_pc_chord_id_to_pc_set_id`'
+- title: Sequences and corpora
+  desc: Chord sequences are expressed as objects of class `vec`; corpora are expressed as objects of class `corpus`.
+  contents:
+  - '`corpus`'
+  - '`vec`'
+  - '`coded_vec`'
+  - '`metadata`'
+  - '`transform_symbols.coded_vec`'
+  - '`num_elements.coded_vec`'
+  - '`num_sequences.corpus`'
+- title: Encoding and decoding
+  desc: Sequences and corpora can be encoded into integer-based representations.
+  contents:
+  - '`decode`'
+  - '`encode`'
+- title: Viewing chords and chord sequences
+  contents:
+  - '`view`'
+- title: Synthesising audio
+  contents:
+  - '`play_sox`'
+  - '`save_wav_sox`'
+- title: Properties
+  desc: For accessing properties of chords.
+  contents:
+  - '`get_bass_fr`'
+  - '`get_bass_pc`'
+  - '`get_bass_pi`'
+  - '`get_non_bass_pc`'
+- title: Manipulating chords
+  desc: Manipulating properties of chords.
+  contents:
+  - '`edit_bass_pc`'
+  - '`tp`'
+- title: Miscellaneous utilities
+  desc: Various utility functions.
+  contents:
+  - '`amplitude_to_dB`'
+  - '`ascending_pc_dist`'
+  - '`cosine_similarity`'
+  - '`dB_to_amplitude`'
+  - '`expand_harmonics`'
+  - '`freq_to_midi`'
+  - '`int_vec`'
+  - '`midi_to_freq`'
+  - '`milne_pc_spec_dist`'
+  - '`pc_dist`'
+  - '`pi_to_pc`'
+  - '`sum_amplitudes`'
+  - '`transform_y`'
+- title: Miscellaneous accessors
+  contents:
+  - '`access`'
+- title: Class checking
+  desc: Checking classes of objects.
+  contents:
+  - '`is.chord`'
+  - '`is.coded.coded_vec`'
+  - '`is.coded_vec`'
+  - '`is.equal_tempered`'
+  - '`is.milne_pc_spectrum`'
+  - '`is.pc_chord`'
+  - '`is.pc_set`'
+  - '`is.pi_chord`'
+  - '`is.vec`'
+

@@ -126,7 +126,7 @@ decode.integer <- function(x) {
 #' @rdname transform_symbols
 #' @export
 transform_symbols.coded_vec <- function(x, f, type, ...) {
-  encode(transform_symbols(decode(x), f, type))
+  encode(transform_symbols(decode(x), f, type = type, ...))
 }
 
 #' @export
