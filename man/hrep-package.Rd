@@ -8,6 +8,14 @@
 \description{
 This package provides methods for representing and manipulating chord sequences.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/pmcharrison/hrep}
+  \item Report bugs at \url{https://github.com/pmcharrison/hrep/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Peter Harrison \email{pmc.harrison@gmail.com}
 
