@@ -31,4 +31,20 @@ test_that("various", {
     pc_set_norm_order(pc_set(5)) %>% as.integer,
     5
   )
+  expect_equal(
+    pc_set_norm_order(pc_set(c(0, 6, 2, 11))) %>% as.integer,
+    c(11, 0, 2, 6)
+  )
+  expect_equal(
+    pc_set_norm_order(pc_set(c(0, 3, 4, 5, 11))) %>% as.integer,
+    c(11, 0, 3, 4, 5)
+  )
+  expect_equal(
+    pc_set_norm_order(pc_set(c(0, 3, 6, 9, 10, 11))) %>% as.integer,
+    c(9, 10, 11, 0, 3, 6)
+  )
+  expect_equal(
+    pc_set_norm_order(pc_set(c(0, 3, 4, 7, 8, 11))) %>% as.integer,
+    c(3, 4, 7, 8, 11, 0)
+  )
 })
