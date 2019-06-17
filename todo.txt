@@ -23,14 +23,11 @@ Cases:
 
 - pc_chord (DONE)
 
-- pi_chord (wishlist)
-- pi_chord_type (wishlist)
-
 - vlt (voice-leading type) (wishlist)
 
 - sparse_fr_spectrum
 - sparse_pi_spectrum
-- sparse_pc_spectrum
+- sparse_pc_spectrum (TODO)
 - fr_spectrum
 - pi_spectrum
 - pc_spectrum
