@@ -37,3 +37,15 @@ decode_pc_chord <- function(x) {
   chord_type <- decode_pc_chord_type(x %% 2048L)
   c(bass, sort.int((chord_type[-1L] + bass) %% 12L))
 }
+
+pc_set_type_alphabet <- 1:4095 %>%
+  purrr::map(decode_pc_set) %>%
+  purrr::map(pc_set_norm_form) %>%
+  purrr::map_chr(as.character) %>%
+  factor()
+
+pc_set_type_alphabet[encode_pc_set(c(0, 3, 6))] %>% as.integer
+
+length(pc_set_type_alphabet)
+
+pc_set_type_alphabet
