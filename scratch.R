@@ -1,3 +1,5 @@
+library(magrittr)
+
 # Order-insensitive
 encode_pc_set <- function(pc_set) {
   sum((2 ^ (11:0)) * (0:11 %in% pc_set))
@@ -43,6 +45,8 @@ pc_set_type_alphabet <- 1:4095 %>%
   purrr::map(pc_set_norm_form) %>%
   purrr::map_chr(as.character) %>%
   factor()
+
+levels(pc_set_type_alphabet)
 
 pc_set_type_alphabet[encode_pc_set(c(0, 3, 6))] %>% as.integer
 

@@ -76,15 +76,16 @@ wave.sparse_fr_spectrum <- function(x, length_sec = 1, sample_rate = 44100, ...)
 }
 
 #' @export
-plot.wave <- function(x, ggplot = FALSE, xlab = "Time (seconds)", ylab = "Displacement", ...) {
+plot.wave <- function(x, ggplot = FALSE, xlab = "Time (seconds)", ylab = "Displacement",
+                      ylim = NULL, ...) {
   time <- seq(from = 0, by = 1 / sample_rate(x), length.out = length(x))
   if (ggplot) {
     tibble::tibble(time = time, displacement = as.numeric(x)) %>%
       ggplot2::ggplot(ggplot2::aes_string(x = "time", y = "displacement")) +
       ggplot2::geom_line() +
       ggplot2::scale_x_continuous(xlab, limits = c(0, time[length(time)])) +
-      ggplot2::scale_y_continuous(ylab)
+      ggplot2::scale_y_continuous(ylab, limits = ylim)
   } else {
-    plot(time, x, xlab = xlab, ylab = ylab, type = "l")
+    plot(time, x, xlab = xlab, ylab = ylab, type = "l", ylim = ylim)
   }
 }
