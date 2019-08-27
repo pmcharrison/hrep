@@ -9,7 +9,7 @@ Encoding: UTF-8
 LazyData: true
 ByteCompile: true
 Suggests: 
-    testthat (>= 2.0.0),
+    testthat (>= 2.1.0),
     sets (>= 1.0.18),
     covr (>= 3.2.0)
 RoxygenNote: 6.1.1

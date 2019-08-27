@@ -104,6 +104,11 @@ CHORD_QUALITIES <- new.env()
 #' - \code{\link{decode_chord_quality}} for accessing the database.
 #' - \code{\link{initialise_chord_qualities}} for resetting the database.
 #'
+#' @details
+#' If you have some chord qualities to add to the \code{hrep} package,
+#' please register an issue or submit a pull request at
+#' \url{https://github.com/pmcharrison/hrep}.
+#'
 #' @md
 #'
 #' @export
@@ -111,6 +116,7 @@ register_chord_quality <- function(key, value, overwrite = FALSE) {
   checkmate::qassert(key, "S1")
   checkmate::qassert(overwrite, "B1")
   assert_legal_pc_set(value)
+  if (nchar(key) == 0) stop("the empty string is not a permissible chord label")
   if (!is.null(CHORD_QUALITIES[[key]]) && !overwrite)
     stop("cannot insert duplicate chord quality: ", key)
   CHORD_QUALITIES[[key]] <- as.integer(value)
@@ -124,6 +130,7 @@ register_chord_quality <- function(key, value, overwrite = FALSE) {
 #'
 #' @export
 initialise_chord_qualities <- function() {
+  CHORD_QUALITIES <<- new.env()
   df <- get_chord_qualities_df()
   which_keys <- attr(df, "which_keys")
   for (i in seq_len(nrow(df))) {
@@ -166,6 +173,7 @@ initialise_chord_qualities <- function() {
 decode_chord_quality <- function(x, must_work = FALSE) {
   checkmate::qassert(x, "S1")
   checkmate::qassert(must_work, "B1")
+  if (nchar(x) == 0) stop("the empty string is not a permissible chord label")
   res <- CHORD_QUALITIES[[x]]
   if (must_work && is.null(res)) stop("could not decode token: ", x)
   res
