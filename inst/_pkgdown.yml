@@ -21,6 +21,13 @@ reference:
   - '`sparse_pi_spectrum`'
   - '`.wave`'
   - '`wave`'
+- title: Chord qualities
+  desc: Functions for decoding chord qualities from textual labels.
+  contents:
+  - '`get_chord_qualities_df`'
+  - '`register_chord_quality`'
+  - '`initialise_chord_qualities`'
+  - '`decode_chord_quality`'
 - title: Alphabets
   desc: Several types have alphabets defined to allow integer encodings.
   contents:
