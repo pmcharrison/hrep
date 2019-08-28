@@ -105,20 +105,29 @@ transform_y.sparse_spectrum <- function(x, f, y_unit, y_lab) {
   x
 }
 
-# Combines a set of sparse spectra into one sparse spectrum,
-# summing their amplitudes (assuming incoherent wave superposition).
-combine_sparse_spectra_amplitudes <- function(...,
-                                              class,
-                                              constructor,
-                                              x_digits) {
+combine_sparse_spectra <- function(..., digits = 6) {
   input <- list(...)
-  checkmate::qassert(class, "S1")
-  checkmate::qassert(x_digits, "X1")
-  stopifnot(is.function(constructor),
-            all(vapply(input,
-                       function(x) is(x, class) && is(x, "sparse_spectrum"),
-                       logical(1))))
-  lapply(input, as.data.frame) %>%
+  if (length(input) == 0) stop("combine_sparse_spectra needs at least 1 input")
+  if (length(input) == 1) return(input[[1]])
+  if (!all(purrr::map_lgl(input,
+                          ~ is.sparse_pi_spectrum(.) |
+                          is.sparse_fr_spectrum(.) |
+                          is.sparse_pc_spectrum(.))))
+    stop("all inputs must be one of ",
+         "sparse_pi_spectrum, ",
+         "sparse_fr_spectrum, or ",
+         "sparse_pc_spectrum")
+
+  octave_invariant <- is.sparse_pc_spectrum(input[[1]])
+  if (octave_invariant &&
+      !all(purrr::map_lgl(input, is.sparse_pc_spectrum)))
+    stop("cannot mix sparse_pc_spectrum inputs with",
+         "sparse_fr_spectrum and sparse_pi_spectrum inputs")
+  input <- if (octave_invariant)
+    purrr::map(input, sparse_pc_spectrum) else
+      purrr::map(input, sparse_pi_spectrum)
+
+  res <- lapply(input, as.data.frame) %>%
     do.call(rbind, args = .) %>%
     {
       .$x <- round(.$x, digits = x_digits)
@@ -130,5 +139,12 @@ combine_sparse_spectra_amplitudes <- function(...,
       function(x, y) sum_amplitudes(x, y, coherent = FALSE),
       key_type = "numeric"
     )} %>%
-    {constructor(.$key, .$value)}
+    {
+      f <- if (octave_invariant) .sparse_pc_spectrum else .sparse_pi_spectrum
+      f(.$key, .$value)
+    }
+
+  if (is.sparse_fr_spectrum(input[[1]]))
+    sparse_fr_spectrum(res) else
+      res
 }
