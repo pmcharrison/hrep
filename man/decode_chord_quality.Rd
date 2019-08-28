@@ -24,7 +24,7 @@ otherwise returns \code{NULL}
 Decodes a given textual label into the implied chord quality.
 }
 \details{
-No preprocessing is applied to the label.
+No preprocessing is applied to \code{x}.
 }
 \seealso{
 \itemize{

@@ -105,6 +105,7 @@ transform_y.sparse_spectrum <- function(x, f, y_unit, y_lab) {
   x
 }
 
+#' @export
 combine_sparse_spectra <- function(..., digits = 6) {
   input <- list(...)
   if (length(input) == 0) stop("combine_sparse_spectra needs at least 1 input")
@@ -118,6 +119,11 @@ combine_sparse_spectra <- function(..., digits = 6) {
          "sparse_fr_spectrum, or ",
          "sparse_pc_spectrum")
 
+  output_class <- intersect(class(input[[1]]),
+                            c("sparse_pi_spectrum",
+                              "sparse_fr_spectrum",
+                              "sparse_pc_spectrum"))
+
   octave_invariant <- is.sparse_pc_spectrum(input[[1]])
   if (octave_invariant &&
       !all(purrr::map_lgl(input, is.sparse_pc_spectrum)))
@@ -127,10 +133,28 @@ combine_sparse_spectra <- function(..., digits = 6) {
     purrr::map(input, sparse_pc_spectrum) else
       purrr::map(input, sparse_pi_spectrum)
 
-  res <- lapply(input, as.data.frame) %>%
-    do.call(rbind, args = .) %>%
+  res <-
+    lapply(input, as.data.frame) %>%
+    collapse_summing_amplitudes(digits = digits) %>%
     {
-      .$x <- round(.$x, digits = x_digits)
+      f <- if (octave_invariant) .sparse_pc_spectrum else .sparse_pi_spectrum
+      f(.$x, .$y)
+    }
+
+  if (output_class == "sparse_fr_spectrum") sparse_fr_spectrum(res) else res
+}
+
+collapse_summing_amplitudes <- function(x, digits, modulo = NA_real_) {
+  checkmate::qassert(modulo, "n1(0,)")
+  if (!is.list(x) ||
+      !all(purrr::map_lgl(x, ~ is.data.frame(.) &&
+                          identical(names(.), c("x", "y")))))
+    stop("x must be a list of data frames with columns 'x' and 'y'")
+  x %>%
+    data.table::rbindlist() %>%
+    {
+      .$x <- round(.$x, digits = digits)
+      if (!is.na(modulo)) .$x <- .$x %% modulo
       .
     } %>%
     {reduce_by_key(
@@ -139,12 +163,5 @@ combine_sparse_spectra <- function(..., digits = 6) {
       function(x, y) sum_amplitudes(x, y, coherent = FALSE),
       key_type = "numeric"
     )} %>%
-    {
-      f <- if (octave_invariant) .sparse_pc_spectrum else .sparse_pi_spectrum
-      f(.$key, .$value)
-    }
-
-  if (is.sparse_fr_spectrum(input[[1]]))
-    sparse_fr_spectrum(res) else
-      res
+    magrittr::set_names(c("x", "y"))
 }

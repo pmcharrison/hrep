@@ -7,11 +7,16 @@
                          y = amplitude,
                          x_unit = "midi",
                          y_unit = "amplitude",
-                         label = "pitch spectrum",
+                         label = "sparse pitch spectrum",
                          x_lab = "Pitch (MIDI)",
                          y_lab = "Amplitude")
   class(res) <- c("sparse_pi_spectrum", "chord", class(res))
   res
+}
+
+#' @export
+is.sparse_pi_spectrum <- function(x) {
+  is(x, "sparse_pi_spectrum")
 }
 
 #' Sparse pitch spectrum
@@ -35,7 +40,13 @@ sparse_pi_spectrum <- function(x, ...) {
 
 #' @rdname sparse_pi_spectrum
 #' @export
-sparse_pi_spectrum.fr_sparse_spectrum <- function(x, ...) {
+sparse_pi_spectrum.sparse_pi_spectrum <- function(x, ...) {
+  x
+}
+
+#' @rdname sparse_pi_spectrum
+#' @export
+sparse_pi_spectrum.sparse_fr_spectrum <- function(x, ...) {
   .sparse_pi_spectrum(
     pitch = freq_to_midi(freq(x)),
     amplitude = amp(x)

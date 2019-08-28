@@ -22,6 +22,11 @@ used by the \code{\link{decode_chord_quality}} function.
 Unless overwritten,
 this chord quality will persist for the remainder of the R session.
 }
+\details{
+If you have some chord qualities to add to the \code{hrep} package,
+please register an issue or submit a pull request at
+\url{https://github.com/pmcharrison/hrep}.
+}
 \examples{
 decode_chord_quality("my_chord") # returns NULL
 register_chord_quality("my_chord", c(0, 1, 2))

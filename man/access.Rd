@@ -15,6 +15,8 @@
 \alias{freq<-}
 \alias{pitch}
 \alias{pitch<-}
+\alias{pc}
+\alias{pc<-}
 \alias{amp}
 \alias{amp<-}
 \alias{transposition}
@@ -46,6 +48,10 @@ freq(x) <- value
 pitch(x)
 
 pitch(x) <- value
+
+pc(x)
+
+pc(x) <- value
 
 amp(x)
 

@@ -8,11 +8,16 @@
                          y = amplitude,
                          x_unit = "Hz",
                          y_unit = "amplitude",
-                         label = "frequency spectrum",
+                         label = "sparse frequency spectrum",
                          x_lab = "Frequency (Hz)",
                          y_lab = "Amplitude")
   class(res) <- c("sparse_fr_spectrum", "chord", class(res))
   res
+}
+
+#' @export
+is.sparse_fr_spectrum <- function(x) {
+  is(x, "sparse_fr_spectrum")
 }
 
 #' Sparse frequency spectrum
@@ -38,6 +43,12 @@
 #' @export
 sparse_fr_spectrum <- function(x, ...) {
   UseMethod("sparse_fr_spectrum")
+}
+
+#' @rdname sparse_fr_spectrum
+#' @export
+sparse_fr_spectrum.sparse_fr_spectrum <- function(x, ...) {
+  x
 }
 
 #' @rdname sparse_fr_spectrum
