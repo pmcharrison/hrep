@@ -1,6 +1,6 @@
 #' @export
 .smooth_pi_spectrum <- function(x) {
-  checkmate::qassert(x, "N")
+  checkmate::qassert(x, "N12000")
   x <- unclass(x)
   y <- smooth_spectrum(x = x,
                        x_unit = "pi",
@@ -28,16 +28,6 @@ smooth_pi_spectrum <- function(x, sigma = 6.83, ...) {
 
 #' @export
 smooth_pi_spectrum.default <- function(x, sigma = 6.83, ...) {
-  smooth_pi_spectrum(pi_chord(x), sigma = sigma, ...)
-}
-
-#' @export
-smooth_pi_spectrum.pi_chord <- function(x, sigma = 6.83, ...) {
-  smooth_pi_spectrum(sparse_pi_spectrum(x, ...), sigma = sigma)
-}
-
-#' @export
-smooth_pi_spectrum.sparse_fr_spectrum <- function(x, sigma = 6.83, ...) {
   smooth_pi_spectrum(sparse_pi_spectrum(x, ...), sigma = sigma)
 }
 
@@ -62,6 +52,7 @@ smooth_pi_spectrum.sparse_pi_spectrum <- function(x, sigma = 6.83) {
 }
 
 smooth_gaussian_template <- function(sigma, dim) {
+  stopifnot(dim %% 2 == 0)
   ind <- seq_len(dim)
   centre_ind <- 1L + dim / 2L
   dnorm(ind, mean = centre_ind, sd = sigma)

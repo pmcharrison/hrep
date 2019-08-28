@@ -44,6 +44,9 @@ sparse_pc_spectrum <- function(x, ...) {
   UseMethod("sparse_pc_spectrum")
 }
 
+sparse_pc_spectrum.sparse_pc_spectrum <- function(x, ...) {
+  x
+}
 
 sparse_pc_spectrum.sparse_pi_spectrum <- function(x, digits = 6) {
   data.frame(x = pitch(x),

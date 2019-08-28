@@ -9,7 +9,9 @@ test_that("sanity checks", {
   expect_equal(smooth_pi_spectrum(pi_chord(c(0, 4, 7))),
                smooth_pi_spectrum(pi_chord(c(0, 4, 7)) %>% fr_chord()))
 
+})
 
+test_that("regression tests", {
   if (FALSE) { # Saving reference outputs
     smooth_pi_spectrum(pi_chord(c(60, 64, 67))) %>% as.data.frame() %>%
       saveRDS("inst/stability-tests/smooth-pi-spectrum-60-64-67.rds")
