@@ -98,13 +98,6 @@ print.pi_chord <- function(x, ...) {
   cat("Pitch chord: ", paste(x, collapse = " "), "\n", sep = "")
 }
 
-#' @export
-c.pi_chord <- function(...) {
-  x <- lapply(list(...), unclass)
-  x <- do.call(c, x)
-  pi_chord(sort(unique(x)))
-}
-
 #' @rdname view
 #' @export
 view.pi_chord <- function(x, ...) {

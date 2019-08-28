@@ -97,18 +97,3 @@ amp.sparse_fr_spectrum <- function(x) {
   x$y <- value
   x
 }
-
-#' @details
-#' Sparse frequency spectra can be combined into one spectrum using \code{c(...)}.
-#' Amplitudes are summed assuming incoherent wave superposition
-#' (see \code{\link{sum_amplitudes}}).
-#' @rdname sparse_fr_spectrum
-#' @param x_digits (Integerish scalar) Number of significant digits
-#' to which frequencies are rounded when being combined.
-#' @export
-c.sparse_fr_spectrum <- function(..., x_digits = 6) {
-  combine_sparse_spectra_amplitudes(...,
-                                    class = "sparse_fr_spectrum",
-                                    constructor = .sparse_fr_spectrum,
-                                    x_digits = x_digits)
-}

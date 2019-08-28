@@ -65,12 +65,6 @@ print.pc_set_norm_form <- function(x, ...) {
       sep = "")
 }
 
-#' @export
-c.pc_set_norm_form <- function(...) {
-  x <- lapply(list(...), pc_set)
-  x <- do.call(c, x)
-}
-
 #' @rdname pc_set_norm_form
 #' @export
 transposition.pc_set_norm_form <- function(x) attr(x, "transposition")

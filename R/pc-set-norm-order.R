@@ -5,11 +5,6 @@ print.pc_set_norm_order <- function(x, ...) {
       sep = "")
 }
 
-c.pc_set_norm_order <- function(...) {
-  x <- lapply(list(...), pc_set)
-  x <- do.call(c, x)
-}
-
 #' Pitch-class set (normal order)
 #'
 #' The normal order of a pitch-class set is a maximally compact

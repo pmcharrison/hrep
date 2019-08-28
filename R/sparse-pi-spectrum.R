@@ -100,18 +100,3 @@ amp.sparse_pi_spectrum <- function(x) {
   x$y <- value
   x
 }
-
-#' @details
-#' Sparse pitch spectra can be combined into one spectrum using \code{c(...)}.
-#' Amplitudes are summed assuming incoherent wave superposition
-#' (see \code{\link{sum_amplitudes}}).
-#' @rdname sparse_pi_spectrum
-#' @param x_digits (Integerish scalar) Number of significant digits
-#' to which pitches are rounded.
-#' @export
-c.sparse_pi_spectrum <- function(..., x_digits = 6) {
-  combine_sparse_spectra_amplitudes(...,
-                                    class = "sparse_pi_spectrum",
-                                    constructor = .sparse_pi_spectrum,
-                                    x_digits = x_digits)
-}

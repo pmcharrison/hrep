@@ -88,13 +88,6 @@ print.fr_chord <- function(x, digits = 3L, ...) {
             collapse = ", "), "\n", sep = "")
 }
 
-#' @export
-c.fr_chord <- function(...) {
-  x <- lapply(list(...), unclass)
-  x <- do.call(c, x)
-  fr_chord(sort(unique(x)))
-}
-
 #' Get bass frequency
 #'
 #' Gets the bass frequency from a sonority.

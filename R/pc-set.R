@@ -94,13 +94,6 @@ as.character.pc_set <- function(x, ...) {
   paste(as.numeric(x), collapse = " ")
 }
 
-#' @export
-c.pc_set <- function(...) {
-  x <- lapply(list(...), unclass)
-  x <- do.call(c, x)
-  pc_set(sort(unique(x)))
-}
-
 #' @rdname encode
 #' @export
 encode.pc_set <- function(x) {
