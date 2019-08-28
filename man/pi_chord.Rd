@@ -4,8 +4,6 @@
 \alias{pi_chord}
 \alias{pi_chord.numeric}
 \alias{pi_chord.character}
-\alias{pi_chord.pc_set}
-\alias{pi_chord.pc_chord}
 \alias{pi_chord.pi_chord}
 \alias{pi_chord.fr_chord}
 \alias{pi_chord.pi_chord_type}
@@ -16,10 +14,6 @@ pi_chord(x)
 \method{pi_chord}{numeric}(x)
 
 \method{pi_chord}{character}(x)
-
-\method{pi_chord}{pc_set}(x)
-
-\method{pi_chord}{pc_chord}(x)
 
 \method{pi_chord}{pi_chord}(x)
 

@@ -43,6 +43,11 @@ pc_chord.numeric <- function(x) {
 }
 
 #' @export
+pc_chord.chord <- function(x) {
+  stop("cannot translate this object to pc_chord format")
+}
+
+#' @export
 #' @rdname pc_chord
 pc_chord.pc_set <- function(x) {
   x <- as.numeric(x)
@@ -95,7 +100,9 @@ print.pc_chord <- function(x, ...) {
 #' @rdname view
 #' @export
 view.pc_chord <- function(x, ...) {
-  view(pi_chord(x), ...)
+  view(.pi_chord(c(48 + get_bass_pc(x),
+                   60 + get_non_bass_pc(x))),
+       ...)
 }
 
 #' @rdname pc_chord

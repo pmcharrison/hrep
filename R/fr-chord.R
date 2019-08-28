@@ -44,6 +44,11 @@ fr_chord.character <- function(x) {
 }
 
 #' @export
+fr_chord.chord <- function(x) {
+  stop("cannot translate this object to fr_chord format")
+}
+
+#' @export
 as.character.fr_chord <- function(x, ...) {
   paste(as.numeric(x), collapse = " ")
 }

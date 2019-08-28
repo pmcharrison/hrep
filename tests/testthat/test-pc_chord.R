@@ -43,10 +43,6 @@ test_that("random examples", {
     c(3, 4, 10)
   )
   expect_equal(
-    c(64, 67, 72) %>% pi_chord %>% pc_chord %>% pi_chord %>% as.numeric,
-    c(52, 60, 67)
-  )
-  expect_equal(
     pc_chord(c(60, 72)) %>% as.integer,
     0L
   )

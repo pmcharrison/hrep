@@ -44,6 +44,11 @@ pi_chord.character <- function(x) {
 }
 
 #' @export
+pi_chord.chord <- function(x) {
+  stop("cannot translate this object to pi_chord format")
+}
+
+#' @export
 as.numeric.pi_chord <- function(x, ...) {
   unclass(x)
 }
@@ -51,20 +56,6 @@ as.numeric.pi_chord <- function(x, ...) {
 #' @export
 as.character.pi_chord <- function(x, ...) {
   paste(as.numeric(x), collapse = " ")
-}
-
-#' @export
-#' @rdname pi_chord
-pi_chord.pc_set <- function(x) {
-  ref <- if (is.integer(x)) 60L else 60
-  pi_chord(ref + x)
-}
-
-#' @export
-#' @rdname pi_chord
-pi_chord.pc_chord <- function(x) {
-  .pi_chord(c(48 + get_bass_pc(x),
-              60 + get_non_bass_pc(x)))
 }
 
 #' @export

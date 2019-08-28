@@ -24,6 +24,11 @@ pc_set.numeric <- function(x) {
 }
 
 #' @export
+pc_set.chord <- function(x) {
+  stop("cannot translate this object to pc_set format")
+}
+
+#' @export
 #' @rdname pc_set
 pc_set.pc_set <- function(x) {
   x
@@ -76,7 +81,7 @@ print.pc_set <- function(x, ...) {
 #' @rdname view
 #' @export
 view.pc_set <- function(x, ...) {
-  view(pi_chord(x), ...)
+  view(pi_chord(60 + as.numeric(x)), ...)
 }
 
 #' @rdname pc_set
