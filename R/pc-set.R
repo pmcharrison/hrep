@@ -61,7 +61,7 @@ pc_set.pc_set_norm_order <- function(x) {
 
 #' @rdname pc_set
 #' @export
-pc_set.pc_set_norm_form <- function(x) {
+pc_set.pc_set_type <- function(x) {
   .pc_set(as.numeric(x))
 }
 

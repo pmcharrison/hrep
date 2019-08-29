@@ -25,7 +25,7 @@ Various types are available:
 \item \code{\link{pc_chord}}
 \item \code{\link{pc_chord_type}}
 \item \code{\link{pc_set}}
-\item \code{\link{pc_set_norm_form}}
+\item \code{\link{pc_set_type}}
 \item \code{\link{pc_set_norm_order}}
 \item \code{\link{milne_pc_spectrum}}
 }

@@ -46,19 +46,19 @@ pc_chord_type.pi_chord <- function(x) {
 #' @export
 #' @rdname pc_chord_type
 pc_chord_type.pc_set <- function(x) {
-  pc_chord_type(pc_set_norm_form(x))
+  pc_chord_type(pc_set_type(x))
 }
 
 #' @export
 #' @rdname pc_chord_type
-pc_chord_type.pc_set_norm_form <- function(x) {
+pc_chord_type.pc_set_type <- function(x) {
   .pc_chord_type(x)
 }
 
 #' @export
 #' @rdname pc_set_norm_order
 pc_chord_type.pc_set_norm_order <- function(x) {
-  pc_chord_type(pc_set_norm_form(x))
+  pc_chord_type(pc_set_type(x))
 }
 
 #' @export

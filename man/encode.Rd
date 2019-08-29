@@ -8,7 +8,7 @@
 \alias{encode.corpus}
 \alias{encode.pc_chord_type}
 \alias{encode.pc_chord}
-\alias{encode.pc_set_norm_form}
+\alias{encode.pc_set_type}
 \alias{encode.pc_set}
 \title{Encode}
 \usage{
@@ -24,7 +24,7 @@ encode(x)
 
 \method{encode}{pc_chord}(x)
 
-\method{encode}{pc_set_norm_form}(x)
+\method{encode}{pc_set_type}(x)
 
 \method{encode}{pc_set}(x)
 }
