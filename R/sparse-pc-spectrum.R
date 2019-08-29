@@ -8,7 +8,7 @@
                          x_unit = "midi",
                          y_unit = "amplitude",
                          label = "sparse pitch-class spectrum",
-                         x_lab = "Pitch class (MIDI)",
+                         x_lab = "Pitch class",
                          y_lab = "Amplitude")
   class(res) <- c("sparse_pc_spectrum", "chord", class(res))
   res

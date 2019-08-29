@@ -60,14 +60,25 @@ as.data.frame.smooth_spectrum <- function(x, ...) {
 }
 
 #' @export
-plot.smooth_spectrum <- function(x, ...) {
+plot.smooth_spectrum <- function(x,
+                                 ggplot = FALSE,
+                                 xlim = NULL,
+                                 ...) {
   df <- as.data.frame(x)
-  plot(df$x, df$y, xlab = x_lab(x), ylab = y_lab(x), type = "l", ...)
+  if (ggplot) {
+    if (!is.null(xlim)) df <- df[df$x >= xlim[1] & df$x <= xlim[2], ]
+    ggplot2::ggplot(df, ggplot2::aes_string("x", "y")) +
+      ggplot2::geom_line() +
+      ggplot2::scale_x_continuous(x_lab(x), limits = xlim) +
+      ggplot2::scale_y_continuous(y_lab(x))
+  } else {
+    plot(df$x, df$y, xlab = x_lab(x), ylab = y_lab(x), type = "l", ...)
+  }
 }
 
 #' @export
 view.smooth_spectrum <- function(x, ...) {
-   utils::View(as.data.frame(x, ...))
+  utils::View(as.data.frame(x, ...))
 }
 
 #' @export
