@@ -110,16 +110,11 @@ is.coded.coded_vec <- function(x) TRUE
 #' @seealso \code{\link{encode}} for the reverse operation.
 #' @rdname decode
 #' @export
-decode <- function(x) {
-  UseMethod("decode")
-}
-
-#' @rdname decode
-#' @export
-decode.integer <- function(x) {
-  f <- paste0("decode.coded_vec_", type(x))
-  vec(do.call(what = f, args = list(x)),
-      type = type(x),
+decode <- function(x, x_type = type(x)) {
+  checkmate::qassert(x, "X")
+  f <- paste0("decode.coded_vec_", x_type)
+  vec(do.call(f, args = list(x)),
+      type = x_type,
       metadata = metadata(x))
 }
 

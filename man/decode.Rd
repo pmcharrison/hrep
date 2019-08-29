@@ -2,15 +2,12 @@
 % Please edit documentation in R/coded-vec.R, R/corpus.R
 \name{decode}
 \alias{decode}
-\alias{decode.integer}
 \alias{decode.corpus}
 \title{Decode}
 \usage{
-decode(x)
+decode(x, x_type = type(x))
 
-\method{decode}{integer}(x)
-
-\method{decode}{corpus}(x)
+decode.corpus(x)
 }
 \arguments{
 \item{x}{Object to decode.}
