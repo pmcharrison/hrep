@@ -3,7 +3,7 @@ template:
     bootswatch: cerulean
 reference:
 - title: Types
-  desc: These provide different ways of representing chords.
+  desc: Types provide different ways of representing chords.
   contents:
   - '`type`'
   - '`represent`'
@@ -14,10 +14,14 @@ reference:
   - '`pc_chord`'
   - '`pc_chord_type`'
   - '`pc_set`'
-  - '`pc_set_norm_form`'
+  - '`pc_set_norm_order`'
+  - '`pc_set_type`'
   - '`pi_chord`'
   - '`pi_chord_type`'
+  - '`smooth_pc_spectrum`'
+  - '`smooth_pi_spectrum`'
   - '`sparse_fr_spectrum`'
+  - '`sparse_pc_spectrum`'
   - '`sparse_pi_spectrum`'
   - '`.wave`'
   - '`wave`'
@@ -69,6 +73,7 @@ reference:
 - title: Manipulating chords
   desc: Manipulating properties of chords.
   contents:
+  - '`combine_sparse_spectra`'
   - '`edit_bass_pc`'
   - '`tp`'
 - title: Miscellaneous utilities
@@ -98,6 +103,11 @@ reference:
   - '`is.coded_vec`'
   - '`is.equal_tempered`'
   - '`is.milne_pc_spectrum`'
+  - '`is.smooth_pc_spectrum`'
+  - '`is.smooth_pi_spectrum`'
+  - '`is.sparse_fr_spectrum`'
+  - '`is.sparse_pc_spectrum`'
+  - '`is.sparse_pi_spectrum`'
   - '`is.pc_chord`'
   - '`is.pc_set`'
   - '`is.pi_chord`'

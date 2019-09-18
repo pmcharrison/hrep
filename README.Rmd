@@ -9,10 +9,13 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  out.width = "70%",
+  fig.width = 6, 
+  fig.height = 3,
+  dpi = 300
 )
 ```
-# hrep - Harmony Representations
+# Representing harmony with the hrep package
 
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build status](https://travis-ci.org/pmcharrison/hrep.svg?branch=master)](https://travis-ci.org/pmcharrison/hrep)
@@ -20,15 +23,77 @@ knitr::opts_chunk$set(
 [![Coverage status](https://coveralls.io/repos/github/pmcharrison/hrep/badge.svg)](https://coveralls.io/r/pmcharrison/hrep?branch=master)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2545770.svg)](https://doi.org/10.5281/zenodo.2545770)
 
-`hrep` is an R package that provides methods for 
-representing and manipulating chord sequences.
-It is currently still under active development,
-but we plan an official release in 2019.
+*hrep* is an R package for representing and manipulating 
+chords and chord sequences.
 
-We recommend you explore the [online documentation](https://pmcharrison.github.io/hrep).
+## Resources
 
-## Development notes
+- [Function-level documentation](https://pmcharrison.github.io/hrep/reference/index.html)
+- [Changelog](https://pmcharrison.github.io/hrep/news/index.html)
+- [File an issue](https://github.com/pmcharrison/hrep/issues)
 
-- The integer representation of a given representation
-must begin at 1 and count upwards with no missing values.
-0 can optionally be used to code missing chords (but this is not implemented here).
+## Installation
+
+The *hrep* package may be installed from GitHub as follows:
+
+``` r
+if (!requireNamespace("devtools")) install.packages("devtools")
+devtools::install_github("pmcharrison/hrep")
+```
+
+## Example usage
+
+Chords may be defined as sequences of integers, with each integer
+corresponding to a pitch or a pitch class.
+The following chord defines a C major triad in first inversion:
+
+```{r}
+library(hrep)
+x <- pi_chord(c(52, 60, 67))
+print(x)
+```
+
+From this symbolic representation, it is possible to derive various 
+acoustic and sensory representations, such as:
+
+a) A wave:
+
+```{r}
+plot(wave(x))
+```
+
+b) A sparse pitch spectrum:
+
+```{r}
+plot(sparse_pi_spectrum(x))
+```
+
+c) A sparse pitch-class spectrum:
+
+```{r}
+plot(sparse_pc_spectrum(x))
+```
+
+d) A smooth pitch-class spectrum:
+
+```{r}
+plot(smooth_pc_spectrum(x))
+```
+
+Chords can be translated to various symbolic representations,
+which can be encoded to integer formats.
+For example, here we convert the chord to the pitch-class chord representation,
+and then encode it to an integer.
+
+```{r}
+pc_chord((x))
+as.integer(encode(pc_chord(x)))
+```
+
+Similarly, the following code expresses the chord as a pitch-class set,
+and then encodes the pitch-class set as an integer.
+
+```{r}
+pc_set(x)
+as.integer(encode(pc_set(x)))
+```

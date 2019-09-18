@@ -56,7 +56,7 @@ pc_chord_type.pc_set_type <- function(x) {
 }
 
 #' @export
-#' @rdname pc_set_norm_order
+#' @rdname pc_chord_type
 pc_chord_type.pc_set_norm_order <- function(x) {
   pc_chord_type(pc_set_type(x))
 }

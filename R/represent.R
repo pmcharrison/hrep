@@ -1,9 +1,21 @@
-.representations <- c("fr_chord", "sparse_fr_spectrum",
-                      "pi_chord", "pi_chord_type",
-                      "sparse_pi_spectrum",
-                      "pc_chord", "pc_chord_type",
-                      "pc_set", "pc_set_type", "pc_set_norm_order",
-                      "milne_pc_spectrum", "wave")
+.representations <- c(
+  "fr_chord",
+  "milne_pc_spectrum",
+  "pc_chord",
+  "pc_chord_type",
+  "pc_set",
+  "pc_set_norm_order",
+  "pc_set_type",
+  "pi_chord",
+  "pi_chord_type",
+  "smooth_pc_spectrum",
+  "smooth_pi_spectrum",
+  "sparse_fr_spectrum",
+  "sparse_fr_spectrum",
+  "sparse_pc_spectrum",
+  "sparse_pi_spectrum",
+  "wave"
+)
 
 #' Representations
 #'

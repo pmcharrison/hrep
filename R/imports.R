@@ -1,6 +1,3 @@
-#' @importFrom magrittr "%>%"
-NULL
-
 #' @importFrom graphics "plot"
 NULL
 

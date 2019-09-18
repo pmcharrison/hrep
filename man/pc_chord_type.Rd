@@ -7,6 +7,7 @@
 \alias{pc_chord_type.pi_chord}
 \alias{pc_chord_type.pc_set}
 \alias{pc_chord_type.pc_set_type}
+\alias{pc_chord_type.pc_set_norm_order}
 \alias{pc_chord_type.smooth_spectrum}
 \alias{pc_chord_type.sparse_spectrum}
 \alias{pi_chord_type.pi_chord}
@@ -25,6 +26,8 @@ pc_chord_type(x)
 \method{pc_chord_type}{pc_set}(x)
 
 \method{pc_chord_type}{pc_set_type}(x)
+
+\method{pc_chord_type}{pc_set_norm_order}(x)
 
 \method{pc_chord_type}{smooth_spectrum}(x)
 
