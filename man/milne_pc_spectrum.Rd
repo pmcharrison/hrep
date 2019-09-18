@@ -19,7 +19,7 @@ milne_pc_spectrum(x, ...)
 \arguments{
 \item{x}{Input sonority.}
 
-\item{...}{Further arguments passed to specific methods.}
+\item{...}{Provided for S3 method consistency.}
 
 \item{weights}{(Numeric vector)
 Vector of weights to assign to each pitch class.

@@ -15,21 +15,24 @@ expand_harmonics(x, num_harmonics = 11L, roll_off = 1, digits = 6)
 \method{expand_harmonics}{sparse_pi_spectrum}(x, num_harmonics = 11L,
   roll_off = 1, digits = 6)
 
-\method{expand_harmonics}{pi_chord}(x, ...)
+\method{expand_harmonics}{pi_chord}(x, num_harmonics = 11L,
+  roll_off = 1, digits = 6)
 }
 \arguments{
-\item{x}{Object whose harmonics should be expanded.}
+\item{x}{Object whose harmonics should be expanded.
+Should be of class
+\code{sparse_pi_spectrum},
+\code{sparse_fr_spectrum}, or
+\code{pi_chord}.}
 
-\item{num_harmonics}{(Integerish scalar) Number of harmonics produced by each tone,
-including the fundamental frequency.}
+\item{num_harmonics}{(Integerish scalar)
+Number of harmonics (including the fundamental) to which
+each tone should be expanded.}
 
 \item{roll_off}{(Numeric scalar) Parametrises the amount of amplitude roll-off
 in the harmonics, with greater values corresponding to higher roll-off.}
 
-\item{...}{Further parameters to be passed to individual methods.}
-
-\item{round}{Whether or not the harmonic template should be rounded
-to the nearest chromatic pitch.}
+\item{digits}{Number of digits to which each partial's MIDI pitch should be rounded.}
 }
 \description{
 Expands each tone in an object into its implied harmonics.

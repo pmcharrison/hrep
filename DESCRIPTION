@@ -27,7 +27,9 @@ Imports:
     tibble (>= 1.4.2),
     utils,
     glue,
-    data.table
+    data.table,
+    readr,
+    ellipsis
 RdMacros: Rdpack
 Remotes: pmcharrison/abcR
 URL: https://github.com/pmcharrison/hrep

@@ -135,7 +135,7 @@ initialise_chord_qualities <- function() {
   which_keys <- attr(df, "which_keys")
   for (i in seq_len(nrow(df))) {
     value <- df[[1]][[i]]
-    keys <- df[i, which_keys] %>% as.character() %>% na.omit()
+    keys <- df[i, which_keys] %>% as.character() %>% stats::na.omit()
     purrr::walk(keys, register_chord_quality, value)
   }
 }
@@ -155,7 +155,7 @@ initialise_chord_qualities <- function() {
 #' If \code{TRUE}, the function will throw an error if the textual label
 #' is not recognised.
 #'
-#' @param return
+#' @return
 #' If the textual label is recognised,
 #' returns an integer vector corresponding to the pitch-class set
 #' expressed relative to the chord root,

@@ -11,6 +11,9 @@ decode.corpus(x)
 }
 \arguments{
 \item{x}{Object to decode.}
+
+\item{x_type}{(Character scalar)
+The type that \code{x} is intended to represent (e.g. \code{"pc_chord"}).}
 }
 \description{
 Decodes an object from an integer-based encoding.

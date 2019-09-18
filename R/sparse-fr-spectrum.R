@@ -15,6 +15,14 @@
   res
 }
 
+#' Is sparse pitch-class spectrum
+#'
+#' Checks whether an object belongs to the class \code{sparse_fr_spectrum}.
+#'
+#' @param x Object to check.
+#'
+#' @return Logical scalar.
+#'
 #' @export
 is.sparse_fr_spectrum <- function(x) {
   is(x, "sparse_fr_spectrum")
@@ -24,24 +32,32 @@ is.sparse_fr_spectrum <- function(x) {
 #'
 #' This function represents an input object as a
 #' sparse frequency spectrum.
+#'
 #' @details
 #' A sparse frequency spectrum comprises a finite set of spectral components,
 #' each defined by a frequency (in Hz)
 #' and an amplitude (expressed in arbitrary units, but with the
 #' fundamental frequencies of chord pitches typically taking the value 1).
+#'
 #' @param x Input sonority.
 #' * Numeric vectors will be treated as vectors of MIDI note numbers,
 #' and expanded into their implied harmonics.
 #' * Two-element lists will be treated as finalised spectra,
 #' with the first element being a numeric vector of frequencies,
 #' and the second element being a numeric vector of amplitudes.
+#'
 #' @param ... Further arguments passed to \code{\link{expand_harmonics}()},
 #' depending on the method invoked.
+#'
 #' @return An object of class \code{sparse_fr_spectrum}.
+#'
 #' @rdname sparse_fr_spectrum
+#'
 #' @md
+#'
 #' @export
 sparse_fr_spectrum <- function(x, ...) {
+  ellipsis::check_dots_used()
   UseMethod("sparse_fr_spectrum")
 }
 

@@ -14,6 +14,14 @@
   res
 }
 
+#' Is sparse pitch-class spectrum
+#'
+#' Checks whether an object belongs to the class \code{sparse_pc_spectrum}.
+#'
+#' @param x Object to check.
+#'
+#' @return Logical scalar.
+#'
 #' @export
 is.sparse_pc_spectrum <- function(x) {
   is(x, "sparse_pc_spectrum")
@@ -41,6 +49,7 @@ is.sparse_pc_spectrum <- function(x) {
 #'
 #' @export
 sparse_pc_spectrum <- function(x, ...) {
+  ellipsis::check_dots_used()
   UseMethod("sparse_pc_spectrum")
 }
 

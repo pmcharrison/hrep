@@ -29,45 +29,61 @@
 #' 'Milne pitch-class spectrum'.
 #' A Milne pitch-class spectrum defines 'perceptual weight'
 #' as a continuous function of 'pitch class'.
+#'
 #' @details
 #' This spectrum is typically constructed from musical chords
 #' by expanding each note into its implied harmonics
 #' and applying a Gaussian smoothing to account for perceptual uncertainties.
 #' See \insertCite{Milne2016;textual}{hrep} for details.
+#'
 #' @param x Input sonority.
-#' @param ... Further arguments passed to specific methods.
+#'
+#' @param ...
+#' Provided for S3 method consistency.
+#'
 #' @return An object of class \code{milne_pc_spectrum}.
+#'
 #' @rdname milne_pc_spectrum
+#'
 #' @seealso \code{\link{.milne_pc_spectrum}}.
+#'
 #' @export
 milne_pc_spectrum <- function(x, ...) {
+  ellipsis::check_dots_used()
   UseMethod("milne_pc_spectrum")
 }
 
 #' @param weights (Numeric vector)
 #' Vector of weights to assign to each pitch class.
 #' If a scalar value is provided, this value is assigned to all pitch classes.
+#'
 #' @param num_harmonics (Integerish scalar)
 #' Number of harmonics to use when expanding tones into their implied harmonics,
 #' and when defining the harmonic template
 #' (including the fundamental frequency).
 #' Defaults to 12, after
 #' \insertCite{Milne2016;textual}{hrep}.
+#'
 #' @param rho (Numeric scalar)
 #' Roll-off parameter for harmonic expansion.
 #' Defaults to 0.75, after
 #' \insertCite{Milne2016;textual}{hrep}.
+#'
 #' @param sigma (Numeric scalar)
 #' Standard deviation of the Gaussian smoothing distribution (cents).
 #' Defaults to 6.83, after
 #' \insertCite{Milne2016;textual}{hrep}.
+#'
 #' @param array_dim (Integerish scalar)
 #' Dimensionality of the pitch-class spectrum array.
 #' Defaults to 1200, after
 #' \insertCite{Milne2016;textual}{hrep}.
+#'
 #' @rdname milne_pc_spectrum
+#'
 #' @references
 #' \insertAllCited{}
+#'
 #' @export
 milne_pc_spectrum.pc_set <- function(x,
                                      weights = 1,

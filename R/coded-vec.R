@@ -106,8 +106,15 @@ is.coded.coded_vec <- function(x) TRUE
 #' Decode
 #'
 #' Decodes an object from an integer-based encoding.
+#'
 #' @param x Object to decode.
+#'
+#' @param x_type
+#' (Character scalar)
+#' The type that \code{x} is intended to represent (e.g. \code{"pc_chord"}).
+#'
 #' @seealso \code{\link{encode}} for the reverse operation.
+#'
 #' @rdname decode
 #' @export
 decode <- function(x, x_type = type(x)) {

@@ -1,8 +1,24 @@
 #' Expand harmonics
 #'
 #' Expands each tone in an object into its implied harmonics.
+#'
 #' @param x Object whose harmonics should be expanded.
-#' @param ... Further parameters to be passed to individual methods.
+#' Should be of class
+#' \code{sparse_pi_spectrum},
+#' \code{sparse_fr_spectrum}, or
+#' \code{pi_chord}.
+#'
+#' @param num_harmonics
+#' (Integerish scalar)
+#' Number of harmonics (including the fundamental) to which
+#' each tone should be expanded.
+#'
+#' @param roll_off (Numeric scalar) Parametrises the amount of amplitude roll-off
+#' in the harmonics, with greater values corresponding to higher roll-off.
+#'
+#' @param digits
+#' Number of digits to which each partial's MIDI pitch should be rounded.
+#'
 #' @rdname expand_harmonics
 #' @export
 expand_harmonics <- function(x,
@@ -12,10 +28,6 @@ expand_harmonics <- function(x,
   UseMethod("expand_harmonics")
 }
 
-#' @param num_harmonics (Integerish scalar) Number of harmonics produced by each tone,
-#' including the fundamental frequency.
-#' @param roll_off (Numeric scalar) Parametrises the amount of amplitude roll-off
-#' in the harmonics, with greater values corresponding to higher roll-off.
 #' @rdname expand_harmonics
 #' @export
 expand_harmonics.sparse_fr_spectrum <- function(x,
@@ -29,12 +41,10 @@ expand_harmonics.sparse_fr_spectrum <- function(x,
     sparse_fr_spectrum()
 }
 
-#' @param round Whether or not the harmonic template should be rounded
-#' to the nearest chromatic pitch.
 #' @rdname expand_harmonics
 #' @export
 expand_harmonics.sparse_pi_spectrum <- function(x,
-                                                num_harmonics = 11L,  # including the fundamental
+                                                num_harmonics = 11L,
                                                 roll_off = 1,
                                                 digits = 6) {
   template <- pi_harmonic_template(num_harmonics, roll_off)
@@ -52,8 +62,14 @@ expand_harmonics.sparse_pi_spectrum <- function(x,
 
 #' @rdname expand_harmonics
 #' @export
-expand_harmonics.pi_chord <- function(x, ...) {
-  sparse_pi_spectrum(x, ...)
+expand_harmonics.pi_chord <- function(x,
+                                      num_harmonics = 11L,
+                                      roll_off = 1,
+                                      digits = 6) {
+  sparse_pi_spectrum(x,
+                     num_harmonics = num_harmonics,
+                     roll_off = roll_off,
+                     digits = digits)
 }
 
 pi_harmonic_template <- function(num_harmonics, roll_off, digits = 6) {

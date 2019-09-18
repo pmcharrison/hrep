@@ -106,8 +106,27 @@ transform_y.sparse_spectrum <- function(x, f, y_unit, y_lab) {
   x
 }
 
+#' Combine sparse spectra
+#'
+#' This function combines a series of sparse spectra into one spectrum
+#' assuming incoherent amplitude summation.
+#' This involves a rounding process,
+#' by which the MIDI pitch(-class) of each partial
+#' is rounded to a specified number of digits.
+#'
+#' @param ... Sparse spectra to combine
+#' (see \code{\link{sparse_pi_spectrum}} and \code{\link{sparse_pc_spectrum}}).
+#'
+#' @param digits
+#' (Integerish scalar)
+#' The MIDI pitch(-class) of each partial will be rounded to this number
+#' of digits.
+#'
+#' @return A sparse spectrum object.
+#'
 #' @export
 combine_sparse_spectra <- function(..., digits = 6) {
+  checkmate::qassert(digits, "X1[0,)")
   input <- list(...)
   if (length(input) == 0) stop("combine_sparse_spectra needs at least 1 input")
   if (length(input) == 1) return(input[[1]])

@@ -13,12 +13,13 @@ Label to decode.}
 \item{must_work}{(Logical scalar)
 If \code{TRUE}, the function will throw an error if the textual label
 is not recognised.}
-
-\item{return}{If the textual label is recognised,
+}
+\value{
+If the textual label is recognised,
 returns an integer vector corresponding to the pitch-class set
 expressed relative to the chord root,
 otherwise returns \code{NULL}
-(or an error if \code{must_work} is \code{TRUE}).}
+(or an error if \code{must_work} is \code{TRUE}).
 }
 \description{
 Decodes a given textual label into the implied chord quality.

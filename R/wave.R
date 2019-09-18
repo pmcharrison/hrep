@@ -39,6 +39,7 @@ print.wave <- function(x, ...) {
 #' @rdname wave
 #' @export
 wave <- function(x, ...) {
+  ellipsis::check_dots_used()
   UseMethod("wave")
 }
 
