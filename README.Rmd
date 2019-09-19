@@ -36,6 +36,9 @@ of integers.
 - [Function-level documentation](https://pmcharrison.github.io/hrep/reference/index.html)
 - [Changelog](https://pmcharrison.github.io/hrep/news/index.html)
 - [File an issue](https://github.com/pmcharrison/hrep/issues)
+- [Music corpora](https://github.com/pmcharrison/hcorp)
+- [Models of simultaneous consonance](https://github.com/pmcharrison/incon)
+- [Automatic voicing of chord sequences](https://github.com/pmcharrison/voicer)
 
 ## Installation
 
