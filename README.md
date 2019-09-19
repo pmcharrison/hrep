@@ -12,8 +12,13 @@ status](https://ci.appveyor.com/api/projects/status/github/pmcharrison/hrep?bran
 status](https://coveralls.io/repos/github/pmcharrison/hrep/badge.svg)](https://coveralls.io/r/pmcharrison/hrep?branch=master)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2545770.svg)](https://doi.org/10.5281/zenodo.2545770)
 
-*hrep* is an R package for representing and manipulating chords and
-chord sequences.
+The *hrep* R package provides utilities for representing and
+manipulating chord sequences for perceptually informed harmony
+modelling. The available representations include symbolic
+representations, acoustic representations, and sensory representations.
+Integer encodings are defined for several symbolic representations,
+allowing the user to efficiently express chord sequences as sequences of
+integers.
 
 ## Resources
 
