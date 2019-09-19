@@ -18,7 +18,7 @@ precompute_alphabet <- function(alphabet_size,
 }
 
 precompute_pc_set_type_alphabet <- function() {
-  by_id_chr <- pc_set_type_alphabet <- 1:4095 %>%
+  by_id_chr <- 1:4095 %>%
     purrr::map(decode_pc_set) %>%
     purrr::map(pc_set_type) %>%
     purrr::map_chr(as.character) %>%
@@ -35,7 +35,7 @@ precompute_pc_set_type_alphabet <- function() {
 }
 
 precompute_pc_chord_id_to_pc_set_id_map <- function(pc_chord_alphabet) {
-  pc_chord_alphabet$by_id %>%
+  hrep::pc_chord_alphabet$by_id %>%
     purrr::map(pc_set) %>%
     purrr::map_int(encode_pc_set)
 }

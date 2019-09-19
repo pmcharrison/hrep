@@ -75,10 +75,10 @@ transposition.pc_set_type <- function(x) attr(x, "transposition")
 encode.pc_set_type <- function(x) {
   checkmate::qassert(x, "X[0,11]")
   key <- as.character(x)
-  pc_set_type_alphabet$by_chord[[key]]
+  hrep::pc_set_type_alphabet$by_chord[[key]]
 }
 
 decode.coded_vec_pc_set_type <- function(x) {
   checkmate::qassert(x, "X[1,351]")
-  pc_set_type_alphabet$by_id[x]
+  hrep::pc_set_type_alphabet$by_id[x]
 }

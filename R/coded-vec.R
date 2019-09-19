@@ -69,7 +69,7 @@ num_elements.coded_vec <- function(x) length(x)
 #'
 #' Transforms a given object into an integer-based encoding.
 #'
-#' @param x Object to transform, as created by
+#' @param x Object to encode, as created by
 #' \code{\link{pc_set}}, \code{\link{pc_set_type}}, \code{\link{pc_chord}},
 #' or \code{\link{pc_chord_type}}.
 #'
@@ -103,23 +103,23 @@ encode <- function(x) {
 
 #' @rdname encode
 #' @export
-encode_pc_set <- function(pc_set) {
-  as.integer(sum((2L ^ (11:0)) * (0:11 %in% pc_set)))
+encode_pc_set <- function(x) {
+  as.integer(sum((2L ^ (11:0)) * (0:11 %in% x)))
 }
 
 # Order-insensitive, little error checking
 #' @rdname encode
 #' @export
-encode_pc_chord_type <- function(pc_chord_type) {
-  if (length(pc_chord_type) == 0) stop("invalid pc_chord_type")
-  as.integer(1L + sum((2L ^ (10:0)) * (1:11 %in% pc_chord_type)))
+encode_pc_chord_type <- function(x) {
+  if (length(x) == 0) stop("invalid pc_chord_type")
+  as.integer(1L + sum((2L ^ (10:0)) * (1:11 %in% x)))
 }
 
 #' @rdname encode
 #' @export
-encode_pc_chord <- function(pc_chord) {
-  bass <- pc_chord[1]
-  chord_type <- (pc_chord - bass) %% 12L
+encode_pc_chord <- function(x) {
+  bass <- x[1]
+  chord_type <- (x - bass) %% 12L
   as.integer(2048L * bass + encode_pc_chord_type(chord_type))
 }
 

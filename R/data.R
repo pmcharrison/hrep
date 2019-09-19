@@ -16,8 +16,34 @@
 #' and accessing the object within this environment with this name.
 #' The result will be a coded vector (see \code{\link{coded_vec}})
 #' of length 1.
+#'
 #' @md
 #' @name pc_chord_alphabet
+#' @docType data
+#' @keywords data
+NULL
+
+#' Pitch-class chord-type alphabet
+#'
+#' This dataset defines an alphabet for the type "pc_chord_type".
+#' It is a list with two components,
+#' defining a forward and backward
+#' mapping between integers and "pc_chord_type" objects:
+#' * \code{by_id}:
+#' A list object.
+#' The ith element of this list contains the pitch-class chord type
+#' corresponding to integer i.
+#' * \code{by_chord}:
+#' An environment object.
+#' A pitch-class chord type can be mapped to an integer by
+#' taking the pitch-class chord type object,
+#' converting it to a string representation (with \code{as.character}),
+#' and accessing the object within this environment with this name.
+#' The result will be a coded vector (see \code{\link{coded_vec}})
+#' of length 1.
+#'
+#' @md
+#' @name pc_chord_type_alphabet
 #' @docType data
 #' @keywords data
 NULL
@@ -42,6 +68,30 @@ NULL
 #' of length 1.
 #' @md
 #' @name pc_set_alphabet
+#' @docType data
+#' @keywords data
+NULL
+
+#' Pitch-class set type alphabet
+#'
+#' This dataset defines an alphabet for the type "pc_set_type".
+#' It is a list with two components,
+#' defining a forward and backward
+#' mapping between integers and "pc_set_type" objects:
+#' * \code{by_id}:
+#' A list object.
+#' The ith element of this list contains the pitch-class set type
+#' corresponding to integer i.
+#' * \code{by_chord}:
+#' An environment object.
+#' A pitch-class set type can be mapped to an integer by
+#' taking the pitch-class set type object,
+#' converting it to a string representation (with \code{as.character}),
+#' and accessing the object within this environment with this name.
+#' The result will be a coded vector (see \code{\link{coded_vec}})
+#' of length 1.
+#' @md
+#' @name pc_set_type_alphabet
 #' @docType data
 #' @keywords data
 NULL

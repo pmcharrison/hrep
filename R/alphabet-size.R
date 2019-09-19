@@ -14,13 +14,13 @@ alphabet_size <- function(type) {
 }
 
 pc_chord_alphabet_size <- function() {
-  length(pc_chord_alphabet$by_id)
+  length(hrep::pc_chord_alphabet$by_id)
 }
 
 pc_set_alphabet_size <- function() {
-  length(pc_set_alphabet$by_id)
+  length(hrep::pc_set_alphabet$by_id)
 }
 
 pc_chord_type_alphabet_size <- function() {
-  pc_chord_alphabet_size() / 12L
+  length(hrep::pc_chord_type_alphabet$by_id)
 }

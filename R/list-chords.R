@@ -10,13 +10,13 @@ list_chords <- function(type) {
   tryCatch(n <- alphabet_size(type),
            error = function(e) stop("alphabet not defined for this type"))
   if (type == "pc_chord") {
-    pc_chord_alphabet$by_id
+    hrep::pc_chord_alphabet$by_id
   } else if (type == "pc_set") {
-    pc_set_alphabet$by_id
+    hrep::pc_set_alphabet$by_id
   } else if (type == "pc_set_type") {
-    pc_set_type_alphabet$by_id
+    hrep::pc_set_type_alphabet$by_id
   } else if (type == "pc_chord_type") {
-    pc_chord_type_alphabet$by_id
+    hrep::pc_chord_type_alphabet$by_id
   } else {
     seq_len(n) %>%
       coded_vec(type) %>%

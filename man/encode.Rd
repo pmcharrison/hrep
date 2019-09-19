@@ -17,11 +17,11 @@
 \usage{
 encode(x)
 
-encode_pc_set(pc_set)
+encode_pc_set(x)
 
-encode_pc_chord_type(pc_chord_type)
+encode_pc_chord_type(x)
 
-encode_pc_chord(pc_chord)
+encode_pc_chord(x)
 
 \method{encode}{vec}(x)
 
@@ -38,7 +38,7 @@ encode_pc_chord(pc_chord)
 \method{encode}{pc_set}(x)
 }
 \arguments{
-\item{x}{Object to transform, as created by
+\item{x}{Object to encode, as created by
 \code{\link{pc_set}}, \code{\link{pc_set_type}}, \code{\link{pc_chord}},
 or \code{\link{pc_chord_type}}.}
 }
