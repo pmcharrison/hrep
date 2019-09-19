@@ -1,4 +1,9 @@
-# hrep (development version)
+- Implementing chord qualities dictionary (see `decode_chord_quality`).
+- Improved API for `decode` function.
+- Implemented new representations: `smooth_pi_spectrum`, `smooth_pc_spectrum`,
+`sparse_pc_spectrum`.
+- Renamed `pc_set_norm_form` to `pc_set_type`.
+- Improved documentation.
 
 # hrep 0.10.0
 
