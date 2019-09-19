@@ -84,8 +84,7 @@ encode.pc_chord_type <- function(x) {
 
 decode.coded_vec_pc_chord_type <- function(x) {
   checkmate::qassert(x, "X")
-  purrr::map(pc_chord_alphabet$by_id[x],
-             ~ .pc_chord_type(as.integer(.)))
+  pc_chord_type_alphabet$by_id[x]
 }
 
 #' @export

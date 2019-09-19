@@ -3,6 +3,7 @@
   stopifnot(is.null(transposition) || checkmate::qtest(transposition, "N1"))
   stopifnot(!anyDuplicated(x))
   stopifnot(identical(x, sort(x)))
+  x <- as.numeric(x)
   class(x) <- c("pc_set_type", "pc_set", "chord")
   attr(x, "transposition") <- transposition
   x
@@ -72,10 +73,12 @@ transposition.pc_set_type <- function(x) attr(x, "transposition")
 #' @rdname encode
 #' @export
 encode.pc_set_type <- function(x) {
-  encode(pc_set(x))
+  checkmate::qassert(x, "X[0,11]")
+  key <- as.character(x)
+  pc_set_type_alphabet$by_chord[[key]]
 }
 
 decode.coded_vec_pc_set_type <- function(x) {
-  x <- coded_vec(x, "pc_set")
-  lapply(decode(x), pc_set_type)
+  checkmate::qassert(x, "X[1,351]")
+  pc_set_type_alphabet$by_id[x]
 }

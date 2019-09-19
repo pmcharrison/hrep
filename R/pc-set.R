@@ -1,5 +1,6 @@
 .pc_set <- function(...) {
   pc <- unclass(c(...))
+  pc <- as.numeric(pc)
   checkmate::qassert(pc, "N+[0,12)")
   stopifnot(!anyDuplicated(pc), isTRUE(all.equal(pc, sort(pc))))
   class(pc) <- c("pc_set", "chord", class(pc))
@@ -117,7 +118,7 @@ decode.coded_vec_pc_set <- function(x) {
           round(x) != x)) {
     stop("All pc_set ids must be integers between 1 and ", max_id, ".")
   }
-  lapply(pc_set_alphabet$by_id[x], function(x) pc_set(x))
+  pc_set_alphabet$by_id[x]
 }
 
 #' Map pitch-class chords to pitch-class sets

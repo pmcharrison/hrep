@@ -19,6 +19,9 @@ test_that("duplicates", {
   expect_true(
     !anyDuplicated(x)
   )
+  expect_true(
+    !anyDuplicated(names(pc_set_alphabet$by_chord))
+  )
 })
 
 test_that("example", {
@@ -30,24 +33,43 @@ test_that("example", {
   )
 })
 
-test_that("consistency with previous versions", {
-  old <- new.env()
-  load(system.file("stability-tests/pc_set_alphabet.rda",
-                   package = "hrep",
-                   mustWork = TRUE),
-       envir = old)
-  by_id <- pc_set_alphabet$by_id
-  for (i in seq_along(by_id)) {
-    expect_equal(class(by_id[[i]]), c("pc_set", "chord", "numeric"))
-    class(by_id[[i]]) <- "pc_set"
+test_that("examples from paper", {
+  11 %>% encode_pc_set() %>% expect_equal(1)
+  11 %>% pc_set %>% encode() %>% as.integer() %>% expect_equal(1)
+
+  10 %>% encode_pc_set() %>% expect_equal(2)
+  10 %>% pc_set %>% encode() %>% as.integer() %>% expect_equal(2)
+
+  c(10, 11) %>% encode_pc_set() %>% expect_equal(3)
+  c(10, 11) %>% pc_set %>% encode() %>% as.integer() %>% expect_equal(3)
+
+  c(0, 4, 7) %>% encode_pc_set() %>% expect_equal(2192)
+  c(0, 4, 7) %>% pc_set %>% encode() %>% as.integer() %>% expect_equal(2192)
+})
+
+test_that("random consistency checks", {
+  for (i in 1:20) {
+    id <- sample(4095, 1)
+
+    expect_equal(
+      id %>% decode_pc_set() %>% list(),
+      id %>% decode(x_type = "pc_set") %>% as.list()
+    )
+
+    expect_equal(
+      id %>% decode_pc_set() %>% encode_pc_set(),
+      id
+    )
   }
-  expect_equal(
-    by_id,
-    old$pc_set_alphabet$by_id
-  )
-  expect_equal(
-    pc_set_alphabet$by_pc_set %>% as.list %>%
-      sapply(as.integer, simplify = FALSE) %>% unlist %>% sort,
-    old$pc_set_alphabet$by_pc_set %>% as.list %>% unlist %>% sort
-  )
+})
+
+test_that("consistency with previous versions", {
+  if (FALSE)
+    saveRDS(hrep::pc_set_alphabet, "inst/stability-tests/pc-set-alphabet.rds")
+
+  old <- readRDS(system.file("stability-tests/pc-set-alphabet.rds",
+                             package = "hrep",
+                             mustWork = TRUE))
+
+  expect_equal(old, pc_set_alphabet)
 })

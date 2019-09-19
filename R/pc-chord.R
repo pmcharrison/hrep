@@ -25,9 +25,18 @@
 #' This function represents an object as a pitch-class chord.
 #' A pitch-class chord is defined by the combination of
 #' a pitch-class set and a bass pitch class.
+#'
 #' @param x Object to represent as a pitch-class chord.
+#'
 #' @return Returns an object of class \code{pc_chord}.
+#'
+#' @examples
+#' pc_chord(c(0, 4, 7)) # C major triad in root position
+#' pc_chord(c(4, 0, 7)) # C major triad in first inversion
+#' pc_chord(c(7, 0, 4)) # C major triad in second inversion
+#'
 #' @export
+#'
 #' @rdname pc_chord
 pc_chord <- function(x) {
   UseMethod("pc_chord")
@@ -104,10 +113,6 @@ view.pc_chord <- function(x, ...) {
                    60 + get_non_bass_pc(x))),
        ...)
 }
-
-#' @rdname pc_chord
-#' @export
-pc_chord <- function(x) UseMethod("pc_chord")
 
 #' Get bass pitch class
 #'
