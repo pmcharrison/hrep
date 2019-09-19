@@ -8,7 +8,7 @@
 #' A list object.
 #' The ith element of this list contains the pitch-class chord
 #' corresponding to integer i.
-#' * \code{by_pc_chord}:
+#' * \code{by_chord}:
 #' An environment object.
 #' A pitch-class chord can be mapped to an integer by
 #' taking the pitch-class chord object,
@@ -32,7 +32,7 @@ NULL
 #' A list object.
 #' The ith element of this list contains the pitch-class set
 #' corresponding to integer i.
-#' * \code{by_pc_set}:
+#' * \code{by_chord}:
 #' An environment object.
 #' A pitch-class set can be mapped to an integer by
 #' taking the pitch-class set object,

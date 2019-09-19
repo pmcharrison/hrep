@@ -14,7 +14,7 @@ mapping between integers and "pc_set" objects:
 A list object.
 The ith element of this list contains the pitch-class set
 corresponding to integer i.
-\item \code{by_pc_set}:
+\item \code{by_chord}:
 An environment object.
 A pitch-class set can be mapped to an integer by
 taking the pitch-class set object,

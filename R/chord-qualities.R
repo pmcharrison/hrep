@@ -130,7 +130,7 @@ register_chord_quality <- function(key, value, overwrite = FALSE) {
 #'
 #' @export
 initialise_chord_qualities <- function() {
-  CHORD_QUALITIES <<- new.env()
+  rm(list = ls(CHORD_QUALITIES), pos = CHORD_QUALITIES)
   df <- get_chord_qualities_df()
   which_keys <- attr(df, "which_keys")
   for (i in seq_len(nrow(df))) {
@@ -178,5 +178,3 @@ decode_chord_quality <- function(x, must_work = FALSE) {
   if (must_work && is.null(res)) stop("could not decode token: ", x)
   res
 }
-
-initialise_chord_qualities()

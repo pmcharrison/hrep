@@ -14,11 +14,11 @@ alphabet_size <- function(type) {
 }
 
 pc_chord_alphabet_size <- function() {
-  length(hrep::pc_chord_alphabet$by_id)
+  length(pc_chord_alphabet$by_id)
 }
 
 pc_set_alphabet_size <- function() {
-  length(hrep::pc_set_alphabet$by_id)
+  length(pc_set_alphabet$by_id)
 }
 
 pc_chord_type_alphabet_size <- function() {

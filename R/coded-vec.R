@@ -69,21 +69,58 @@ num_elements.coded_vec <- function(x) length(x)
 #'
 #' Transforms a given object into an integer-based encoding.
 #'
-#' @param x Object to transform.
+#' @param x Object to transform, as created by
+#' \code{\link{pc_set}}, \code{\link{pc_set_type}}, \code{\link{pc_chord}},
+#' or \code{\link{pc_chord_type}}.
+#'
 #' @return Encoded object.
 #'
 #' @details
 #' Encoding is currently defined for the following types:
 #' * \code{\link{pc_set}}
+#' * \code{\link{pc_set_type}}
 #' * \code{\link{pc_chord}}
 #' * \code{\link{pc_chord_type}}
 #'
 #' An error will be thrown when trying to encode objects of other types.
+#'
+#' The \code{encode} function is vectorised and uses precomputed encodings.
+#' The following functions represent alternative implementations
+#' that are not vectorised and
+#' do not rely on precomputed encodings.
+#' Note that these alternative implementations do not necessarily
+#' perform systematic input checking.
+#' - \code{encode_pc_set}
+#' - \code{encode_pc_chord_type}
+#' - \code{encode_pc_chord}
+#'
 #' @md
 #' @seealso \code{\link{decode}} for the reverse operation.
 #' @export
 encode <- function(x) {
   UseMethod("encode")
+}
+
+#' @rdname encode
+#' @export
+encode_pc_set <- function(pc_set) {
+  as.integer(sum((2L ^ (11:0)) * (0:11 %in% pc_set)))
+}
+
+# Order-insensitive, little error checking
+#' @rdname encode
+#' @export
+encode_pc_chord_type <- function(pc_chord_type) {
+  if (length(pc_chord_type) == 0) stop("invalid pc_chord_type")
+  as.integer(1L + sum((2L ^ (10:0)) * (1:11 %in% pc_chord_type)))
+}
+
+#' @rdname encode
+#' @export
+encode_pc_chord <- function(pc_chord) {
+  bass <- pc_chord[1]
+  chord_type <- (pc_chord - bass) %% 12L
+  as.integer(2048L * bass + encode_pc_chord_type(chord_type))
 }
 
 #' @rdname encode
@@ -102,10 +139,22 @@ encode.coded_vec <- function(x) x
 #' @export
 is.coded.coded_vec <- function(x) TRUE
 
-
 #' Decode
 #'
 #' Decodes an object from an integer-based encoding.
+#'
+#' The \code{decode} function is vectorised and uses precomputed encodings.
+#' The following functions represent alternative implementations
+#' that are not vectorised and do not rely on precomputed encodings:
+#' - \code{decode_pc_set}
+#' - \code{decode_pc_chord_type}
+#' - \code{decode_pc_chord}
+#'
+#' @return
+#' \code{decode} returns an object of class \code{vec};
+#' the other functions return integer vectors.
+#'
+#' @md
 #'
 #' @param x Object to decode.
 #'
@@ -123,6 +172,36 @@ decode <- function(x, x_type = type(x)) {
   vec(do.call(f, args = list(x)),
       type = x_type,
       metadata = metadata(x))
+}
+
+#' @rdname decode
+#' @export
+decode_pc_set <- function(x) {
+  if (!is.numeric(x) || length(x) != 1 || x < 1 || x > 4095)
+    stop("invalid pc_set id")
+  x <- as.integer(x)
+  binary <- rev(intToBits(x)[1:12] == 1)
+  .pc_set((0:11)[binary])
+}
+
+#' @rdname decode
+#' @export
+decode_pc_chord_type <- function(x) {
+  if (!is.numeric(x) || length(x) != 1 || x < 1 || x > 2048)
+    stop("invalid pc_chord_type id")
+  x <- as.integer(x)
+  binary <- rev(intToBits(x - 1L)[1:11] == 1)
+  .pc_chord_type(c(0L, (1:11)[binary]))
+}
+
+#' @rdname decode
+#' @export
+decode_pc_chord <- function(x) {
+  x <- as.integer(x)
+  bass <- (x - 1) %/% 2048L
+  chord_type <- decode_pc_chord_type(((x - 1) %% 2048L) + 1)
+  .pc_chord(bass_pc = bass,
+            other_pc = sort.int((chord_type[-1L] + bass) %% 12L))
 }
 
 #' @rdname transform_symbols

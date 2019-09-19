@@ -104,12 +104,12 @@ as.character.pc_set <- function(x, ...) {
 encode.pc_set <- function(x) {
   checkmate::qassert(x, "X")
   key <- as.character(x)
-  hrep::pc_set_alphabet$by_pc_set[[key]]
+  pc_set_alphabet$by_chord[[key]]
 }
 
 # Vectorised
 decode.coded_vec_pc_set <- function(x) {
-  max_id <- length(hrep::pc_set_alphabet$by_id)
+  max_id <- length(pc_set_alphabet$by_id)
   if (!is.numeric(x) ||
       any(is.na(x) |
           x < 1 |
@@ -117,7 +117,7 @@ decode.coded_vec_pc_set <- function(x) {
           round(x) != x)) {
     stop("All pc_set ids must be integers between 1 and ", max_id, ".")
   }
-  lapply(hrep::pc_set_alphabet$by_id[x], function(x) pc_set(x))
+  lapply(pc_set_alphabet$by_id[x], function(x) pc_set(x))
 }
 
 #' Map pitch-class chords to pitch-class sets
@@ -129,5 +129,5 @@ decode.coded_vec_pc_set <- function(x) {
 #' @return Numeric vector of pitch-class set codes.
 #' @export
 map_pc_chord_id_to_pc_set_id <- function(pc_chord_id) {
-  hrep::pc_chord_id_to_pc_set_id_map[as.integer(pc_chord_id)]
+  pc_chord_id_to_pc_set_id_map[as.integer(pc_chord_id)]
 }

@@ -78,13 +78,13 @@ pc_chord_type.sparse_spectrum <- function(x) {
 encode.pc_chord_type <- function(x) {
   checkmate::qassert(x, "X")
   key <- as.character(x)
-  i <- as.integer(hrep::pc_chord_alphabet$by_pc_chord[[key]])
+  i <- as.integer(pc_chord_type_alphabet$by_chord[[key]])
   coded_vec(i, "pc_chord_type")
 }
 
 decode.coded_vec_pc_chord_type <- function(x) {
   checkmate::qassert(x, "X")
-  purrr::map(hrep::pc_chord_alphabet$by_id[x],
+  purrr::map(pc_chord_alphabet$by_id[x],
              ~ .pc_chord_type(as.integer(.)))
 }
 

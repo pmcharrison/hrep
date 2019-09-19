@@ -1,6 +1,14 @@
 context("test-pc_chord_alphabet")
 
-library(magrittr)
+test_that("misc", {
+  expect_equal(encode_pc_chord(c(0, 3, 6)), 289)
+  expect_equal(encode_pc_chord(c(0, 4, 7)), 145)
+  expect_equal(encode_pc_chord(c(4, 0, 7)), 8457)
+  expect_equal(encode_pc_chord(c(0)), 1)
+  expect_equal(encode_pc_chord(c(0, 1)), 1025)
+
+  pc_chord(c(0, 3, 6)) %>% encode()
+})
 
 test_that("consistency with previous versions", {
   old <- new.env()

@@ -1,7 +1,5 @@
 context("pc_set_alphabet")
 
-library(magrittr)
-
 x <- pc_set_alphabet$by_id
 
 test_that("class", {

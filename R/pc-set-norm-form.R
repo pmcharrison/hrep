@@ -57,7 +57,7 @@ pc_set_type.pc_set_type <- function(x) x
 #' @export
 print.pc_set_type <- function(x, ...) {
   trans <- transposition(x)
-  cat("Pitch-class set (normal form): ",
+  cat("Pitch-class set type: ",
       paste0("[", paste(as.numeric(x), collapse = ", "), "]\n"),
       sep = "")
   cat("Transposition from original pitch-class set: ",
