@@ -100,7 +100,10 @@ is.coded <- function(x) UseMethod("is.coded")
 #' @param ... Parameters passed to methods.
 #' @rdname view
 #' @export
-view <- function(x, ...) UseMethod("view")
+view <- function(x, ...) {
+  ellipsis::check_dots_used()
+  UseMethod("view")
+}
 
 #' Transform y values
 #'

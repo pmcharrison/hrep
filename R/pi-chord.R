@@ -16,18 +16,31 @@
 #' This function represents an object as a pitch chord.
 #' A pitch chord is defined as a set of non-duplicated
 #' pitches, expressed as MIDI note numbers.
+#'
 #' @param x Object to represent as a pitch chord.
+#'
+#' @param force
+#' (Logical scalar)
+#' If \code{TRUE}, then objects will be coerced to a \code{pi_chord}
+#' representation even if the required mapping is not deterministic.
+#'
+#' @param ...
+#' Present for S3 method compatibility.
+#'
 #' @return Returns an object of class \code{pi_chord}.
+#'
 #' @export
+#'
 #' @rdname pi_chord
+#'
 #' @export
-pi_chord <- function(x) {
+pi_chord <- function(x, force = FALSE) {
   UseMethod("pi_chord")
 }
 
 #' @export
 #' @rdname pi_chord
-pi_chord.numeric <- function(x) {
+pi_chord.numeric <- function(x, ...) {
   if (is.smooth_spectrum(x))
     stop("cannot translate smooth spectra to pi_chord representations")
   .pi_chord(sort(unique(unclass(x))))
@@ -35,7 +48,7 @@ pi_chord.numeric <- function(x) {
 
 #' @export
 #' @rdname pi_chord
-pi_chord.character <- function(x) {
+pi_chord.character <- function(x, ...) {
   stopifnot(length(x) == 1L)
   y <- as.numeric(strsplit(x, split = " ")[[1]])
   if (anyNA(y)) stop("malformed character input, should be of the form ",
@@ -44,8 +57,8 @@ pi_chord.character <- function(x) {
 }
 
 #' @export
-pi_chord.chord <- function(x) {
-  stop("cannot translate this object to pi_chord format")
+pi_chord.chord <- function(x, ...) {
+  stop("don't know how to translate this object to pi_chord format")
 }
 
 #' @export
@@ -60,20 +73,42 @@ as.character.pi_chord <- function(x, ...) {
 
 #' @export
 #' @rdname pi_chord
-pi_chord.pi_chord <- function(x) {
+pi_chord.pi_chord <- function(x, ...) {
   x
 }
 
 #' @export
 #' @rdname pi_chord
-pi_chord.fr_chord <- function(x) {
+pi_chord.fr_chord <- function(x, ...) {
   pi_chord(freq_to_midi(as.numeric(x)))
 }
 
 #' @export
 #' @rdname pi_chord
-pi_chord.pi_chord_type <- function(x) {
+pi_chord.pi_chord_type <- function(x, force = FALSE) {
+  assert_force(force)
   .pi_chord(60 + x)
+}
+
+#' @export
+#' @rdname pi_chord
+pi_chord.pc_set <- function(x, force = FALSE) {
+  assert_force(force)
+  .pi_chord(as.numeric(x))
+}
+
+#' @export
+#' @rdname pi_chord
+pi_chord.pc_chord <- function(x, force = FALSE) {
+  assert_force(force)
+  .pi_chord(c(48L + get_bass_pc(x),
+              60L + get_non_bass_pc(x)))
+}
+
+assert_force <- function(force) {
+  if (!force)
+    stop("cannot deterministically convert this object to a 'pi_chord' representation. ",
+         "To force such a conversion, set force = TRUE.")
 }
 
 #' Check for type "pi_chord"

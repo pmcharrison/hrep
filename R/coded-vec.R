@@ -147,3 +147,8 @@ transform_symbols.coded_vec <- function(x, f, type, ...) {
   checkmate::qassert(value, "X1")
   NextMethod("[<-.corpus")
 }
+
+#' @export
+view.coded_vec <- function(x, ...) {
+  view(decode(x), ...)
+}

@@ -16,5 +16,5 @@ test_that("examples", {
   expect_equal(wave(60), wave(pi_chord(60)))
 
   expect_error(wave(milne_pc_spectrum(60)),
-               "cannot translate")
+               "don't know how to translate this object to pi_chord format")
 })
