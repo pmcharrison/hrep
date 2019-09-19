@@ -51,6 +51,7 @@ plot.sparse_spectrum <- function(x, ggplot = FALSE, xlim = NULL, ...) {
     df2$y[I + 2L] <- df$y[i]
   }
   if (ggplot) {
+    assert_installed("ggplot2")
     tibble::tibble(x = df2$x, y = df2$y) %>%
       ggplot2::ggplot(ggplot2::aes_string(x = "x", y = "y")) +
       ggplot2::geom_line() +

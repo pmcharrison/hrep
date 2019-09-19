@@ -81,6 +81,7 @@ plot.wave <- function(x, ggplot = FALSE, xlab = "Time (seconds)", ylab = "Displa
                       ylim = NULL, ...) {
   time <- seq(from = 0, by = 1 / sample_rate(x), length.out = length(x))
   if (ggplot) {
+    assert_installed("ggplot2")
     tibble::tibble(time = time, displacement = as.numeric(x)) %>%
       ggplot2::ggplot(ggplot2::aes_string(x = "time", y = "displacement")) +
       ggplot2::geom_line() +

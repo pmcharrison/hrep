@@ -66,6 +66,7 @@ plot.smooth_spectrum <- function(x,
                                  ...) {
   df <- as.data.frame(x)
   if (ggplot) {
+    assert_installed("ggplot2")
     if (!is.null(xlim)) df <- df[df$x >= xlim[1] & df$x <= xlim[2], ]
     ggplot2::ggplot(df, ggplot2::aes_string("x", "y")) +
       ggplot2::geom_line() +
