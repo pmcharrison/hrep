@@ -1,5 +1,4 @@
-# hrep (development version)
-
+- BREAKING CHANGE - changed integer encodings for symbolic representations.
 - Implementing chord qualities dictionary (see `decode_chord_quality`).
 - Improved API for `decode` function.
 - Implemented new representations: `smooth_pi_spectrum`, `smooth_pc_spectrum`,
