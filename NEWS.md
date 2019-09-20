@@ -1,3 +1,5 @@
+# hrep 0.11.0
+
 - BREAKING CHANGE - changed integer encodings for symbolic representations.
 - Implementing chord qualities dictionary (see `decode_chord_quality`).
 - Improved API for `decode` function.
