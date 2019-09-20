@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hrep</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
       </span>
     </div>
 
@@ -117,34 +117,36 @@
     <p>Expands each tone in an object into its implied harmonics.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>expand_harmonics</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>expand_harmonics</span>(<span class='no'>x</span>, <span class='kw'>num_harmonics</span> <span class='kw'>=</span> <span class='fl'>11L</span>, <span class='kw'>roll_off</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>6</span>)
 
 <span class='co'># S3 method for sparse_fr_spectrum</span>
 <span class='fu'>expand_harmonics</span>(<span class='no'>x</span>, <span class='kw'>num_harmonics</span> <span class='kw'>=</span> <span class='fl'>11L</span>,
-  <span class='kw'>roll_off</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>frequency_digits</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='no'>...</span>)
+  <span class='kw'>roll_off</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>6</span>)
 
 <span class='co'># S3 method for sparse_pi_spectrum</span>
 <span class='fu'>expand_harmonics</span>(<span class='no'>x</span>, <span class='kw'>num_harmonics</span> <span class='kw'>=</span> <span class='fl'>11L</span>,
-  <span class='kw'>roll_off</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+  <span class='kw'>roll_off</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>6</span>)
 
 <span class='co'># S3 method for pi_chord</span>
-<span class='fu'>expand_harmonics</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>expand_harmonics</span>(<span class='no'>x</span>, <span class='kw'>num_harmonics</span> <span class='kw'>=</span> <span class='fl'>11L</span>,
+  <span class='kw'>roll_off</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>6</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>Object whose harmonics should be expanded.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Further parameters to be passed to individual methods.</p></td>
+      <td><p>Object whose harmonics should be expanded.
+Should be of class
+<code>sparse_pi_spectrum</code>,
+<code>sparse_fr_spectrum</code>, or
+<code>pi_chord</code>.</p></td>
     </tr>
     <tr>
       <th>num_harmonics</th>
-      <td><p>(Integerish scalar) Number of harmonics produced by each tone,
-including the fundamental frequency.</p></td>
+      <td><p>(Integerish scalar)
+Number of harmonics (including the fundamental) to which
+each tone should be expanded.</p></td>
     </tr>
     <tr>
       <th>roll_off</th>
@@ -152,13 +154,8 @@ including the fundamental frequency.</p></td>
 in the harmonics, with greater values corresponding to higher roll-off.</p></td>
     </tr>
     <tr>
-      <th>frequency_digits</th>
-      <td><p>(Integerish scalar) Number of significant digits
-to which frequencies are rounded.</p></td>
-    </tr>
-    <tr>
-      <th>round</th>
-      <td><p>Whether or not the harmonic template should be rounded.</p></td>
+      <th>digits</th>
+      <td><p>Number of digits to which each partial's MIDI pitch should be rounded.</p></td>
     </tr>
     </table>
 

@@ -70,7 +70,7 @@ sparse frequency spectrum." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hrep</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@ sparse frequency spectrum." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Sparse frequency spectrum</h1>
-    <small class="dont-index">Source: <a href='https://github.com/pmcharrison/hrep/blob/master/R/fr-sparse-spectrum.R'><code>R/fr-sparse-spectrum.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/pmcharrison/hrep/blob/master/R/sparse-fr-spectrum.R'><code>R/sparse-fr-spectrum.R</code></a></small>
     <div class="hidden name"><code>sparse_fr_spectrum.Rd</code></div>
     </div>
 
@@ -120,6 +120,9 @@ sparse frequency spectrum.</p>
     </div>
 
     <pre class="usage"><span class='fu'>sparse_fr_spectrum</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for sparse_fr_spectrum</span>
+<span class='fu'>sparse_fr_spectrum</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for sparse_pi_spectrum</span>
 <span class='fu'>sparse_fr_spectrum</span>(<span class='no'>x</span>, <span class='no'>...</span>)
@@ -131,10 +134,7 @@ sparse frequency spectrum.</p>
 <span class='fu'>sparse_fr_spectrum</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for list</span>
-<span class='fu'>sparse_fr_spectrum</span>(<span class='no'>x</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for sparse_fr_spectrum</span>
-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>...</span>, <span class='kw'>x_digits</span> <span class='kw'>=</span> <span class='fl'>6</span>)</pre>
+<span class='fu'>sparse_fr_spectrum</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -154,11 +154,6 @@ and the second element being a numeric vector of amplitudes.</p></li>
       <td><p>Further arguments passed to <code><a href='expand_harmonics.html'>expand_harmonics</a>()</code>,
 depending on the method invoked.</p></td>
     </tr>
-    <tr>
-      <th>x_digits</th>
-      <td><p>(Integerish scalar) Number of significant digits
-to which frequencies are rounded when being combined.</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -170,9 +165,6 @@ to which frequencies are rounded when being combined.</p></td>
 each defined by a frequency (in Hz)
 and an amplitude (expressed in arbitrary units, but with the
 fundamental frequencies of chord pitches typically taking the value 1).</p>
-<p>Sparse frequency spectra can be combined into one spectrum using <code><a href='https://rdrr.io/r/base/c.html'>c(...)</a></code>.
-Amplitudes are summed assuming incoherent wave superposition
-(see <code><a href='sum_amplitudes.html'>sum_amplitudes</a></code>).</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

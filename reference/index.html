@@ -67,7 +67,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hrep</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
       </span>
     </div>
 
@@ -121,7 +121,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-types" class="hasAnchor"><a href="#section-types" class="anchor"></a>Types</h2>
-          <p class="section-desc"><p>These provide different ways of representing chords.</p></p>
+          <p class="section-desc"><p>Types provide different ways of representing chords.</p></p>
         </th>
       </tr>
       <tr>
@@ -163,7 +163,7 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="pc_chord.html">pc_chord()</a></code> <code><a href="pc_chord.html">pc_chord()</a></code> </p>
+          <p><code><a href="pc_chord.html">pc_chord()</a></code> </p>
         </td>
         <td><p>Pitch-class chord</p></td>
       </tr><tr>
@@ -181,9 +181,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="pc_set_norm_form.html">pc_set_norm_form()</a></code> <code><a href="pc_set_norm_form.html">transposition(<i>&lt;pc_set_norm_form&gt;</i>)</a></code> </p>
+          <p><code><a href="pc_set_norm_order.html">pc_set_norm_order()</a></code> </p>
         </td>
-        <td><p>Pitch-class set (normal form)</p></td>
+        <td><p>Pitch-class set (normal order)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pc_set_type.html">pc_set_type()</a></code> <code><a href="pc_set_type.html">transposition(<i>&lt;pc_set_type&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Pitch-class set type</p></td>
       </tr><tr>
         
         <td>
@@ -199,13 +205,31 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="sparse_fr_spectrum.html">sparse_fr_spectrum()</a></code> <code><a href="sparse_fr_spectrum.html">c(<i>&lt;sparse_fr_spectrum&gt;</i>)</a></code> </p>
+          <p><code><a href="smooth_pc_spectrum.html">smooth_pc_spectrum()</a></code> </p>
+        </td>
+        <td><p>Smooth pitch-class spectrum</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="smooth_pi_spectrum.html">smooth_pi_spectrum()</a></code> </p>
+        </td>
+        <td><p>Smooth pitch spectrum</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sparse_fr_spectrum.html">sparse_fr_spectrum()</a></code> </p>
         </td>
         <td><p>Sparse frequency spectrum</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="sparse_pi_spectrum.html">sparse_pi_spectrum()</a></code> <code><a href="sparse_pi_spectrum.html">c(<i>&lt;sparse_pi_spectrum&gt;</i>)</a></code> </p>
+          <p><code><a href="sparse_pc_spectrum.html">sparse_pc_spectrum()</a></code> </p>
+        </td>
+        <td><p>Sparse pitch-class spectrum</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sparse_pi_spectrum.html">sparse_pi_spectrum()</a></code> </p>
         </td>
         <td><p>Sparse pitch spectrum</p></td>
       </tr><tr>
@@ -220,6 +244,38 @@
           <p><code><a href="wave.html">wave()</a></code> </p>
         </td>
         <td><p>Wave</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-chord-qualities" class="hasAnchor"><a href="#section-chord-qualities" class="anchor"></a>Chord qualities</h2>
+          <p class="section-desc"><p>Functions for decoding chord qualities from textual labels.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="get_chord_qualities_df.html">get_chord_qualities_df()</a></code> </p>
+        </td>
+        <td><p>Get chord qualities</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="register_chord_quality.html">register_chord_quality()</a></code> </p>
+        </td>
+        <td><p>Register chord quality</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="initialise_chord_qualities.html">initialise_chord_qualities()</a></code> </p>
+        </td>
+        <td><p>Initialise chord qualities database</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="decode_chord_quality.html">decode_chord_quality()</a></code> </p>
+        </td>
+        <td><p>Decode chord quality</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -325,13 +381,13 @@
       <tr>
         
         <td>
-          <p><code><a href="decode.html">decode()</a></code> </p>
+          <p><code><a href="decode.html">decode()</a></code> <code><a href="decode.html">decode_pc_set()</a></code> <code><a href="decode.html">decode_pc_chord_type()</a></code> <code><a href="decode.html">decode_pc_chord()</a></code> </p>
         </td>
         <td><p>Decode</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="encode.html">encode()</a></code> </p>
+          <p><code><a href="encode.html">encode()</a></code> <code><a href="encode.html">encode_pc_set()</a></code> <code><a href="encode.html">encode_pc_chord_type()</a></code> <code><a href="encode.html">encode_pc_chord()</a></code> </p>
         </td>
         <td><p>Encode</p></td>
       </tr>
@@ -409,6 +465,12 @@
         </th>
       </tr>
       <tr>
+        
+        <td>
+          <p><code><a href="combine_sparse_spectra.html">combine_sparse_spectra()</a></code> </p>
+        </td>
+        <td><p>Combine sparse spectra</p></td>
+      </tr><tr>
         
         <td>
           <p><code><a href="edit_bass_pc.html">edit_bass_pc()</a></code> </p>
@@ -517,7 +579,7 @@
       <tr>
         
         <td>
-          <p><code><a href="access.html">x_unit()</a></code> <code><a href="access.html">y_unit()</a></code> <code><a href="access.html">lower()</a></code> <code><a href="access.html">upper()</a></code> <code><a href="access.html">low_eq()</a></code> <code><a href="access.html">high_eq()</a></code> <code><a href="access.html">label()</a></code> <code><a href="access.html">x_lab()</a></code> <code><a href="access.html">y_lab()</a></code> <code><a href="access.html">freq()</a></code> <code><a href="access.html">`freq<-`()</a></code> <code><a href="access.html">pitch()</a></code> <code><a href="access.html">`pitch<-`()</a></code> <code><a href="access.html">amp()</a></code> <code><a href="access.html">`amp<-`()</a></code> <code><a href="access.html">transposition()</a></code> <code><a href="access.html">sample_rate()</a></code> </p>
+          <p><code><a href="access.html">x_unit()</a></code> <code><a href="access.html">y_unit()</a></code> <code><a href="access.html">lower()</a></code> <code><a href="access.html">upper()</a></code> <code><a href="access.html">low_eq()</a></code> <code><a href="access.html">high_eq()</a></code> <code><a href="access.html">label()</a></code> <code><a href="access.html">x_lab()</a></code> <code><a href="access.html">y_lab()</a></code> <code><a href="access.html">freq()</a></code> <code><a href="access.html">`freq<-`()</a></code> <code><a href="access.html">pitch()</a></code> <code><a href="access.html">`pitch<-`()</a></code> <code><a href="access.html">pc()</a></code> <code><a href="access.html">`pc<-`()</a></code> <code><a href="access.html">amp()</a></code> <code><a href="access.html">`amp<-`()</a></code> <code><a href="access.html">transposition()</a></code> <code><a href="access.html">sample_rate()</a></code> </p>
         </td>
         <td><p>Accessors</p></td>
       </tr>
@@ -561,6 +623,36 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="is.smooth_pc_spectrum.html">is.smooth_pc_spectrum()</a></code> </p>
+        </td>
+        <td><p>Is smooth pitch-class spectrum</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="is.smooth_pi_spectrum.html">is.smooth_pi_spectrum()</a></code> </p>
+        </td>
+        <td><p>Is smooth pitch spectrum</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="is.sparse_fr_spectrum.html">is.sparse_fr_spectrum()</a></code> </p>
+        </td>
+        <td><p>Is sparse pitch-class spectrum</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="is.sparse_pc_spectrum.html">is.sparse_pc_spectrum()</a></code> </p>
+        </td>
+        <td><p>Is sparse pitch-class spectrum</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="is.sparse_pi_spectrum.html">is.sparse_pi_spectrum()</a></code> </p>
+        </td>
+        <td><p>Is sparse pitch spectrum</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="is.pc_chord.html">is.pc_chord()</a></code> </p>
         </td>
         <td><p>Check for class "pc_chord"</p></td>
@@ -591,6 +683,7 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-types">Types</a></li>
+      <li><a href="#section-chord-qualities">Chord qualities</a></li>
       <li><a href="#section-alphabets">Alphabets</a></li>
       <li><a href="#section-sequences-and-corpora">Sequences and corpora</a></li>
       <li><a href="#section-encoding-and-decoding">Encoding and decoding</a></li>

@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hrep</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
       </span>
     </div>
 
@@ -109,7 +109,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Decode</h1>
-    <small class="dont-index">Source: <a href='https://github.com/pmcharrison/hrep/blob/master/R/coded-vec.R'><code>R/coded-vec.R</code></a>, <a href='https://github.com/pmcharrison/hrep/blob/master/R/corpus.R'><code>R/corpus.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/pmcharrison/hrep/blob/master/R/coded-vec.R'><code>R/coded-vec.R</code></a></small>
     <div class="hidden name"><code>decode.Rd</code></div>
     </div>
 
@@ -117,13 +117,13 @@
     <p>Decodes an object from an integer-based encoding.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>decode</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>decode</span>(<span class='no'>x</span>, <span class='kw'>x_type</span> <span class='kw'>=</span> <span class='fu'><a href='type.html'>type</a></span>(<span class='no'>x</span>))
 
-<span class='co'># S3 method for integer</span>
-<span class='fu'>decode</span>(<span class='no'>x</span>)
+<span class='fu'>decode_pc_set</span>(<span class='no'>x</span>)
 
-<span class='co'># S3 method for corpus</span>
-<span class='fu'>decode</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>decode_pc_chord_type</span>(<span class='no'>x</span>)
+
+<span class='fu'>decode_pc_chord</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -132,7 +132,26 @@
       <th>x</th>
       <td><p>Object to decode.</p></td>
     </tr>
+    <tr>
+      <th>x_type</th>
+      <td><p>(Character scalar)
+The type that <code>x</code> is intended to represent (e.g. <code>"pc_chord"</code>).</p></td>
+    </tr>
     </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code>decode</code> returns an object of class <code>vec</code>;
+the other functions return integer vectors.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The <code>decode</code> function is vectorised and uses precomputed encodings.
+The following functions represent alternative implementations
+that are not vectorised and do not rely on precomputed encodings:</p><ul>
+<li><p><code>decode_pc_set</code></p></li>
+<li><p><code>decode_pc_chord_type</code></p></li>
+<li><p><code>decode_pc_chord</code></p></li>
+</ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -143,6 +162,8 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
       <li><a href="#see-also">See also</a></li>
     </ul>
 
