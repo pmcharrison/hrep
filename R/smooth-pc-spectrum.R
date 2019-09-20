@@ -65,6 +65,9 @@ is.smooth_pc_spectrum <- function(x) {
 #'
 #' @rdname smooth_pc_spectrum
 #'
+#' @references
+#' \insertAllCited{}
+#'
 #' @export
 smooth_pc_spectrum <- function(x, sigma = 6.83, ...) {
   ellipsis::check_dots_used()

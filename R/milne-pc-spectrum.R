@@ -47,6 +47,9 @@
 #'
 #' @seealso \code{\link{.milne_pc_spectrum}}.
 #'
+#' @references
+#' \insertAllCited{}
+#'
 #' @export
 milne_pc_spectrum <- function(x, ...) {
   ellipsis::check_dots_used()

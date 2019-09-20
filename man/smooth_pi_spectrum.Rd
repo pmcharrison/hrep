@@ -45,6 +45,9 @@ as a sparse pitch spectrum (see \code{\link{sparse_pi_spectrum}})
 and convolving the result with a Gaussian distribution with standard deviation
 \code{sigma}.
 }
+\references{
+\insertAllCited{}
+}
 \seealso{
 This representation was inspired by \code{\link{milne_pc_spectrum}},
 which embodies similar ideas with a slightly different implementation.

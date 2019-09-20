@@ -1,3 +1,5 @@
+- Inserted some missing reference lists.
+
 # hrep 0.11.0
 
 - BREAKING CHANGE - changed integer encodings for symbolic representations.

@@ -15,6 +15,9 @@
 #' @details
 #' See \insertCite{Milne2016;textual}{hrep} for details.
 #'
+#' @references
+#' \insertAllCited{}
+#'
 #' @export
 milne_pc_spec_dist <- function(x, y, ...) {
   ellipsis::check_dots_used()

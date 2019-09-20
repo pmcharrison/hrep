@@ -64,6 +64,8 @@ See \insertCite{Milne2016;textual}{hrep} for details.
 }
 \references{
 \insertAllCited{}
+
+\insertAllCited{}
 }
 \seealso{
 \code{\link{.milne_pc_spectrum}}.
