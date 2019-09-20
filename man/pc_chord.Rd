@@ -25,8 +25,6 @@ pc_chord(x)
 
 \method{pc_chord}{fr_chord}(x)
 
-pc_chord(x)
-
 \method{pc_chord}{character}(x)
 }
 \arguments{
@@ -39,4 +37,10 @@ Returns an object of class \code{pc_chord}.
 This function represents an object as a pitch-class chord.
 A pitch-class chord is defined by the combination of
 a pitch-class set and a bass pitch class.
+}
+\examples{
+pc_chord(c(0, 4, 7)) # C major triad in root position
+pc_chord(c(4, 0, 7)) # C major triad in first inversion
+pc_chord(c(7, 0, 4)) # C major triad in second inversion
+
 }

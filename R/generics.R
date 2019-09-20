@@ -49,7 +49,7 @@ metadata.default <- function(x) list()
 #' * \code{\link{pc_chord}}
 #' * \code{\link{pc_chord_type}}
 #' * \code{\link{pc_set}}
-#' * \code{\link{pc_set_norm_form}}
+#' * \code{\link{pc_set_type}}
 #' * \code{\link{pc_set_norm_order}}
 #' * \code{\link{milne_pc_spectrum}}
 #'
@@ -100,7 +100,10 @@ is.coded <- function(x) UseMethod("is.coded")
 #' @param ... Parameters passed to methods.
 #' @rdname view
 #' @export
-view <- function(x, ...) UseMethod("view")
+view <- function(x, ...) {
+  ellipsis::check_dots_used()
+  UseMethod("view")
+}
 
 #' Transform y values
 #'

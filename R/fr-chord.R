@@ -44,6 +44,11 @@ fr_chord.character <- function(x) {
 }
 
 #' @export
+fr_chord.chord <- function(x) {
+  stop("cannot translate this object to fr_chord format")
+}
+
+#' @export
 as.character.fr_chord <- function(x, ...) {
   paste(as.numeric(x), collapse = " ")
 }
@@ -86,13 +91,6 @@ print.fr_chord <- function(x, digits = 3L, ...) {
   cat("Frequency chord: ",
       paste(paste(round(as.numeric(x), digits = digits), "Hz"),
             collapse = ", "), "\n", sep = "")
-}
-
-#' @export
-c.fr_chord <- function(...) {
-  x <- lapply(list(...), unclass)
-  x <- do.call(c, x)
-  fr_chord(sort(unique(x)))
 }
 
 #' Get bass frequency

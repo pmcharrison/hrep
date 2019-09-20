@@ -3,16 +3,25 @@
 %   R/pc-chord.R, R/pc-set-norm-form.R, R/pc-set.R
 \name{encode}
 \alias{encode}
+\alias{encode_pc_set}
+\alias{encode_pc_chord_type}
+\alias{encode_pc_chord}
 \alias{encode.vec}
 \alias{encode.coded_vec}
 \alias{encode.corpus}
 \alias{encode.pc_chord_type}
 \alias{encode.pc_chord}
-\alias{encode.pc_set_norm_form}
+\alias{encode.pc_set_type}
 \alias{encode.pc_set}
 \title{Encode}
 \usage{
 encode(x)
+
+encode_pc_set(x)
+
+encode_pc_chord_type(x)
+
+encode_pc_chord(x)
 
 \method{encode}{vec}(x)
 
@@ -24,12 +33,14 @@ encode(x)
 
 \method{encode}{pc_chord}(x)
 
-\method{encode}{pc_set_norm_form}(x)
+\method{encode}{pc_set_type}(x)
 
 \method{encode}{pc_set}(x)
 }
 \arguments{
-\item{x}{Object to transform.}
+\item{x}{Object to encode, as created by
+\code{\link{pc_set}}, \code{\link{pc_set_type}}, \code{\link{pc_chord}},
+or \code{\link{pc_chord_type}}.}
 }
 \value{
 Encoded object.
@@ -41,11 +52,24 @@ Transforms a given object into an integer-based encoding.
 Encoding is currently defined for the following types:
 \itemize{
 \item \code{\link{pc_set}}
+\item \code{\link{pc_set_type}}
 \item \code{\link{pc_chord}}
 \item \code{\link{pc_chord_type}}
 }
 
 An error will be thrown when trying to encode objects of other types.
+
+The \code{encode} function is vectorised and uses precomputed encodings.
+The following functions represent alternative implementations
+that are not vectorised and
+do not rely on precomputed encodings.
+Note that these alternative implementations do not necessarily
+perform systematic input checking.
+\itemize{
+\item \code{encode_pc_set}
+\item \code{encode_pc_chord_type}
+\item \code{encode_pc_chord}
+}
 }
 \seealso{
 \code{\link{decode}} for the reverse operation.

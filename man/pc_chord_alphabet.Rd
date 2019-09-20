@@ -14,7 +14,7 @@ mapping between integers and "pc_chord" objects:
 A list object.
 The ith element of this list contains the pitch-class chord
 corresponding to integer i.
-\item \code{by_pc_chord}:
+\item \code{by_chord}:
 An environment object.
 A pitch-class chord can be mapped to an integer by
 taking the pitch-class chord object,

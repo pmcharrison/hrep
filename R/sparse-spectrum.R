@@ -41,7 +41,7 @@ as.data.frame.sparse_spectrum <- function(x, ...) {
 }
 
 #' @export
-plot.sparse_spectrum <- function(x, ggplot = FALSE, ...) {
+plot.sparse_spectrum <- function(x, ggplot = FALSE, xlim = NULL, ...) {
   df <- as.data.frame(x)
   n <- nrow(df)
   df2 <- data.frame(x = numeric(n * 3), y = numeric(n * 3))
@@ -51,13 +51,15 @@ plot.sparse_spectrum <- function(x, ggplot = FALSE, ...) {
     df2$y[I + 2L] <- df$y[i]
   }
   if (ggplot) {
+    assert_installed("ggplot2")
     tibble::tibble(x = df2$x, y = df2$y) %>%
       ggplot2::ggplot(ggplot2::aes_string(x = "x", y = "y")) +
       ggplot2::geom_line() +
-      ggplot2::scale_x_continuous(x_lab(x)) +
+      ggplot2::scale_x_continuous(x_lab(x), limits = xlim) +
       ggplot2::scale_y_continuous(y_lab(x))
   } else {
-    plot(df2$x, df2$y, xlab = x_lab(x), ylab = y_lab(x), type = "l", ...)
+    plot(df2$x, df2$y, xlab = x_lab(x), ylab = y_lab(x),
+         type = "l", xlim = xlim, ...)
   }
 }
 
@@ -105,23 +107,75 @@ transform_y.sparse_spectrum <- function(x, f, y_unit, y_lab) {
   x
 }
 
-# Combines a set of sparse spectra into one sparse spectrum,
-# summing their amplitudes (assuming incoherent wave superposition).
-combine_sparse_spectra_amplitudes <- function(...,
-                                              class,
-                                              constructor,
-                                              x_digits) {
+#' Combine sparse spectra
+#'
+#' This function combines a series of sparse spectra into one spectrum
+#' assuming incoherent amplitude summation.
+#' This involves a rounding process,
+#' by which the MIDI pitch(-class) of each partial
+#' is rounded to a specified number of digits.
+#'
+#' @param ... Sparse spectra to combine
+#' (see \code{\link{sparse_pi_spectrum}} and \code{\link{sparse_pc_spectrum}}).
+#'
+#' @param digits
+#' (Integerish scalar)
+#' The MIDI pitch(-class) of each partial will be rounded to this number
+#' of digits.
+#'
+#' @return A sparse spectrum object.
+#'
+#' @export
+combine_sparse_spectra <- function(..., digits = 6) {
+  checkmate::qassert(digits, "X1[0,)")
   input <- list(...)
-  checkmate::qassert(class, "S1")
-  checkmate::qassert(x_digits, "X1")
-  stopifnot(is.function(constructor),
-            all(vapply(input,
-                       function(x) is(x, class) && is(x, "sparse_spectrum"),
-                       logical(1))))
-  lapply(input, as.data.frame) %>%
-    do.call(rbind, args = .) %>%
+  if (length(input) == 0) stop("combine_sparse_spectra needs at least 1 input")
+  if (length(input) == 1) return(input[[1]])
+  if (!all(purrr::map_lgl(input,
+                          ~ is.sparse_pi_spectrum(.) |
+                          is.sparse_fr_spectrum(.) |
+                          is.sparse_pc_spectrum(.))))
+    stop("all inputs must be one of ",
+         "sparse_pi_spectrum, ",
+         "sparse_fr_spectrum, or ",
+         "sparse_pc_spectrum")
+
+  output_class <- intersect(class(input[[1]]),
+                            c("sparse_pi_spectrum",
+                              "sparse_fr_spectrum",
+                              "sparse_pc_spectrum"))
+
+  octave_invariant <- is.sparse_pc_spectrum(input[[1]])
+  if (octave_invariant &&
+      !all(purrr::map_lgl(input, is.sparse_pc_spectrum)))
+    stop("cannot mix sparse_pc_spectrum inputs with",
+         "sparse_fr_spectrum and sparse_pi_spectrum inputs")
+  input <- if (octave_invariant)
+    purrr::map(input, sparse_pc_spectrum) else
+      purrr::map(input, sparse_pi_spectrum)
+
+  res <-
+    lapply(input, as.data.frame) %>%
+    collapse_summing_amplitudes(digits = digits) %>%
     {
-      .$x <- round(.$x, digits = x_digits)
+      f <- if (octave_invariant) .sparse_pc_spectrum else .sparse_pi_spectrum
+      f(.$x, .$y)
+    }
+
+  if (output_class == "sparse_fr_spectrum") sparse_fr_spectrum(res) else res
+}
+
+collapse_summing_amplitudes <- function(x, digits, modulo = NA_real_) {
+  checkmate::qassert(modulo, "n1(0,)")
+  if (!is.list(x) ||
+      !all(purrr::map_lgl(x, ~ is.data.frame(.) &&
+                          identical(names(.), c("x", "y")))))
+    stop("x must be a list of data frames with columns 'x' and 'y'")
+  x %>%
+    data.table::rbindlist() %>%
+    {
+      .$x <- round(.$x, digits = digits)
+      if (!is.na(modulo)) .$x <- .$x %% modulo
       .
     } %>%
     {reduce_by_key(
@@ -130,5 +184,5 @@ combine_sparse_spectra_amplitudes <- function(...,
       function(x, y) sum_amplitudes(x, y, coherent = FALSE),
       key_type = "numeric"
     )} %>%
-    {constructor(.$key, .$value)}
+    magrittr::set_names(c("x", "y"))
 }

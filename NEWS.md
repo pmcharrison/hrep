@@ -1,3 +1,13 @@
+# hrep 0.11.0
+
+- BREAKING CHANGE - changed integer encodings for symbolic representations.
+- Implementing chord qualities dictionary (see `decode_chord_quality`).
+- Improved API for `decode` function.
+- Implemented new representations: `smooth_pi_spectrum`, `smooth_pc_spectrum`,
+`sparse_pc_spectrum`.
+- Renamed `pc_set_norm_form` to `pc_set_type`.
+- Improved documentation.
+
 # hrep 0.10.0
 
 - Added documentation website.

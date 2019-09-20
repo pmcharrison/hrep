@@ -25,9 +25,18 @@
 #' This function represents an object as a pitch-class chord.
 #' A pitch-class chord is defined by the combination of
 #' a pitch-class set and a bass pitch class.
+#'
 #' @param x Object to represent as a pitch-class chord.
+#'
 #' @return Returns an object of class \code{pc_chord}.
+#'
+#' @examples
+#' pc_chord(c(0, 4, 7)) # C major triad in root position
+#' pc_chord(c(4, 0, 7)) # C major triad in first inversion
+#' pc_chord(c(7, 0, 4)) # C major triad in second inversion
+#'
 #' @export
+#'
 #' @rdname pc_chord
 pc_chord <- function(x) {
   UseMethod("pc_chord")
@@ -40,6 +49,11 @@ pc_chord.numeric <- function(x) {
   other_pc <- setdiff(sort(unique(pi_to_pc(x[-1]))),
                       bass_pc)
   .pc_chord(bass_pc, other_pc)
+}
+
+#' @export
+pc_chord.chord <- function(x) {
+  stop("cannot translate this object to pc_chord format")
 }
 
 #' @export
@@ -85,12 +99,6 @@ as.integer.pc_chord <- function(x, ...) {
 }
 
 #' @export
-c.pc_chord <- function(...) {
-  x <- lapply(list(...), unclass)
-  x <- do.call(c, x)
-}
-
-#' @export
 print.pc_chord <- function(x, ...) {
   cat("Pitch-class chord: ",
       "[", get_bass_pc(x), "] ",
@@ -101,12 +109,10 @@ print.pc_chord <- function(x, ...) {
 #' @rdname view
 #' @export
 view.pc_chord <- function(x, ...) {
-  view(pi_chord(x), ...)
+  view(.pi_chord(c(48 + get_bass_pc(x),
+                   60 + get_non_bass_pc(x))),
+       ...)
 }
-
-#' @rdname pc_chord
-#' @export
-pc_chord <- function(x) UseMethod("pc_chord")
 
 #' Get bass pitch class
 #'
@@ -182,7 +188,7 @@ is.pc_chord <- function(x) {
 encode.pc_chord <- function(x) {
   checkmate::qassert(x, "X")
   key <- as.character(x)
-  hrep::pc_chord_alphabet$by_pc_chord[[key]]
+  hrep::pc_chord_alphabet$by_chord[[key]]
 }
 
 decode.coded_vec_pc_chord <- function(x) {

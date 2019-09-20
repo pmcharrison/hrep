@@ -22,5 +22,5 @@ pc_set_alphabet_size <- function() {
 }
 
 pc_chord_type_alphabet_size <- function() {
-  pc_chord_alphabet_size() / 12L
+  length(hrep::pc_chord_type_alphabet$by_id)
 }

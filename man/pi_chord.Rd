@@ -4,31 +4,37 @@
 \alias{pi_chord}
 \alias{pi_chord.numeric}
 \alias{pi_chord.character}
-\alias{pi_chord.pc_set}
-\alias{pi_chord.pc_chord}
 \alias{pi_chord.pi_chord}
 \alias{pi_chord.fr_chord}
 \alias{pi_chord.pi_chord_type}
+\alias{pi_chord.pc_set}
+\alias{pi_chord.pc_chord}
 \title{Pitch chord}
 \usage{
-pi_chord(x)
+pi_chord(x, force = FALSE)
 
-\method{pi_chord}{numeric}(x)
+\method{pi_chord}{numeric}(x, ...)
 
-\method{pi_chord}{character}(x)
+\method{pi_chord}{character}(x, ...)
 
-\method{pi_chord}{pc_set}(x)
+\method{pi_chord}{pi_chord}(x, ...)
 
-\method{pi_chord}{pc_chord}(x)
+\method{pi_chord}{fr_chord}(x, ...)
 
-\method{pi_chord}{pi_chord}(x)
+\method{pi_chord}{pi_chord_type}(x, force = FALSE)
 
-\method{pi_chord}{fr_chord}(x)
+\method{pi_chord}{pc_set}(x, force = FALSE)
 
-\method{pi_chord}{pi_chord_type}(x)
+\method{pi_chord}{pc_chord}(x, force = FALSE)
 }
 \arguments{
 \item{x}{Object to represent as a pitch chord.}
+
+\item{force}{(Logical scalar)
+If \code{TRUE}, then objects will be coerced to a \code{pi_chord}
+representation even if the required mapping is not deterministic.}
+
+\item{...}{Present for S3 method compatibility.}
 }
 \value{
 Returns an object of class \code{pi_chord}.

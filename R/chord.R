@@ -9,3 +9,8 @@
 is.chord <- function(x) {
   is(x, "chord")
 }
+
+#' @export
+c.chord <- function(...) {
+  stop("c() function is undefined for chords, for safety reasons...")
+}

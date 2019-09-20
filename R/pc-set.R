@@ -1,5 +1,6 @@
 .pc_set <- function(...) {
   pc <- unclass(c(...))
+  pc <- as.numeric(pc)
   checkmate::qassert(pc, "N+[0,12)")
   stopifnot(!anyDuplicated(pc), isTRUE(all.equal(pc, sort(pc))))
   class(pc) <- c("pc_set", "chord", class(pc))
@@ -21,6 +22,11 @@ pc_set <- function(x) {
 #' @rdname pc_set
 pc_set.numeric <- function(x) {
   pc_set(pi_chord(x))
+}
+
+#' @export
+pc_set.chord <- function(x) {
+  stop("cannot translate this object to pc_set format")
 }
 
 #' @export
@@ -56,7 +62,7 @@ pc_set.pc_set_norm_order <- function(x) {
 
 #' @rdname pc_set
 #' @export
-pc_set.pc_set_norm_form <- function(x) {
+pc_set.pc_set_type <- function(x) {
   .pc_set(as.numeric(x))
 }
 
@@ -76,7 +82,7 @@ print.pc_set <- function(x, ...) {
 #' @rdname view
 #' @export
 view.pc_set <- function(x, ...) {
-  view(pi_chord(x), ...)
+  view(pi_chord(60 + as.numeric(x)), ...)
 }
 
 #' @rdname pc_set
@@ -94,19 +100,12 @@ as.character.pc_set <- function(x, ...) {
   paste(as.numeric(x), collapse = " ")
 }
 
-#' @export
-c.pc_set <- function(...) {
-  x <- lapply(list(...), unclass)
-  x <- do.call(c, x)
-  pc_set(sort(unique(x)))
-}
-
 #' @rdname encode
 #' @export
 encode.pc_set <- function(x) {
   checkmate::qassert(x, "X")
   key <- as.character(x)
-  hrep::pc_set_alphabet$by_pc_set[[key]]
+  hrep::pc_set_alphabet$by_chord[[key]]
 }
 
 # Vectorised
@@ -119,7 +118,7 @@ decode.coded_vec_pc_set <- function(x) {
           round(x) != x)) {
     stop("All pc_set ids must be integers between 1 and ", max_id, ".")
   }
-  lapply(hrep::pc_set_alphabet$by_id[x], function(x) pc_set(x))
+  hrep::pc_set_alphabet$by_id[x]
 }
 
 #' Map pitch-class chords to pitch-class sets

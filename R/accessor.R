@@ -81,6 +81,14 @@ pitch <- function(x) UseMethod("pitch")
 
 #' @rdname access
 #' @export
+pc <- function(x) UseMethod("pc")
+
+#' @rdname access
+#' @export
+`pc<-` <- function(x, value) UseMethod("pc<-")
+
+#' @rdname access
+#' @export
 amp <- function(x) UseMethod("amp")
 
 #' @rdname access

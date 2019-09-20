@@ -46,19 +46,19 @@ pc_chord_type.pi_chord <- function(x) {
 #' @export
 #' @rdname pc_chord_type
 pc_chord_type.pc_set <- function(x) {
-  pc_chord_type(pc_set_norm_form(x))
+  pc_chord_type(pc_set_type(x))
 }
 
 #' @export
 #' @rdname pc_chord_type
-pc_chord_type.pc_set_norm_form <- function(x) {
+pc_chord_type.pc_set_type <- function(x) {
   .pc_chord_type(x)
 }
 
 #' @export
-#' @rdname pc_set_norm_order
+#' @rdname pc_chord_type
 pc_chord_type.pc_set_norm_order <- function(x) {
-  pc_chord_type(pc_set_norm_form(x))
+  pc_chord_type(pc_set_type(x))
 }
 
 #' @export
@@ -78,14 +78,13 @@ pc_chord_type.sparse_spectrum <- function(x) {
 encode.pc_chord_type <- function(x) {
   checkmate::qassert(x, "X")
   key <- as.character(x)
-  i <- as.integer(hrep::pc_chord_alphabet$by_pc_chord[[key]])
+  i <- as.integer(hrep::pc_chord_type_alphabet$by_chord[[key]])
   coded_vec(i, "pc_chord_type")
 }
 
 decode.coded_vec_pc_chord_type <- function(x) {
   checkmate::qassert(x, "X")
-  purrr::map(hrep::pc_chord_alphabet$by_id[x],
-             ~ .pc_chord_type(as.integer(.)))
+  hrep::pc_chord_type_alphabet$by_id[x]
 }
 
 #' @export

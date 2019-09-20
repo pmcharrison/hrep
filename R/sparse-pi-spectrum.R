@@ -7,35 +7,60 @@
                          y = amplitude,
                          x_unit = "midi",
                          y_unit = "amplitude",
-                         label = "pitch spectrum",
+                         label = "sparse pitch spectrum",
                          x_lab = "Pitch (MIDI)",
                          y_lab = "Amplitude")
   class(res) <- c("sparse_pi_spectrum", "chord", class(res))
   res
 }
 
+#' Is sparse pitch spectrum
+#'
+#' Checks whether an object belongs to the class \code{sparse_pi_spectrum}.
+#'
+#' @param x Object to check.
+#'
+#' @return Logical scalar.
+#'
+#' @export
+is.sparse_pi_spectrum <- function(x) {
+  is(x, "sparse_pi_spectrum")
+}
+
 #' Sparse pitch spectrum
 #'
 #' This function represents an input object as a sparse pitch spectrum.
+#'
 #' @details
 #' A sparse pitch spectrum describes an input sonority as a finite set
 #' of spectral components, each defined by a
 #' pitch (expressed on the MIDI pitch scale)
 #' and an amplitude (expressed in arbitrary units, but with the
 #' fundamental frequencies of chord pitches typically taking the value 1).
+#'
 #' @param x Input sonority.
+#'
 #' @param ... Further arguments passed to \code{\link{expand_harmonics}()},
 #' depending on the method invoked.
+#'
 #' @return An object of class \code{sparse_pi_spectrum}.
+#'
 #' @rdname sparse_pi_spectrum
 #' @export
 sparse_pi_spectrum <- function(x, ...) {
+  ellipsis::check_dots_used()
   UseMethod("sparse_pi_spectrum")
 }
 
 #' @rdname sparse_pi_spectrum
 #' @export
-sparse_pi_spectrum.fr_sparse_spectrum <- function(x, ...) {
+sparse_pi_spectrum.sparse_pi_spectrum <- function(x, ...) {
+  x
+}
+
+#' @rdname sparse_pi_spectrum
+#' @export
+sparse_pi_spectrum.sparse_fr_spectrum <- function(x, ...) {
   .sparse_pi_spectrum(
     pitch = freq_to_midi(freq(x)),
     amplitude = amp(x)
@@ -62,7 +87,9 @@ sparse_pi_spectrum.default <- function(x, ...) {
 #' @param amplitude (Numeric vector)
 #' Vector of amplitudes to assign to each pitch.
 #' If a scalar value is provided, this value is assigned to all pitches
+#'
 #' @rdname sparse_pi_spectrum
+#'
 #' @export
 sparse_pi_spectrum.pi_chord <- function(x,
                                         amplitude = 1,
@@ -99,19 +126,4 @@ amp.sparse_pi_spectrum <- function(x) {
             length(value) == length(amp(x)))
   x$y <- value
   x
-}
-
-#' @details
-#' Sparse pitch spectra can be combined into one spectrum using \code{c(...)}.
-#' Amplitudes are summed assuming incoherent wave superposition
-#' (see \code{\link{sum_amplitudes}}).
-#' @rdname sparse_pi_spectrum
-#' @param x_digits (Integerish scalar) Number of significant digits
-#' to which pitches are rounded.
-#' @export
-c.sparse_pi_spectrum <- function(..., x_digits = 6) {
-  combine_sparse_spectra_amplitudes(...,
-                                    class = "sparse_pi_spectrum",
-                                    constructor = .sparse_pi_spectrum,
-                                    x_digits = x_digits)
 }

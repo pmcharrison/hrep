@@ -112,15 +112,13 @@ encode.corpus <- function(x) {
   x
 }
 
-#' @rdname decode
-#' @export
-decode.corpus <- function(x) {
-  if (is.coded(x)) {
-    for (i in seq_along(x)) x[[i]] <- decode(x[[i]])
-    attr(x, "coded") <- FALSE
-  }
-  x
-}
+# decode.corpus <- function(x) {
+#   if (is.coded(x)) {
+#     for (i in seq_along(x)) x[[i]] <- decode(x[[i]])
+#     attr(x, "coded") <- FALSE
+#   }
+#   x
+# }
 
 #' @export
 print.corpus <- function(x, ...) {
