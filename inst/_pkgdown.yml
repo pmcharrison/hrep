@@ -1,6 +1,6 @@
 template:
   params:
-    bootswatch: cerulean
+    bootswatch: flatly
 reference:
 - title: Types
   desc: Types provide different ways of representing chords.
