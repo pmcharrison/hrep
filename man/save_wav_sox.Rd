@@ -22,9 +22,17 @@ save_wav_sox(x, file, ...)
 
 \method{save_wav_sox}{vec}(x, file, reverb = 20, ...)
 
-\method{save_wav_sox}{sparse_fr_spectrum}(x, file, chord_length = 1,
-  rise_length = 0.01, fade_length = 0.01, timbre = "sine",
-  spectrum_gain = "auto", volume = 0.1, ...)
+\method{save_wav_sox}{sparse_fr_spectrum}(
+  x,
+  file,
+  chord_length = 1,
+  rise_length = 0.01,
+  fade_length = 0.01,
+  timbre = "sine",
+  spectrum_gain = "auto",
+  volume = 0.1,
+  ...
+)
 }
 \arguments{
 \item{x}{Object to save; methods exist for individual chords

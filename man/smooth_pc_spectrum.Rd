@@ -8,8 +8,7 @@
 \usage{
 smooth_pc_spectrum(x, sigma = 6.83, ...)
 
-\method{smooth_pc_spectrum}{default}(x, sigma = 6.83,
-  num_harmonics = 11L, roll_off = 1, ...)
+\method{smooth_pc_spectrum}{default}(x, sigma = 6.83, num_harmonics = 11L, roll_off = 1, ...)
 
 \method{smooth_pc_spectrum}{sparse_pc_spectrum}(x, sigma = 6.83, ...)
 }

@@ -9,14 +9,11 @@
 \usage{
 expand_harmonics(x, num_harmonics = 11L, roll_off = 1, digits = 6)
 
-\method{expand_harmonics}{sparse_fr_spectrum}(x, num_harmonics = 11L,
-  roll_off = 1, digits = 6)
+\method{expand_harmonics}{sparse_fr_spectrum}(x, num_harmonics = 11L, roll_off = 1, digits = 6)
 
-\method{expand_harmonics}{sparse_pi_spectrum}(x, num_harmonics = 11L,
-  roll_off = 1, digits = 6)
+\method{expand_harmonics}{sparse_pi_spectrum}(x, num_harmonics = 11L, roll_off = 1, digits = 6)
 
-\method{expand_harmonics}{pi_chord}(x, num_harmonics = 11L,
-  roll_off = 1, digits = 6)
+\method{expand_harmonics}{pi_chord}(x, num_harmonics = 11L, roll_off = 1, digits = 6)
 }
 \arguments{
 \item{x}{Object whose harmonics should be expanded.

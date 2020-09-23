@@ -9,8 +9,15 @@
 \usage{
 milne_pc_spectrum(x, ...)
 
-\method{milne_pc_spectrum}{pc_set}(x, weights = 1, num_harmonics = 12,
-  rho = 0.75, sigma = 6.83, array_dim = 1200, ...)
+\method{milne_pc_spectrum}{pc_set}(
+  x,
+  weights = 1,
+  num_harmonics = 12,
+  rho = 0.75,
+  sigma = 6.83,
+  array_dim = 1200,
+  ...
+)
 
 \method{milne_pc_spectrum}{default}(x, ...)
 

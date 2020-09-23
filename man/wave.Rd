@@ -10,8 +10,7 @@ wave(x, ...)
 
 \method{wave}{default}(x, length_sec = 1, sample_rate = 44100, ...)
 
-\method{wave}{sparse_fr_spectrum}(x, length_sec = 1,
-  sample_rate = 44100, ...)
+\method{wave}{sparse_fr_spectrum}(x, length_sec = 1, sample_rate = 44100, ...)
 }
 \arguments{
 \item{x}{Input object.}
