@@ -26,9 +26,11 @@ sparse_fr_spectrum(x, ...)
 \itemize{
 \item Numeric vectors will be treated as vectors of MIDI note numbers,
 and expanded into their implied harmonics.
-\item Two-element lists will be treated as finalised spectra,
-with the first element being a numeric vector of frequencies,
-and the second element being a numeric vector of amplitudes.
+\item Two-element lists will be treated as finalised spectra.
+The first element should be labelled "frequency",
+and correspond to a numeric vector of frequencies;
+the second element should be labelled "amplitude",
+and correspond to a numeric vector of amplitudes.
 }}
 
 \item{...}{Further arguments passed to \code{\link{expand_harmonics}()},

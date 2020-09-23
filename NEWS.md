@@ -1,4 +1,4 @@
-- Improved documentation for sparse_pi_spectrum and sparse_pc_spectrum.
+- Improved documentation for sparse_pi_spectrum, sparse_pc_spectrum, and sparse_fr_spectrum.
 - Inserted some missing reference lists.
 - Removed old warnings about dictionary versions.
 
