@@ -1,4 +1,6 @@
+- Updated some documentation.
 - Inserted some missing reference lists.
+- Removed old warnings about dictionary versions.
 
 # hrep 0.11.0
 
