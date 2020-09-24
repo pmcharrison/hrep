@@ -64,7 +64,6 @@ is.sparse_pc_spectrum <- function(x) {
 #'
 #' @export
 sparse_pc_spectrum <- function(x, ...) {
-  ellipsis::check_dots_used()
   UseMethod("sparse_pc_spectrum")
 }
 

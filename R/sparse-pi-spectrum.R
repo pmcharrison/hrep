@@ -63,7 +63,6 @@ is.sparse_pi_spectrum <- function(x) {
 #' @rdname sparse_pi_spectrum
 #' @export
 sparse_pi_spectrum <- function(x, ...) {
-  ellipsis::check_dots_used()
   UseMethod("sparse_pi_spectrum")
 }
 

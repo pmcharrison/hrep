@@ -59,7 +59,6 @@ is.sparse_fr_spectrum <- function(x) {
 #'
 #' @export
 sparse_fr_spectrum <- function(x, ...) {
-  ellipsis::check_dots_used()
   UseMethod("sparse_fr_spectrum")
 }
 

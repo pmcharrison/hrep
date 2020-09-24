@@ -20,7 +20,6 @@
 #'
 #' @export
 milne_pc_spec_dist <- function(x, y, ...) {
-  ellipsis::check_dots_used()
   1 - cosine_similarity(
     milne_pc_spectrum(x, ...),
     milne_pc_spectrum(y, ...)
