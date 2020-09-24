@@ -52,7 +52,6 @@
 #'
 #' @export
 milne_pc_spectrum <- function(x, ...) {
-  ellipsis::check_dots_used()
   UseMethod("milne_pc_spectrum")
 }
 
