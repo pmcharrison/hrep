@@ -133,9 +133,9 @@ then the corresponding encoded pitch-class set is
 equal to the ith element of this vector.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>i</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span>(<span class='fu'><a href='pc_chord.html'>pc_chord</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>0</span>, <span class='fl'>7</span>)))
-<span class='kw'>j</span> <span class='op'>&lt;-</span> <span class='kw'>pc_chord_id_to_pc_set_id_map</span>[<span class='kw'>i</span>]
-<span class='fu'><a href='decode.html'>decode</a></span>(<span class='fu'><a href='coded_vec.html'>coded_vec</a></span>(<span class='kw'>j</span>, <span class='st'>"pc_set"</span>))[[<span class='fl'>1</span>]]
+    <pre class="examples"><div class='input'><span class='va'>i</span> <span class='op'>&lt;-</span> <span class='fu'><a href='encode.html'>encode</a></span><span class='op'>(</span><span class='fu'><a href='pc_chord.html'>pc_chord</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>0</span>, <span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>j</span> <span class='op'>&lt;-</span> <span class='va'>pc_chord_id_to_pc_set_id_map</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span>
+<span class='fu'><a href='decode.html'>decode</a></span><span class='op'>(</span><span class='fu'><a href='coded_vec.html'>coded_vec</a></span><span class='op'>(</span><span class='va'>j</span>, <span class='st'>"pc_set"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
 </div><div class='output co'>#&gt; Pitch-class set: 0 4 7</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
