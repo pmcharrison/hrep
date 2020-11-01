@@ -1,3 +1,5 @@
+# hrep 0.11.1
+
 - Improved documentation for sparse_pi_spectrum, sparse_pc_spectrum, and sparse_fr_spectrum.
 - Inserted some missing reference lists.
 - Removed old warnings about dictionary versions.
