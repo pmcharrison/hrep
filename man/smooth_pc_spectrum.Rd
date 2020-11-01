@@ -8,8 +8,7 @@
 \usage{
 smooth_pc_spectrum(x, sigma = 6.83, ...)
 
-\method{smooth_pc_spectrum}{default}(x, sigma = 6.83,
-  num_harmonics = 11L, roll_off = 1, ...)
+\method{smooth_pc_spectrum}{default}(x, sigma = 6.83, num_harmonics = 11L, roll_off = 1, ...)
 
 \method{smooth_pc_spectrum}{sparse_pc_spectrum}(x, sigma = 6.83, ...)
 }
@@ -44,6 +43,9 @@ This representation is created by expressing the sonority
 as a sparse pitch-class spectrum (see \code{\link{sparse_pc_spectrum}})
 and convolving the result with a Gaussian distribution with standard deviation
 \code{sigma}.
+}
+\references{
+\insertAllCited{}
 }
 \seealso{
 This representation was inspired by \code{\link{milne_pc_spectrum}},

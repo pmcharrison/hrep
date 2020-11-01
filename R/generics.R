@@ -101,7 +101,6 @@ is.coded <- function(x) UseMethod("is.coded")
 #' @rdname view
 #' @export
 view <- function(x, ...) {
-  ellipsis::check_dots_used()
   UseMethod("view")
 }
 

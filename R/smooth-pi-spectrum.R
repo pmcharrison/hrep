@@ -65,9 +65,11 @@ is.smooth_pi_spectrum <- function(x) {
 #'
 #' @rdname smooth_pi_spectrum
 #'
+#' @references
+#' \insertAllCited{}
+#'
 #' @export
 smooth_pi_spectrum <- function(x, sigma = 6.83, ...) {
-  ellipsis::check_dots_used()
   UseMethod("smooth_pi_spectrum")
 }
 

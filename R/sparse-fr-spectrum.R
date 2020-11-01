@@ -42,9 +42,11 @@ is.sparse_fr_spectrum <- function(x) {
 #' @param x Input sonority.
 #' * Numeric vectors will be treated as vectors of MIDI note numbers,
 #' and expanded into their implied harmonics.
-#' * Two-element lists will be treated as finalised spectra,
-#' with the first element being a numeric vector of frequencies,
-#' and the second element being a numeric vector of amplitudes.
+#' * Two-element lists will be treated as finalised spectra.
+#' The first element should be labelled "frequency",
+#' and correspond to a numeric vector of frequencies;
+#' the second element should be labelled "amplitude",
+#' and correspond to a numeric vector of amplitudes.
 #'
 #' @param ... Further arguments passed to \code{\link{expand_harmonics}()},
 #' depending on the method invoked.
@@ -57,7 +59,6 @@ is.sparse_fr_spectrum <- function(x) {
 #'
 #' @export
 sparse_fr_spectrum <- function(x, ...) {
-  ellipsis::check_dots_used()
   UseMethod("sparse_fr_spectrum")
 }
 
@@ -95,6 +96,7 @@ sparse_fr_spectrum.list <- function(x, ...) {
             is.numeric(x[[1]]),
             is.numeric(x[[2]]),
             length(x[[1]]) == length(x[[2]]))
+  stopifnot(is.null(names(x)) || identical(names(x), c("frequency", "amplitude")))
   .sparse_fr_spectrum(frequency = x[[1]],
                       amplitude = x[[2]])
 }

@@ -38,6 +38,21 @@ is.sparse_pi_spectrum <- function(x) {
 #' and an amplitude (expressed in arbitrary units, but with the
 #' fundamental frequencies of chord pitches typically taking the value 1).
 #'
+#' A sparse pitch spectrum is most easily created by coercion from
+#' a different chord representation. If a numeric vector is provided as the input,
+#' it is treated as a \code{pi_chord} representation, for example
+#' \code{sparse_pi_spectrum(c(60, 64, 67))} will create a sparse pitch spectrum
+#' by expanding the harmonics implied by a C major triad.
+#'
+#' A sparse pitch spectrum can also be created directly by providing a list
+#' with two elements, the first being labelled "pitch", and the second labelled "amplitude",
+#' each of which being numeric vectors of the same length.
+#' In this case no harmonic expansion is performed.
+#' The first element will be taken as a vector of pitches,
+#' and the second element will be taken as a vector of corresponding amplitudes.
+#' For example, one might write
+#' \code{sparse_pi_spectrum(list(pitch = c(60, 72, 79), amplitude = c(3, 2, 1)))}.
+#'
 #' @param x Input sonority.
 #'
 #' @param ... Further arguments passed to \code{\link{expand_harmonics}()},
@@ -48,7 +63,6 @@ is.sparse_pi_spectrum <- function(x) {
 #' @rdname sparse_pi_spectrum
 #' @export
 sparse_pi_spectrum <- function(x, ...) {
-  ellipsis::check_dots_used()
   UseMethod("sparse_pi_spectrum")
 }
 
@@ -74,6 +88,7 @@ sparse_pi_spectrum.list <- function(x, ...) {
             is.numeric(x[[1]]),
             is.numeric(x[[2]]),
             length(x[[1]]) == length(x[[2]]))
+  stopifnot(is.null(names(x)) || identical(names(x), c("pitch", "amplitude")))
   .sparse_pi_spectrum(pitch = x[[1]],
                       amplitude = x[[2]])
 }

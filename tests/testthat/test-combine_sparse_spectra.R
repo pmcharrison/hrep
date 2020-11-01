@@ -1,5 +1,5 @@
 test_that("replicating collapse_summing_amplitudes tests", {
-  x <- sparse_pi_spectrum(list(x = 1:5, y = rep(1, times = 5)))
+  x <- sparse_pi_spectrum(list(pitch = 1:5, amplitude = rep(1, times = 5)))
   expect_equal(combine_sparse_spectra(x), x)
 
   x <- combine_sparse_spectra(

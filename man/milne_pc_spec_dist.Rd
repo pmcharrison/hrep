@@ -25,3 +25,6 @@ Computes Milne's pitch-class spectral distance measure between two sonorities.
 \details{
 See \insertCite{Milne2016;textual}{hrep} for details.
 }
+\references{
+\insertAllCited{}
+}

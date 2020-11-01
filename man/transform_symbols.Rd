@@ -9,8 +9,13 @@
 \usage{
 \method{transform_symbols}{coded_vec}(x, f, type, ...)
 
-\method{transform_symbols}{corpus}(x, f, type, progress = if
-  (interactive()) "text" else "none", ...)
+\method{transform_symbols}{corpus}(
+  x,
+  f,
+  type,
+  progress = if (interactive()) "text" else "none",
+  ...
+)
 
 transform_symbols(x, f, type, ...)
 

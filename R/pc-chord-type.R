@@ -91,5 +91,6 @@ decode.coded_vec_pc_chord_type <- function(x) {
 print.pc_chord_type <- function(x, ...) {
   cat("Pitch-class chord type: ",
       as.character(x),
+      "\n",
       sep = "")
 }

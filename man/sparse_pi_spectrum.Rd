@@ -43,4 +43,19 @@ of spectral components, each defined by a
 pitch (expressed on the MIDI pitch scale)
 and an amplitude (expressed in arbitrary units, but with the
 fundamental frequencies of chord pitches typically taking the value 1).
+
+A sparse pitch spectrum is most easily created by coercion from
+a different chord representation. If a numeric vector is provided as the input,
+it is treated as a \code{pi_chord} representation, for example
+\code{sparse_pi_spectrum(c(60, 64, 67))} will create a sparse pitch spectrum
+by expanding the harmonics implied by a C major triad.
+
+A sparse pitch spectrum can also be created directly by providing a list
+with two elements, the first being labelled "pitch", and the second labelled "amplitude",
+each of which being numeric vectors of the same length.
+In this case no harmonic expansion is performed.
+The first element will be taken as a vector of pitches,
+and the second element will be taken as a vector of corresponding amplitudes.
+For example, one might write
+\code{sparse_pi_spectrum(list(pitch = c(60, 72, 79), amplitude = c(3, 2, 1)))}.
 }
