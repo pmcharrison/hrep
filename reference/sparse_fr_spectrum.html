@@ -73,7 +73,7 @@ sparse frequency spectrum." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hrep</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.1</span>
       </span>
     </div>
 
@@ -147,9 +147,11 @@ sparse frequency spectrum.</p>
       <td><p>Input sonority.</p><ul>
 <li><p>Numeric vectors will be treated as vectors of MIDI note numbers,
 and expanded into their implied harmonics.</p></li>
-<li><p>Two-element lists will be treated as finalised spectra,
-with the first element being a numeric vector of frequencies,
-and the second element being a numeric vector of amplitudes.</p></li>
+<li><p>Two-element lists will be treated as finalised spectra.
+The first element should be labelled "frequency",
+and correspond to a numeric vector of frequencies;
+the second element should be labelled "amplitude",
+and correspond to a numeric vector of amplitudes.</p></li>
 </ul></td>
     </tr>
     <tr>

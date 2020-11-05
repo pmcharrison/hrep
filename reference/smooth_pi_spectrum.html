@@ -77,7 +77,7 @@ imprecisions in pitch perception." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hrep</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.1</span>
       </span>
     </div>
 
@@ -133,8 +133,7 @@ imprecisions in pitch perception.</p>
     <pre class="usage"><span class='fu'>smooth_pi_spectrum</span><span class='op'>(</span><span class='va'>x</span>, sigma <span class='op'>=</span> <span class='fl'>6.83</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>smooth_pi_spectrum</span><span class='op'>(</span><span class='va'>x</span>, sigma <span class='op'>=</span> <span class='fl'>6.83</span>,
-  num_harmonics <span class='op'>=</span> <span class='fl'>11L</span>, roll_off <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>smooth_pi_spectrum</span><span class='op'>(</span><span class='va'>x</span>, sigma <span class='op'>=</span> <span class='fl'>6.83</span>, num_harmonics <span class='op'>=</span> <span class='fl'>11L</span>, roll_off <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for sparse_pi_spectrum</span>
 <span class='fu'>smooth_pi_spectrum</span><span class='op'>(</span><span class='va'>x</span>, sigma <span class='op'>=</span> <span class='fl'>6.83</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -178,6 +177,13 @@ in the harmonics, with greater values corresponding to higher roll-off.</p></td>
 as a sparse pitch spectrum (see <code><a href='sparse_pi_spectrum.html'>sparse_pi_spectrum</a></code>)
 and convolving the result with a Gaussian distribution with standard deviation
 <code>sigma</code>.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Milne AJ, Holland S (2016).
+&#8220;Empirically testing Tonnetz, voice-leading, and spectral models of perceived triadic distance.&#8221;
+<em>Journal of Mathematics and Music</em>, <b>10</b>, 59--85.
+doi: <a href='https://doi.org/10.1080/17459737.2016.1152517'>10.1080/17459737.2016.1152517</a>
+, <a href='Users/peter/Dropbox/Academic/literature/Milne, Holland/Milne, Holland - 2016 - Empirically testing Tonnetz, voice-leading, and spectral models of perceived triadic distance.pdf'>Users/peter/Dropbox/Academic/literature/Milne, Holland/Milne, Holland - 2016 - Empirically testing Tonnetz, voice-leading, and spectral models of perceived triadic distance.pdf</a>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>This representation was inspired by <code><a href='milne_pc_spectrum.html'>milne_pc_spectrum</a></code>,
