@@ -1,7 +1,7 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
 language: R
-sudo: false
+sudo: true
 cache: packages
 warnings_are_errors: true
 os:
@@ -10,7 +10,11 @@ os:
 after_success:
   - Rscript -e 'covr::coveralls()'
 
-before_deploy: Rscript -e 'remotes::install_cran("pkgdown")'
+
+before_deploy:
+  apt update
+  apt install libharfbuzz-dev libfribidi-dev
+  Rscript -e 'remotes::install_cran("pkgdown")'
 deploy:
   provider: script
   script: Rscript -e 'pkgdown::deploy_site_github()'
