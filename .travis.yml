@@ -12,8 +12,8 @@ after_success:
 
 
 before_deploy:
-  apt update &
-  apt install libharfbuzz-dev libfribidi-dev &
+  sudo apt update &
+  sudo apt install libharfbuzz-dev libfribidi-dev &
   Rscript -e 'remotes::install_cran("pkgdown")'
 deploy:
   provider: script
