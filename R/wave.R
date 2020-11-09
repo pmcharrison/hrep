@@ -233,6 +233,7 @@ save_wav.default <- function(
 #'
 #' @seealso \code{\link{play_sox}}
 #'
+#' @export
 play_wav <- function(x, player = "play", ...) {
   file <- tempfile(fileext = ".wav")
   save_wav(x, file, ...)

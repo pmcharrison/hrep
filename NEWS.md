@@ -1,3 +1,5 @@
+- Exported `play_wav`.
+
 # hrep 0.12.0
 
 - Implemented `save_wav` and `play_wav`, a more streamlined and faster alternative to `save_wav_sox` and `play_wav_sox`.
