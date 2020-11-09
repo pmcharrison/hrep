@@ -1,3 +1,5 @@
+# hrep 0.12.1
+
 - Exported `play_wav`.
 
 # hrep 0.12.0
