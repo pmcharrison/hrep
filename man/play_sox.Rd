@@ -17,10 +17,15 @@ Plays a sound using the command-line tool sox.
 \details{
 The sound is synthesised using \code{\link{save_wav_sox}}
 and saved to a temporary file, which is then played from the R session.
+This method is generally slower than \code{\link{play_wav}}
+but it provides more features.
 }
 \note{
 The command-line sound-processing program sox
 (\url{http://sox.sourceforge.net/})
 must be installed and available on the command line,
 making available the commands \code{sox} and \code{play}.
+}
+\seealso{
+\code{\link{play_wav}}
 }

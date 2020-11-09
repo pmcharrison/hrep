@@ -3,6 +3,9 @@
 #' Saves object to a wav file using sox
 #' (\url{http://sox.sourceforge.net/}).
 #'
+#' This method is generally slower than \code{\link{save_wav}}
+#' but it provides more features.
+#'
 #' @note
 #' The command-line sound-processing program sox
 #' (\url{http://sox.sourceforge.net/})
@@ -16,6 +19,8 @@
 #' @param file (Character scalar) Output file.
 #'
 #' @param ... Parameters passed to methods.
+#'
+#' @seealso \code{\link{save_wav}}
 #'
 #' @rdname save_wav_sox
 #' @export

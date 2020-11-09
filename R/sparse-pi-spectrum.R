@@ -55,8 +55,7 @@ is.sparse_pi_spectrum <- function(x) {
 #'
 #' @param x Input sonority.
 #'
-#' @param ... Further arguments passed to \code{\link{expand_harmonics}()},
-#' depending on the method invoked.
+#' @inheritDotParams expand_harmonics
 #'
 #' @return An object of class \code{sparse_pi_spectrum}.
 #'

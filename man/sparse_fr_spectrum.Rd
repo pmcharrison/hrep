@@ -33,8 +33,16 @@ the second element should be labelled "amplitude",
 and correspond to a numeric vector of amplitudes.
 }}
 
-\item{...}{Further arguments passed to \code{\link{expand_harmonics}()},
-depending on the method invoked.}
+\item{...}{
+  Arguments passed on to \code{\link[=expand_harmonics]{expand_harmonics}}
+  \describe{
+    \item{\code{num_harmonics}}{(Integerish scalar)
+Number of harmonics (including the fundamental) to which
+each tone should be expanded.}
+    \item{\code{roll_off}}{(Numeric scalar) Parametrises the amount of amplitude roll-off
+in the harmonics, with greater values corresponding to higher roll-off.}
+    \item{\code{digits}}{Number of digits to which each partial's MIDI pitch should be rounded.}
+  }}
 }
 \value{
 An object of class \code{sparse_fr_spectrum}.

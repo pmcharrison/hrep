@@ -48,8 +48,7 @@ is.sparse_fr_spectrum <- function(x) {
 #' the second element should be labelled "amplitude",
 #' and correspond to a numeric vector of amplitudes.
 #'
-#' @param ... Further arguments passed to \code{\link{expand_harmonics}()},
-#' depending on the method invoked.
+#' @inheritDotParams expand_harmonics
 #'
 #' @return An object of class \code{sparse_fr_spectrum}.
 #'

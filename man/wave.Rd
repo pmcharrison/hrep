@@ -8,18 +8,47 @@
 \usage{
 wave(x, ...)
 
-\method{wave}{default}(x, length_sec = 1, sample_rate = 44100, ...)
+\method{wave}{default}(
+  x,
+  length_sec = 1,
+  sample_rate = 44100,
+  rise_length = 0,
+  fade_length = 0,
+  ...
+)
 
-\method{wave}{sparse_fr_spectrum}(x, length_sec = 1, sample_rate = 44100, ...)
+\method{wave}{sparse_fr_spectrum}(
+  x,
+  length_sec = 1,
+  sample_rate = 44100,
+  rise_length = 0,
+  fade_length = 0,
+  ...
+)
 }
 \arguments{
 \item{x}{Input object.}
 
-\item{...}{Arguments to be passed to \code{\link{sparse_fr_spectrum}}, as appropriate.}
+\item{...}{
+  Arguments passed on to \code{\link[=expand_harmonics]{expand_harmonics}}
+  \describe{
+    \item{\code{num_harmonics}}{(Integerish scalar)
+Number of harmonics (including the fundamental) to which
+each tone should be expanded.}
+    \item{\code{roll_off}}{(Numeric scalar) Parametrises the amount of amplitude roll-off
+in the harmonics, with greater values corresponding to higher roll-off.}
+    \item{\code{digits}}{Number of digits to which each partial's MIDI pitch should be rounded.}
+  }}
 
 \item{length_sec}{(Numeric scalar) Length of the output wave, in seconds.}
 
 \item{sample_rate}{(Integerish scalar) The desired sample rate.}
+
+\item{rise_length}{(Numeric scalar)
+Chord fade-in time (seconds).}
+
+\item{fade_length}{(Numeric scalar)
+Chord fade-out time (seconds).}
 }
 \description{
 This function represents an object as class "wave".
