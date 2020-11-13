@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hrep</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
       </span>
     </div>
 
@@ -138,13 +138,18 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The sound is synthesised using <code><a href='save_wav_sox.html'>save_wav_sox</a></code>
-and saved to a temporary file, which is then played from the R session.</p>
+and saved to a temporary file, which is then played from the R session.
+This method is generally slower than <code><a href='play_wav.html'>play_wav</a></code>
+but it provides more features.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>The command-line sound-processing program sox
 (<a href='http://sox.sourceforge.net/'>http://sox.sourceforge.net/</a>)
 must be installed and available on the command line,
 making available the commands <code>sox</code> and <code>play</code>.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='play_wav.html'>play_wav</a></code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -75,7 +75,7 @@ The sample rate can be accessed using the sample_rate accessor." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hrep</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
       </span>
     </div>
 
@@ -129,10 +129,24 @@ The sample rate can be accessed using the <code><a href='access.html'>sample_rat
     <pre class="usage"><span class='fu'>wave</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>wave</span><span class='op'>(</span><span class='va'>x</span>, length_sec <span class='op'>=</span> <span class='fl'>1</span>, sample_rate <span class='op'>=</span> <span class='fl'>44100</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>wave</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  length_sec <span class='op'>=</span> <span class='fl'>1</span>,
+  sample_rate <span class='op'>=</span> <span class='fl'>44100</span>,
+  rise_length <span class='op'>=</span> <span class='fl'>0</span>,
+  fade_length <span class='op'>=</span> <span class='fl'>0</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for sparse_fr_spectrum</span>
-<span class='fu'>wave</span><span class='op'>(</span><span class='va'>x</span>, length_sec <span class='op'>=</span> <span class='fl'>1</span>, sample_rate <span class='op'>=</span> <span class='fl'>44100</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>wave</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  length_sec <span class='op'>=</span> <span class='fl'>1</span>,
+  sample_rate <span class='op'>=</span> <span class='fl'>44100</span>,
+  rise_length <span class='op'>=</span> <span class='fl'>0</span>,
+  fade_length <span class='op'>=</span> <span class='fl'>0</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -143,7 +157,15 @@ The sample rate can be accessed using the <code><a href='access.html'>sample_rat
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Arguments to be passed to <code><a href='sparse_fr_spectrum.html'>sparse_fr_spectrum</a></code>, as appropriate.</p></td>
+      <td><p>Arguments passed on to <code><a href='expand_harmonics.html'>expand_harmonics</a></code></p><dl>
+    <dt><code>num_harmonics</code></dt><dd><p>(Integerish scalar)
+Number of harmonics (including the fundamental) to which
+each tone should be expanded.</p></dd>
+    <dt><code>roll_off</code></dt><dd><p>(Numeric scalar) Parametrises the amount of amplitude roll-off
+in the harmonics, with greater values corresponding to higher roll-off.</p></dd>
+    <dt><code>digits</code></dt><dd><p>Number of digits to which each partial's MIDI pitch should be rounded.</p></dd>
+  
+</dl></td>
     </tr>
     <tr>
       <th>length_sec</th>
@@ -152,6 +174,16 @@ The sample rate can be accessed using the <code><a href='access.html'>sample_rat
     <tr>
       <th>sample_rate</th>
       <td><p>(Integerish scalar) The desired sample rate.</p></td>
+    </tr>
+    <tr>
+      <th>rise_length</th>
+      <td><p>(Numeric scalar)
+Chord fade-in time (seconds).</p></td>
+    </tr>
+    <tr>
+      <th>fade_length</th>
+      <td><p>(Numeric scalar)
+Chord fade-out time (seconds).</p></td>
     </tr>
     </table>
 

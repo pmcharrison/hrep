@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hrep</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
       </span>
     </div>
 
@@ -146,8 +146,15 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Further arguments passed to <code><a href='expand_harmonics.html'>expand_harmonics</a>()</code>,
-depending on the method invoked.</p></td>
+      <td><p>Arguments passed on to <code><a href='expand_harmonics.html'>expand_harmonics</a></code></p><dl>
+    <dt><code>num_harmonics</code></dt><dd><p>(Integerish scalar)
+Number of harmonics (including the fundamental) to which
+each tone should be expanded.</p></dd>
+    <dt><code>roll_off</code></dt><dd><p>(Numeric scalar) Parametrises the amount of amplitude roll-off
+in the harmonics, with greater values corresponding to higher roll-off.</p></dd>
+    <dt><code>digits</code></dt><dd><p>Number of digits to which each partial's MIDI pitch should be rounded.</p></dd>
+  
+</dl></td>
     </tr>
     <tr>
       <th>amplitude</th>

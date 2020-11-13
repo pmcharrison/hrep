@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Transform symbols — transform_symbols.coded_vec • hrep</title>
+<title>Play wav — play_wav • hrep</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Transform symbols — transform_symbols.coded_vec" />
-<meta property="og:description" content="Transforms the symbols within an object." />
+<meta property="og:title" content="Play wav — play_wav" />
+<meta property="og:description" content="Plays a chord as a wave file." />
 
 
 
@@ -111,61 +111,61 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Transform symbols</h1>
-    <small class="dont-index">Source: <a href='https://github.com/pmcharrison/hrep/blob/master/R/coded-vec.R'><code>R/coded-vec.R</code></a>, <a href='https://github.com/pmcharrison/hrep/blob/master/R/corpus.R'><code>R/corpus.R</code></a>, <a href='https://github.com/pmcharrison/hrep/blob/master/R/generics.R'><code>R/generics.R</code></a>, and 1 more</small>
-    <div class="hidden name"><code>transform_symbols.Rd</code></div>
+    <h1>Play wav</h1>
+    <small class="dont-index">Source: <a href='https://github.com/pmcharrison/hrep/blob/master/R/wave.R'><code>R/wave.R</code></a></small>
+    <div class="hidden name"><code>play_wav.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Transforms the symbols within an object.</p>
+    <p>Plays a chord as a wave file.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for coded_vec</span>
-<span class='fu'>transform_symbols</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>f</span>, <span class='va'>type</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for corpus</span>
-<span class='fu'>transform_symbols</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  <span class='va'>f</span>,
-  <span class='va'>type</span>,
-  progress <span class='op'>=</span> <span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='st'>"text"</span> <span class='kw'>else</span> <span class='st'>"none"</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>
-
-<span class='fu'>transform_symbols</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>f</span>, <span class='va'>type</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for vec</span>
-<span class='fu'>transform_symbols</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>f</span>, <span class='va'>type</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>play_wav</span><span class='op'>(</span><span class='va'>x</span>, player <span class='op'>=</span> <span class='st'>"play"</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>Object to transform.</p></td>
+      <td><p>Chord to save.</p></td>
     </tr>
     <tr>
-      <th>f</th>
-      <td><p>Function to apply to each symbol.</p></td>
-    </tr>
-    <tr>
-      <th>type</th>
-      <td><p>Character scalar identifying the new symbol type.</p></td>
+      <th>player</th>
+      <td><p>(Path to) a program capable of playing a wave file by invocation from the command line.
+        If under Windows and no player is given, &#8220;mplay32.exe&#8221; or &#8220;wmplayer.exe&#8221; 
+        (if the former does not exists as under Windows 7) will be chosen as the default.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Further arguments to be passed to methods.</p></td>
-    </tr>
-    <tr>
-      <th>progress</th>
-      <td><p>(Scalar character) Progress bar type, to be passed to
-<code><a href='https://rdrr.io/pkg/plyr/man/llply.html'>llply</a></code>.</p></td>
+      <td><p>Arguments passed on to <code><a href='save_wav.html'>save_wav</a></code>, <code><a href='expand_harmonics.html'>expand_harmonics</a></code></p><dl>
+    <dt><code>file</code></dt><dd><p>(Character scalar) Output file.</p></dd>
+    <dt><code>amplitude</code></dt><dd><p>(Numeric scalar)
+The wave is multiplied by this number before exporting.
+The resulting wave should fall completely within the range [-1, 1].</p></dd>
+    <dt><code>bit_depth</code></dt><dd><p>(Integer scalar)
+The bit depth of the exported audio.</p></dd>
+    <dt><code>end_pad</code></dt><dd><p>(Numeric scalar)
+Duration of silence (seconds) appended to the end of the audio file,
+used to avoid clicks and other artifacts.</p></dd>
+    <dt><code>length_sec</code></dt><dd><p>(Numeric scalar) Length of the output wave, in seconds.</p></dd>
+    <dt><code>fade_length</code></dt><dd><p>(Numeric scalar)
+Chord fade-out time (seconds).</p></dd>
+    <dt><code>rise_length</code></dt><dd><p>(Numeric scalar)
+Chord fade-in time (seconds).</p></dd>
+    <dt><code>num_harmonics</code></dt><dd><p>(Integerish scalar)
+Number of harmonics (including the fundamental) to which
+each tone should be expanded.</p></dd>
+    <dt><code>roll_off</code></dt><dd><p>(Numeric scalar) Parametrises the amount of amplitude roll-off
+in the harmonics, with greater values corresponding to higher roll-off.</p></dd>
+    <dt><code>digits</code></dt><dd><p>Number of digits to which each partial's MIDI pitch should be rounded.</p></dd>
+  
+</dl></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>The transformed object.</p>
+    <div class='dont-index'><p><code><a href='play_sox.html'>play_sox</a></code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
