@@ -79,9 +79,16 @@ Only relevant when \code{spectrum_gain} is not \code{auto}.}
 Saves object to a wav file using sox
 (\url{http://sox.sourceforge.net/}).
 }
+\details{
+This method is generally slower than \code{\link{save_wav}}
+but it provides more features.
+}
 \note{
 The command-line sound-processing program sox
 (\url{http://sox.sourceforge.net/})
 must be installed and available on the command line
 under the command \code{sox}.
+}
+\seealso{
+\code{\link{save_wav}}
 }

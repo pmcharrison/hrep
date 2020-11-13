@@ -34,7 +34,8 @@ print.wave <- function(x, ...) {
 #' The sample rate can be accessed using the \code{\link{sample_rate}} accessor.
 #'
 #' @param x Input object.
-#' @param ... Arguments to be passed to \code{\link{sparse_fr_spectrum}}, as appropriate.
+#'
+#' @inheritDotParams expand_harmonics
 #'
 #' @rdname wave
 #' @export
@@ -43,13 +44,31 @@ wave <- function(x, ...) {
 }
 
 #' @param length_sec (Numeric scalar) Length of the output wave, in seconds.
+#'
 #' @param sample_rate (Integerish scalar) The desired sample rate.
+#'
+#' @param rise_length
+#' (Numeric scalar)
+#' Chord fade-in time (seconds).
+#'
+#' @param fade_length
+#' (Numeric scalar)
+#' Chord fade-out time (seconds).
 #'
 #' @rdname wave
 #' @export
-wave.default <- function(x, length_sec = 1, sample_rate = 44100, ...) {
+wave.default <- function(x,
+                         length_sec = 1,
+                         sample_rate = 44100,
+                         rise_length = 0,
+                         fade_length = 0,
+                         ...) {
   x <- sparse_fr_spectrum(x, ...)
-  wave(x, length_sec = length_sec, sample_rate = sample_rate)
+  wave(x,
+       length_sec = length_sec,
+       rise_length = rise_length,
+       fade_length = fade_length,
+       sample_rate = sample_rate)
 }
 
 #' @export
@@ -57,22 +76,52 @@ wave.wave <- function(x, ...) x
 
 #' @rdname wave
 #' @export
-wave.sparse_fr_spectrum <- function(x, length_sec = 1, sample_rate = 44100, ...) {
+wave.sparse_fr_spectrum <- function(
+  x,
+  length_sec = 1,
+  sample_rate = 44100,
+  rise_length = 0,
+  fade_length = 0,
+  ...
+) {
   checkmate::qtest(length_sec, "N1[0)")
   checkmate::qtest(sample_rate, "X1[1)")
+  stopifnot(rise_length <= length_sec,
+            fade_length <= length_sec)
   frequency <- freq(x)
   amplitude <- amp(x)
   num_samples <- sample_rate * length_sec
   time <- seq(from = 0,
               to = length_sec,
               length.out = num_samples + 1)[- (num_samples + 1)]
-  mapply(
+  wave <- mapply(
     function(frequency, amplitude) {
       amplitude * sin(2 * pi * frequency * time)
     }, frequency, amplitude
   ) %>%
-    rowMeans() %>%
-    .wave(sample_rate)
+    rowSums() %>%
+    .wave(sample_rate) %>%
+    add_fades(rise_length, fade_length, sample_rate, num_samples)
+}
+
+add_fades <- function(wave, rise_length, fade_length, sample_rate, num_samples) {
+  if (rise_length != 0) {
+    rise_n_samples <- round(rise_length * sample_rate)
+    stopifnot(rise_n_samples <= num_samples)
+    if (rise_n_samples > 0) {
+      ind <- 1:rise_n_samples
+      wave[ind] <- wave[ind] * seq(from = 0, to = 1, length.out = rise_n_samples)
+    }
+  }
+  if (fade_length != 0) {
+    fade_n_samples <- round(fade_length * sample_rate)
+    stopifnot(fade_n_samples <= num_samples)
+    if (fade_n_samples > 0) {
+      ind <- seq(to = num_samples, length.out = fade_n_samples)
+      wave[ind] <- wave[ind] * seq(from = 1, to = 0, length.out = fade_n_samples)
+    }
+  }
+  wave
 }
 
 #' @export
@@ -89,4 +138,105 @@ plot.wave <- function(x, ggplot = FALSE, xlab = "Time (seconds)", ylab = "Displa
   } else {
     plot(time, x, xlab = xlab, ylab = ylab, type = "l", ylim = ylim)
   }
+}
+
+#' Save wav file
+#'
+#' Saves object to a wav file by converting to the \code{\link{wave}} representation
+#' and then writing to a wav file.
+#'
+#' @param x Object to save; currently only individual chords are supported.
+#' Chords are coerced to a \code{\link{wave}} representation.
+#'
+#' @param file (Character scalar) Output file.
+#'
+#' @param amplitude
+#' (Numeric scalar)
+#' The wave is multiplied by this number before exporting.
+#' The resulting wave should fall completely within the range [-1, 1].
+#'
+#' @param bit_depth
+#' (Integer scalar)
+#' The bit depth of the exported audio.
+#'
+#' @param end_pad
+#' (Numeric scalar)
+#' Duration of silence (seconds) appended to the end of the audio file,
+#' used to avoid clicks and other artifacts.
+#'
+#' @inheritParams wave
+#' @inheritDotParams expand_harmonics
+#'
+#' @seealso \code{\link{save_wav_sox}}
+#'
+#' @rdname save_wav
+#' @export
+save_wav <- function(
+  x,
+  file,
+  amplitude = 0.1,
+  bit_depth = 16L,
+  length_sec = 1,
+  fade_length = 0.1,
+  rise_length = 0.1,
+  end_pad = 0.05,
+  ...
+) {
+  UseMethod("save_wav")
+}
+
+#' @export
+save_wav.default <- function(
+  x,
+  file,
+  amplitude = 0.1,
+  bit_depth = 16,
+  length_sec = 1,
+  fade_length = 0.1,
+  rise_length = 0.1,
+  end_pad = 0.05,
+  ...
+) {
+  wave <- wave(
+    x,
+    length_sec = length_sec,
+    fade_length = fade_length,
+    rise_length = rise_length,
+    ...
+  )
+  scale <- 2 ^ (bit_depth - 1)
+  vector <- round(as.numeric(wave) * amplitude * scale)
+  if (any(vector < - scale | vector >= scale)) {
+    stop(sprintf("the wave's maximum value was approximately %.2f times too big for exporting, ",
+                 max(abs(vector / scale))),
+         "consider reducing amplitude by at least this value")
+  }
+  vector <- c(vector, rep(0, times = round(end_pad * sample_rate(wave))))
+  wave_2 <- tuneR::Wave(
+    left = vector,
+    right = vector,
+    samp.rate = sample_rate(wave),
+    bit = bit_depth
+  )
+  tuneR::writeWave(wave_2, file)
+}
+
+#' Play wav
+#'
+#' Plays a chord as a wave file.
+#'
+#' @param x Chord to save.
+#'
+#' @inheritParams tuneR::play
+#' @inheritDotParams save_wav
+#' @inheritDotParams expand_harmonics
+#'
+#' @seealso \code{\link{play_sox}}
+#'
+#' @export
+play_wav <- function(x, player = "play", ...) {
+  file <- tempfile(fileext = ".wav")
+  save_wav(x, file, ...)
+  tuneR::play(file, player = player)
+  invisible(file.remove(file))
 }
