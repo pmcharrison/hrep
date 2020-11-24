@@ -30,6 +30,7 @@ each tone should be expanded.}
     \item{\code{roll_off}}{(Numeric scalar) Parametrises the amount of amplitude roll-off
 in the harmonics, with greater values corresponding to higher roll-off.}
     \item{\code{digits}}{Number of digits to which each partial's MIDI pitch should be rounded.}
+    \item{\code{label_harmonics}}{If TRUE, then the harmonics in the resulting spectrum are labelled with their harmonic numbers.}
   }}
 
 \item{amplitude}{(Numeric vector)

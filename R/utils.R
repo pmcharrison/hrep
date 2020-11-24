@@ -24,9 +24,11 @@ env_to_df <- function(env, sort_by_key = TRUE, decreasing = FALSE, key_type = "c
   )
   as.list(env) %>%
     (function(x) {
+      key <- names(x) %>% as(key_type)
+      value <- unlist(magrittr::set_names(x, NULL), recursive = FALSE)
       data.frame(
-        key = names(x) %>% as(key_type),
-        value = unlist(x),
+        key = key,
+        value = if (is.list(value)) I(value) else value,
         stringsAsFactors = FALSE
       )
     }) %>%

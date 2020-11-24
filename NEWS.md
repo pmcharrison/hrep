@@ -1,3 +1,5 @@
+- Support plotting harmonic numbers.
+
 # hrep 0.12.1
 
 - Exported `play_wav`.
