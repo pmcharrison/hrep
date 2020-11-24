@@ -1,3 +1,5 @@
+# hrep 0.13.0
+
 - Support plotting harmonic numbers.
 
 # hrep 0.12.1
