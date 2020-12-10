@@ -10,10 +10,13 @@ os:
 after_success:
   - Rscript -e 'covr::coveralls()'
 
+before_install:
+  sudo apt-get update &
+  sudo apt-get install libgit2-dev
 
 before_deploy:
-  sudo apt update &
-  sudo apt install libharfbuzz-dev libfribidi-dev &
+  sudo apt-get update &
+  sudo apt-get install libharfbuzz-dev libfribidi-dev &
   Rscript -e 'remotes::install_cran("pkgdown")'
 deploy:
   provider: script
