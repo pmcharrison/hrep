@@ -1,3 +1,6 @@
+- `wave` now supports the argument `phase`.
+- Bugfix in propagating spectrum labels.
+
 # hrep 0.13.0
 
 - Support plotting harmonic numbers.

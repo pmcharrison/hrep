@@ -23,6 +23,7 @@ wave(x, ...)
   sample_rate = 44100,
   rise_length = 0,
   fade_length = 0,
+  phase = 0,
   ...
 )
 }
@@ -50,6 +51,9 @@ Chord fade-in time (seconds).}
 
 \item{fade_length}{(Numeric scalar)
 Chord fade-out time (seconds).}
+
+\item{phase}{(Numeric scalar)
+Single number specifying the phase of the underlying sine waves to be used.}
 }
 \description{
 This function represents an object as class "wave".

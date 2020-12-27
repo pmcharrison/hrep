@@ -74,6 +74,11 @@ wave.default <- function(x,
 #' @export
 wave.wave <- function(x, ...) x
 
+
+#' @param phase
+#' (Numeric scalar)
+#' Single number specifying the phase of the underlying sine waves to be used.
+#'
 #' @rdname wave
 #' @export
 wave.sparse_fr_spectrum <- function(
@@ -82,10 +87,12 @@ wave.sparse_fr_spectrum <- function(
   sample_rate = 44100,
   rise_length = 0,
   fade_length = 0,
+  phase = 0,
   ...
 ) {
   checkmate::qtest(length_sec, "N1[0)")
   checkmate::qtest(sample_rate, "X1[1)")
+  checkmate::qtest(phase, "N1")
   stopifnot(rise_length <= length_sec,
             fade_length <= length_sec)
   frequency <- freq(x)
@@ -96,7 +103,7 @@ wave.sparse_fr_spectrum <- function(
               length.out = num_samples + 1)[- (num_samples + 1)]
   wave <- mapply(
     function(frequency, amplitude) {
-      amplitude * sin(2 * pi * frequency * time)
+      amplitude * sin(2 * pi * frequency * time + phase)
     }, frequency, amplitude
   ) %>%
     rowSums() %>%
