@@ -73,7 +73,8 @@ sparse_pc_spectrum.sparse_pc_spectrum <- function(x, ...) {
 
 sparse_pc_spectrum.sparse_pi_spectrum <- function(x, digits = 6) {
   data.frame(x = pitch(x),
-             y = amp(x)) %>%
+             y = amp(x),
+             labels = x$labels) %>%
     list() %>%
     collapse_summing_amplitudes(digits = digits, modulo = 12) %>%
     {
