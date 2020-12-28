@@ -1,3 +1,4 @@
+- Implement `as.data.frame.wave`.
 - `wave` now supports the argument `phase`.
 - Bugfix in propagating spectrum labels.
 

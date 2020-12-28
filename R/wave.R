@@ -134,16 +134,16 @@ add_fades <- function(wave, rise_length, fade_length, sample_rate, num_samples) 
 #' @export
 plot.wave <- function(x, ggplot = FALSE, xlab = "Time (seconds)", ylab = "Displacement",
                       ylim = NULL, ...) {
-  time <- seq(from = 0, by = 1 / sample_rate(x), length.out = length(x))
+  df <- as.data.frame(x)
   if (ggplot) {
     assert_installed("ggplot2")
-    tibble::tibble(time = time, displacement = as.numeric(x)) %>%
+    df %>%
       ggplot2::ggplot(ggplot2::aes_string(x = "time", y = "displacement")) +
       ggplot2::geom_line() +
-      ggplot2::scale_x_continuous(xlab, limits = c(0, time[length(time)])) +
+      ggplot2::scale_x_continuous(xlab, limits = c(0, df$time[nrow(df)])) +
       ggplot2::scale_y_continuous(ylab, limits = ylim)
   } else {
-    plot(time, x, xlab = xlab, ylab = ylab, type = "l", ylim = ylim)
+    plot(df$time, df$displacement, xlab = xlab, ylab = ylab, type = "l", ylim = ylim)
   }
 }
 
@@ -246,4 +246,10 @@ play_wav <- function(x, player = "play", ...) {
   save_wav(x, file, ...)
   tuneR::play(file, player = player)
   invisible(file.remove(file))
+}
+
+#' @export
+as.data.frame.wave <- function(x, ...) {
+  time <- seq(from = 0, by = 1 / sample_rate(x), length.out = length(x))
+  data.frame(time = time, displacement = as.numeric(x))
 }
