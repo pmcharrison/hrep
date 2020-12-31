@@ -28,8 +28,11 @@
 #' (Positive numeric scalar)
 #' Duration of the release portion, in seconds.
 #'
-#' @rdname add_adsr
-add_adsr <- function(
+#' @inheritDotParams wave
+#'
+#' @rdname adsr_filter
+#' @export
+adsr_filter <- function(
   x,
   attack,
   decay,
@@ -40,13 +43,13 @@ add_adsr <- function(
 ) {
   checkmate::qassert(attack, "N1[0,)")
   checkmate::qassert(decay, "N1[0,)")
-  checkmate::qassert(sustain, "N1[0,1])")
+  checkmate::qassert(sustain, "N1[0,1]")
   checkmate::qassert(hold, "N1[0,)")
   checkmate::qassert(release, "N1[0,)")
-  UseMethod("add_adsr")
+  UseMethod("adsr_filter")
 }
 
-add_adsr.default <- function(
+adsr_filter.default <- function(
   x,
   attack,
   decay,
@@ -55,7 +58,7 @@ add_adsr.default <- function(
   release,
   ...
 ) {
-  add_adsr.wave(
+  adsr_filter.wave(
     wave(x, ...),
     attack = attack,
     decay = decay,
@@ -65,15 +68,14 @@ add_adsr.default <- function(
   )
 }
 
-#' @rdname add_adsr
-add_adsr.wave <- function(
+#' @rdname adsr_filter
+adsr_filter.wave <- function(
   x,
   attack,
   decay,
   sustain,
   hold,
-  release,
-  ...
+  release
 ) {
   anchors <- tibble::tribble(
     ~ time,                          ~ amplitude,
@@ -84,9 +86,9 @@ add_adsr.wave <- function(
     attack + decay + hold + release, 0
   )
   anchors$sample <- 1 + round(anchors$time * sample_rate(x))
-  envelope <- approx(x = anchors$sample,
-                     y = anchors$amplitude,
-                     xout = seq_along(x),
-                     rule = 2)$y
+  envelope <- stats::approx(x = anchors$sample,
+                            y = anchors$amplitude,
+                            xout = seq_along(x),
+                            rule = 2)$y
   x * envelope
 }

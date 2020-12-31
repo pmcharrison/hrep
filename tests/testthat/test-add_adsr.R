@@ -1,6 +1,6 @@
 test_that("basic example", {
   x <- .wave(rep(10, times = 20), sample_rate = 1)
-  y <- add_adsr(
+  y <- adsr_filter(
     x,
     attack = 3,
     decay = 2,

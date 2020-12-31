@@ -1,3 +1,5 @@
+- Implement spectral filters.
+- Implement ADSR filter.
 - Implement `as.data.frame.wave`.
 - `wave` now supports the argument `phase`.
 - Bugfix in propagating spectrum labels.
