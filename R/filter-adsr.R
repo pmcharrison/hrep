@@ -30,9 +30,9 @@
 #'
 #' @inheritDotParams wave
 #'
-#' @rdname adsr_filter
+#' @rdname filter_adsr
 #' @export
-adsr_filter <- function(
+filter_adsr <- function(
   x,
   attack,
   decay,
@@ -46,11 +46,11 @@ adsr_filter <- function(
   checkmate::qassert(sustain, "N1[0,1]")
   checkmate::qassert(hold, "N1[0,)")
   checkmate::qassert(release, "N1[0,)")
-  UseMethod("adsr_filter")
+  UseMethod("filter_adsr")
 }
 
 #' @export
-adsr_filter.default <- function(
+filter_adsr.default <- function(
   x,
   attack,
   decay,
@@ -59,7 +59,7 @@ adsr_filter.default <- function(
   release,
   ...
 ) {
-  adsr_filter.wave(
+  filter_adsr.wave(
     wave(x, ...),
     attack = attack,
     decay = decay,
@@ -69,9 +69,9 @@ adsr_filter.default <- function(
   )
 }
 
-#' @rdname adsr_filter
+#' @rdname filter_adsr
 #' @export
-adsr_filter.wave <- function(
+filter_adsr.wave <- function(
   x,
   attack,
   decay,
