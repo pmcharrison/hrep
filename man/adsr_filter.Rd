@@ -7,7 +7,7 @@
 \usage{
 adsr_filter(x, attack, decay, sustain, hold, release, ...)
 
-\method{adsr_filter}{wave}(x, attack, decay, sustain, hold, release)
+\method{adsr_filter}{wave}(x, attack, decay, sustain, hold, release, ...)
 }
 \arguments{
 \item{x}{Object to filter; will be coerced to a wave object via \code{\link{wave}}.}
