@@ -92,7 +92,7 @@ adsr_filter.wave <- function(
     attack + decay + hold,           sustain,
     attack + decay + hold + release, 0
   )
-  anchors$sample <- 1 + round(anchors$time * sample_rate(x))
+  anchors$sample <- 1 + anchors$time * sample_rate(x)
   envelope <- stats::approx(x = anchors$sample,
                             y = anchors$amplitude,
                             xout = seq_along(x),
