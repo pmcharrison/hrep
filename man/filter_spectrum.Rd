@@ -11,7 +11,8 @@ filter_spectrum(x, fun, ...)
 
 \item{fun}{Function to apply. The input should be a vector of frequencies,
 the output should be a vector of envelope amplitudes for those frequencies.
-An amplitude of 1 means that the spectrum is left unchanged at that location.}
+The spectral amplitudes will be multiplied by the outputs of this function
+for each frequency.}
 
 \item{...}{Optional parameters passed to \code{\link{sparse_fr_spectrum}}.}
 }
