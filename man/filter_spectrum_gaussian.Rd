@@ -14,14 +14,16 @@ filter_spectrum_gaussian(x, location, width = 50, base = 0, peak = 1, ...)
 \item{width}{Vector of widths (i.e. SDs) for the Gaussians.
 If only one number is provided, this same number is used for all Gaussians.}
 
-\item{base}{(Numeric scalar, default = 0)
+\item{base}{(Numeric vector, default = 0)
 Baseline upon which the Gaussian sits.
 If this is set to 1, then partials outside the range of the Gaussian
 will be unaffected by the filter; if this is left at 0,
-then these partials will be removed.}
+then these partials will be removed.
+Can be vectorised.}
 
-\item{peak}{(Numeric scalar, default = 0)
-Notional peak of the Gaussian.}
+\item{peak}{(Numeric vector, default = 0)
+Notional peak of the Gaussian.
+Can be vectorised.}
 
 \item{...}{Optional parameters passed to \code{\link{sparse_fr_spectrum}}.}
 }

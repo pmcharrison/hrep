@@ -39,15 +39,17 @@ filter_spectrum.sparse_fr_spectrum <- function(x, fun, ...) {
 #' If only one number is provided, this same number is used for all Gaussians.
 #'
 #' @param base
-#' (Numeric scalar, default = 0)
+#' (Numeric vector, default = 0)
 #' Baseline upon which the Gaussian sits.
 #' If this is set to 1, then partials outside the range of the Gaussian
 #' will be unaffected by the filter; if this is left at 0,
 #' then these partials will be removed.
+#' Can be vectorised.
 #'
 #' @param peak
-#' (Numeric scalar, default = 0)
+#' (Numeric vector, default = 0)
 #' Notional peak of the Gaussian.
+#' Can be vectorised.
 #'
 #' @inheritParams filter_spectrum
 #'
@@ -60,15 +62,13 @@ filter_spectrum_gaussian <- function(x,
                                      ...) {
   stopifnot(length(location) > 0,
             length(width) == 1 || length(width) == length(location),
-            length(base) == 1,
-            length(peak) == 1,
-            base <= peak)
-  if (length(width) == 1) {
-    width <- rep(width, times = length(location))
-  }
+            length(base) == 1 || length(base) == length(location),
+            length(peak) == 1 || length(peak) == length(location))
+  spec <- tibble::tibble(location, width, base, peak)
+
   f <- function(x) {
-    purrr::map2(location, width, function(.location, .width) {
-      base + (peak - base) * exp(- (x - .location) ^ 2 / (2 * .width ^ 2))
+    purrr::pmap(spec, function(location, width, base, peak) {
+      base + (peak - base) * exp(- (x - location) ^ 2 / (2 * width ^ 2))
     }) %>%
       do.call(rbind, .) %>%
       colSums()
