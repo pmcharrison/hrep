@@ -21,7 +21,7 @@ spectral_filter.default <- function(x, fun, ...) {
 }
 
 #' @export
-spectral_filter.sparse_fr_spectrum <- function(x, fun) {
+spectral_filter.sparse_fr_spectrum <- function(x, fun, ...) {
   x$y <- x$y * fun(x$x)
   x
 }

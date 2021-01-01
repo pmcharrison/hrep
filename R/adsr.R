@@ -77,7 +77,8 @@ adsr_filter.wave <- function(
   decay,
   sustain,
   hold,
-  release
+  release,
+  ...
 ) {
   if (attack == 0) attack <- 1e-10
   if (decay == 0) decay <- 1e-10
