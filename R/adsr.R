@@ -49,6 +49,7 @@ adsr_filter <- function(
   UseMethod("adsr_filter")
 }
 
+#' @export
 adsr_filter.default <- function(
   x,
   attack,
@@ -69,6 +70,7 @@ adsr_filter.default <- function(
 }
 
 #' @rdname adsr_filter
+#' @export
 adsr_filter.wave <- function(
   x,
   attack,
