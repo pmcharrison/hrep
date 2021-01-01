@@ -2,7 +2,7 @@
 % Please edit documentation in R/spectral-filter.R
 \name{filter_spectrum}
 \alias{filter_spectrum}
-\title{Spectral filter}
+\title{Filter spectrum}
 \usage{
 filter_spectrum(x, fun, ...)
 }

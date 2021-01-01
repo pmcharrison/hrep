@@ -1,4 +1,4 @@
-#' Spectral filter
+#' Filter spectrum
 #'
 #' Filters a sparse spectrum using a user-provided function.
 #'
