@@ -11,17 +11,17 @@
 #' @param ... Optional parameters passed to \code{\link{sparse_fr_spectrum}}.
 #'
 #' @export
-spectral_filter <- function(x, fun, ...) {
-  UseMethod("spectral_filter")
+filter_spectrum <- function(x, fun, ...) {
+  UseMethod("filter_spectrum")
 }
 
 #' @export
-spectral_filter.default <- function(x, fun, ...) {
-  spectral_filter.sparse_fr_spectrum(sparse_fr_spectrum(x, ...), fun)
+filter_spectrum.default <- function(x, fun, ...) {
+  filter_spectrum.sparse_fr_spectrum(sparse_fr_spectrum(x, ...), fun)
 }
 
 #' @export
-spectral_filter.sparse_fr_spectrum <- function(x, fun, ...) {
+filter_spectrum.sparse_fr_spectrum <- function(x, fun, ...) {
   x$y <- x$y * fun(x$x)
   x
 }
@@ -37,7 +37,7 @@ spectral_filter.sparse_fr_spectrum <- function(x, fun, ...) {
 #' Vector of widths (i.e. SDs) for the Gaussians.
 #' If only one number is provided, this same number is used for all Gaussians.
 #'
-#' @inheritParams spectral_filter
+#' @inheritParams filter_spectrum
 #'
 #' @export
 gaussian_filter <- function(x, location, width = 50, ...) {
@@ -54,5 +54,5 @@ gaussian_filter <- function(x, location, width = 50, ...) {
       do.call(rbind, .) %>%
       colSums()
   }
-  spectral_filter(x, f, ...)
+  filter_spectrum(x, f, ...)
 }
