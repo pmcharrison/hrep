@@ -40,7 +40,7 @@ filter_spectrum.sparse_fr_spectrum <- function(x, fun, ...) {
 #' @inheritParams filter_spectrum
 #'
 #' @export
-gaussian_filter <- function(x, location, width = 50, ...) {
+filter_spectrum_gaussian <- function(x, location, width = 50, ...) {
   stopifnot(length(location) > 0,
             length(width) == 1 || length(width) == length(location))
   if (length(width) == 1) {
