@@ -79,6 +79,11 @@ adsr_filter.wave <- function(
   hold,
   release
 ) {
+  if (attack == 0) attack <- 1e-10
+  if (decay == 0) decay <- 1e-10
+  if (hold == 0) hold <- 1e-10
+  if (release == 0) release <- 1e-10
+
   anchors <- tibble::tribble(
     ~ time,                          ~ amplitude,
     0,                               0,
