@@ -1,3 +1,4 @@
+- Improve sparse spectrum plotting.
 - Implement spectral filters.
 - Implement ADSR filter.
 - Implement `as.data.frame.wave`.

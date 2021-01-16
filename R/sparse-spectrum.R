@@ -80,21 +80,21 @@ set_labels.sparse_spectrum <- function(x, labels) {
 #' @export
 plot.sparse_spectrum <- function(x, ggplot = FALSE, xlim = NULL, ...) {
   df <- as.data.frame(x)
-  n <- nrow(df)
-  df2 <- data.frame(x = numeric(n * 3), y = numeric(n * 3))
-  for (i in seq_len(n)) {
-    I <- (i - 1L) * 3L
-    df2$x[I + 1:3] <- df$x[i]
-    df2$y[I + 2L] <- df$y[i]
-  }
   if (ggplot) {
     assert_installed("ggplot2")
-    tibble::tibble(x = df2$x, y = df2$y) %>%
-      ggplot2::ggplot(ggplot2::aes_string(x = "x", y = "y")) +
-      ggplot2::geom_line() +
+      ggplot2::ggplot(df, ggplot2::aes_string(x = "x", xend = "x",
+                                              y = 0, yend = "y")) +
+      ggplot2::geom_segment() +
       ggplot2::scale_x_continuous(x_lab(x), limits = xlim) +
       ggplot2::scale_y_continuous(y_lab(x))
   } else {
+    n <- nrow(df)
+    df2 <- data.frame(x = numeric(n * 3), y = numeric(n * 3))
+    for (i in seq_len(n)) {
+      I <- (i - 1L) * 3L
+      df2$x[I + 1:3] <- df$x[i]
+      df2$y[I + 2L] <- df$y[i]
+    }
     plot(df2$x, df2$y, xlab = x_lab(x), ylab = y_lab(x),
          type = "l", xlim = xlim, ...)
     if (!is.null(df$labels)) {
