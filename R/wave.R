@@ -267,12 +267,12 @@ as.data.frame.wave <- function(x, ...) {
 #' Seconds of silence to add after the sound.
 #'
 #' @export
-pad <- function(x, before, after) {
+pad <- function(x, before = 0, after = 0) {
   UseMethod("pad")
 }
 
 #' @export
-pad.wave <- function(x, before, after) {
+pad.wave <- function(x, before = 0, after = 0) {
   fs <- sample_rate(x)
   raw <- as.numeric(x)
   .wave(

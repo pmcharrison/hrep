@@ -4,7 +4,7 @@
 \alias{pad}
 \title{Pad}
 \usage{
-pad(x, before, after)
+pad(x, before = 0, after = 0)
 }
 \arguments{
 \item{before}{(Numeric scalar)
