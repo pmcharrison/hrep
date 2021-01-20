@@ -253,3 +253,34 @@ as.data.frame.wave <- function(x, ...) {
   time <- seq(from = 0, by = 1 / sample_rate(x), length.out = length(x))
   data.frame(time = time, displacement = as.numeric(x))
 }
+
+#' Pad
+#'
+#' Adds silent padding to the beginning/end of a sound.
+#'
+#' @param before
+#' (Numeric scalar)
+#' Seconds of silence to add before the sound.
+#'
+#' @param after
+#' (Numeric scalar)
+#' Seconds of silence to add after the sound.
+#'
+#' @export
+pad <- function(x, before, after) {
+  UseMethod("pad")
+}
+
+#' @export
+pad.wave <- function(x, before, after) {
+  fs <- sample_rate(x)
+  raw <- as.numeric(x)
+  .wave(
+    c(
+      rep(0, times = round(before * fs)),
+      raw,
+      rep(0, times = round(after * fs))
+    ),
+    sample_rate = fs
+  )
+}
