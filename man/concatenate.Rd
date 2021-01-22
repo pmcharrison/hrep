@@ -2,10 +2,13 @@
 % Please edit documentation in R/wave.R
 \name{concatenate}
 \alias{concatenate}
+\alias{concatenate.list}
 \alias{concatenate.wave}
 \title{Concatenate objects}
 \usage{
 concatenate(...)
+
+\method{concatenate}{list}(...)
 
 \method{concatenate}{wave}(...)
 }

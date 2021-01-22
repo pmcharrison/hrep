@@ -300,11 +300,22 @@ pad.wave <- function(x, before = 0, after = 0) {
 #' @param ... Objects to combine.
 #'
 #' @rdname concatenate
+#' @export
 concatenate <- function(...) {
   UseMethod("concatenate")
 }
 
 #' @rdname concatenate
+#' @export
+concatenate.list <- function(...) {
+  list(...) %>%
+    purrr::map(function(x) if (is.wave(x)) list(x) else x) %>%
+    unlist(recursive = FALSE) %>%
+    do.call(concatenate, .)
+}
+
+#' @rdname concatenate
+#' @export
 concatenate.wave <- function(...) {
   waves <- list(...)
   stopifnot(all(purrr::map_lgl(waves, is.wave)))
@@ -327,6 +338,7 @@ concatenate.wave <- function(...) {
 #' (Integer scalar)
 #' Sample rate.
 #'
+#' @export
 silence <- function(duration, sample_rate = 44100L) {
   .wave(rep(0, times = round(duration * sample_rate)))
 }
