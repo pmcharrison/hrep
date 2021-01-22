@@ -26,6 +26,14 @@ print.wave <- function(x, ...) {
   )
 }
 
+#' Check for type "wave"
+#'
+#' Checks whether an object is of type "wave".
+#' @param x Object to check.
+#' @return Logical scalar.
+#' @export
+is.wave <- function(x) is(x, "wave")
+
 #' Wave
 #'
 #' This function represents an object as class "wave".
@@ -283,4 +291,42 @@ pad.wave <- function(x, before = 0, after = 0) {
     ),
     sample_rate = fs
   )
+}
+
+#' Concatenate objects
+#'
+#' Concatenates multiple objects together.
+#'
+#' @param ... Objects to combine.
+#'
+#' @rdname concatenate
+concatenate <- function(...) {
+  UseMethod("concatenate")
+}
+
+#' @rdname concatenate
+concatenate.wave <- function(...) {
+  waves <- list(...)
+  stopifnot(all(purrr::map_lgl(waves, is.wave)))
+  sample_rate <- sample_rate(waves[[1]])
+  .wave(
+    do.call(c, lapply(waves, as.numeric)),
+    sample_rate
+  )
+}
+
+#' Silence
+#'
+#' Creates a 'wave' object corresponding to silence.
+#'
+#' @param duration
+#' (Numeric scalar)
+#' Duration of the silence.
+#'
+#' @param sample_rate
+#' (Integer scalar)
+#' Sample rate.
+#'
+silence <- function(duration, sample_rate = 44100L) {
+  .wave(rep(0, times = round(duration * sample_rate)))
 }

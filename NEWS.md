@@ -1,4 +1,6 @@
-- Add pad method for waves.
+- Add `silence` function.
+- Add `concatenate` method for waves.
+- Add `pad` method for waves.
 - Improve sparse spectrum plotting.
 - Implement spectral filters.
 - Implement ADSR filter.
