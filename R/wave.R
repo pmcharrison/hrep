@@ -340,5 +340,6 @@ concatenate.wave <- function(...) {
 #'
 #' @export
 silence <- function(duration, sample_rate = 44100L) {
-  .wave(rep(0, times = round(duration * sample_rate)))
+  .wave(rep(0, times = round(duration * sample_rate)),
+        sample_rate)
 }
