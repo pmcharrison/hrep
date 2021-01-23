@@ -3,6 +3,7 @@
 S3method("[",coded_vec)
 S3method("[",corpus)
 S3method("[",vec)
+S3method("[",wave)
 S3method("[<-",coded_vec)
 S3method("[<-",corpus)
 S3method("[<-",vec)

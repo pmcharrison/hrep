@@ -1,3 +1,4 @@
+- Add `[.wave` method.
 - Add `silence` function.
 - Add `concatenate` method for waves.
 - Add `pad` method for waves.

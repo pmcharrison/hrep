@@ -26,6 +26,11 @@ print.wave <- function(x, ...) {
   )
 }
 
+#' @export
+`[.wave` <- function(wave, i) {
+  .wave(as.numeric(wave)[i], sample_rate = sample_rate(wave))
+}
+
 #' Check for type "wave"
 #'
 #' Checks whether an object is of type "wave".
