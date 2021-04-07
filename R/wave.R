@@ -271,6 +271,9 @@ as.data.frame.wave <- function(x, ...) {
 #'
 #' Adds silent padding to the beginning/end of a sound.
 #'
+#' @param x
+#' Sound to pad.
+#'
 #' @param before
 #' (Numeric scalar)
 #' Seconds of silence to add before the sound.

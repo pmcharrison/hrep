@@ -7,6 +7,8 @@
 pad(x, before = 0, after = 0)
 }
 \arguments{
+\item{x}{Sound to pad.}
+
 \item{before}{(Numeric scalar)
 Seconds of silence to add before the sound.}
 
