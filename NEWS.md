@@ -1,3 +1,5 @@
+# hrep 0.14.0
+
 - Add `[.wave` method.
 - Add `silence` function.
 - Add `concatenate` method for waves.
