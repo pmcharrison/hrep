@@ -1,4 +1,4 @@
-.sparse_pc_spectrum <- function(pc, amplitude) {
+.sparse_pc_spectrum <- function(pc, amplitude, labels = NULL) {
   checkmate::qassert(pc, "N[0,12)")
   checkmate::qassert(amplitude, "N")
   stopifnot(length(pc) == length(amplitude))
@@ -9,7 +9,8 @@
                          y_unit = "amplitude",
                          label = "sparse pitch-class spectrum",
                          x_lab = "Pitch class",
-                         y_lab = "Amplitude")
+                         y_lab = "Amplitude",
+                         labels = labels)
   class(res) <- c("sparse_pc_spectrum", "chord", class(res))
   res
 }
@@ -71,13 +72,16 @@ sparse_pc_spectrum.sparse_pc_spectrum <- function(x, ...) {
 }
 
 sparse_pc_spectrum.sparse_pi_spectrum <- function(x, digits = 6) {
-  data.frame(x = pitch(x),
-             y = amp(x)) %>%
+  df <- data.frame(x = pitch(x),
+                   y = amp(x))
+  if (!is.null(x$labels)) df$labels <- x$labels
+  df %>%
     list() %>%
     collapse_summing_amplitudes(digits = digits, modulo = 12) %>%
     {
       .sparse_pc_spectrum(pc = .[[1]],
-                          amplitude = .[[2]])
+                          amplitude = .[[2]],
+                          labels = .$labels)
     }
 }
 

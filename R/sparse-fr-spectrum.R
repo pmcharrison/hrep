@@ -1,5 +1,5 @@
 #' @keywords internal
-.sparse_fr_spectrum <- function(frequency, amplitude) {
+.sparse_fr_spectrum <- function(frequency, amplitude, labels = NULL) {
   checkmate::qassert(frequency, "N")
   checkmate::qassert(amplitude, "N")
   stopifnot(length(frequency) == length(amplitude))
@@ -10,7 +10,8 @@
                          y_unit = "amplitude",
                          label = "sparse frequency spectrum",
                          x_lab = "Frequency (Hz)",
-                         y_lab = "Amplitude")
+                         y_lab = "Amplitude",
+                         labels = labels)
   class(res) <- c("sparse_fr_spectrum", "chord", class(res))
   res
 }
@@ -72,7 +73,8 @@ sparse_fr_spectrum.sparse_fr_spectrum <- function(x, ...) {
 sparse_fr_spectrum.sparse_pi_spectrum <- function(x, ...) {
   .sparse_fr_spectrum(
     frequency = midi_to_freq(pitch(x)),
-    amplitude = amp(x)
+    amplitude = amp(x),
+    labels = x$labels
   )
 }
 

@@ -1,3 +1,20 @@
+# hrep 0.14.0
+
+- Add `[.wave` method.
+- Add `silence` function.
+- Add `concatenate` method for waves.
+- Add `pad` method for waves.
+- Improve sparse spectrum plotting.
+- Implement spectral filters.
+- Implement ADSR filter.
+- Implement `as.data.frame.wave`.
+- `wave` now supports the argument `phase`.
+- Bugfix in propagating spectrum labels.
+
+# hrep 0.13.0
+
+- Support plotting harmonic numbers.
+
 # hrep 0.12.1
 
 - Exported `play_wav`.

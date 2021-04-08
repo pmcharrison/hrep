@@ -7,13 +7,37 @@
 \alias{expand_harmonics.pi_chord}
 \title{Expand harmonics}
 \usage{
-expand_harmonics(x, num_harmonics = 11L, roll_off = 1, digits = 6)
+expand_harmonics(
+  x,
+  num_harmonics = 11L,
+  roll_off = 1,
+  digits = 6,
+  label_harmonics = FALSE
+)
 
-\method{expand_harmonics}{sparse_fr_spectrum}(x, num_harmonics = 11L, roll_off = 1, digits = 6)
+\method{expand_harmonics}{sparse_fr_spectrum}(
+  x,
+  num_harmonics = 11L,
+  roll_off = 1,
+  digits = 6,
+  label_harmonics = FALSE
+)
 
-\method{expand_harmonics}{sparse_pi_spectrum}(x, num_harmonics = 11L, roll_off = 1, digits = 6)
+\method{expand_harmonics}{sparse_pi_spectrum}(
+  x,
+  num_harmonics = 11L,
+  roll_off = 1,
+  digits = 6,
+  label_harmonics = FALSE
+)
 
-\method{expand_harmonics}{pi_chord}(x, num_harmonics = 11L, roll_off = 1, digits = 6)
+\method{expand_harmonics}{pi_chord}(
+  x,
+  num_harmonics = 11L,
+  roll_off = 1,
+  digits = 6,
+  label_harmonics = FALSE
+)
 }
 \arguments{
 \item{x}{Object whose harmonics should be expanded.
@@ -30,6 +54,8 @@ each tone should be expanded.}
 in the harmonics, with greater values corresponding to higher roll-off.}
 
 \item{digits}{Number of digits to which each partial's MIDI pitch should be rounded.}
+
+\item{label_harmonics}{If TRUE, then the harmonics in the resulting spectrum are labelled with their harmonic numbers.}
 }
 \description{
 Expands each tone in an object into its implied harmonics.

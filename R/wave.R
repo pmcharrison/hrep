@@ -26,6 +26,19 @@ print.wave <- function(x, ...) {
   )
 }
 
+#' @export
+`[.wave` <- function(wave, i) {
+  .wave(as.numeric(wave)[i], sample_rate = sample_rate(wave))
+}
+
+#' Check for type "wave"
+#'
+#' Checks whether an object is of type "wave".
+#' @param x Object to check.
+#' @return Logical scalar.
+#' @export
+is.wave <- function(x) is(x, "wave")
+
 #' Wave
 #'
 #' This function represents an object as class "wave".
@@ -74,6 +87,11 @@ wave.default <- function(x,
 #' @export
 wave.wave <- function(x, ...) x
 
+
+#' @param phase
+#' (Numeric scalar)
+#' Single number specifying the phase of the underlying sine waves to be used.
+#'
 #' @rdname wave
 #' @export
 wave.sparse_fr_spectrum <- function(
@@ -82,10 +100,12 @@ wave.sparse_fr_spectrum <- function(
   sample_rate = 44100,
   rise_length = 0,
   fade_length = 0,
+  phase = 0,
   ...
 ) {
   checkmate::qtest(length_sec, "N1[0)")
   checkmate::qtest(sample_rate, "X1[1)")
+  checkmate::qtest(phase, "N1")
   stopifnot(rise_length <= length_sec,
             fade_length <= length_sec)
   frequency <- freq(x)
@@ -96,7 +116,7 @@ wave.sparse_fr_spectrum <- function(
               length.out = num_samples + 1)[- (num_samples + 1)]
   wave <- mapply(
     function(frequency, amplitude) {
-      amplitude * sin(2 * pi * frequency * time)
+      amplitude * sin(2 * pi * frequency * time + phase)
     }, frequency, amplitude
   ) %>%
     rowSums() %>%
@@ -127,16 +147,16 @@ add_fades <- function(wave, rise_length, fade_length, sample_rate, num_samples) 
 #' @export
 plot.wave <- function(x, ggplot = FALSE, xlab = "Time (seconds)", ylab = "Displacement",
                       ylim = NULL, ...) {
-  time <- seq(from = 0, by = 1 / sample_rate(x), length.out = length(x))
+  df <- as.data.frame(x)
   if (ggplot) {
     assert_installed("ggplot2")
-    tibble::tibble(time = time, displacement = as.numeric(x)) %>%
+    df %>%
       ggplot2::ggplot(ggplot2::aes_string(x = "time", y = "displacement")) +
       ggplot2::geom_line() +
-      ggplot2::scale_x_continuous(xlab, limits = c(0, time[length(time)])) +
+      ggplot2::scale_x_continuous(xlab, limits = c(0, df$time[nrow(df)])) +
       ggplot2::scale_y_continuous(ylab, limits = ylim)
   } else {
-    plot(time, x, xlab = xlab, ylab = ylab, type = "l", ylim = ylim)
+    plot(df$time, df$displacement, xlab = xlab, ylab = ylab, type = "l", ylim = ylim)
   }
 }
 
@@ -239,4 +259,95 @@ play_wav <- function(x, player = "play", ...) {
   save_wav(x, file, ...)
   tuneR::play(file, player = player)
   invisible(file.remove(file))
+}
+
+#' @export
+as.data.frame.wave <- function(x, ...) {
+  time <- seq(from = 0, by = 1 / sample_rate(x), length.out = length(x))
+  data.frame(time = time, displacement = as.numeric(x))
+}
+
+#' Pad
+#'
+#' Adds silent padding to the beginning/end of a sound.
+#'
+#' @param x
+#' Sound to pad.
+#'
+#' @param before
+#' (Numeric scalar)
+#' Seconds of silence to add before the sound.
+#'
+#' @param after
+#' (Numeric scalar)
+#' Seconds of silence to add after the sound.
+#'
+#' @export
+pad <- function(x, before = 0, after = 0) {
+  UseMethod("pad")
+}
+
+#' @export
+pad.wave <- function(x, before = 0, after = 0) {
+  fs <- sample_rate(x)
+  raw <- as.numeric(x)
+  .wave(
+    c(
+      rep(0, times = round(before * fs)),
+      raw,
+      rep(0, times = round(after * fs))
+    ),
+    sample_rate = fs
+  )
+}
+
+#' Concatenate objects
+#'
+#' Concatenates multiple objects together.
+#'
+#' @param ... Objects to combine.
+#'
+#' @rdname concatenate
+#' @export
+concatenate <- function(...) {
+  UseMethod("concatenate")
+}
+
+#' @rdname concatenate
+#' @export
+concatenate.list <- function(...) {
+  list(...) %>%
+    purrr::map(function(x) if (is.wave(x)) list(x) else x) %>%
+    unlist(recursive = FALSE) %>%
+    do.call(concatenate, .)
+}
+
+#' @rdname concatenate
+#' @export
+concatenate.wave <- function(...) {
+  waves <- list(...)
+  stopifnot(all(purrr::map_lgl(waves, is.wave)))
+  sample_rate <- sample_rate(waves[[1]])
+  .wave(
+    do.call(c, lapply(waves, as.numeric)),
+    sample_rate
+  )
+}
+
+#' Silence
+#'
+#' Creates a 'wave' object corresponding to silence.
+#'
+#' @param duration
+#' (Numeric scalar)
+#' Duration of the silence.
+#'
+#' @param sample_rate
+#' (Integer scalar)
+#' Sample rate.
+#'
+#' @export
+silence <- function(duration, sample_rate = 44100L) {
+  .wave(rep(0, times = round(duration * sample_rate)),
+        sample_rate)
 }
