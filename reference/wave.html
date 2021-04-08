@@ -75,7 +75,7 @@ The sample rate can be accessed using the sample_rate accessor." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hrep</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.14.0</span>
       </span>
     </div>
 
@@ -145,6 +145,7 @@ The sample rate can be accessed using the <code><a href='access.html'>sample_rat
   sample_rate <span class='op'>=</span> <span class='fl'>44100</span>,
   rise_length <span class='op'>=</span> <span class='fl'>0</span>,
   fade_length <span class='op'>=</span> <span class='fl'>0</span>,
+  phase <span class='op'>=</span> <span class='fl'>0</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -164,6 +165,7 @@ each tone should be expanded.</p></dd>
     <dt><code>roll_off</code></dt><dd><p>(Numeric scalar) Parametrises the amount of amplitude roll-off
 in the harmonics, with greater values corresponding to higher roll-off.</p></dd>
     <dt><code>digits</code></dt><dd><p>Number of digits to which each partial's MIDI pitch should be rounded.</p></dd>
+    <dt><code>label_harmonics</code></dt><dd><p>If TRUE, then the harmonics in the resulting spectrum are labelled with their harmonic numbers.</p></dd>
   
 </dl></td>
     </tr>
@@ -184,6 +186,11 @@ Chord fade-in time (seconds).</p></td>
       <th>fade_length</th>
       <td><p>(Numeric scalar)
 Chord fade-out time (seconds).</p></td>
+    </tr>
+    <tr>
+      <th>phase</th>
+      <td><p>(Numeric scalar)
+Single number specifying the phase of the underlying sine waves to be used.</p></td>
     </tr>
     </table>
 
