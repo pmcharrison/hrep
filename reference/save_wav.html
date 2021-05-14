@@ -73,7 +73,7 @@ and then writing to a wav file." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hrep</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.14.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.15.0</span>
       </span>
     </div>
 
@@ -187,6 +187,11 @@ each tone should be expanded.</p></dd>
 in the harmonics, with greater values corresponding to higher roll-off.</p></dd>
     <dt><code>digits</code></dt><dd><p>Number of digits to which each partial's MIDI pitch should be rounded.</p></dd>
     <dt><code>label_harmonics</code></dt><dd><p>If TRUE, then the harmonics in the resulting spectrum are labelled with their harmonic numbers.</p></dd>
+    <dt><code>coherent</code></dt><dd><p>Whether the amplitudes from different spectral components should be combined
+assuming coherent summation, where the amplitudes simply add together
+(default is <code>FALSE</code>).
+Otherwise incoherent summation is used, where the amplitudes are squared, added, then
+square rooted.</p></dd>
   
 </dl></td>
     </tr>

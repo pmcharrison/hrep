@@ -76,7 +76,7 @@ is rounded to a specified number of digits." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hrep</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.14.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.15.0</span>
       </span>
     </div>
 
@@ -128,7 +128,7 @@ by which the MIDI pitch(-class) of each partial
 is rounded to a specified number of digits.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>combine_sparse_spectra</span><span class='op'>(</span><span class='va'>...</span>, digits <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>combine_sparse_spectra</span><span class='op'>(</span><span class='va'>...</span>, digits <span class='op'>=</span> <span class='fl'>6</span>, coherent <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -143,6 +143,14 @@ is rounded to a specified number of digits.</p>
       <td><p>(Integerish scalar)
 The MIDI pitch(-class) of each partial will be rounded to this number
 of digits.</p></td>
+    </tr>
+    <tr>
+      <th>coherent</th>
+      <td><p>Whether the amplitudes from different spectral components should be combined
+assuming coherent summation, where the amplitudes simply add together
+(default is <code>FALSE</code>).
+Otherwise incoherent summation is used, where the amplitudes are squared, added, then
+square rooted.</p></td>
     </tr>
     </table>
 

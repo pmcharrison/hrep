@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hrep</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.14.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.15.0</span>
       </span>
     </div>
 
@@ -123,7 +123,7 @@
     <pre class="usage"><span class='fu'>sparse_pc_spectrum</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for sparse_fr_spectrum</span>
-<span class='fu'>sparse_pc_spectrum</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>sparse_pc_spectrum</span><span class='op'>(</span><span class='va'>x</span>, coherent <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for list</span>
 <span class='fu'>sparse_pc_spectrum</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -132,7 +132,7 @@
 <span class='fu'>sparse_pc_spectrum</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for pi_chord</span>
-<span class='fu'>sparse_pc_spectrum</span><span class='op'>(</span><span class='va'>x</span>, amplitude <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>sparse_pc_spectrum</span><span class='op'>(</span><span class='va'>x</span>, amplitude <span class='op'>=</span> <span class='fl'>1</span>, coherent <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,6 +153,14 @@ in the harmonics, with greater values corresponding to higher roll-off.</p></dd>
     <dt><code>label_harmonics</code></dt><dd><p>If TRUE, then the harmonics in the resulting spectrum are labelled with their harmonic numbers.</p></dd>
   
 </dl></td>
+    </tr>
+    <tr>
+      <th>coherent</th>
+      <td><p>Whether the amplitudes from different spectral components should be combined
+assuming coherent summation, where the amplitudes simply add together
+(default is <code>FALSE</code>).
+Otherwise incoherent summation is used, where the amplitudes are squared, added, then
+square rooted.</p></td>
     </tr>
     <tr>
       <th>amplitude</th>

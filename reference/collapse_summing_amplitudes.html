@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get chord qualities — get_chord_qualities_df • hrep</title>
+<title>Collapse summing amplitudes — collapse_summing_amplitudes • hrep</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,9 @@
 
 
 
-<meta property="og:title" content="Get chord qualities — get_chord_qualities_df" />
-<meta property="og:description" content="Returns a tibble of chord qualities and different
-textual labels for these chord qualities.
-In practice most users will access this information through the
-function decode_chord_quality." />
+<meta property="og:title" content="Collapse summing amplitudes — collapse_summing_amplitudes" />
+<meta property="og:description" content="Takes a dataframe of spectral components (locations x, amplitudes y),
+rounds x, and then combines spectral components with the same location." />
 
 
 
@@ -114,48 +112,46 @@ function decode_chord_quality." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get chord qualities</h1>
-    <small class="dont-index">Source: <a href='https://github.com/pmcharrison/hrep/blob/master/R/chord-qualities.R'><code>R/chord-qualities.R</code></a></small>
-    <div class="hidden name"><code>get_chord_qualities_df.Rd</code></div>
+    <h1>Collapse summing amplitudes</h1>
+    <small class="dont-index">Source: <a href='https://github.com/pmcharrison/hrep/blob/master/R/sparse-spectrum.R'><code>R/sparse-spectrum.R</code></a></small>
+    <div class="hidden name"><code>collapse_summing_amplitudes.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Returns a <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> of chord qualities and different
-textual labels for these chord qualities.
-In practice most users will access this information through the
-function <code><a href='decode_chord_quality.html'>decode_chord_quality</a></code>.</p>
+    <p>Takes a dataframe of spectral components (locations <code>x</code>, amplitudes <code>y</code>),
+rounds <code>x</code>, and then combines spectral components with the same location.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_chord_qualities_df</span><span class='op'>(</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>collapse_summing_amplitudes</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>digits</span>, modulo <span class='op'>=</span> <span class='cn'>NA_real_</span>, coherent <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>Input dataframe.</p></td>
+    </tr>
+    <tr>
+      <th>digits</th>
+      <td><p>Number of digits to which <code>x</code> should be rounded.</p></td>
+    </tr>
+    <tr>
+      <th>modulo</th>
+      <td><p>Optional modulo value for the rounding of <code>x</code>.</p></td>
+    </tr>
+    <tr>
+      <th>coherent</th>
+      <td><p>Whether the amplitudes from different spectral components should be combined
+assuming coherent summation, where the amplitudes simply add together
+(default is <code>FALSE</code>).
+Otherwise incoherent summation is used, where the amplitudes are squared, added, then
+square rooted.</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The <code>tibble</code> has one row for each unique chord quality,
-where a chord quality is defined as a set of pitch classes
-expressed relative to the chord root.</p><ul>
-<li><p>The <code>pitch_classes</code> column provides the chord quality as an integer vector,
-corresponding to a list of pitch classes expressed relative to the chord root.</p></li>
-<li><p>The <code>scale_degrees</code> column lists the scale degrees present in the
-chord quality in a more traditional human-readable format.</p></li>
-<li><p>The <code>description</code> column provides a textual description for the
-chord quality.</p></li>
-<li><p>The remaining columns are prefixed by <code>key_</code>,
-and provide textual abbreviations for the chord quality.
-These <code>key_</code> elements define the legal inputs for the function
-<code><a href='decode_chord_quality.html'>decode_chord_quality</a></code>.</p></li>
-</ul>
-
-<p>The data is read from the package file 'inst/chord-qualities.csv'.
-Additions can be proposed by GitHub: <a href='https://github.com/pmcharrison/hrep'>https://github.com/pmcharrison/hrep</a>.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'>
-<ul>
-<li><p><code><a href='decode_chord_quality.html'>decode_chord_quality</a></code> for decoding chord qualities.</p></li>
-<li><p><code><a href='register_chord_quality.html'>register_chord_quality</a></code> for registering additional chord qualities.</p></li>
-</ul>
-</div>
+    <p>A dataframe.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

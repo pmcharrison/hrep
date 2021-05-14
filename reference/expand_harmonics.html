@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hrep</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.14.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.15.0</span>
       </span>
     </div>
 
@@ -125,7 +125,8 @@
   num_harmonics <span class='op'>=</span> <span class='fl'>11L</span>,
   roll_off <span class='op'>=</span> <span class='fl'>1</span>,
   digits <span class='op'>=</span> <span class='fl'>6</span>,
-  label_harmonics <span class='op'>=</span> <span class='cn'>FALSE</span>
+  label_harmonics <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  coherent <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span>
 
 <span class='co'># S3 method for sparse_fr_spectrum</span>
@@ -134,7 +135,8 @@
   num_harmonics <span class='op'>=</span> <span class='fl'>11L</span>,
   roll_off <span class='op'>=</span> <span class='fl'>1</span>,
   digits <span class='op'>=</span> <span class='fl'>6</span>,
-  label_harmonics <span class='op'>=</span> <span class='cn'>FALSE</span>
+  label_harmonics <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  coherent <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span>
 
 <span class='co'># S3 method for sparse_pi_spectrum</span>
@@ -143,7 +145,8 @@
   num_harmonics <span class='op'>=</span> <span class='fl'>11L</span>,
   roll_off <span class='op'>=</span> <span class='fl'>1</span>,
   digits <span class='op'>=</span> <span class='fl'>6</span>,
-  label_harmonics <span class='op'>=</span> <span class='cn'>FALSE</span>
+  label_harmonics <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  coherent <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span>
 
 <span class='co'># S3 method for pi_chord</span>
@@ -152,7 +155,8 @@
   num_harmonics <span class='op'>=</span> <span class='fl'>11L</span>,
   roll_off <span class='op'>=</span> <span class='fl'>1</span>,
   digits <span class='op'>=</span> <span class='fl'>6</span>,
-  label_harmonics <span class='op'>=</span> <span class='cn'>FALSE</span>
+  label_harmonics <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  coherent <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -184,6 +188,14 @@ in the harmonics, with greater values corresponding to higher roll-off.</p></td>
     <tr>
       <th>label_harmonics</th>
       <td><p>If TRUE, then the harmonics in the resulting spectrum are labelled with their harmonic numbers.</p></td>
+    </tr>
+    <tr>
+      <th>coherent</th>
+      <td><p>Whether the amplitudes from different spectral components should be combined
+assuming coherent summation, where the amplitudes simply add together
+(default is <code>FALSE</code>).
+Otherwise incoherent summation is used, where the amplitudes are squared, added, then
+square rooted.</p></td>
     </tr>
     </table>
 
