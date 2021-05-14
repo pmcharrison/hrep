@@ -1,3 +1,5 @@
+# hrep 0.15.0
+
 - Add and propagate a `coherent` option for summing amplitudes. 
 Setting `coherent == TRUE` means coherent phases, so amplitudes are summed using addition;
 setting `coherent == FALSE` means incoherent phases, so amplitudes are summed using 
