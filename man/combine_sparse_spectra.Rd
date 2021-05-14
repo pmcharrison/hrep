@@ -4,7 +4,7 @@
 \alias{combine_sparse_spectra}
 \title{Combine sparse spectra}
 \usage{
-combine_sparse_spectra(..., digits = 6)
+combine_sparse_spectra(..., digits = 6, coherent = FALSE)
 }
 \arguments{
 \item{...}{Sparse spectra to combine
@@ -13,6 +13,12 @@ combine_sparse_spectra(..., digits = 6)
 \item{digits}{(Integerish scalar)
 The MIDI pitch(-class) of each partial will be rounded to this number
 of digits.}
+
+\item{coherent}{Whether the amplitudes from different spectral components should be combined
+assuming coherent summation, where the amplitudes simply add together
+(default is \code{FALSE}).
+Otherwise incoherent summation is used, where the amplitudes are squared, added, then
+square rooted.}
 }
 \value{
 A sparse spectrum object.

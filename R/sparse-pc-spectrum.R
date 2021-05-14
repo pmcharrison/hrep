@@ -56,6 +56,7 @@ is.sparse_pc_spectrum <- function(x) {
 #'
 #' @param x Input sonority.
 #'
+#' @inheritParams collapse_summing_amplitudes
 #' @inheritDotParams expand_harmonics
 #'
 #' @return An object of class \code{sparse_pc_spectrum}.
@@ -71,13 +72,13 @@ sparse_pc_spectrum.sparse_pc_spectrum <- function(x, ...) {
   x
 }
 
-sparse_pc_spectrum.sparse_pi_spectrum <- function(x, digits = 6) {
+sparse_pc_spectrum.sparse_pi_spectrum <- function(x, digits = 6, coherent = FALSE, ...) {
   df <- data.frame(x = pitch(x),
                    y = amp(x))
   if (!is.null(x$labels)) df$labels <- x$labels
   df %>%
     list() %>%
-    collapse_summing_amplitudes(digits = digits, modulo = 12) %>%
+    collapse_summing_amplitudes(digits = digits, modulo = 12, coherent = coherent) %>%
     {
       .sparse_pc_spectrum(pc = .[[1]],
                           amplitude = .[[2]],
@@ -87,8 +88,8 @@ sparse_pc_spectrum.sparse_pi_spectrum <- function(x, digits = 6) {
 
 #' @rdname sparse_pc_spectrum
 #' @export
-sparse_pc_spectrum.sparse_fr_spectrum <- function(x, ...) {
-  sparse_pc_spectrum(sparse_pi_spectrum(x))
+sparse_pc_spectrum.sparse_fr_spectrum <- function(x, coherent = FALSE, ...) {
+  sparse_pc_spectrum(sparse_pi_spectrum(x, coherent = coherent), coherent = coherent, ...)
 }
 
 #' @rdname sparse_pc_spectrum
@@ -117,8 +118,10 @@ sparse_pc_spectrum.default <- function(x, ...) {
 #' @export
 sparse_pc_spectrum.pi_chord <- function(x,
                                         amplitude = 1,
+                                        coherent = FALSE,
                                         ...) {
-  sparse_pc_spectrum(sparse_pi_spectrum(x, amplitude = amplitude, ...))
+  sparse_pc_spectrum(sparse_pi_spectrum(x, amplitude = amplitude, coherent = coherent, ...),
+                     coherent = coherent)
 }
 
 #' @export

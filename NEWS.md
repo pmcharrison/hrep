@@ -1,3 +1,9 @@
+- Add and propagate a `coherent` option for summing amplitudes. 
+Setting `coherent == TRUE` means coherent phases, so amplitudes are summed using addition;
+setting `coherent == FALSE` means incoherent phases, so amplitudes are summed using 
+the root mean square. This argument is now available in many `hrep` functions
+where spectra are constructed.
+
 # hrep 0.14.0
 
 - Add `[.wave` method.

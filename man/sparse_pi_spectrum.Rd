@@ -19,7 +19,7 @@ sparse_pi_spectrum(x, ...)
 
 \method{sparse_pi_spectrum}{default}(x, ...)
 
-\method{sparse_pi_spectrum}{pi_chord}(x, amplitude = 1, ...)
+\method{sparse_pi_spectrum}{pi_chord}(x, amplitude = 1, coherent = FALSE, ...)
 }
 \arguments{
 \item{x}{Input sonority.}
@@ -39,6 +39,12 @@ in the harmonics, with greater values corresponding to higher roll-off.}
 \item{amplitude}{(Numeric vector)
 Vector of amplitudes to assign to each pitch.
 If a scalar value is provided, this value is assigned to all pitches}
+
+\item{coherent}{Whether the amplitudes from different spectral components should be combined
+assuming coherent summation, where the amplitudes simply add together
+(default is \code{FALSE}).
+Otherwise incoherent summation is used, where the amplitudes are squared, added, then
+square rooted.}
 }
 \value{
 An object of class \code{sparse_pi_spectrum}.
