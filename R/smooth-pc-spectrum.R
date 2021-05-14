@@ -56,6 +56,7 @@ is.smooth_pc_spectrum <- function(x) {
 #' Provided for S3 method consistency.
 #'
 #' @inheritParams expand_harmonics
+#' @inheritParams collapse_summing_amplitudes
 #'
 #' @seealso
 #' This representation was inspired by \code{\link{milne_pc_spectrum}},
@@ -69,27 +70,40 @@ is.smooth_pc_spectrum <- function(x) {
 #' \insertAllCited{}
 #'
 #' @export
-smooth_pc_spectrum <- function(x, sigma = 6.83, ...) {
+smooth_pc_spectrum <- function(
+  x,
+  ...,
+  sigma = 6.83,
+  num_harmonics = 11L,
+  roll_off = 1,
+  coherent = FALSE
+) {
   UseMethod("smooth_pc_spectrum")
 }
 
 #' @rdname smooth_pc_spectrum
 #' @export
-smooth_pc_spectrum.default <- function(x,
-                                       sigma = 6.83,
-                                       num_harmonics = 11L,
-                                       roll_off = 1,
-                                       ...) {
+smooth_pc_spectrum.default <- function(
+  x,
+  ...,
+  sigma = 6.83,
+  num_harmonics = 11L,
+  roll_off = 1,
+  coherent = FALSE
+) {
   smooth_pc_spectrum(sparse_pc_spectrum(x,
                                         num_harmonics = num_harmonics,
-                                        roll_off = roll_off),
-                     sigma = sigma, ...)
+                                        roll_off = roll_off,
+                                        coherent = coherent),
+                     sigma = sigma,
+                     coherent = coherent,
+                     ...)
 }
 
 #' @rdname smooth_pc_spectrum
 #' @export
-smooth_pc_spectrum.sparse_pc_spectrum <- function(x, sigma = 6.83, ...) {
-  df <- collapse_summing_amplitudes(list(x), digits = 2, modulo = 12)
+smooth_pc_spectrum.sparse_pc_spectrum <- function(x, ..., sigma = 6.83, coherent = FALSE) {
+  df <- collapse_summing_amplitudes(list(x), digits = 2, modulo = 12, coherent = coherent)
   df$ind <- 1 + df$x * 100
 
   checkmate::qassert(df$ind, "X[1,12000]")

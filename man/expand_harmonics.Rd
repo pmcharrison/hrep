@@ -12,7 +12,8 @@ expand_harmonics(
   num_harmonics = 11L,
   roll_off = 1,
   digits = 6,
-  label_harmonics = FALSE
+  label_harmonics = FALSE,
+  coherent = FALSE
 )
 
 \method{expand_harmonics}{sparse_fr_spectrum}(
@@ -20,7 +21,8 @@ expand_harmonics(
   num_harmonics = 11L,
   roll_off = 1,
   digits = 6,
-  label_harmonics = FALSE
+  label_harmonics = FALSE,
+  coherent = FALSE
 )
 
 \method{expand_harmonics}{sparse_pi_spectrum}(
@@ -28,7 +30,8 @@ expand_harmonics(
   num_harmonics = 11L,
   roll_off = 1,
   digits = 6,
-  label_harmonics = FALSE
+  label_harmonics = FALSE,
+  coherent = FALSE
 )
 
 \method{expand_harmonics}{pi_chord}(
@@ -36,7 +39,8 @@ expand_harmonics(
   num_harmonics = 11L,
   roll_off = 1,
   digits = 6,
-  label_harmonics = FALSE
+  label_harmonics = FALSE,
+  coherent = FALSE
 )
 }
 \arguments{
@@ -56,6 +60,12 @@ in the harmonics, with greater values corresponding to higher roll-off.}
 \item{digits}{Number of digits to which each partial's MIDI pitch should be rounded.}
 
 \item{label_harmonics}{If TRUE, then the harmonics in the resulting spectrum are labelled with their harmonic numbers.}
+
+\item{coherent}{Whether the amplitudes from different spectral components should be combined
+assuming coherent summation, where the amplitudes simply add together
+(default is \code{FALSE}).
+Otherwise incoherent summation is used, where the amplitudes are squared, added, then
+square rooted.}
 }
 \description{
 Expands each tone in an object into its implied harmonics.

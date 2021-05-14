@@ -56,6 +56,7 @@ is.smooth_pi_spectrum <- function(x) {
 #' Provided for S3 method consistency.
 #'
 #' @inheritParams expand_harmonics
+#' @inheritParams collapse_summing_amplitudes
 #'
 #' @seealso
 #' This representation was inspired by \code{\link{milne_pc_spectrum}},
@@ -79,18 +80,21 @@ smooth_pi_spectrum.default <- function(x,
                                        sigma = 6.83,
                                        num_harmonics = 11L,
                                        roll_off = 1,
+                                       coherent = FALSE,
                                        ...) {
   smooth_pi_spectrum(sparse_pi_spectrum(x,
                                         num_harmonics = num_harmonics,
                                         roll_off = roll_off,
+                                        coherent = coherent,
                                         ...),
-                     sigma = sigma)
+                     sigma = sigma,
+                     coherent = coherent)
 }
 
 #' @rdname smooth_pi_spectrum
 #' @export
-smooth_pi_spectrum.sparse_pi_spectrum <- function(x, sigma = 6.83, ...) {
-  df <- collapse_summing_amplitudes(list(x), digits = 2)
+smooth_pi_spectrum.sparse_pi_spectrum <- function(x, sigma = 6.83, coherent = FALSE, ...) {
+  df <- collapse_summing_amplitudes(list(x), digits = 2, coherent = coherent)
   df$ind <- 1 + df$x * 100
 
   checkmate::qassert(df$ind, "X[1,12000]")

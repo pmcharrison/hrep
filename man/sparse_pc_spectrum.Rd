@@ -10,13 +10,13 @@
 \usage{
 sparse_pc_spectrum(x, ...)
 
-\method{sparse_pc_spectrum}{sparse_fr_spectrum}(x, ...)
+\method{sparse_pc_spectrum}{sparse_fr_spectrum}(x, coherent = FALSE, ...)
 
 \method{sparse_pc_spectrum}{list}(x, ...)
 
 \method{sparse_pc_spectrum}{default}(x, ...)
 
-\method{sparse_pc_spectrum}{pi_chord}(x, amplitude = 1, ...)
+\method{sparse_pc_spectrum}{pi_chord}(x, amplitude = 1, coherent = FALSE, ...)
 }
 \arguments{
 \item{x}{Input sonority.}
@@ -32,6 +32,12 @@ in the harmonics, with greater values corresponding to higher roll-off.}
     \item{\code{digits}}{Number of digits to which each partial's MIDI pitch should be rounded.}
     \item{\code{label_harmonics}}{If TRUE, then the harmonics in the resulting spectrum are labelled with their harmonic numbers.}
   }}
+
+\item{coherent}{Whether the amplitudes from different spectral components should be combined
+assuming coherent summation, where the amplitudes simply add together
+(default is \code{FALSE}).
+Otherwise incoherent summation is used, where the amplitudes are squared, added, then
+square rooted.}
 
 \item{amplitude}{(Numeric vector)
 Vector of amplitudes to assign to each pitch.

@@ -6,22 +6,36 @@
 \alias{smooth_pc_spectrum.sparse_pc_spectrum}
 \title{Smooth pitch-class spectrum}
 \usage{
-smooth_pc_spectrum(x, sigma = 6.83, ...)
+smooth_pc_spectrum(
+  x,
+  ...,
+  sigma = 6.83,
+  num_harmonics = 11L,
+  roll_off = 1,
+  coherent = FALSE
+)
 
-\method{smooth_pc_spectrum}{default}(x, sigma = 6.83, num_harmonics = 11L, roll_off = 1, ...)
+\method{smooth_pc_spectrum}{default}(
+  x,
+  ...,
+  sigma = 6.83,
+  num_harmonics = 11L,
+  roll_off = 1,
+  coherent = FALSE
+)
 
-\method{smooth_pc_spectrum}{sparse_pc_spectrum}(x, sigma = 6.83, ...)
+\method{smooth_pc_spectrum}{sparse_pc_spectrum}(x, ..., sigma = 6.83, coherent = FALSE)
 }
 \arguments{
 \item{x}{Object to convert. By default \code{\link{sparse_pc_spectrum}}
 is called first to convert the object to a sparse pitch-class spectrum.}
 
+\item{...}{Provided for S3 method consistency.}
+
 \item{sigma}{(Numeric scalar)
 Standard deviation of the Gaussian distribution used to simulate
 perceptual blurring. Defaults to 6.83 cents, after
 \insertCite{Milne2016;textual}{hrep}.}
-
-\item{...}{Provided for S3 method consistency.}
 
 \item{num_harmonics}{(Integerish scalar)
 Number of harmonics (including the fundamental) to which
@@ -29,6 +43,12 @@ each tone should be expanded.}
 
 \item{roll_off}{(Numeric scalar) Parametrises the amount of amplitude roll-off
 in the harmonics, with greater values corresponding to higher roll-off.}
+
+\item{coherent}{Whether the amplitudes from different spectral components should be combined
+assuming coherent summation, where the amplitudes simply add together
+(default is \code{FALSE}).
+Otherwise incoherent summation is used, where the amplitudes are squared, added, then
+square rooted.}
 }
 \description{
 Creates an object of class \code{smooth_pc_spectrum},

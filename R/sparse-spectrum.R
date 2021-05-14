@@ -168,8 +168,10 @@ transform_y.sparse_spectrum <- function(x, f, y_unit, y_lab) {
 #'
 #' @return A sparse spectrum object.
 #'
+#' @inheritParams collapse_summing_amplitudes
+#'
 #' @export
-combine_sparse_spectra <- function(..., digits = 6) {
+combine_sparse_spectra <- function(..., digits = 6, coherent = FALSE) {
   checkmate::qassert(digits, "X1[0,)")
   input <- list(...)
   if (length(input) == 0) stop("combine_sparse_spectra needs at least 1 input")
@@ -199,7 +201,7 @@ combine_sparse_spectra <- function(..., digits = 6) {
 
   res <-
     lapply(input, as.data.frame) %>%
-    collapse_summing_amplitudes(digits = digits) %>%
+    collapse_summing_amplitudes(digits = digits, coherent = coherent) %>%
     {
       f <- if (octave_invariant) .sparse_pc_spectrum else .sparse_pi_spectrum
       f(.$x, .$y, labels = .$labels)
@@ -208,7 +210,25 @@ combine_sparse_spectra <- function(..., digits = 6) {
   if (output_class == "sparse_fr_spectrum") sparse_fr_spectrum(res) else res
 }
 
-collapse_summing_amplitudes <- function(x, digits, modulo = NA_real_) {
+#' Collapse summing amplitudes
+#'
+#' Takes a dataframe of spectral components (locations \code{x}, amplitudes \code{y}),
+#' rounds \code{x}, and then combines spectral components with the same location.
+#'
+#' @param x Input dataframe.
+#'
+#' @param digits Number of digits to which \code{x} should be rounded.
+#'
+#' @param modulo Optional modulo value for the rounding of \code{x}.
+#'
+#' @param coherent Whether the amplitudes from different spectral components should be combined
+#' assuming coherent summation, where the amplitudes simply add together
+#' (default is \code{FALSE}).
+#' Otherwise incoherent summation is used, where the amplitudes are squared, added, then
+#' square rooted.
+#'
+#' @return A dataframe.
+collapse_summing_amplitudes <- function(x, digits, modulo = NA_real_, coherent = FALSE) {
   checkmate::qassert(modulo, "n1(0,)")
   if (!is.list(x) ||
       !all(purrr::map_lgl(x, ~ is.data.frame(.) &&
@@ -219,8 +239,10 @@ collapse_summing_amplitudes <- function(x, digits, modulo = NA_real_) {
   x %>%
     data.table::rbindlist() %>%
     {
+      if (!is.na(modulo)) .$x <- .$x %% modulo
       .$x <- round(.$x, digits = digits)
       if (!is.na(modulo)) .$x <- .$x %% modulo
+      # Modulo needs to be done before and after because of subtle edge cases!
       .
     } %>%
     {reduce_by_key(
@@ -228,10 +250,10 @@ collapse_summing_amplitudes <- function(x, digits, modulo = NA_real_) {
       values = if (has_labels) purrr::map2(.$y, .$labels, ~ list(amplitude = .x, label = .y)) else .$y,
       function(x, y) {
         if (has_labels) {
-          list(amplitude = sum_amplitudes(x, y$amplitude, coherent = FALSE),
+          list(amplitude = sum_amplitudes(x, y$amplitude, coherent = coherent),
                label = y$label)
         } else {
-          sum_amplitudes(x, y, coherent = FALSE)
+          sum_amplitudes(x, y, coherent = coherent)
         }
       },
       key_type = "numeric"

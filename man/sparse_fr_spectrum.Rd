@@ -43,6 +43,11 @@ each tone should be expanded.}
 in the harmonics, with greater values corresponding to higher roll-off.}
     \item{\code{digits}}{Number of digits to which each partial's MIDI pitch should be rounded.}
     \item{\code{label_harmonics}}{If TRUE, then the harmonics in the resulting spectrum are labelled with their harmonic numbers.}
+    \item{\code{coherent}}{Whether the amplitudes from different spectral components should be combined
+assuming coherent summation, where the amplitudes simply add together
+(default is \code{FALSE}).
+Otherwise incoherent summation is used, where the amplitudes are squared, added, then
+square rooted.}
   }}
 }
 \value{

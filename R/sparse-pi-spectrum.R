@@ -106,15 +106,19 @@ sparse_pi_spectrum.default <- function(x, ...) {
 #'
 #' @rdname sparse_pi_spectrum
 #'
+#' @inheritParams expand_harmonics
+#'
 #' @export
 sparse_pi_spectrum.pi_chord <- function(x,
                                         amplitude = 1,
+                                        coherent = FALSE,
                                         ...) {
   checkmate::qassert(amplitude, "N")
   if (length(amplitude) == 1L) amplitude <- rep_to_match(amplitude, x)
   stopifnot(length(amplitude) == length(x))
   expand_harmonics(.sparse_pi_spectrum(pitch = as.numeric(x),
                                        amplitude = amplitude),
+                   coherent = coherent,
                    ...)
 }
 

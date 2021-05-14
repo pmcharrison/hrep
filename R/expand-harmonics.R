@@ -23,12 +23,15 @@
 #' If TRUE, then the harmonics in the resulting spectrum are labelled with their harmonic numbers.
 #'
 #' @rdname expand_harmonics
+#'
+#' @inheritParams collapse_summing_amplitudes
 #' @export
 expand_harmonics <- function(x,
                              num_harmonics = 11L,
                              roll_off = 1,
                              digits = 6,
-                             label_harmonics = FALSE) {
+                             label_harmonics = FALSE,
+                             coherent = FALSE) {
   UseMethod("expand_harmonics")
 }
 
@@ -38,12 +41,14 @@ expand_harmonics.sparse_fr_spectrum <- function(x,
                                                 num_harmonics = 11L,
                                                 roll_off = 1,
                                                 digits = 6,
-                                                label_harmonics = FALSE) {
+                                                label_harmonics = FALSE,
+                                                coherent = FALSE) {
   expand_harmonics(sparse_pi_spectrum(x),
                    num_harmonics = num_harmonics,
                    roll_off = roll_off,
                    digits = digits,
-                   label_harmonics = label_harmonics) %>%
+                   label_harmonics = label_harmonics,
+                   coherent = coherent) %>%
     sparse_fr_spectrum()
 }
 
@@ -53,9 +58,9 @@ expand_harmonics.sparse_pi_spectrum <- function(x,
                                                 num_harmonics = 11L,
                                                 roll_off = 1,
                                                 digits = 6,
-                                                label_harmonics = FALSE) {
+                                                label_harmonics = FALSE,
+                                                coherent = FALSE) {
   template <- pi_harmonic_template(num_harmonics, roll_off)
-
   purrr::map2(pitch(x), amp(x),
               function(pitch, amp) {
                 df <- data.frame(
@@ -65,7 +70,7 @@ expand_harmonics.sparse_pi_spectrum <- function(x,
                 if (label_harmonics) df$labels <- seq_along(template$interval)
                 df
               }) %>%
-    collapse_summing_amplitudes(digits = digits) %>%
+    collapse_summing_amplitudes(digits = digits, coherent = coherent) %>%
     {.sparse_pi_spectrum(pitch = .$x, amplitude = .$y, labels = .$labels)}
 }
 
@@ -75,7 +80,8 @@ expand_harmonics.pi_chord <- function(x,
                                       num_harmonics = 11L,
                                       roll_off = 1,
                                       digits = 6,
-                                      label_harmonics = FALSE) {
+                                      label_harmonics = FALSE,
+                                      coherent = FALSE) {
   sparse_pi_spectrum(x,
                      num_harmonics = num_harmonics,
                      roll_off = roll_off,

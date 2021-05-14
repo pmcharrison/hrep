@@ -8,9 +8,16 @@
 \usage{
 smooth_pi_spectrum(x, sigma = 6.83, ...)
 
-\method{smooth_pi_spectrum}{default}(x, sigma = 6.83, num_harmonics = 11L, roll_off = 1, ...)
+\method{smooth_pi_spectrum}{default}(
+  x,
+  sigma = 6.83,
+  num_harmonics = 11L,
+  roll_off = 1,
+  coherent = FALSE,
+  ...
+)
 
-\method{smooth_pi_spectrum}{sparse_pi_spectrum}(x, sigma = 6.83, ...)
+\method{smooth_pi_spectrum}{sparse_pi_spectrum}(x, sigma = 6.83, coherent = FALSE, ...)
 }
 \arguments{
 \item{x}{Object to convert. By default \code{\link{sparse_pi_spectrum}}
@@ -29,6 +36,12 @@ each tone should be expanded.}
 
 \item{roll_off}{(Numeric scalar) Parametrises the amount of amplitude roll-off
 in the harmonics, with greater values corresponding to higher roll-off.}
+
+\item{coherent}{Whether the amplitudes from different spectral components should be combined
+assuming coherent summation, where the amplitudes simply add together
+(default is \code{FALSE}).
+Otherwise incoherent summation is used, where the amplitudes are squared, added, then
+square rooted.}
 }
 \description{
 Creates an object of class \code{smooth_pi_spectrum},
