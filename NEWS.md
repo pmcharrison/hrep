@@ -1,3 +1,5 @@
+- Remove unnecessary info messages.
+
 # hrep 0.16.0
 
 - Increase computational efficiency of transposing coded corpora.

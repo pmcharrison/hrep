@@ -61,8 +61,6 @@ tp.coded_vec <- function(x, interval) {
 #' @rdname tp
 #' @export
 tp.coded_vec_pc_set <- function(x, interval) {
-  message("Using optimised version pc_set")
-
   checkmate::qassert(interval, "X1")
   interval <- interval %% 12
 
@@ -78,8 +76,6 @@ tp.coded_vec_pc_set <- function(x, interval) {
 #' @rdname tp
 #' @export
 tp.coded_vec_pc_chord <- function(x, interval) {
-  message("Using optimised version pc_chord")
-
   checkmate::qassert(interval, "X1")
   interval <- interval %% 12
 
