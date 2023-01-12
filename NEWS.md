@@ -1,3 +1,5 @@
+# hrep 0.16.1
+
 - Remove unnecessary info messages.
 
 # hrep 0.16.0
