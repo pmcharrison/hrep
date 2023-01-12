@@ -26,10 +26,10 @@ The bit depth of the exported audio.}
 Duration of silence (seconds) appended to the end of the audio file,
 used to avoid clicks and other artifacts.}
     \item{\code{length_sec}}{(Numeric scalar) Length of the output wave, in seconds.}
-    \item{\code{fade_length}}{(Numeric scalar)
-Chord fade-out time (seconds).}
     \item{\code{rise_length}}{(Numeric scalar)
 Chord fade-in time (seconds).}
+    \item{\code{fade_length}}{(Numeric scalar)
+Chord fade-out time (seconds).}
     \item{\code{num_harmonics}}{(Integerish scalar)
 Number of harmonics (including the fundamental) to which
 each tone should be expanded.}

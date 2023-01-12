@@ -105,20 +105,28 @@ is.coded.corpus <- function(x) attr(x, "coded")
 #' @rdname encode
 #' @export
 encode.corpus <- function(x) {
-  if (!is.coded(x)) {
-    for (i in seq_along(x)) x[[i]] <- encode(x[[i]])
-    attr(x, "coded") <- TRUE
+  if (is.coded(x)) {
+    x
+  } else {
+    meta <- metadata(x)
+    purrr::map(x, encode) %>%
+      corpus(type = type(x), metadata = metadata(x))
   }
-  x
 }
 
-# decode.corpus <- function(x) {
-#   if (is.coded(x)) {
-#     for (i in seq_along(x)) x[[i]] <- decode(x[[i]])
-#     attr(x, "coded") <- FALSE
-#   }
-#   x
-# }
+
+#' @rdname encode
+#' @export
+decode.corpus <- function(x) {
+  if (is.coded(x)) {
+    meta <- metadata(x)
+    purrr::map(x, decode) %>%
+      corpus(type = type(x), metadata = metadata(x))
+  } else {
+    x
+  }
+}
+
 
 #' @export
 print.corpus <- function(x, ...) {

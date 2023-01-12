@@ -6,13 +6,7 @@
 \alias{hrep-package}
 \title{hrep: Harmony Representations}
 \description{
-This package provides utilities for representing and manipulating 
-    chord sequences for perceptually informed harmony modelling.
-    The available representations include symbolic representations,
-    acoustic representations, and sensory representations.
-    Integer encodings are defined for several symbolic representations,
-    allowing the user to efficiently express chord sequences as sequences
-    of integers.
+This package provides utilities for representing and manipulating chord sequences for perceptually informed harmony modelling. The available representations include symbolic representations, acoustic representations, and sensory representations. Integer encodings are defined for several symbolic representations, allowing the user to efficiently express chord sequences as sequences of integers.
 }
 \seealso{
 Useful links:

@@ -9,6 +9,7 @@
 \alias{encode.vec}
 \alias{encode.coded_vec}
 \alias{encode.corpus}
+\alias{decode.corpus}
 \alias{encode.pc_chord_type}
 \alias{encode.pc_chord}
 \alias{encode.pc_set_type}
@@ -28,6 +29,8 @@ encode_pc_chord(x)
 \method{encode}{coded_vec}(x)
 
 \method{encode}{corpus}(x)
+
+decode.corpus(x)
 
 \method{encode}{pc_chord_type}(x)
 

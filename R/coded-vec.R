@@ -15,7 +15,7 @@ coded_vec <- function(x, type, metadata = list()) {
   checkmate::qassert(type, "S1")
   checkmate::qassert(metadata, "l")
   x <- as.integer(x)
-  class(x) <- c("coded_vec", "integer")
+  class(x) <- c(paste0("coded_vec_", type), "coded_vec", "integer")
   type(x) <- type
   metadata(x) <- metadata
   x

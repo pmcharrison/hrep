@@ -5,6 +5,11 @@
 \alias{tp.pc_set}
 \alias{tp.pc_chord}
 \alias{tp.pi_chord}
+\alias{tp.corpus}
+\alias{tp.vec}
+\alias{tp.coded_vec}
+\alias{tp.coded_vec_pc_set}
+\alias{tp.coded_vec_pc_chord}
 \title{Transpose}
 \usage{
 tp(x, interval)
@@ -14,6 +19,18 @@ tp(x, interval)
 \method{tp}{pc_chord}(x, interval)
 
 \method{tp}{pi_chord}(x, interval)
+
+\method{tp}{corpus}(x, interval)
+
+\method{tp}{vec}(x, interval)
+
+\method{tp}{coded_vec}(x, interval)
+
+\method{tp}{coded_vec_pc_set}(x, interval)
+
+\method{tp}{coded_vec_pc_chord}(x, interval)
+
+\method{tp}{coded_vec_pc_set}(x, interval)
 }
 \arguments{
 \item{x}{Input sonority.}

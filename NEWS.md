@@ -1,3 +1,5 @@
+- Increase computational efficiency of transposing coded corpora.
+
 # hrep 0.15.0
 
 - Add and propagate a `coherent` option for summing amplitudes. 
