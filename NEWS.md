@@ -1,3 +1,5 @@
+# hrep 0.16.0
+
 - Increase computational efficiency of transposing coded corpora.
 
 # hrep 0.15.0
