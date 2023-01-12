@@ -29,8 +29,6 @@ tp(x, interval)
 \method{tp}{coded_vec_pc_set}(x, interval)
 
 \method{tp}{coded_vec_pc_chord}(x, interval)
-
-\method{tp}{coded_vec_pc_set}(x, interval)
 }
 \arguments{
 \item{x}{Input sonority.}
