@@ -13,7 +13,8 @@ expand_harmonics(
   roll_off = 1,
   digits = 6,
   label_harmonics = FALSE,
-  coherent = FALSE
+  coherent = FALSE,
+  octave_ratio = 2
 )
 
 \method{expand_harmonics}{sparse_fr_spectrum}(
@@ -22,7 +23,8 @@ expand_harmonics(
   roll_off = 1,
   digits = 6,
   label_harmonics = FALSE,
-  coherent = FALSE
+  coherent = FALSE,
+  octave_ratio = 2
 )
 
 \method{expand_harmonics}{sparse_pi_spectrum}(
@@ -31,7 +33,8 @@ expand_harmonics(
   roll_off = 1,
   digits = 6,
   label_harmonics = FALSE,
-  coherent = FALSE
+  coherent = FALSE,
+  octave_ratio = 2
 )
 
 \method{expand_harmonics}{pi_chord}(
@@ -40,7 +43,8 @@ expand_harmonics(
   roll_off = 1,
   digits = 6,
   label_harmonics = FALSE,
-  coherent = FALSE
+  coherent = FALSE,
+  octave_ratio = 2
 )
 }
 \arguments{
@@ -66,6 +70,8 @@ assuming coherent summation, where the amplitudes simply add together
 (default is \code{FALSE}).
 Otherwise incoherent summation is used, where the amplitudes are squared, added, then
 square rooted.}
+
+\item{octave_ratio}{The octave ratio for stretching and compressing harmonics, defaults to 2.0.}
 }
 \description{
 Expands each tone in an object into its implied harmonics.

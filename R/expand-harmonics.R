@@ -22,6 +22,9 @@
 #' @param label_harmonics
 #' If TRUE, then the harmonics in the resulting spectrum are labelled with their harmonic numbers.
 #'
+#' @param octave_ratio
+#' The octave ratio for stretching and compressing harmonics, defaults to 2.0.
+#'
 #' @rdname expand_harmonics
 #'
 #' @inheritParams collapse_summing_amplitudes
@@ -31,7 +34,8 @@ expand_harmonics <- function(x,
                              roll_off = 1,
                              digits = 6,
                              label_harmonics = FALSE,
-                             coherent = FALSE) {
+                             coherent = FALSE,
+                             octave_ratio = 2.0) {
   UseMethod("expand_harmonics")
 }
 
@@ -42,7 +46,8 @@ expand_harmonics.sparse_fr_spectrum <- function(x,
                                                 roll_off = 1,
                                                 digits = 6,
                                                 label_harmonics = FALSE,
-                                                coherent = FALSE) {
+                                                coherent = FALSE,
+                                                octave_ratio = 2.0) {
   expand_harmonics(sparse_pi_spectrum(x),
                    num_harmonics = num_harmonics,
                    roll_off = roll_off,
@@ -59,15 +64,17 @@ expand_harmonics.sparse_pi_spectrum <- function(x,
                                                 roll_off = 1,
                                                 digits = 6,
                                                 label_harmonics = FALSE,
-                                                coherent = FALSE) {
-  template <- pi_harmonic_template(num_harmonics, roll_off)
+                                                coherent = FALSE,
+                                                octave_ratio = 2.0) {
   purrr::map2(pitch(x), amp(x),
               function(pitch, amp) {
+                n  <- seq_len(num_harmonics)
+                f0 <- midi_to_freq(pitch)
                 df <- data.frame(
-                  x = pitch + template$interval,
-                  y = amp * template$amplitude
+                  x = freq_to_midi(f0 * octave_ratio ^ log2(n)),
+                  y = amp * 1 / (n ^ roll_off)
                 )
-                if (label_harmonics) df$labels <- seq_along(template$interval)
+                if (label_harmonics) df$labels <- seq_along(df$x)
                 df
               }) %>%
     collapse_summing_amplitudes(digits = digits, coherent = coherent) %>%
@@ -81,16 +88,11 @@ expand_harmonics.pi_chord <- function(x,
                                       roll_off = 1,
                                       digits = 6,
                                       label_harmonics = FALSE,
-                                      coherent = FALSE) {
+                                      coherent = FALSE,
+                                      octave_ratio = 2.0) {
   sparse_pi_spectrum(x,
                      num_harmonics = num_harmonics,
                      roll_off = roll_off,
                      digits = digits,
                      label_harmonics = label_harmonics)
-}
-
-pi_harmonic_template <- function(num_harmonics, roll_off, digits = 6) {
-  tibble::tibble(n = seq_len(num_harmonics),
-                 interval = 12 * log(.data$n, base = 2),
-                 amplitude = 1 / (.data$n ^ roll_off))
 }
