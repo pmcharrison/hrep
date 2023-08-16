@@ -10,7 +10,7 @@
 expand_harmonics(
   x,
   num_harmonics = 11L,
-  roll_off = 1,
+  roll_off_dB = 1,
   digits = 6,
   label_harmonics = FALSE,
   coherent = FALSE,
@@ -20,7 +20,7 @@ expand_harmonics(
 \method{expand_harmonics}{sparse_fr_spectrum}(
   x,
   num_harmonics = 11L,
-  roll_off = 1,
+  roll_off_dB = 1,
   digits = 6,
   label_harmonics = FALSE,
   coherent = FALSE,
@@ -30,7 +30,7 @@ expand_harmonics(
 \method{expand_harmonics}{sparse_pi_spectrum}(
   x,
   num_harmonics = 11L,
-  roll_off = 1,
+  roll_off_dB = 1,
   digits = 6,
   label_harmonics = FALSE,
   coherent = FALSE,
@@ -40,7 +40,7 @@ expand_harmonics(
 \method{expand_harmonics}{pi_chord}(
   x,
   num_harmonics = 11L,
-  roll_off = 1,
+  roll_off_dB = 1,
   digits = 6,
   label_harmonics = FALSE,
   coherent = FALSE,
@@ -58,7 +58,7 @@ Should be of class
 Number of harmonics (including the fundamental) to which
 each tone should be expanded.}
 
-\item{roll_off}{(Numeric scalar) Parametrises the amount of amplitude roll-off
+\item{roll_off_dB}{(Numeric scalar) Parametrises the amount of amplitude roll-off
 in the harmonics, with greater values corresponding to higher roll-off.}
 
 \item{digits}{Number of digits to which each partial's MIDI pitch should be rounded.}

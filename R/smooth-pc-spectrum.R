@@ -75,7 +75,7 @@ smooth_pc_spectrum <- function(
   ...,
   sigma = 6.83,
   num_harmonics = 11L,
-  roll_off = 1,
+  roll_off_dB = 1,
   coherent = FALSE
 ) {
   UseMethod("smooth_pc_spectrum")
@@ -88,12 +88,12 @@ smooth_pc_spectrum.default <- function(
   ...,
   sigma = 6.83,
   num_harmonics = 11L,
-  roll_off = 1,
+  roll_off_dB = 1,
   coherent = FALSE
 ) {
   smooth_pc_spectrum(sparse_pc_spectrum(x,
                                         num_harmonics = num_harmonics,
-                                        roll_off = roll_off,
+                                        roll_off_dB = roll_off_dB,
                                         coherent = coherent),
                      sigma = sigma,
                      coherent = coherent,

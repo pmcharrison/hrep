@@ -36,14 +36,14 @@ test_that("misc", {
 
 test_that("roll-off", {
   pi_chord(0) %>%
-    expand_harmonics(num_harmonics = 6, roll_off = 2) %>%
+    expand_harmonics(num_harmonics = 6, roll_off_dB = 2) %>%
     {amp(.)} %>%
     expect_equal(c(1, 1 / 2 ^ 2, 1 / 3 ^ 2, 1 / 4 ^ 2, 1 / 5 ^ 2, 1 / 6 ^ 2))
 })
 
 test_that("MIDI transposition", {
   pi_chord(0) %>%
-    expand_harmonics(num_harmonics = 6, roll_off = 2) %>%
+    expand_harmonics(num_harmonics = 6, roll_off_dB = 2) %>%
     {pitch(.)} %>%
     expect_equal(c(10, 22, 29, 34, 38, 41),
                  tolerance = 1)

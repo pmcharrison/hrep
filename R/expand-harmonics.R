@@ -13,7 +13,7 @@
 #' Number of harmonics (including the fundamental) to which
 #' each tone should be expanded.
 #'
-#' @param roll_off (Numeric scalar) Parametrises the amount of amplitude roll-off
+#' @param roll_off_dB (Numeric scalar) Parametrises the amount of amplitude roll-off
 #' in the harmonics, with greater values corresponding to higher roll-off.
 #'
 #' @param digits
@@ -31,7 +31,7 @@
 #' @export
 expand_harmonics <- function(x,
                              num_harmonics = 11L,
-                             roll_off = 1,
+                             roll_off_dB = 1,
                              digits = 6,
                              label_harmonics = FALSE,
                              coherent = FALSE,
@@ -43,14 +43,14 @@ expand_harmonics <- function(x,
 #' @export
 expand_harmonics.sparse_fr_spectrum <- function(x,
                                                 num_harmonics = 11L,
-                                                roll_off = 1,
+                                                roll_off_dB = 1,
                                                 digits = 6,
                                                 label_harmonics = FALSE,
                                                 coherent = FALSE,
                                                 octave_ratio = 2.0) {
   expand_harmonics(sparse_pi_spectrum(x),
                    num_harmonics = num_harmonics,
-                   roll_off = roll_off,
+                   roll_off_dB = roll_off_dB,
                    digits = digits,
                    label_harmonics = label_harmonics,
                    coherent = coherent) %>%
@@ -61,7 +61,7 @@ expand_harmonics.sparse_fr_spectrum <- function(x,
 #' @export
 expand_harmonics.sparse_pi_spectrum <- function(x,
                                                 num_harmonics = 11L,
-                                                roll_off = 1,
+                                                roll_off_dB = 1,
                                                 digits = 6,
                                                 label_harmonics = FALSE,
                                                 coherent = FALSE,
@@ -72,7 +72,7 @@ expand_harmonics.sparse_pi_spectrum <- function(x,
                 f0 <- midi_to_freq(pitch)
                 df <- data.frame(
                   x = freq_to_midi(f0 * octave_ratio ^ log2(n)),
-                  y = 1 * 10 ^ ( -roll_off * log2(n) / 20)
+                  y = 1 * 10 ^ ( -roll_off_dB * log2(n) / 20)
                 )
                 if (label_harmonics) df$labels <- seq_along(df$x)
                 df
@@ -85,14 +85,14 @@ expand_harmonics.sparse_pi_spectrum <- function(x,
 #' @export
 expand_harmonics.pi_chord <- function(x,
                                       num_harmonics = 11L,
-                                      roll_off = 1,
+                                      roll_off_dB = 1,
                                       digits = 6,
                                       label_harmonics = FALSE,
                                       coherent = FALSE,
                                       octave_ratio = 2.0) {
   sparse_pi_spectrum(x,
                      num_harmonics = num_harmonics,
-                     roll_off = roll_off,
+                     roll_off_dB = roll_off_dB,
                      digits = digits,
                      label_harmonics = label_harmonics)
 }
