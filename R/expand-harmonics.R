@@ -72,7 +72,7 @@ expand_harmonics.sparse_pi_spectrum <- function(x,
                 f0 <- midi_to_freq(pitch)
                 df <- data.frame(
                   x = freq_to_midi(f0 * octave_ratio ^ log2(n)),
-                  y = amp * 1 / (n ^ roll_off)
+                  y = 1 * 10 ^ ( -roll_off * log2(n) / 20)
                 )
                 if (label_harmonics) df$labels <- seq_along(df$x)
                 df
