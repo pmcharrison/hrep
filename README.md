@@ -41,6 +41,33 @@ if (!requireNamespace("devtools")) install.packages("devtools")
 devtools::install_github("pmcharrison/hrep")
 ```
 
+Some functions require SoX to be installed. 
+On MacOS you can use Homebrew to install SoX by running the following command:
+
+```
+brew install sox
+```
+
+Your RStudio installation may not recognise SoX by default because it does not have 
+Homebrew on its path. To fix this, open `/etc/paths`:
+
+```
+sudo nano /etc/paths
+```
+
+and add the Homebrew directory as a new line to this file:
+
+```
+/opt/homebrew/bin 
+```
+
+Then restart RStudio. You can verify that SoX is recognised by running this in your
+R terminal:
+
+```
+system("sox help")
+```
+
 ## Example usage
 
 Chords may be defined as sequences of integers, with each integer
