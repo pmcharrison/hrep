@@ -10,37 +10,41 @@
 expand_harmonics(
   x,
   num_harmonics = 11L,
-  roll_off = 1,
+  roll_off_dB = 1,
   digits = 6,
   label_harmonics = FALSE,
-  coherent = FALSE
+  coherent = FALSE,
+  octave_ratio = 2
 )
 
 \method{expand_harmonics}{sparse_fr_spectrum}(
   x,
   num_harmonics = 11L,
-  roll_off = 1,
+  roll_off_dB = 1,
   digits = 6,
   label_harmonics = FALSE,
-  coherent = FALSE
+  coherent = FALSE,
+  octave_ratio = 2
 )
 
 \method{expand_harmonics}{sparse_pi_spectrum}(
   x,
   num_harmonics = 11L,
-  roll_off = 1,
+  roll_off_dB = 1,
   digits = 6,
   label_harmonics = FALSE,
-  coherent = FALSE
+  coherent = FALSE,
+  octave_ratio = 2
 )
 
 \method{expand_harmonics}{pi_chord}(
   x,
   num_harmonics = 11L,
-  roll_off = 1,
+  roll_off_dB = 1,
   digits = 6,
   label_harmonics = FALSE,
-  coherent = FALSE
+  coherent = FALSE,
+  octave_ratio = 2
 )
 }
 \arguments{
@@ -54,7 +58,7 @@ Should be of class
 Number of harmonics (including the fundamental) to which
 each tone should be expanded.}
 
-\item{roll_off}{(Numeric scalar) Parametrises the amount of amplitude roll-off
+\item{roll_off_dB}{(Numeric scalar) Parametrises the amount of amplitude roll-off
 in the harmonics, with greater values corresponding to higher roll-off.}
 
 \item{digits}{Number of digits to which each partial's MIDI pitch should be rounded.}
@@ -66,6 +70,8 @@ assuming coherent summation, where the amplitudes simply add together
 (default is \code{FALSE}).
 Otherwise incoherent summation is used, where the amplitudes are squared, added, then
 square rooted.}
+
+\item{octave_ratio}{The octave ratio for stretching and compressing harmonics, defaults to 2.0.}
 }
 \description{
 Expands each tone in an object into its implied harmonics.

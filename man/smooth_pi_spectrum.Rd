@@ -12,7 +12,7 @@ smooth_pi_spectrum(x, sigma = 6.83, ...)
   x,
   sigma = 6.83,
   num_harmonics = 11L,
-  roll_off = 1,
+  roll_off_dB = 1,
   coherent = FALSE,
   ...
 )
@@ -34,7 +34,7 @@ perceptual blurring. Defaults to 6.83 cents, after
 Number of harmonics (including the fundamental) to which
 each tone should be expanded.}
 
-\item{roll_off}{(Numeric scalar) Parametrises the amount of amplitude roll-off
+\item{roll_off_dB}{(Numeric scalar) Parametrises the amount of amplitude roll-off
 in the harmonics, with greater values corresponding to higher roll-off.}
 
 \item{coherent}{Whether the amplitudes from different spectral components should be combined

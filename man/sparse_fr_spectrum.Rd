@@ -39,10 +39,11 @@ and correspond to a numeric vector of amplitudes.
     \item{\code{num_harmonics}}{(Integerish scalar)
 Number of harmonics (including the fundamental) to which
 each tone should be expanded.}
-    \item{\code{roll_off}}{(Numeric scalar) Parametrises the amount of amplitude roll-off
+    \item{\code{roll_off_dB}}{(Numeric scalar) Parametrises the amount of amplitude roll-off
 in the harmonics, with greater values corresponding to higher roll-off.}
     \item{\code{digits}}{Number of digits to which each partial's MIDI pitch should be rounded.}
     \item{\code{label_harmonics}}{If TRUE, then the harmonics in the resulting spectrum are labelled with their harmonic numbers.}
+    \item{\code{octave_ratio}}{The octave ratio for stretching and compressing harmonics, defaults to 2.0.}
     \item{\code{coherent}}{Whether the amplitudes from different spectral components should be combined
 assuming coherent summation, where the amplitudes simply add together
 (default is \code{FALSE}).
