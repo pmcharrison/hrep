@@ -205,6 +205,15 @@ save_wav <- function(
   UseMethod("save_wav")
 }
 
+require_tuneR <- function() {
+  if (!requireNamespace("tuneR")) {
+    stop(
+      "tuneR is required to run this function, please install it by running ",
+      "install.packages('tuneR') in your R console."
+    )
+  }
+}
+
 #' @export
 save_wav.default <- function(
   x,
@@ -217,6 +226,7 @@ save_wav.default <- function(
   end_pad = 0.05,
   ...
 ) {
+  require_tuneR()
   wave <- wave(
     x,
     length_sec = length_sec,
@@ -255,6 +265,7 @@ save_wav.default <- function(
 #'
 #' @export
 play_wav <- function(x, player = "play", ...) {
+  require_tuneR()
   file <- tempfile(fileext = ".wav")
   save_wav(x, file, ...)
   tuneR::play(file, player = player)

@@ -1,3 +1,5 @@
+- Move tuneR to SUGGESTS.
+
 # hrep 0.16.1
 
 - Remove unnecessary info messages.
