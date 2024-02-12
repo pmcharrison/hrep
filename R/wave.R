@@ -156,7 +156,7 @@ plot.wave <- function(x, ggplot = FALSE, xlab = "Time (seconds)", ylab = "Displa
       ggplot2::scale_x_continuous(xlab, limits = c(0, df$time[nrow(df)])) +
       ggplot2::scale_y_continuous(ylab, limits = ylim)
   } else {
-    plot(df$time, df$displacement, xlab = xlab, ylab = ylab, type = "l", ylim = ylim)
+    plot(df$time, df$displacement, xlab = xlab, ylab = ylab, type = "l", ylim = ylim, ...)
   }
 }
 
